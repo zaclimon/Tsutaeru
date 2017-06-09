@@ -38,7 +38,7 @@ public class SetupFragmentTv extends Fragment implements SetupView {
         connectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.validateInfo(usernameEditText.getText().toString(), passwordEditText.getText().toString());
+                presenter.validateInfo(usernameEditText.getText().toString(), passwordEditText.getText().toString(), getActivity());
             }
         });
 
