@@ -27,6 +27,11 @@ public class AceChannelUtil {
 
     private static final String LOG_TAG = "AceChannelUtil";
 
+    public static String ACE_IPTV_PREFERENCES = "AceSharedPreferences";
+    public static String USERNAME_PREFERENCE = "username";
+    public static String PASSWORD_PREFERENCE = "password";
+
+
     public static List<Channel> getChannelList(InputStream playlist, List<Channel> channels) {
 
         List<String> playListString = getPlaylistAsStrings(playlist);
