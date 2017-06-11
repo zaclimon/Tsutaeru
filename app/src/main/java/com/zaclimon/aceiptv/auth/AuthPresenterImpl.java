@@ -1,4 +1,4 @@
-package com.zaclimon.aceiptv.setup;
+package com.zaclimon.aceiptv.auth;
 
 import android.content.Context;
 import android.net.Uri;
@@ -18,16 +18,16 @@ import java.util.List;
  * Created by isaac on 17-06-07.
  */
 
-public class SetupPresenterImpl implements SetupPresenter {
+public class AuthPresenterImpl implements AuthPresenter {
 
-    private SetupView setupView;
+    private AuthView mAuthView;
     private String m3uPlaylist;
     private String epgData;
     private static final String M3U_LINK = "";
     private static final String EPG_LINK = "";
 
-    public SetupPresenterImpl(SetupView view) {
-        setupView = view;
+    public AuthPresenterImpl(AuthView view) {
+        mAuthView = view;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class SetupPresenterImpl implements SetupPresenter {
         if (password != null && !password.isEmpty()) {
             // WIP...
         } else {
-            setupView.onPasswordMissing();
+            mAuthView.onPasswordMissing();
         }
     }
 
@@ -62,7 +62,7 @@ public class SetupPresenterImpl implements SetupPresenter {
                 }
 
             } catch (IOException io) {
-                setupView.onConnectionFailed(testContext.getString(R.string.wrong_credentials));
+                mAuthView.onConnectionFailed(testContext.getString(R.string.wrong_credentials));
             }
             return (null);
         }

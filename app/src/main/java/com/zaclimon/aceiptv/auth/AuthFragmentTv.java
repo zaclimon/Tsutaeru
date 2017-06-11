@@ -1,4 +1,4 @@
-package com.zaclimon.aceiptv.setup;
+package com.zaclimon.aceiptv.auth;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -14,23 +14,23 @@ import com.zaclimon.aceiptv.R;
  * Created by isaac on 17-06-08.
  */
 
-public class SetupFragmentTv extends Fragment implements SetupView {
+public class AuthFragmentTv extends Fragment implements AuthView {
 
-    private SetupPresenter presenter;
+    private AuthPresenter presenter;
     private EditText usernameEditText;
     private EditText passwordEditText;
     private Button connectButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return (inflater.inflate(R.layout.fragment_setup_tv, container));
+        return (inflater.inflate(R.layout.fragment_auth_tv, container));
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        presenter = new SetupPresenterImpl(this);
+        presenter = new AuthPresenterImpl(this);
         usernameEditText = (EditText) getActivity().findViewById(R.id.setup_username_edittext);
         passwordEditText = (EditText) getActivity().findViewById(R.id.setup_password_edittext);
         connectButton = (Button) getActivity().findViewById(R.id.connect_button);
