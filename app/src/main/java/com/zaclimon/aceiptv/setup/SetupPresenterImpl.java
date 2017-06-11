@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 
 import com.google.android.media.tv.companionlibrary.XmlTvParser;
 import com.google.android.media.tv.companionlibrary.model.Channel;
+import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.util.AceChannelUtil;
 import com.zaclimon.aceiptv.util.RichFeedUtil;
 
@@ -61,7 +62,7 @@ public class SetupPresenterImpl implements SetupPresenter {
                 }
 
             } catch (IOException io) {
-                setupView.onConnectionFailed();
+                setupView.onConnectionFailed(testContext.getString(R.string.wrong_credentials));
             }
             return (null);
         }

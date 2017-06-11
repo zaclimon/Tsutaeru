@@ -7,7 +7,7 @@ package com.zaclimon.aceiptv.setup;
 public interface SetupView {
 
     void onConnectionSuccess();
-    void onConnectionFailed();
+    void onConnectionFailed(String reason);
     void onPasswordMissing();
 
 }
