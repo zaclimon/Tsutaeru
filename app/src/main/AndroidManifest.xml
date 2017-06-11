@@ -2,6 +2,9 @@
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="com.android.providers.tv.permission.READ_EPG_DATA" />
+    <uses-permission android:name="com.android.providers.tv.permission.WRITE_EPG_DATA" />
 
     <uses-feature
         android:name="android.hardware.touchscreen"
@@ -28,7 +31,10 @@
             </intent-filter>
         </activity>
 
-
+        <service
+            android:name=".service.AceJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="true" />
     </application>
 
 </manifest>

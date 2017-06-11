@@ -1,6 +1,10 @@
 package com.zaclimon.aceiptv.auth;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.zaclimon.aceiptv.R;
+import com.zaclimon.aceiptv.util.AceChannelUtil;
 
 /**
  * Created by isaac on 17-06-08.
@@ -47,10 +52,20 @@ public class AuthFragmentTv extends Fragment implements AuthView {
     @Override
     public void onConnectionSuccess() {
 
+        /*
+         If the activity was called from another one (For example before syncing EPG data for Live TV)
+         return a RESULT_OK value so the said Activity/Fragment can proceed with it's other tasks.
+         */
+
+        ComponentName componentName = getActivity().getCallingActivity();
+        if (componentName != null) {
+            getActivity().setResult(Activity.RESULT_OK);
+            getActivity().finish();
+        }
     }
 
     @Override
-    public void onConnectionFailed() {
+    public void onConnectionFailed(String reason) {
 
     }
 
