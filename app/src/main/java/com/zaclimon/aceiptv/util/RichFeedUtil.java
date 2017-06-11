@@ -1,4 +1,4 @@
-package com.zaclimon.aceiptv.rich;
+package com.zaclimon.aceiptv.util;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.google.android.media.tv.companionlibrary.XmlTvParser;
-import com.zaclimon.aceiptv.R;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;

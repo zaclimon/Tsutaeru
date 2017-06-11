@@ -3,17 +3,15 @@ package com.zaclimon.aceiptv.setup;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.google.android.media.tv.companionlibrary.XmlTvParser;
 import com.google.android.media.tv.companionlibrary.model.Channel;
-import com.google.android.media.tv.companionlibrary.model.Program;
-import com.zaclimon.aceiptv.rich.RichFeedUtil;
+import com.zaclimon.aceiptv.util.AceChannelUtil;
+import com.zaclimon.aceiptv.util.RichFeedUtil;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.util.List;
 
 /**
  * Created by isaac on 17-06-07.
@@ -33,9 +31,12 @@ public class SetupPresenterImpl implements SetupPresenter {
 
     @Override
     public void validateInfo(String username, String password, Context context) {
+
+        InputStreamTest inputStreamTest = new InputStreamTest(context);
+        inputStreamTest.execute();
+
         if (password != null && !password.isEmpty()) {
-            InputStreamTest inputStreamTest = new InputStreamTest(context);
-            inputStreamTest.execute();
+            // WIP...
         } else {
             setupView.onPasswordMissing();
         }
@@ -55,20 +56,8 @@ public class SetupPresenterImpl implements SetupPresenter {
                 XmlTvParser.TvListing listing = RichFeedUtil.getRichTvListings(testContext, EPG_LINK);
 
                 if (inputStream != null) {
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                    String line;
+                    List<Channel> realChannelList = AceChannelUtil.getChannelList(inputStream, listing.getChannels());
 
-                    /*while ((line = bufferedReader.readLine()) != null) {
-                        Log.d(getClass().getSimpleName(), line);
-                    }*/
-                }
-
-                for (Channel channel : listing.getChannels()) {
-                    Log.d(getClass().getSimpleName(), "Channel id: " + channel.getOriginalNetworkId());
-                }
-
-                for (Program program : listing.getAllPrograms()) {
-                    Log.d(getClass().getSimpleName(), Long.toString(program.getChannelId()));
                 }
 
             } catch (IOException io) {
