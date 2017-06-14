@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.model.InternalProviderData;
+import com.google.android.media.tv.companionlibrary.utils.TvContractUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -77,8 +78,10 @@ public class AceChannelUtil {
                     Channel.Builder builder = new Channel.Builder(tempChannel);
 
                     internalProviderData.setVideoUrl(links.get(j));
+                    builder.setDisplayNumber(Integer.toString(j));
                     builder.setVideoFormat(getVideoFormat(tempChannel.getDisplayName()));
                     builder.setInternalProviderData(internalProviderData);
+                    builder.setInputId(Integer.toString(j));
                     tempList.add(builder.build());
                     break;
                 }
@@ -92,7 +95,8 @@ public class AceChannelUtil {
                     Channel.Builder builder = new Channel.Builder();
 
                     builder.setDisplayName(tempName);
-                    builder.setOriginalNetworkId(ids.get(i).hashCode());
+                    builder.setDisplayNumber(Integer.toString(i));
+                    builder.setOriginalNetworkId(Integer.toString(i).hashCode());
                     builder.setChannelLogo(logos.get(i));
                     builder.setVideoFormat(getVideoFormat(tempName));
                     internalProviderData.setVideoUrl(links.get(i));

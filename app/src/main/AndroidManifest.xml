@@ -26,10 +26,30 @@
             android:theme="@style/Theme.Leanback">
 
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity android:name=".setup.AceTvInputSetupActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+
+        <service android:name=".service.AceInputTvService"
+                 android:label="@string/tv_input_label"
+                 android:permission="android.permission.BIND_TV_INPUT">
+            <!-- Required filter used by the system to launch our account service. -->
+            <intent-filter>
+                <action android:name="android.media.tv.TvInputService" />
+            </intent-filter>
+            <!-- An XML file which describes this input. This provides pointers to
+            the RichTvInputSetupActivity to the system/TV app. -->
+            <meta-data
+                android:name="android.media.tv.input"
+                android:resource="@xml/acetvinputservice" />
+        </service>
 
         <service
             android:name=".service.AceJobService"

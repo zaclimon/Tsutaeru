@@ -4,6 +4,12 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.media.tv.TvInputInfo;
+import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.media.tv.companionlibrary.ChannelSetupFragment;
@@ -19,6 +25,16 @@ import com.zaclimon.aceiptv.service.AceJobService;
 public class AceTvInputSetupFragment extends ChannelSetupFragment {
 
     private static final int ASKING_AUTHENTICATION = 0;
+
+    private boolean mErrorFound;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
+        setChannelListVisibility(true);
+        return fragmentView;
+    }
+
 
     @Override
     public void onStart() {
@@ -42,7 +58,19 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
 
     @Override
     public void onScanFinished() {
+        if (!mErrorFound) {
+            EpgSyncJobService.cancelAllSyncRequests(getActivity());
+            getActivity().setResult(Activity.RESULT_OK);
+        } else {
+            getActivity().setResult(Activity.RESULT_CANCELED);
+        }
+        getActivity().finish();
+    }
 
+    @Override
+    public void onScanError(int reason) {
+        mErrorFound = true;
+        Log.d(getClass().getSimpleName(), "Reason: " + reason);
     }
 
     @Override

@@ -28,6 +28,8 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     // Android TV stuff
     compile 'com.android.support:leanback-v17:25.3.1'
+    compile 'com.google.android.exoplayer:exoplayer-core:r2.4.1'
+    compile 'com.google.android.exoplayer:exoplayer-hls:r2.4.1'
     compile project(':tiflibrary')
 
     // JUnit stuff

@@ -22,6 +22,7 @@ public class AuthActivityTv extends Activity {
         String password = sharedPreferences.getString(AceChannelUtil.PASSWORD_PREFERENCE, "");
 
         if (!username.isEmpty() && !password.isEmpty()) {
+            setResult(RESULT_OK);
             finish();
         }
 

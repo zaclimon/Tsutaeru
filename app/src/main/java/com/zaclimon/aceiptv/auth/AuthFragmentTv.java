@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.util.AceChannelUtil;
@@ -54,14 +55,15 @@ public class AuthFragmentTv extends Fragment implements AuthView {
 
         /*
          If the activity was called from another one (For example before syncing EPG data for Live TV)
-         return a RESULT_OK value so the said Activity/Fragment can proceed with it's other tasks.
+         return a RESULT_OK value so the said Activity can proceed with it's other tasks.
          */
-
         ComponentName componentName = getActivity().getCallingActivity();
         if (componentName != null) {
             getActivity().setResult(Activity.RESULT_OK);
             getActivity().finish();
         }
+
+        Toast.makeText(getActivity(), "Connection sucessfull!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
