@@ -21,28 +21,15 @@ import java.util.List;
 
 public class AceChannelUtil {
 
-    private static final String ATTRIBUTE_TVG_ID = "tvg-id";
-    private static final String ATTRIBUTE_LINK = "link";
-    private static final String ATTRIBUTE_TVG_LOGO = "tvg-logo";
-    private static final String ATTRIBUTE_TVG_NAME = "tvg-name";
-    private static final String ATTRIBUTE_GROUP_TITLE = "group-title";
-
-    public static String ACE_IPTV_PREFERENCES = "AceSharedPreferences";
-    public static String USERNAME_PREFERENCE = "username";
-    public static String PASSWORD_PREFERENCE = "password";
-
-    public static final String ORIGINAL_NETWORK_ID_PROVIDER = "original_network_id";
-
     private static final String LOG_TAG = "AceChannelUtil";
 
     public static List<Channel> getChannelList(InputStream playlist, List<Channel> channels) {
 
         List<String> playListString = getPlaylistAsStrings(playlist);
-
-        List<String> names = getChannelAttribute(playListString, ATTRIBUTE_TVG_NAME);
-        List<String> links = getChannelAttribute(playListString, ATTRIBUTE_LINK);
-        List<String> logos = getChannelAttribute(playListString, ATTRIBUTE_TVG_LOGO);
-        List<String> ids = getChannelAttribute(playListString, ATTRIBUTE_TVG_ID);
+        List<String> names = getChannelAttribute(playListString, Constants.ATTRIBUTE_TVG_NAME);
+        List<String> links = getChannelAttribute(playListString, Constants.ATTRIBUTE_LINK);
+        List<String> logos = getChannelAttribute(playListString, Constants.ATTRIBUTE_TVG_LOGO);
+        List<String> ids = getChannelAttribute(playListString, Constants.ATTRIBUTE_TVG_ID);
         List<Channel> tempList = new ArrayList<>();
 
         /*
@@ -114,26 +101,26 @@ public class AceChannelUtil {
 
         for (String line : playlist) {
             // Be sure we're on the channel's information line and not the link one first
-            if (line.startsWith("#EXTINF") && !attribute.equals(ATTRIBUTE_LINK)) {
+            if (line.startsWith("#EXTINF") && !attribute.equals(Constants.ATTRIBUTE_LINK)) {
 
                 int indexAttributeStart;
                 int indexAttributeEnd;
 
                 switch (attribute) {
-                    case ATTRIBUTE_TVG_ID:
-                        indexAttributeStart = line.indexOf(ATTRIBUTE_TVG_ID);
-                        indexAttributeEnd = line.indexOf(ATTRIBUTE_TVG_NAME);
+                    case Constants.ATTRIBUTE_TVG_ID:
+                        indexAttributeStart = line.indexOf(Constants.ATTRIBUTE_TVG_ID);
+                        indexAttributeEnd = line.indexOf(Constants.ATTRIBUTE_TVG_NAME);
                         break;
-                    case ATTRIBUTE_TVG_NAME:
-                        indexAttributeStart = line.indexOf(ATTRIBUTE_TVG_NAME);
-                        indexAttributeEnd = line.indexOf(ATTRIBUTE_TVG_LOGO);
+                    case Constants.ATTRIBUTE_TVG_NAME:
+                        indexAttributeStart = line.indexOf(Constants.ATTRIBUTE_TVG_NAME);
+                        indexAttributeEnd = line.indexOf(Constants.ATTRIBUTE_TVG_LOGO);
                         break;
-                    case ATTRIBUTE_TVG_LOGO:
-                        indexAttributeStart = line.indexOf(ATTRIBUTE_TVG_LOGO);
-                        indexAttributeEnd = line.indexOf(ATTRIBUTE_GROUP_TITLE);
+                    case Constants.ATTRIBUTE_TVG_LOGO:
+                        indexAttributeStart = line.indexOf(Constants.ATTRIBUTE_TVG_LOGO);
+                        indexAttributeEnd = line.indexOf(Constants.ATTRIBUTE_GROUP_TITLE);
                         break;
-                    case ATTRIBUTE_GROUP_TITLE:
-                        indexAttributeStart = line.indexOf(ATTRIBUTE_GROUP_TITLE);
+                    case Constants.ATTRIBUTE_GROUP_TITLE:
+                        indexAttributeStart = line.indexOf(Constants.ATTRIBUTE_GROUP_TITLE);
                         indexAttributeEnd = line.length() - 1;
                         break;
                     default:
@@ -151,7 +138,7 @@ public class AceChannelUtil {
 
                 attributes.add(realPart[1].replace("\"", "").trim());
 
-            } else if (line.startsWith("http://") && attribute.equals(ATTRIBUTE_LINK)) {
+            } else if (line.startsWith("http://") && attribute.equals(Constants.ATTRIBUTE_LINK)) {
                 attributes.add(line);
             }
         }
@@ -182,7 +169,7 @@ public class AceChannelUtil {
          it somewhat gets changed after adding it to a EpgSyncTask.
         */
         try {
-            internalProviderData.put(ORIGINAL_NETWORK_ID_PROVIDER, originalNetworkId);
+            internalProviderData.put(Constants.ORIGINAL_NETWORK_ID_PROVIDER, originalNetworkId);
         } catch (InternalProviderData.ParseException ps) {
             // Can't do anything about this...
         }

@@ -15,6 +15,7 @@ import com.google.android.media.tv.companionlibrary.model.InternalProviderData;
 import com.google.android.media.tv.companionlibrary.model.Program;
 import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.util.AceChannelUtil;
+import com.zaclimon.aceiptv.util.Constants;
 import com.zaclimon.aceiptv.util.RichFeedUtil;
 
 import java.io.IOException;
@@ -56,9 +57,9 @@ public class AceJobService extends EpgSyncJobService {
         InternalProviderData internalProviderData = channel.getInternalProviderData();
 
         try {
-            if (internalProviderData != null && internalProviderData.has(AceChannelUtil.ORIGINAL_NETWORK_ID_PROVIDER)) {
+            if (internalProviderData != null && internalProviderData.has(Constants.ORIGINAL_NETWORK_ID_PROVIDER)) {
                 // It gets parsed as a string by default
-                String originalNetworkIdString = (String) internalProviderData.get(AceChannelUtil.ORIGINAL_NETWORK_ID_PROVIDER);
+                String originalNetworkIdString = (String) internalProviderData.get(Constants.ORIGINAL_NETWORK_ID_PROVIDER);
                 int originalNetworkIdInt = Integer.parseInt(originalNetworkIdString);
                 tempPrograms = new ArrayList<>();
 
@@ -110,9 +111,9 @@ public class AceJobService extends EpgSyncJobService {
 
         @Override
         public Boolean doInBackground(Void... params) {
-            SharedPreferences sharedPreferences = getSharedPreferences(AceChannelUtil.ACE_IPTV_PREFERENCES, MODE_PRIVATE);
-            String username = sharedPreferences.getString(AceChannelUtil.USERNAME_PREFERENCE, "");
-            String password = sharedPreferences.getString(AceChannelUtil.PASSWORD_PREFERENCE, "");
+            SharedPreferences sharedPreferences = getSharedPreferences(Constants.ACE_IPTV_PREFERENCES, MODE_PRIVATE);
+            String username = sharedPreferences.getString(Constants.USERNAME_PREFERENCE, "");
+            String password = sharedPreferences.getString(Constants.PASSWORD_PREFERENCE, "");
             String playListUrl = getString(R.string.ace_playlist_url, username, password);
             String epgUrl = getString(R.string.ace_epg_url, username, password);
 

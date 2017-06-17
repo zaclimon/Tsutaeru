@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 
 import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.util.AceChannelUtil;
+import com.zaclimon.aceiptv.util.Constants;
 import com.zaclimon.aceiptv.util.RichFeedUtil;
 
 import java.io.IOException;
@@ -64,9 +65,9 @@ public class AuthPresenterImpl implements AuthPresenter {
         @Override
         protected void onPostExecute(Boolean result) {
             if (result) {
-                SharedPreferences.Editor editor = asyncContext.getSharedPreferences(AceChannelUtil.ACE_IPTV_PREFERENCES, Context.MODE_PRIVATE).edit();
-                editor.putString(AceChannelUtil.USERNAME_PREFERENCE, asyncUsername);
-                editor.putString(AceChannelUtil.PASSWORD_PREFERENCE, asyncPassword);
+                SharedPreferences.Editor editor = asyncContext.getSharedPreferences(Constants.ACE_IPTV_PREFERENCES, Context.MODE_PRIVATE).edit();
+                editor.putString(Constants.USERNAME_PREFERENCE, asyncUsername);
+                editor.putString(Constants.PASSWORD_PREFERENCE, asyncPassword);
                 editor.apply();
                 mAuthView.onConnectionSuccess();
             }

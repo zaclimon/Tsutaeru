@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.util.AceChannelUtil;
+import com.zaclimon.aceiptv.util.Constants;
 
 /**
  * Created by isaac on 17-06-07.
@@ -17,9 +18,9 @@ public class AuthActivityTv extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences sharedPreferences = getSharedPreferences(AceChannelUtil.ACE_IPTV_PREFERENCES, MODE_PRIVATE);
-        String username = sharedPreferences.getString(AceChannelUtil.USERNAME_PREFERENCE, "");
-        String password = sharedPreferences.getString(AceChannelUtil.PASSWORD_PREFERENCE, "");
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.ACE_IPTV_PREFERENCES, MODE_PRIVATE);
+        String username = sharedPreferences.getString(Constants.USERNAME_PREFERENCE, "");
+        String password = sharedPreferences.getString(Constants.PASSWORD_PREFERENCE, "");
 
         if (!username.isEmpty() && !password.isEmpty()) {
             setResult(RESULT_OK);
