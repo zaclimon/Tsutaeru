@@ -35,20 +35,10 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
         return fragmentView;
     }
 
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        Intent authIntent = new Intent(getActivity(), AuthActivityTv.class);
-        startActivityForResult(authIntent, ASKING_AUTHENTICATION);
-    }
-
     @Override
     public void onScanStarted() {
-        String inputId = getActivity().getIntent().getStringExtra(TvInputInfo.EXTRA_INPUT_ID);
-        EpgSyncJobService.cancelAllSyncRequests(getActivity());
-        EpgSyncJobService.requestImmediateSync(getActivity(), inputId, new ComponentName(getActivity(), AceJobService.class));
+        Intent authIntent = new Intent(getActivity(), AuthActivityTv.class);
+        startActivityForResult(authIntent, ASKING_AUTHENTICATION);
     }
 
     @Override
@@ -78,7 +68,9 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
 
         if (requestCode == ASKING_AUTHENTICATION) {
             if (resultCode == Activity.RESULT_OK) {
-                onScanStarted();
+                String inputId = getActivity().getIntent().getStringExtra(TvInputInfo.EXTRA_INPUT_ID);
+                EpgSyncJobService.cancelAllSyncRequests(getActivity());
+                EpgSyncJobService.requestImmediateSync(getActivity(), inputId, new ComponentName(getActivity(), AceJobService.class));
             } else {
                 Toast.makeText(getActivity(), getString(R.string.authentication_not_possible), Toast.LENGTH_LONG).show();
                 getActivity().finish();

@@ -1,19 +1,17 @@
 package com.zaclimon.aceiptv.service;
 
 import android.app.job.JobParameters;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Looper;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import com.google.android.gms.common.api.BooleanResult;
 import com.google.android.media.tv.companionlibrary.EpgSyncJobService;
 import com.google.android.media.tv.companionlibrary.XmlTvParser;
 import com.google.android.media.tv.companionlibrary.model.Channel;
+import com.google.android.media.tv.companionlibrary.model.InternalProviderData;
 import com.google.android.media.tv.companionlibrary.model.Program;
 import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.util.AceChannelUtil;
@@ -21,6 +19,8 @@ import com.zaclimon.aceiptv.util.RichFeedUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -41,7 +41,40 @@ public class AceJobService extends EpgSyncJobService {
 
     @Override
     public List<Program> getProgramsForChannel(Uri channelUri, Channel channel, long startMs, long endMs) {
-        return (mTvListing != null ? mTvListing.getPrograms(channel) : null);
+
+        /*
+         A weird thing happening is that upon registering the channel list into the EpgSyncJobService,
+         The channels have different original network ID's from the one defined when getChannelList()
+         is called.
+
+         In that case, since we have the original value stored inside the InternalProviderData of the
+         channel, retrieve it and compare it against the channel id's in a given Program.
+         */
+
+        List<Program> listingPrograms = mTvListing.getAllPrograms();
+        List<Program> tempPrograms;
+        InternalProviderData internalProviderData = channel.getInternalProviderData();
+
+        try {
+            if (internalProviderData != null && internalProviderData.has(AceChannelUtil.ORIGINAL_NETWORK_ID_PROVIDER)) {
+                // It gets parsed as a string by default
+                String originalNetworkIdString = (String) internalProviderData.get(AceChannelUtil.ORIGINAL_NETWORK_ID_PROVIDER);
+                int originalNetworkIdInt = Integer.parseInt(originalNetworkIdString);
+                tempPrograms = new ArrayList<>();
+
+                for (Program program : listingPrograms) {
+                    if (program.getChannelId() == originalNetworkIdInt) {
+                        tempPrograms.add(program);
+                    }
+                }
+                return (tempPrograms);
+            }
+        } catch (InternalProviderData.ParseException ps) {
+            Log.e(LOG_TAG, "Channel " + channel.getDisplayName() + " Couldn't get checked");
+            return (null);
+        }
+
+        return (null);
     }
 
     @Override
@@ -87,7 +120,6 @@ public class AceJobService extends EpgSyncJobService {
                 InputStream inputStream = RichFeedUtil.getInputStream(AceJobService.this, Uri.parse(playListUrl));
                 mTvListing = RichFeedUtil.getRichTvListings(AceJobService.this, epgUrl);
                 mChannels = AceChannelUtil.getChannelList(inputStream, mTvListing.getChannels());
-                Log.d(LOG_TAG, "Program size: " + mTvListing.getAllPrograms().size());
                 return (true);
             } catch (IOException io) {
                 return (false);

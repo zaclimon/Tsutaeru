@@ -3,6 +3,7 @@ package com.zaclimon.aceiptv.util;
 import android.media.tv.TvContract;
 import android.util.Log;
 
+import com.google.android.exoplayer2.C;
 import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.model.InternalProviderData;
 import com.google.android.media.tv.companionlibrary.utils.TvContractUtils;
@@ -26,12 +27,13 @@ public class AceChannelUtil {
     private static final String ATTRIBUTE_TVG_NAME = "tvg-name";
     private static final String ATTRIBUTE_GROUP_TITLE = "group-title";
 
-    private static final String LOG_TAG = "AceChannelUtil";
-
     public static String ACE_IPTV_PREFERENCES = "AceSharedPreferences";
     public static String USERNAME_PREFERENCE = "username";
     public static String PASSWORD_PREFERENCE = "password";
 
+    public static final String ORIGINAL_NETWORK_ID_PROVIDER = "original_network_id";
+
+    private static final String LOG_TAG = "AceChannelUtil";
 
     public static List<Channel> getChannelList(InputStream playlist, List<Channel> channels) {
 
@@ -63,45 +65,25 @@ public class AceChannelUtil {
 
         for (int i = 0; i < names.size(); i++) {
             String tempName = names.get(i);
+            String tempLogo = logos.get(i);
+            String tempLink = links.get(i);
+            Channel channel;
+            int tempId = ids.get(i).hashCode();
 
             for (int j = 0; j < channels.size(); j++) {
 
+                /*
+                 If the id from the channel is the same as the one found from the XMLTvParser or
+                 if we're at the end of the EPG listed channels, create a custom channel to return
+                 to for the EpgJobService.
+                 */
+
                 Channel tempChannel = channels.get(j);
 
-                if (tempChannel.getDisplayName().contains(tempName)) {
-                    InternalProviderData internalProviderData = tempChannel.getInternalProviderData();
-
-                    if (internalProviderData == null) {
-                        internalProviderData = new InternalProviderData();
-                    }
-
-                    Channel.Builder builder = new Channel.Builder(tempChannel);
-
-                    internalProviderData.setVideoUrl(links.get(j));
-                    builder.setDisplayNumber(Integer.toString(j));
-                    builder.setVideoFormat(getVideoFormat(tempChannel.getDisplayName()));
-                    builder.setInternalProviderData(internalProviderData);
-                    builder.setInputId(Integer.toString(j));
-                    tempList.add(builder.build());
+                if (tempId == tempChannel.getOriginalNetworkId() || j == channels.size() - 1) {
+                    channel = createChannel(tempName, Integer.toString(i + 1), tempId, tempLogo, tempLink);
+                    tempList.add(channel);
                     break;
-                }
-
-                /*
-                 If we're at the end of the EPG listed channels, create a custom channel so we can
-                 still fit it into our current list since it is in the playlist.
-                 */
-                if (j == channels.size() - 1) {
-                    InternalProviderData internalProviderData = new InternalProviderData();
-                    Channel.Builder builder = new Channel.Builder();
-
-                    builder.setDisplayName(tempName);
-                    builder.setDisplayNumber(Integer.toString(i));
-                    builder.setOriginalNetworkId(Integer.toString(i).hashCode());
-                    builder.setChannelLogo(logos.get(i));
-                    builder.setVideoFormat(getVideoFormat(tempName));
-                    internalProviderData.setVideoUrl(links.get(i));
-                    builder.setInternalProviderData(internalProviderData);
-                    tempList.add(builder.build());
                 }
             }
         }
@@ -161,7 +143,13 @@ public class AceChannelUtil {
                 String attributePart = line.substring(indexAttributeStart, indexAttributeEnd);
 
                 String[] realPart = attributePart.split("=");
-                attributes.add(realPart[1].replace("\"", ""));
+
+                /*
+                Trim just to be sure in order to not have unpleasant surprises...
+                (Strings with different hashcodes because of a space for example.)
+                */
+
+                attributes.add(realPart[1].replace("\"", "").trim());
 
             } else if (line.startsWith("http://") && attribute.equals(ATTRIBUTE_LINK)) {
                 attributes.add(line);
@@ -182,5 +170,30 @@ public class AceChannelUtil {
         } else {
             return (TvContract.Channels.VIDEO_FORMAT_480P);
         }
+    }
+
+    private static Channel createChannel(String displayName, String displayNumber, int originalNetworkId, String logo, String url) {
+
+        Channel.Builder builder = new Channel.Builder();
+        InternalProviderData internalProviderData = new InternalProviderData();
+
+        /*
+         Set the original network id so we can retrieve it from the TV listing because
+         it somewhat gets changed after adding it to a EpgSyncTask.
+        */
+        try {
+            internalProviderData.put(ORIGINAL_NETWORK_ID_PROVIDER, originalNetworkId);
+        } catch (InternalProviderData.ParseException ps) {
+            // Can't do anything about this...
+        }
+
+        internalProviderData.setVideoUrl(url);
+        builder.setDisplayName(displayName);
+        builder.setDisplayNumber(displayNumber);
+        builder.setOriginalNetworkId(originalNetworkId);
+        builder.setChannelLogo(logo);
+        builder.setVideoFormat(getVideoFormat(displayName));
+        builder.setInternalProviderData(internalProviderData);
+        return (builder.build());
     }
 }
