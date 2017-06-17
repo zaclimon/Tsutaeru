@@ -1,8 +1,11 @@
 package com.zaclimon.aceiptv.service;
 
 import android.app.job.JobParameters;
+import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.tv.TvContract;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.content.LocalBroadcastManager;
@@ -13,6 +16,7 @@ import com.google.android.media.tv.companionlibrary.XmlTvParser;
 import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.model.InternalProviderData;
 import com.google.android.media.tv.companionlibrary.model.Program;
+import com.google.android.media.tv.companionlibrary.utils.TvContractUtils;
 import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.util.AceChannelUtil;
 import com.zaclimon.aceiptv.util.Constants;
@@ -58,7 +62,7 @@ public class AceJobService extends EpgSyncJobService {
 
         try {
             if (internalProviderData != null && internalProviderData.has(Constants.ORIGINAL_NETWORK_ID_PROVIDER)) {
-                // It gets parsed as a string by default
+                // The provider data gets parsed as a string by default
                 String originalNetworkIdString = (String) internalProviderData.get(Constants.ORIGINAL_NETWORK_ID_PROVIDER);
                 int originalNetworkIdInt = Integer.parseInt(originalNetworkIdString);
                 tempPrograms = new ArrayList<>();
@@ -79,7 +83,7 @@ public class AceJobService extends EpgSyncJobService {
     }
 
     @Override
-    public boolean onStartJob(final JobParameters params) {
+    public boolean onStartJob(JobParameters params) {
         // Broadcast status
         Intent intent = new Intent(ACTION_SYNC_STATUS_CHANGED);
         intent.putExtra(BUNDLE_KEY_INPUT_ID, params.getExtras().getString(BUNDLE_KEY_INPUT_ID));
@@ -109,11 +113,30 @@ public class AceJobService extends EpgSyncJobService {
             mJobParameters = jobParameters;
         }
 
+        public void deleteChannelsFromContentProvider() {
+
+            /*
+              Because of the weird issue occurring to the original id's, most of the channels get
+              updated whilst some other ones get added again.
+
+              For this reason, delete all the channels coming from Ace in the ContentProvider
+              although it is not recommended as per the Android SDK.
+             */
+
+            ContentResolver contentResolver = getContentResolver();
+            List<Channel> channels = TvContractUtils.getChannels(contentResolver);
+
+            if (channels != null && !channels.isEmpty()) {
+                getContentResolver().delete(TvContract.Channels.CONTENT_URI, null, null);
+            }
+        }
+
         @Override
         public Boolean doInBackground(Void... params) {
             SharedPreferences sharedPreferences = getSharedPreferences(Constants.ACE_IPTV_PREFERENCES, MODE_PRIVATE);
             String username = sharedPreferences.getString(Constants.USERNAME_PREFERENCE, "");
             String password = sharedPreferences.getString(Constants.PASSWORD_PREFERENCE, "");
+
             String playListUrl = getString(R.string.ace_playlist_url, username, password);
             String epgUrl = getString(R.string.ace_epg_url, username, password);
 
@@ -121,8 +144,10 @@ public class AceJobService extends EpgSyncJobService {
                 InputStream inputStream = RichFeedUtil.getInputStream(AceJobService.this, Uri.parse(playListUrl));
                 mTvListing = RichFeedUtil.getRichTvListings(AceJobService.this, epgUrl);
                 mChannels = AceChannelUtil.getChannelList(inputStream, mTvListing.getChannels());
-                return (true);
+                deleteChannelsFromContentProvider();
+                return (mTvListing != null && mChannels != null);
             } catch (IOException io) {
+                io.printStackTrace();
                 return (false);
             }
         }
