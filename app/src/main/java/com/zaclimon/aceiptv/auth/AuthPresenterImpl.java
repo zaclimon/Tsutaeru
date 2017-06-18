@@ -28,15 +28,8 @@ public class AuthPresenterImpl implements AuthPresenter {
 
     @Override
     public void validateInfo(String username, String password, Context context) {
-
         AsyncValidateInfos asyncValidateInfos = new AsyncValidateInfos(username, password, context);
         asyncValidateInfos.execute();
-
-        if (password != null && !password.isEmpty()) {
-            // WIP...
-        } else {
-            mAuthView.onPasswordMissing();
-        }
     }
 
     private class AsyncValidateInfos extends AsyncTask<Void, Void, Boolean> {
@@ -55,7 +48,7 @@ public class AuthPresenterImpl implements AuthPresenter {
         protected Boolean doInBackground(Void... params) {
             try {
                 String m3uLink = asyncContext.getString(R.string.ace_playlist_url, asyncUsername, asyncPassword);
-                InputStream inputStream = RichFeedUtil.getInputStream(asyncContext, Uri.parse(m3uLink));
+                RichFeedUtil.getInputStream(asyncContext, Uri.parse(m3uLink));
                 return (true);
             } catch (IOException io) {
                 return (false);
@@ -70,6 +63,8 @@ public class AuthPresenterImpl implements AuthPresenter {
                 editor.putString(Constants.PASSWORD_PREFERENCE, asyncPassword);
                 editor.apply();
                 mAuthView.onConnectionSuccess();
+            } else {
+                mAuthView.onConnectionFailed(asyncContext.getString(R.string.wrong_credentials));
             }
         }
     }

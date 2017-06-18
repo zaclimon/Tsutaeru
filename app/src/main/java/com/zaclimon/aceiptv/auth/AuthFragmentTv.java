@@ -58,21 +58,17 @@ public class AuthFragmentTv extends Fragment implements AuthView {
          return a RESULT_OK value so the said Activity can proceed with it's other tasks.
          */
         ComponentName componentName = getActivity().getCallingActivity();
+
         if (componentName != null) {
             getActivity().setResult(Activity.RESULT_OK);
-            getActivity().finish();
+            Toast.makeText(getActivity(), R.string.connection_successful_text, Toast.LENGTH_SHORT).show();
         }
 
-        Toast.makeText(getActivity(), "Connection sucessfull!", Toast.LENGTH_SHORT).show();
+        getActivity().finish();
     }
 
     @Override
     public void onConnectionFailed(String reason) {
-
-    }
-
-    @Override
-    public void onPasswordMissing() {
-
+        Toast.makeText(getActivity(), reason, Toast.LENGTH_SHORT).show();
     }
 }

@@ -8,6 +8,5 @@ public interface AuthView {
 
     void onConnectionSuccess();
     void onConnectionFailed(String reason);
-    void onPasswordMissing();
 
 }
