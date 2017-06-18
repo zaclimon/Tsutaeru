@@ -37,6 +37,7 @@ public class AceJobService extends EpgSyncJobService {
     private final String LOG_TAG = getClass().getSimpleName();
 
     private List<Channel> mChannels;
+    private String mInputId;
     private XmlTvParser.TvListing mTvListing;
 
     @Override
@@ -85,9 +86,10 @@ public class AceJobService extends EpgSyncJobService {
     @Override
     public boolean onStartJob(JobParameters params) {
         // Broadcast status
+        mInputId = params.getExtras().getString(BUNDLE_KEY_INPUT_ID);
         Intent intent = new Intent(ACTION_SYNC_STATUS_CHANGED);
-        intent.putExtra(BUNDLE_KEY_INPUT_ID, params.getExtras().getString(BUNDLE_KEY_INPUT_ID));
-        Log.d(LOG_TAG, "Sync program data for " + params.getExtras().getString(BUNDLE_KEY_INPUT_ID));
+        intent.putExtra(BUNDLE_KEY_INPUT_ID, mInputId);
+        Log.d(LOG_TAG, "Sync program data for " + mInputId);
         intent.putExtra(SYNC_STATUS, SYNC_STARTED);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 
@@ -126,8 +128,8 @@ public class AceJobService extends EpgSyncJobService {
             ContentResolver contentResolver = getContentResolver();
             List<Channel> channels = TvContractUtils.getChannels(contentResolver);
 
-            if (channels != null && !channels.isEmpty()) {
-                getContentResolver().delete(TvContract.Channels.CONTENT_URI, null, null);
+            if (mInputId != null && channels != null && !channels.isEmpty()) {
+                getContentResolver().delete(TvContract.buildChannelsUriForInput(mInputId), null, null);
             }
         }
 
