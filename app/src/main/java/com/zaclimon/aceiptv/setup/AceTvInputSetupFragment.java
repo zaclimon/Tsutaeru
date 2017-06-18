@@ -27,12 +27,19 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
     private static final int ASKING_AUTHENTICATION = 0;
 
     private boolean mErrorFound;
+    private String mInputId;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mInputId = getActivity().getIntent().getStringExtra(TvInputInfo.EXTRA_INPUT_ID);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
         setChannelListVisibility(true);
-        return fragmentView;
+        return (fragmentView);
     }
 
     @Override
@@ -43,7 +50,7 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
 
     @Override
     public String getInputId() {
-        return (null);
+        return (mInputId);
     }
 
     @Override
@@ -68,9 +75,8 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
 
         if (requestCode == ASKING_AUTHENTICATION) {
             if (resultCode == Activity.RESULT_OK) {
-                String inputId = getActivity().getIntent().getStringExtra(TvInputInfo.EXTRA_INPUT_ID);
                 EpgSyncJobService.cancelAllSyncRequests(getActivity());
-                EpgSyncJobService.requestImmediateSync(getActivity(), inputId, new ComponentName(getActivity(), AceJobService.class));
+                EpgSyncJobService.requestImmediateSync(getActivity(), mInputId, new ComponentName(getActivity(), AceJobService.class));
             } else {
                 Toast.makeText(getActivity(), getString(R.string.authentication_not_possible), Toast.LENGTH_LONG).show();
                 getActivity().finish();
