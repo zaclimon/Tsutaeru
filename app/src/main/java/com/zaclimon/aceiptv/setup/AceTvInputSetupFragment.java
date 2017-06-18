@@ -39,6 +39,7 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
         setChannelListVisibility(true);
+        setTitle(R.string.app_name);
         return (fragmentView);
     }
 
