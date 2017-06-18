@@ -78,6 +78,7 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
             if (resultCode == Activity.RESULT_OK) {
                 EpgSyncJobService.cancelAllSyncRequests(getActivity());
                 EpgSyncJobService.requestImmediateSync(getActivity(), mInputId, new ComponentName(getActivity(), AceJobService.class));
+                EpgSyncJobService.setUpPeriodicSync(getActivity(), mInputId, new ComponentName(getActivity(), AceJobService.class));
             } else {
                 Toast.makeText(getActivity(), getString(R.string.authentication_not_possible), Toast.LENGTH_LONG).show();
                 getActivity().finish();
