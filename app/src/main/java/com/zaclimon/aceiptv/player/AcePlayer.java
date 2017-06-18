@@ -29,6 +29,7 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.google.android.media.tv.companionlibrary.TvPlayer;
+import com.zaclimon.aceiptv.BuildConfig;
 import com.zaclimon.aceiptv.R;
 
 import java.util.ArrayList;
@@ -42,8 +43,6 @@ public class AcePlayer implements TvPlayer {
 
     private SimpleExoPlayer player;
     private List<TvPlayer.Callback> callbacks;
-    private Surface surface;
-    private PlaybackParams playbackParams;
 
     public AcePlayer(Context context, String url) {
         callbacks = new ArrayList<>();
@@ -88,7 +87,10 @@ public class AcePlayer implements TvPlayer {
                         tvCallback.onStarted();
                     }
                 }
-                Log.d(AcePlayer.this.getClass().getSimpleName(), "Player state changed to " + playbackState + ", PWR: " + playWhenReady);
+
+                if (BuildConfig.DEBUG) {
+                    Log.d(AcePlayer.this.getClass().getSimpleName(), "Player state changed to " + playbackState + ", PWR: " + playWhenReady);
+                }
             }
 
             @Override
@@ -150,11 +152,7 @@ public class AcePlayer implements TvPlayer {
 
     @Override
     public void setSurface(Surface surface) {
-        Log.d(getClass().getSimpleName(), "setSurface() called!");
-        if (surface != null) {
-            Log.d(getClass().getSimpleName(), "isSurfaceValid: " + surface.isValid());
-            player.setVideoSurface(surface);
-        }
+        player.setVideoSurface(surface);
     }
 
     @Override
@@ -166,7 +164,6 @@ public class AcePlayer implements TvPlayer {
     public void setPlaybackParams(PlaybackParams params) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             PlaybackParameters playbackParameters = new PlaybackParameters(params.getSpeed(), params.getPitch());
-            playbackParams = params;
             player.setPlaybackParameters(playbackParameters);
         }
     }
@@ -179,7 +176,4 @@ public class AcePlayer implements TvPlayer {
         player.release();
     }
 
-    public SimpleExoPlayer getPlayer() {
-        return (player);
-    }
 }

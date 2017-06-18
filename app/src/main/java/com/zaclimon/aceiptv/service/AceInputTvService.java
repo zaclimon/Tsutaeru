@@ -13,6 +13,7 @@ import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.model.InternalProviderData;
 import com.google.android.media.tv.companionlibrary.model.Program;
 import com.google.android.media.tv.companionlibrary.model.RecordedProgram;
+import com.zaclimon.aceiptv.BuildConfig;
 import com.zaclimon.aceiptv.player.AcePlayer;
 
 /**
@@ -50,8 +51,10 @@ public class AceInputTvService extends BaseTvInputService {
                 notifyTimeShiftStatusChanged(TvInputManager.TIME_SHIFT_STATUS_AVAILABLE);
             }
 
-            Log.d(getClass().getSimpleName(), "Video Url: " + channel.getInternalProviderData().getVideoUrl());
-            Log.d(getClass().getSimpleName(), "Video format: " + channel.getVideoFormat());
+            if (BuildConfig.DEBUG) {
+                Log.d(getClass().getSimpleName(), "Video Url: " + channel.getInternalProviderData().getVideoUrl());
+                Log.d(getClass().getSimpleName(), "Video format: " + channel.getVideoFormat());
+            }
 
             // Notify when the video is available so the channel surface can be shown to the screen.
             mAcePlayer.play();
