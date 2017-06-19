@@ -146,19 +146,6 @@ public class AceChannelUtil {
         return (attributes);
     }
 
-    private static String getVideoFormat(String displayName) {
-
-        if (displayName.contains("FHD")) {
-            return (TvContract.Channels.VIDEO_FORMAT_1080P);
-        } else if (displayName.contains("HD") || displayName.contains("ES")) {
-            return (TvContract.Channels.VIDEO_FORMAT_720P);
-        } else if (displayName.contains("UK") || displayName.contains("FR") || displayName.contains("DE")) {
-            return (TvContract.Channels.VIDEO_FORMAT_576P);
-        } else {
-            return (TvContract.Channels.VIDEO_FORMAT_480P);
-        }
-    }
-
     private static Channel createChannel(String displayName, String displayNumber, int originalNetworkId, String logo, String url) {
 
         Channel.Builder builder = new Channel.Builder();
@@ -179,7 +166,6 @@ public class AceChannelUtil {
         builder.setDisplayNumber(displayNumber);
         builder.setOriginalNetworkId(originalNetworkId);
         builder.setChannelLogo(logo);
-        builder.setVideoFormat(getVideoFormat(displayName));
         builder.setInternalProviderData(internalProviderData);
         return (builder.build());
     }
