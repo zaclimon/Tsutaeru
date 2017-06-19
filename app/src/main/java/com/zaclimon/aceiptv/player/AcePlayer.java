@@ -11,6 +11,7 @@ import android.view.Surface;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
@@ -35,6 +36,9 @@ import com.zaclimon.aceiptv.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.string.defaultMsisdnAlphaTag;
+import static android.R.string.ok;
+
 /**
  * Created by isaac on 17-06-11.
  */
@@ -43,75 +47,27 @@ public class AcePlayer implements TvPlayer {
 
     private SimpleExoPlayer player;
     private List<TvPlayer.Callback> callbacks;
+    private String streamUrl;
 
     public AcePlayer(Context context, String url) {
         callbacks = new ArrayList<>();
-        init(context, url);
+        streamUrl = url;
+        init(context);
     }
 
-    private void init(Context context, String url) {
-
-        Uri mediaUrl = Uri.parse(url);
+    private void init(Context context) {
         BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
         TrackSelection.Factory videoTrackSelectionFactory = new AdaptiveTrackSelection.Factory(bandwidthMeter);
         TrackSelector trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
 
         player = ExoPlayerFactory.newSimpleInstance(context, trackSelector);
+        player.prepare(getMediaSource(context));
+    }
 
+    private MediaSource getMediaSource(Context context) {
+        Uri mediaUrl = Uri.parse(streamUrl);
         DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(context, Util.getUserAgent(context, context.getString(R.string.app_name)));
-        final MediaSource mediaSource = new HlsMediaSource(mediaUrl, dataSourceFactory, new Handler(), null);
-        player.prepare(mediaSource);
-
-        player.addListener(new ExoPlayer.EventListener() {
-            @Override
-            public void onTimelineChanged(Timeline timeline, Object manifest) {
-
-            }
-
-            @Override
-            public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
-
-            }
-
-            @Override
-            public void onLoadingChanged(boolean isLoading) {
-
-            }
-
-            @Override
-            public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-                for (Callback tvCallback : callbacks) {
-                    if (playWhenReady && playbackState == ExoPlayer.STATE_ENDED) {
-                        tvCallback.onCompleted();
-                    } else if (playWhenReady && playbackState == ExoPlayer.STATE_READY) {
-                        tvCallback.onStarted();
-                    }
-                }
-
-                if (BuildConfig.DEBUG) {
-                    Log.d(AcePlayer.this.getClass().getSimpleName(), "Player state changed to " + playbackState + ", PWR: " + playWhenReady);
-                }
-            }
-
-            @Override
-            public void onPlayerError(ExoPlaybackException error) {
-                if (error.getCause() instanceof BehindLiveWindowException) {
-                    player.prepare(mediaSource);
-                    play();
-                }
-            }
-
-            @Override
-            public void onPositionDiscontinuity() {
-
-            }
-
-            @Override
-            public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
-
-            }
-        });
-
+        return (new HlsMediaSource(mediaUrl, dataSourceFactory, new Handler(), null));
     }
 
     @Override
@@ -176,4 +132,19 @@ public class AcePlayer implements TvPlayer {
         player.release();
     }
 
+    public void restart(Context context) {
+        player.prepare(getMediaSource(context));
+    }
+
+    public Format getVideoFormat() {
+        return (player.getVideoFormat());
+    }
+
+    public Format getAudioFormat() {
+        return (player.getAudioFormat());
+    }
+
+    public void addListener(ExoPlayer.EventListener listener) {
+        player.addListener(listener);
+    }
 }
