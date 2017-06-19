@@ -83,6 +83,7 @@ public class AceChannelUtil {
                 tempList.add(line);
             }
 
+            playlist.close();
             return (tempList);
         } catch (IOException io) {
             // Couldn't read the stream
