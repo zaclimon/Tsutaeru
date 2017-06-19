@@ -55,7 +55,6 @@ public class AceJobService extends EpgSyncJobService {
          */
 
         List<Program> listingPrograms = mTvListing.getAllPrograms();
-        List<Program> tempPrograms;
         InternalProviderData internalProviderData = channel.getInternalProviderData();
 
         try {
@@ -63,18 +62,20 @@ public class AceJobService extends EpgSyncJobService {
                 // The provider data gets parsed as a string by default
                 String epgId = (String) internalProviderData.get(Constants.EPG_ID_PROVIDER);
                 int epgIdInt = Integer.parseInt(epgId);
-                tempPrograms = new ArrayList<>();
 
-                for (Program program : listingPrograms) {
-                    if (program.getChannelId() == epgIdInt) {
-                        tempPrograms.add(program);
+                if (epgIdInt != 0) {
+                    List<Program> tempPrograms = new ArrayList<>();
+
+                    for (Program program : listingPrograms) {
+                        if (program.getChannelId() == epgIdInt) {
+                            tempPrograms.add(program);
+                        }
                     }
+                    return (tempPrograms);
                 }
-                return (tempPrograms);
             }
         } catch (InternalProviderData.ParseException ps) {
             Log.e(LOG_TAG, "Channel " + channel.getDisplayName() + " Couldn't get checked");
-            return (null);
         }
 
         return (null);
