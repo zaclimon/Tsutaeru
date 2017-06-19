@@ -1,7 +1,6 @@
 package com.zaclimon.aceiptv.service;
 
 import android.app.job.JobParameters;
-import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,7 +24,6 @@ import com.zaclimon.aceiptv.util.RichFeedUtil;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -49,12 +47,11 @@ public class AceJobService extends EpgSyncJobService {
     public List<Program> getProgramsForChannel(Uri channelUri, Channel channel, long startMs, long endMs) {
 
         /*
-         A weird thing happening is that upon registering the channel list into the EpgSyncJobService,
-         The channels have different original network ID's from the one defined when getChannelList()
-         is called.
+         The XMLTV file from the EPG contains an ID that might be used across one or several channels.
+         In that case, it will be stored in the internal provider data of the given channel.
 
-         In that case, since we have the original value stored inside the InternalProviderData of the
-         channel, retrieve it and compare it against the channel id's in a given Program.
+         If the channel id (EPG id) from the program matches the one saved in the Channel, add the
+         required program to it's list.
          */
 
         List<Program> listingPrograms = mTvListing.getAllPrograms();
@@ -62,14 +59,14 @@ public class AceJobService extends EpgSyncJobService {
         InternalProviderData internalProviderData = channel.getInternalProviderData();
 
         try {
-            if (internalProviderData != null && internalProviderData.has(Constants.ORIGINAL_NETWORK_ID_PROVIDER)) {
+            if (internalProviderData != null && internalProviderData.has(Constants.EPG_ID_PROVIDER)) {
                 // The provider data gets parsed as a string by default
-                String originalNetworkIdString = (String) internalProviderData.get(Constants.ORIGINAL_NETWORK_ID_PROVIDER);
-                int originalNetworkIdInt = Integer.parseInt(originalNetworkIdString);
+                String epgId = (String) internalProviderData.get(Constants.EPG_ID_PROVIDER);
+                int epgIdInt = Integer.parseInt(epgId);
                 tempPrograms = new ArrayList<>();
 
                 for (Program program : listingPrograms) {
-                    if (program.getChannelId() == originalNetworkIdInt) {
+                    if (program.getChannelId() == epgIdInt) {
                         tempPrograms.add(program);
                     }
                 }
@@ -115,24 +112,6 @@ public class AceJobService extends EpgSyncJobService {
             mJobParameters = jobParameters;
         }
 
-        public void deleteChannelsFromContentProvider() {
-
-            /*
-              Because of the weird issue occurring to the original id's, most of the channels get
-              updated whilst some other ones get added again.
-
-              For this reason, delete all the channels coming from Ace in the ContentProvider
-              although it is not recommended as per the Android SDK.
-             */
-
-            ContentResolver contentResolver = getContentResolver();
-            List<Channel> channels = TvContractUtils.getChannels(contentResolver);
-
-            if (mInputId != null && channels != null && !channels.isEmpty()) {
-                getContentResolver().delete(TvContract.buildChannelsUriForInput(mInputId), null, null);
-            }
-        }
-
         @Override
         public Boolean doInBackground(Void... params) {
             SharedPreferences sharedPreferences = getSharedPreferences(Constants.ACE_IPTV_PREFERENCES, MODE_PRIVATE);
@@ -146,7 +125,6 @@ public class AceJobService extends EpgSyncJobService {
                 InputStream inputStream = RichFeedUtil.getInputStream(AceJobService.this, Uri.parse(playListUrl));
                 mTvListing = RichFeedUtil.getRichTvListings(AceJobService.this, epgUrl);
                 mChannels = AceChannelUtil.getChannelList(inputStream, mTvListing.getChannels());
-                deleteChannelsFromContentProvider();
                 return (mTvListing != null && mChannels != null);
             } catch (IOException io) {
                 io.printStackTrace();

@@ -1,12 +1,7 @@
 package com.zaclimon.aceiptv.util;
 
-import android.media.tv.TvContract;
-import android.util.Log;
-
-import com.google.android.exoplayer2.C;
 import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.model.InternalProviderData;
-import com.google.android.media.tv.companionlibrary.utils.TvContractUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -146,17 +141,25 @@ public class AceChannelUtil {
         return (attributes);
     }
 
-    private static Channel createChannel(String displayName, String displayNumber, int originalNetworkId, String logo, String url) {
+    private static Channel createChannel(String displayName, String displayNumber, int epgId, String logo, String url) {
+
+        /*
+         In order to map correctly the programs to a given channel, store the EPG id somewhere in the
+         channel so we can retrieve it when we'll need to find programs
+
+         Using the EPG ID as a good way to have an original network id but it might create channel
+         duplicates. Since some channels either don't have an EPG id (which makes 0 as a hash) or might
+         share the same id altogether, (same channel in SD/HD for example) they get recreated
+         as their original id isn't really original anymore...
+
+         In that case, let's use the display name as the original network id instead of the EPG id.
+        */
 
         Channel.Builder builder = new Channel.Builder();
         InternalProviderData internalProviderData = new InternalProviderData();
 
-        /*
-         Set the original network id so we can retrieve it from the TV listing because
-         it somewhat gets changed after adding it to a EpgSyncTask.
-        */
         try {
-            internalProviderData.put(Constants.ORIGINAL_NETWORK_ID_PROVIDER, originalNetworkId);
+            internalProviderData.put(Constants.EPG_ID_PROVIDER, epgId);
         } catch (InternalProviderData.ParseException ps) {
             // Can't do anything about this...
         }
@@ -164,7 +167,7 @@ public class AceChannelUtil {
         internalProviderData.setVideoUrl(url);
         builder.setDisplayName(displayName);
         builder.setDisplayNumber(displayNumber);
-        builder.setOriginalNetworkId(originalNetworkId);
+        builder.setOriginalNetworkId(displayName.hashCode());
         builder.setChannelLogo(logo);
         builder.setInternalProviderData(internalProviderData);
         return (builder.build());

@@ -19,5 +19,5 @@ public class Constants {
     public static final String PASSWORD_PREFERENCE = "password";
 
     // Channel configuration stuff
-    public static final String ORIGINAL_NETWORK_ID_PROVIDER = "original_network_id";
+    public static final String EPG_ID_PROVIDER = "epg_id";
 }
