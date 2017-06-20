@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 import android.view.Surface;
+import android.widget.Toast;
 
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -17,6 +18,7 @@ import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.source.BehindLiveWindowException;
 import com.google.android.exoplayer2.source.TrackGroupArray;
+import com.google.android.exoplayer2.source.UnrecognizedInputFormatException;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.media.tv.companionlibrary.BaseTvInputService;
 import com.google.android.media.tv.companionlibrary.TvPlayer;
@@ -25,6 +27,7 @@ import com.google.android.media.tv.companionlibrary.model.InternalProviderData;
 import com.google.android.media.tv.companionlibrary.model.Program;
 import com.google.android.media.tv.companionlibrary.model.RecordedProgram;
 import com.zaclimon.aceiptv.BuildConfig;
+import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.player.AcePlayer;
 
 import java.util.ArrayList;
@@ -193,8 +196,11 @@ public class AceInputTvService extends BaseTvInputService {
         @Override
         public void onPlayerError(ExoPlaybackException error) {
             if (error.getCause() instanceof BehindLiveWindowException) {
-                mAcePlayer.restart(getApplicationContext());
+                mAcePlayer.restart(mContext);
                 mAcePlayer.play();
+            } else if (error.getCause() instanceof UnrecognizedInputFormatException) {
+                Log.e(getClass().getSimpleName(), "Invalid Channel");
+                Toast.makeText(mContext, mContext.getString(R.string.invalid_channel), Toast.LENGTH_SHORT).show();
             }
         }
 

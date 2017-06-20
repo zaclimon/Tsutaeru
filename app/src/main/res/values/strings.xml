@@ -3,6 +3,7 @@
     <string name="authentication_not_possible">Can\'t authenticate</string>
     <string name="connect_text">Connect</string>
     <string name="connection_successful_text">Connection successful!</string>
+    <string name="invalid_channel">Channel invalid, please contact A.C.E</string>
     <string name="internet_not_available">Please verify your internet connection</string>
     <string name="username_text">Username</string>
     <string name="password_text">Password</string>
