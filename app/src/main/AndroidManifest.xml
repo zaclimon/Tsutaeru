@@ -37,6 +37,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".main.MainActivity"/>
+
         <service android:name=".service.AceInputTvService"
                  android:label="@string/tv_input_label"
                  android:permission="android.permission.BIND_TV_INPUT">

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.zaclimon.aceiptv.R;
+import com.zaclimon.aceiptv.main.MainActivity;
 import com.zaclimon.aceiptv.util.AceChannelUtil;
 
 /**
@@ -62,6 +64,9 @@ public class AuthFragmentTv extends Fragment implements AuthView {
         if (componentName != null) {
             getActivity().setResult(Activity.RESULT_OK);
             Toast.makeText(getActivity(), R.string.connection_successful_text, Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
         }
 
         getActivity().finish();

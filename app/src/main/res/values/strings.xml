@@ -8,5 +8,8 @@
     <string name="username_text">Username</string>
     <string name="password_text">Password</string>
     <string name="tv_input_label">A.C.E. IPTV</string>
+    <string name="settings_text">Settings</string>
+    <string name="stream_type">Stream type</string>
+    <string name="stream_type_short_description">MPEG-TS/HLS</string>
     <string name="wrong_credentials">Your credentials are not valid</string>
 </resources>
