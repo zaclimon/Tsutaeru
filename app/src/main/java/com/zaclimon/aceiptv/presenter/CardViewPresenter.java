@@ -39,10 +39,8 @@ public class CardViewPresenter extends Presenter {
             // We're dealing with a Settings menu value
             Bundle settingsBundle = (Bundle) item;
             String name = context.getString(settingsBundle.getInt(SettingsObjectAdapter.BUNDLE_SETTINGS_NAME_ID));
-            String description = context.getString(settingsBundle.getInt(SettingsObjectAdapter.BUNDLE_SETTINGS_DESCRIPTION_ID));
             Drawable drawable = context.getDrawable(settingsBundle.getInt(SettingsObjectAdapter.BUNDLE_SETTINGS_DRAWABLE_ID));
             imageCardView.setTitleText(name);
-            imageCardView.setContentText(description);
             imageCardView.setMainImage(drawable);
         }
     }

@@ -13,7 +13,6 @@ import com.zaclimon.aceiptv.presenter.CardViewPresenter;
 public class SettingsObjectAdapter extends ArrayObjectAdapter {
 
     public static final String BUNDLE_SETTINGS_NAME_ID = "bundle_name_id";
-    public static final String BUNDLE_SETTINGS_DESCRIPTION_ID = "bundle_description_id";
     public static final String BUNDLE_SETTINGS_DRAWABLE_ID = "bundle_drawable_id";
 
     public SettingsObjectAdapter() {
@@ -24,7 +23,6 @@ public class SettingsObjectAdapter extends ArrayObjectAdapter {
     private void setStreamTypeSection() {
         Bundle bundle = new Bundle();
         bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.stream_type);
-        bundle.putInt(BUNDLE_SETTINGS_DESCRIPTION_ID, R.string.stream_type_short_description);
         bundle.putInt(BUNDLE_SETTINGS_DRAWABLE_ID, R.drawable.ic_view_stream);
         add(bundle);
     }
