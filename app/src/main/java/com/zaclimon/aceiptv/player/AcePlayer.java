@@ -15,7 +15,10 @@ import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.extractor.ExtractorsFactory;
 import com.google.android.exoplayer2.source.BehindLiveWindowException;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.source.hls.HlsMediaSource;
@@ -67,7 +70,21 @@ public class AcePlayer implements TvPlayer {
     private MediaSource getMediaSource(Context context) {
         Uri mediaUrl = Uri.parse(streamUrl);
         DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(context, Util.getUserAgent(context, context.getString(R.string.app_name)));
-        return (new HlsMediaSource(mediaUrl, dataSourceFactory, new Handler(), null));
+        MediaSource mediaSource;
+
+         /*
+          Use only a HlsMediaSource if we're sure that we're on a HLS stream. Any other one should
+          be an ExtractorMediaSource.
+         */
+
+        if (streamUrl.endsWith(".m3u8")) {
+            mediaSource = new HlsMediaSource(mediaUrl, dataSourceFactory, new Handler(), null);
+        } else {
+            ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+            mediaSource = new ExtractorMediaSource(mediaUrl, dataSourceFactory, extractorsFactory, new Handler(), null);
+        }
+
+        return (mediaSource);
     }
 
     @Override

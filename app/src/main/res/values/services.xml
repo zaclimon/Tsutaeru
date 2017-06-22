@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ace_playlist_url">http://ace-tv.xyz:25461/get.php?username=%1$s&#38;password=%2$s&#38;type=m3u_plus&#38;output=hls</string>
+    <string name="ace_playlist_url">http://ace-tv.xyz:25461/get.php?username=%1$s&#38;password=%2$s&#38;type=m3u_plus&#38;output=%3$s</string>
     <string name="ace_epg_url">http://ace-tv.xyz:25461/xmltv.php?username=%1$s&#38;password=%2$s</string>
 </resources>

@@ -38,6 +38,7 @@
         </activity>
 
         <activity android:name=".main.MainActivity"/>
+        <activity android:name=".settings.SettingsElementActivity"/>
 
         <service android:name=".service.AceInputTvService"
                  android:label="@string/tv_input_label"

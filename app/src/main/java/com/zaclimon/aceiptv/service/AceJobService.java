@@ -118,8 +118,8 @@ public class AceJobService extends EpgSyncJobService {
             SharedPreferences sharedPreferences = getSharedPreferences(Constants.ACE_IPTV_PREFERENCES, MODE_PRIVATE);
             String username = sharedPreferences.getString(Constants.USERNAME_PREFERENCE, "");
             String password = sharedPreferences.getString(Constants.PASSWORD_PREFERENCE, "");
-
-            String playListUrl = getString(R.string.ace_playlist_url, username, password);
+            String streamType = sharedPreferences.getString(Constants.STREAM_TYPE_PREFERENCE, Constants.STREAM_TYPE_HLS);
+            String playListUrl = getString(R.string.ace_playlist_url, username, password, streamType);
             String epgUrl = getString(R.string.ace_epg_url, username, password);
 
             try {
