@@ -1,9 +1,5 @@
 package com.zaclimon.aceiptv.util;
 
-import android.content.ComponentName;
-
-import com.zaclimon.aceiptv.service.AceInputTvService;
-
 /**
  * Created by isaac on 17-06-17.
  */
@@ -27,5 +23,4 @@ public class Constants {
 
     // Channel configuration stuff
     public static final String EPG_ID_PROVIDER = "epg_id";
-    public static final ComponentName TV_INPUT_SERVICE = new ComponentName("com.zaclimon.aceiptv", "com.zaclimon.aceiptv.service.AceInputTvService");
 }
