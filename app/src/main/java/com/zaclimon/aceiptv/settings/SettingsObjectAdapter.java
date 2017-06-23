@@ -31,14 +31,14 @@ public class SettingsObjectAdapter extends ArrayObjectAdapter {
 
     private void setChannelLogoSection() {
         Bundle bundle = new Bundle();
-        bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.channel_logo_short);
+        bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.channel_logo_title_short);
         bundle.putInt(BUNDLE_SETTINGS_DRAWABLE_ID, R.drawable.ic_channel_logo);
         add(bundle);
     }
 
     private void setForceEpgSyncSection() {
         Bundle bundle = new Bundle();
-        bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.force_epg_sync_short);
+        bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.force_epg_sync_title_short);
         bundle.putInt(BUNDLE_SETTINGS_DRAWABLE_ID, R.drawable.ic_sync_epg);
         add(bundle);
     }

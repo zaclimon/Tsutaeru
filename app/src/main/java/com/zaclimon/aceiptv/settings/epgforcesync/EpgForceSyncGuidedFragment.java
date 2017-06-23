@@ -1,8 +1,6 @@
 package com.zaclimon.aceiptv.settings.epgforcesync;
 
 import android.content.ComponentName;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.media.tv.TvContract;
 import android.os.Bundle;
@@ -15,7 +13,6 @@ import com.google.android.media.tv.companionlibrary.EpgSyncJobService;
 import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.service.AceJobService;
 import com.zaclimon.aceiptv.util.AceChannelUtil;
-import com.zaclimon.aceiptv.util.Constants;
 
 import java.util.List;
 
@@ -30,11 +27,10 @@ public class EpgForceSyncGuidedFragment extends GuidedStepFragment {
 
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
-        String title = getString(R.string.force_epg_sync);
+        String title = getString(R.string.force_epg_sync_title);
         String description = getString(R.string.force_epg_sync_description);
-        Drawable icon = getActivity().getDrawable(R.drawable.ic_sync_epg);
 
-        return (new GuidanceStylist.Guidance(title, description, null, icon));
+        return (new GuidanceStylist.Guidance(title, description, null, null));
     }
 
     @Override

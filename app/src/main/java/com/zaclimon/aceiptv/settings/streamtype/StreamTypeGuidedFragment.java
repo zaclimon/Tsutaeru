@@ -36,7 +36,6 @@ public class StreamTypeGuidedFragment extends GuidedStepFragment {
         String streamType = sharedPreferences.getString(Constants.STREAM_TYPE_PREFERENCE, Constants.STREAM_TYPE_HLS);
         String title = getString(R.string.stream_type);
         String description = getString(R.string.stream_type_description);
-        Drawable icon = getActivity().getDrawable(R.drawable.ic_view_stream);
         String breadcrumb;
 
         if (streamType.equals(Constants.STREAM_TYPE_MPEG_TS)) {
@@ -45,7 +44,7 @@ public class StreamTypeGuidedFragment extends GuidedStepFragment {
             breadcrumb = getString(R.string.current_status_text, getString(R.string.hls_text));
         }
 
-        return (new GuidanceStylist.Guidance(title, description, breadcrumb, icon));
+        return (new GuidanceStylist.Guidance(title, description, breadcrumb, null));
     }
 
     @Override

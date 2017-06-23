@@ -4,7 +4,6 @@ import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.media.tv.TvContract;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -12,7 +11,6 @@ import android.os.Bundle;
 import android.support.v17.leanback.app.GuidedStepFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.media.tv.companionlibrary.EpgSyncJobService;
@@ -39,9 +37,8 @@ public class ChannelLogoGuidedFragment extends GuidedStepFragment {
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.ACE_IPTV_PREFERENCES, Context.MODE_PRIVATE);
         boolean logoActivated = sharedPreferences.getBoolean(Constants.CHANNEL_LOGO_PREFERENCE, true);
-        String title = getString(R.string.channel_logo);
+        String title = getString(R.string.channel_logo_title);
         String description = getString(R.string.channel_logo_description);
-        Drawable icon = getActivity().getDrawable(R.drawable.ic_channel_logo);
         String breadcrumb;
 
         if (logoActivated) {
@@ -50,7 +47,7 @@ public class ChannelLogoGuidedFragment extends GuidedStepFragment {
             breadcrumb = getString(R.string.current_status_text, getString(R.string.deactivated_text));
         }
 
-        return (new GuidanceStylist.Guidance(title, description, breadcrumb, icon));
+        return (new GuidanceStylist.Guidance(title, description, breadcrumb, null));
     }
 
     @Override
