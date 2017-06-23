@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v17.leanback.app.GuidedStepFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.media.tv.companionlibrary.EpgSyncJobService;
@@ -41,9 +40,9 @@ public class StreamTypeGuidedFragment extends GuidedStepFragment {
         String breadcrumb;
 
         if (streamType.equals(Constants.STREAM_TYPE_MPEG_TS)) {
-            breadcrumb = getString(R.string.current_stream_type, getString(R.string.mpeg_ts_text));
+            breadcrumb = getString(R.string.current_status_text, getString(R.string.mpeg_ts_text));
         } else {
-            breadcrumb = getString(R.string.current_stream_type, getString(R.string.hls_text));
+            breadcrumb = getString(R.string.current_status_text, getString(R.string.hls_text));
         }
 
         return (new GuidanceStylist.Guidance(title, description, breadcrumb, icon));

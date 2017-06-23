@@ -1,6 +1,8 @@
 package com.zaclimon.aceiptv.util;
 
 import android.content.ComponentName;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.model.InternalProviderData;
@@ -22,7 +24,7 @@ public class AceChannelUtil {
 
     private static final String LOG_TAG = "AceChannelUtil";
 
-    public static List<Channel> getChannelList(InputStream playlist, List<Channel> channels) {
+    public static List<Channel> getChannelList(InputStream playlist, List<Channel> channels, Context context) {
 
         List<String> playListString = getPlaylistAsStrings(playlist);
         List<String> names = getChannelAttribute(playListString, Constants.ATTRIBUTE_TVG_NAME);
@@ -30,6 +32,8 @@ public class AceChannelUtil {
         List<String> logos = getChannelAttribute(playListString, Constants.ATTRIBUTE_TVG_LOGO);
         List<String> ids = getChannelAttribute(playListString, Constants.ATTRIBUTE_TVG_ID);
         List<Channel> tempList = new ArrayList<>();
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.ACE_IPTV_PREFERENCES, Context.MODE_PRIVATE);
 
         /*
          Google is kind of "weird" when it comes to the way it has of tuning channel/program
@@ -55,6 +59,7 @@ public class AceChannelUtil {
             String tempLink = links.get(i);
             Channel channel;
             int tempId = ids.get(i).hashCode();
+            boolean hasChannelLogo = sharedPreferences.getBoolean(Constants.CHANNEL_LOGO_PREFERENCE, true);
 
             for (int j = 0; j < channels.size(); j++) {
 
@@ -67,7 +72,11 @@ public class AceChannelUtil {
                 Channel tempChannel = channels.get(j);
 
                 if (tempId == tempChannel.getOriginalNetworkId() || j == channels.size() - 1) {
-                    channel = createChannel(tempName, Integer.toString(i + 1), tempId, tempLogo, tempLink);
+                    if (hasChannelLogo) {
+                        channel = createChannel(tempName, Integer.toString(i + 1), tempId, tempLogo, tempLink);
+                    } else {
+                        channel = createChannel(tempName, Integer.toString(i + 1), tempId, null, tempLink);
+                    }
                     tempList.add(channel);
                     break;
                 }

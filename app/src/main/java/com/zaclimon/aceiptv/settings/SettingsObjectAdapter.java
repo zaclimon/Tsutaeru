@@ -18,6 +18,7 @@ public class SettingsObjectAdapter extends ArrayObjectAdapter {
     public SettingsObjectAdapter() {
         super(new CardViewPresenter());
         setStreamTypeSection();
+        setChannelLogoSection();
         setForceEpgSyncSection();
     }
 
@@ -25,6 +26,13 @@ public class SettingsObjectAdapter extends ArrayObjectAdapter {
         Bundle bundle = new Bundle();
         bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.stream_type);
         bundle.putInt(BUNDLE_SETTINGS_DRAWABLE_ID, R.drawable.ic_view_stream);
+        add(bundle);
+    }
+
+    private void setChannelLogoSection() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.channel_logo_short);
+        bundle.putInt(BUNDLE_SETTINGS_DRAWABLE_ID, R.drawable.ic_channel_logo);
         add(bundle);
     }
 

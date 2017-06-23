@@ -25,8 +25,8 @@ import java.util.List;
 
 public class EpgForceSyncGuidedFragment extends GuidedStepFragment {
 
-    private static final int ACTION_YES = 0;
-    private static final int ACTION_NO = 1;
+    private final int ACTION_YES = 0;
+    private final int ACTION_NO = 1;
 
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {

@@ -125,7 +125,7 @@ public class AceJobService extends EpgSyncJobService {
             try {
                 InputStream inputStream = RichFeedUtil.getInputStream(AceJobService.this, Uri.parse(playListUrl));
                 mTvListing = RichFeedUtil.getRichTvListings(AceJobService.this, epgUrl);
-                mChannels = AceChannelUtil.getChannelList(inputStream, mTvListing.getChannels());
+                mChannels = AceChannelUtil.getChannelList(inputStream, mTvListing.getChannels(), AceJobService.this);
                 return (mTvListing != null && mChannels != null);
             } catch (IOException io) {
                 io.printStackTrace();
