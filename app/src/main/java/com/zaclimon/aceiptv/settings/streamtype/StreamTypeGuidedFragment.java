@@ -83,7 +83,7 @@ public class StreamTypeGuidedFragment extends GuidedStepFragment {
         String modifiedAction = sharedPreferences.getString(Constants.STREAM_TYPE_PREFERENCE, Constants.STREAM_TYPE_HLS);
 
         if (!initialAction.equals(modifiedAction)) {
-            // Sync the channels to reflect the latest changes only the stream type is different from before.
+            // Sync the channels to reflect the latest changes only if the stream type is different from before.
             String inputId = TvContract.buildInputId(AceChannelUtil.TV_INPUT_SERVICE_COMPONENT);
             EpgSyncJobService.requestImmediateSync(getActivity(), inputId, new ComponentName(getActivity(), AceJobService.class));
             Toast.makeText(getActivity(), R.string.channel_update, Toast.LENGTH_LONG).show();

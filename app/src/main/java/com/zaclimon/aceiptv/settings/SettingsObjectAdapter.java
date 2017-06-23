@@ -18,12 +18,20 @@ public class SettingsObjectAdapter extends ArrayObjectAdapter {
     public SettingsObjectAdapter() {
         super(new CardViewPresenter());
         setStreamTypeSection();
+        setForceEpgSyncSection();
     }
 
     private void setStreamTypeSection() {
         Bundle bundle = new Bundle();
         bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.stream_type);
         bundle.putInt(BUNDLE_SETTINGS_DRAWABLE_ID, R.drawable.ic_view_stream);
+        add(bundle);
+    }
+
+    private void setForceEpgSyncSection() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.force_epg_sync_short);
+        bundle.putInt(BUNDLE_SETTINGS_DRAWABLE_ID, R.drawable.ic_sync_epg);
         add(bundle);
     }
 }

@@ -5,10 +5,14 @@
     <string name="channel_update">Updating channels&#8230;</string>
     <string name="connection_successful_text">Connection successful!</string>
     <string name="current_stream_type">Current type: %1$s</string>
+    <string name="force_epg_sync">Force EPG sync</string>
+    <string name="force_epg_sync_short">Force sync</string>
+    <string name="force_epg_sync_description">Syncs the EPG guide for one hour</string>
     <string name="hls_text">HLS</string>
     <string name="invalid_channel">Channel invalid, please contact A.C.E</string>
     <string name="internet_not_available">Please verify your internet connection</string>
     <string name="mpeg_ts_text">MPEG-TS</string>
+    <string name="no_text">No</string>
     <string name="password_text">Password</string>
     <string name="tv_input_label">A.C.E. IPTV</string>
     <string name="settings_text">Settings</string>
@@ -17,4 +21,5 @@
     <string name="stream_type_description">Sets the current stream output for a given IPTV channel</string>
     <string name="username_text">Username</string>
     <string name="wrong_credentials">Your credentials are not valid</string>
+    <string name="yes_text">Yes</string>
 </resources>
