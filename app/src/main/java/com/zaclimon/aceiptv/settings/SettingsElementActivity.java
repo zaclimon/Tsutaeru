@@ -1,10 +1,12 @@
 package com.zaclimon.aceiptv.settings;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v17.leanback.app.GuidedStepFragment;
 
 import com.zaclimon.aceiptv.R;
+import com.zaclimon.aceiptv.auth.AuthActivityTv;
 import com.zaclimon.aceiptv.settings.channellogo.ChannelLogoGuidedFragment;
 import com.zaclimon.aceiptv.settings.epgforcesync.EpgForceSyncGuidedFragment;
 import com.zaclimon.aceiptv.settings.streamtype.StreamTypeGuidedFragment;
@@ -36,6 +38,11 @@ public class SettingsElementActivity extends Activity {
                 case R.string.force_epg_sync_title:
                 case R.string.force_epg_sync_title_short:
                     GuidedStepFragment.addAsRoot(this, new EpgForceSyncGuidedFragment(), android.R.id.content);
+                    break;
+                case R.string.change_user_title:
+                    Intent intent = new Intent(this, AuthActivityTv.class);
+                    startActivity(intent);
+                    finish();
                     break;
             }
         }

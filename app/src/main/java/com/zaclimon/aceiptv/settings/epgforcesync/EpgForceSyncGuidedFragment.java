@@ -45,6 +45,7 @@ public class EpgForceSyncGuidedFragment extends GuidedStepFragment {
         actions.add(noAction.build());
     }
 
+    //TODO: Check for ACTION_YES before syncing.
     @Override
     public void onGuidedActionClicked(GuidedAction guidedAction) {
         String inputId = TvContract.buildInputId(AceChannelUtil.TV_INPUT_SERVICE_COMPONENT);

@@ -17,6 +17,7 @@ import com.google.android.media.tv.companionlibrary.EpgSyncJobService;
 import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.auth.AuthActivityTv;
 import com.zaclimon.aceiptv.service.AceJobService;
+import com.zaclimon.aceiptv.util.Utilities;
 
 /**
  * Created by isaac on 17-06-11.
@@ -45,8 +46,12 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
 
     @Override
     public void onScanStarted() {
-        Intent authIntent = new Intent(getActivity(), AuthActivityTv.class);
-        startActivityForResult(authIntent, ASKING_AUTHENTICATION);
+        if (Utilities.isUsernamePasswordEmpty(getActivity())) {
+            Intent authIntent = new Intent(getActivity(), AuthActivityTv.class);
+            startActivityForResult(authIntent, ASKING_AUTHENTICATION);
+        } else {
+            startFirstSync();
+        }
     }
 
     @Override
@@ -76,14 +81,17 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
 
         if (requestCode == ASKING_AUTHENTICATION) {
             if (resultCode == Activity.RESULT_OK) {
-                EpgSyncJobService.cancelAllSyncRequests(getActivity());
-                EpgSyncJobService.requestImmediateSync(getActivity(), mInputId, new ComponentName(getActivity(), AceJobService.class));
-                EpgSyncJobService.setUpPeriodicSync(getActivity(), mInputId, new ComponentName(getActivity(), AceJobService.class));
+                startFirstSync();
             } else {
                 Toast.makeText(getActivity(), getString(R.string.authentication_not_possible), Toast.LENGTH_LONG).show();
                 getActivity().finish();
             }
         }
+    }
 
+    private void startFirstSync() {
+        EpgSyncJobService.cancelAllSyncRequests(getActivity());
+        EpgSyncJobService.requestImmediateSync(getActivity(), mInputId, new ComponentName(getActivity(), AceJobService.class));
+        EpgSyncJobService.setUpPeriodicSync(getActivity(), mInputId, new ComponentName(getActivity(), AceJobService.class));
     }
 }

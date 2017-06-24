@@ -20,6 +20,7 @@ public class SettingsObjectAdapter extends ArrayObjectAdapter {
         setStreamTypeSection();
         setChannelLogoSection();
         setForceEpgSyncSection();
+        setChangeUserSection();
     }
 
     private void setStreamTypeSection() {
@@ -40,6 +41,13 @@ public class SettingsObjectAdapter extends ArrayObjectAdapter {
         Bundle bundle = new Bundle();
         bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.force_epg_sync_title_short);
         bundle.putInt(BUNDLE_SETTINGS_DRAWABLE_ID, R.drawable.ic_sync_epg);
+        add(bundle);
+    }
+
+    private void setChangeUserSection() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.change_user_title);
+        bundle.putInt(BUNDLE_SETTINGS_DRAWABLE_ID, R.drawable.ic_change_user);
         add(bundle);
     }
 }

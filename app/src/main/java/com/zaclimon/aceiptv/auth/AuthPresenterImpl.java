@@ -47,7 +47,7 @@ public class AuthPresenterImpl implements AuthPresenter {
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
-                String m3uLink = asyncContext.getString(R.string.ace_playlist_url, asyncUsername, asyncPassword);
+                String m3uLink = asyncContext.getString(R.string.ace_playlist_url, asyncUsername, asyncPassword, Constants.STREAM_TYPE_HLS);
                 RichFeedUtil.getInputStream(asyncContext, Uri.parse(m3uLink));
                 return (true);
             } catch (IOException io) {
