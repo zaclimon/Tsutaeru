@@ -11,6 +11,7 @@ import android.support.v17.leanback.app.GuidedStepFragment;
 
 import com.zaclimon.aceiptv.main.MainActivity;
 import com.zaclimon.aceiptv.util.Constants;
+import com.zaclimon.aceiptv.util.Utilities;
 
 import static android.R.attr.password;
 
@@ -24,13 +25,9 @@ public class AuthActivityTv extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (isTvMode()) {
+        if (Utilities.isTvMode(this)) {
             GuidedStepFragment.addAsRoot(this, new WelcomeStepAuthGuidedFragment(), android.R.id.content);
         }
     }
 
-    private boolean isTvMode() {
-        UiModeManager uiModeManager = (UiModeManager) getSystemService(UI_MODE_SERVICE);
-        return (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION);
-    }
 }

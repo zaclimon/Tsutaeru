@@ -23,27 +23,39 @@ import com.zaclimon.aceiptv.util.Utilities;
 
 public class MainActivity extends Activity {
 
+    private final int AUTH_REQUEST = 0;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (Utilities.isUsernamePasswordEmpty(this)) {
+            Intent intent = new Intent(this, AuthActivityTv.class);
+            startActivityForResult(intent, AUTH_REQUEST);
+        } else {
+            configureLayout();
+        }
+    }
+
+    private void configureLayout() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 
-        if (isTvMode() && Utilities.isUsernamePasswordEmpty(this)) {
-            Intent intent = new Intent(this, AuthActivityTv.class);
-            startActivity(intent);
-            finish();
-        } else if (isTvMode()) {
+        if (Utilities.isTvMode(this)) {
             fragmentTransaction.add(R.id.activity_fragment_holder, new MainTvFragment());
         }
 
         fragmentTransaction.commit();
     }
 
-    private boolean isTvMode() {
-        UiModeManager uiModeManager = (UiModeManager) getSystemService(UI_MODE_SERVICE);
-        return (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION);
-    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        if (requestCode == AUTH_REQUEST && resultCode == Activity.RESULT_OK) {
+            configureLayout();
+        } else {
+            finish();
+        }
+
+    }
 }
