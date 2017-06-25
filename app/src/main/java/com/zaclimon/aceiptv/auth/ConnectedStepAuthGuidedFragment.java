@@ -2,17 +2,12 @@ package com.zaclimon.aceiptv.auth;
 
 import android.app.Activity;
 import android.content.ComponentName;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v17.leanback.app.GuidedStepFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
-import android.text.InputType;
-import android.util.Log;
 
 import com.zaclimon.aceiptv.R;
-import com.zaclimon.aceiptv.main.MainActivity;
-import com.zaclimon.aceiptv.service.AceInputTvService;
 import com.zaclimon.aceiptv.setup.AceTvInputSetupActivity;
 
 import java.util.List;

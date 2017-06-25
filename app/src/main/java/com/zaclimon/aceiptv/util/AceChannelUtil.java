@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 
 import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.model.InternalProviderData;
-import com.zaclimon.aceiptv.service.AceInputTvService;
+import com.zaclimon.aceiptv.service.AceTvInputService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class AceChannelUtil {
 
-    public static final ComponentName TV_INPUT_SERVICE_COMPONENT = new ComponentName(AceInputTvService.class.getPackage().getName(), AceInputTvService.class.getName());
+    public static final ComponentName TV_INPUT_SERVICE_COMPONENT = new ComponentName(AceTvInputService.class.getPackage().getName(), AceTvInputService.class.getName());
 
     private static final String LOG_TAG = "AceChannelUtil";
 

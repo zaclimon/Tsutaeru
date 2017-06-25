@@ -40,7 +40,7 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
  * Created by isaac on 17-06-11.
  */
 
-public class AceInputTvService extends BaseTvInputService {
+public class AceTvInputService extends BaseTvInputService {
 
     @Override
     public final Session onCreateSession(String inputId) {

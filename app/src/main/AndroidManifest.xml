@@ -40,7 +40,7 @@
         <activity android:name=".auth.AuthActivityTv"/>
         <activity android:name=".settings.SettingsElementActivity"/>
 
-        <service android:name=".service.AceInputTvService"
+        <service android:name=".service.AceTvInputService"
                  android:label="@string/tv_input_label"
                  android:permission="android.permission.BIND_TV_INPUT">
             <!-- Required filter used by the system to launch our account service. -->
