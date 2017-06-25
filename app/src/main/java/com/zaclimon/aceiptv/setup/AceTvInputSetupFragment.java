@@ -2,7 +2,9 @@ package com.zaclimon.aceiptv.setup;
 
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.media.tv.TvContract;
 import android.media.tv.TvInputInfo;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -47,6 +49,9 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
     @Override
     public void onScanStarted() {
         if (Utilities.isUsernamePasswordEmpty(getActivity())) {
+            // Remove all channels if there were any and authenticate the user.
+            ContentResolver contentResolver = getActivity().getContentResolver();
+            contentResolver.delete(TvContract.buildChannelsUriForInput(mInputId), null, null);
             Intent authIntent = new Intent(getActivity(), AuthActivityTv.class);
             startActivityForResult(authIntent, ASKING_AUTHENTICATION);
         } else {
