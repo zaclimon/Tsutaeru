@@ -23,14 +23,13 @@ import com.zaclimon.aceiptv.util.Constants;
 
 import java.util.List;
 
+import static android.R.attr.action;
+
 /**
  * Created by isaac on 17-06-23.
  */
 
 public class ChannelLogoGuidedFragment extends GuidedStepFragment {
-
-    private final int ACTION_YES = 0;
-    private final int ACTION_NO = 1;
 
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
@@ -56,8 +55,8 @@ public class ChannelLogoGuidedFragment extends GuidedStepFragment {
         GuidedAction.Builder noAction = new GuidedAction.Builder(getActivity());
         yesAction.title(R.string.yes_text);
         noAction.title(R.string.no_text);
-        yesAction.id(ACTION_YES);
-        noAction.id(ACTION_NO);
+        yesAction.id(GuidedAction.ACTION_ID_YES);
+        noAction.id(GuidedAction.ACTION_ID_NO);
         actions.add(yesAction.build());
         actions.add(noAction.build());
     }
@@ -68,15 +67,11 @@ public class ChannelLogoGuidedFragment extends GuidedStepFragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.ACE_IPTV_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         boolean initialAction = sharedPreferences.getBoolean(Constants.CHANNEL_LOGO_PREFERENCE, true);
-        int action = (int) guidedAction.getId();
 
-        switch (action) {
-            case ACTION_YES:
-                editor.putBoolean(Constants.CHANNEL_LOGO_PREFERENCE, true);
-                break;
-            case ACTION_NO:
-                editor.putBoolean(Constants.CHANNEL_LOGO_PREFERENCE, false);
-                break;
+        if (guidedAction.getId() == GuidedAction.ACTION_ID_YES) {
+            editor.putBoolean(Constants.CHANNEL_LOGO_PREFERENCE, true);
+        } else {
+            editor.putBoolean(Constants.CHANNEL_LOGO_PREFERENCE, false);
         }
 
         editor.apply();

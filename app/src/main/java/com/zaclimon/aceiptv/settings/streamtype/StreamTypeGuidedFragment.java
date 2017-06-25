@@ -74,6 +74,8 @@ public class StreamTypeGuidedFragment extends GuidedStepFragment {
             case ACTION_HLS:
                 editor.putString(Constants.STREAM_TYPE_PREFERENCE, Constants.STREAM_TYPE_HLS);
                 break;
+            default:
+                editor.putString(Constants.STREAM_TYPE_PREFERENCE, Constants.STREAM_TYPE_HLS);
         }
 
         editor.apply();

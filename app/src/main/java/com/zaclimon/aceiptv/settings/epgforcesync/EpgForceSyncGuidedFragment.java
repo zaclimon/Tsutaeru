@@ -22,9 +22,6 @@ import java.util.List;
 
 public class EpgForceSyncGuidedFragment extends GuidedStepFragment {
 
-    private final int ACTION_YES = 0;
-    private final int ACTION_NO = 1;
-
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
         String title = getString(R.string.force_epg_sync_title);
@@ -39,18 +36,19 @@ public class EpgForceSyncGuidedFragment extends GuidedStepFragment {
         GuidedAction.Builder noAction = new GuidedAction.Builder(getActivity());
         yesAction.title(R.string.yes_text);
         noAction.title(R.string.no_text);
-        yesAction.id(ACTION_YES);
-        noAction.id(ACTION_NO);
+        yesAction.id(GuidedAction.ACTION_ID_YES);
+        noAction.id(GuidedAction.ACTION_ID_NO);
         actions.add(yesAction.build());
         actions.add(noAction.build());
     }
 
-    //TODO: Check for ACTION_YES before syncing.
     @Override
     public void onGuidedActionClicked(GuidedAction guidedAction) {
-        String inputId = TvContract.buildInputId(AceChannelUtil.TV_INPUT_SERVICE_COMPONENT);
-        EpgSyncJobService.requestImmediateSync(getActivity(), inputId, new ComponentName(getActivity(), AceJobService.class));
-        Toast.makeText(getActivity(), R.string.channel_update, Toast.LENGTH_LONG).show();
+        if (guidedAction.getId() == GuidedAction.ACTION_ID_YES) {
+            String inputId = TvContract.buildInputId(AceChannelUtil.TV_INPUT_SERVICE_COMPONENT);
+            EpgSyncJobService.requestImmediateSync(getActivity(), inputId, new ComponentName(getActivity(), AceJobService.class));
+            Toast.makeText(getActivity(), R.string.channel_update, Toast.LENGTH_LONG).show();
+        }
         getActivity().finish();
     }
 
