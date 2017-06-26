@@ -4,7 +4,11 @@ package com.zaclimon.aceiptv.auth;
 import com.zaclimon.aceiptv.util.SharedPreferencesRepository;
 
 /**
- * Created by isaac on 17-06-07.
+ * Concrete implementation of the AuthPresenter interface for the signing up step of the
+ * authentication process.
+ *
+ * @author zaclimon
+ * Creation date: 07/06/17
  */
 
 public class AuthPresenterImpl implements AuthPresenter {
@@ -17,10 +21,17 @@ public class AuthPresenterImpl implements AuthPresenter {
 
     private AuthView mAuthView;
 
+    /**
+     * Default construction of the AuthPresenter implementation.
+     * @param view the AuthView used to callback depending on the authentication results.
+     */
     public AuthPresenterImpl(AuthView view) {
         mAuthView = view;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void validateInfo(String username, String password, SharedPreferencesRepository sharedPreferencesRepository) {
         AsyncAuthValidateInfo asyncAuthValidateInfo = new AsyncAuthValidateInfo(username, password, mAuthView, sharedPreferencesRepository);

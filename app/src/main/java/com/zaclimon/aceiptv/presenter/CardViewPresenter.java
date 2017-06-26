@@ -12,7 +12,11 @@ import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.settings.SettingsObjectAdapter;
 
 /**
- * Created by isaac on 17-06-21.
+ * Custom {@link Presenter} class that is used to show {@link ImageCardView}
+ * in a given list. (Mostly Leanback related UI widgets)
+ *
+ * @author zaclimon
+ * Creation date: 21/06/17
  */
 
 public class CardViewPresenter extends Presenter {
@@ -20,6 +24,9 @@ public class CardViewPresenter extends Presenter {
     private static final int CARDVIEW_WIDTH = 200;
     private static final int CARDVIEW_HEIGHT = 200;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Presenter.ViewHolder onCreateViewHolder(ViewGroup parent) {
         ImageCardView imageCardView = new ImageCardView(parent.getContext());
@@ -30,6 +37,9 @@ public class CardViewPresenter extends Presenter {
         return (new ViewHolder(imageCardView));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Object item) {
         ImageCardView imageCardView = (ImageCardView) viewHolder.view;
@@ -45,6 +55,9 @@ public class CardViewPresenter extends Presenter {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onUnbindViewHolder(ViewHolder viewHolder) {
 

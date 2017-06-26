@@ -27,7 +27,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by isaac on 17-06-11.
+ * Custom {@link EpgSyncJobService} used for syncing A.C.E. IPTV content.
+ *
+ * It downloads and parses the content from a user's M3U playlist + EPG XMLTV to add it to the
+ * Android TV's system database in order to be used by the Live Channels application.
+ *
+ * @author zaclimon
+ * Creation date: 11/06/17
+ *
  */
 
 public class AceJobService extends EpgSyncJobService {
@@ -38,11 +45,17 @@ public class AceJobService extends EpgSyncJobService {
     private String mInputId;
     private XmlTvParser.TvListing mTvListing;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Channel> getChannels() {
         return (mChannels);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Program> getProgramsForChannel(Uri channelUri, Channel channel, long startMs, long endMs) {
 
@@ -81,6 +94,9 @@ public class AceJobService extends EpgSyncJobService {
         return (null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean onStartJob(JobParameters params) {
         // Broadcast status
@@ -97,6 +113,13 @@ public class AceJobService extends EpgSyncJobService {
     }
 
 
+    /**
+     * Custom class used to download in a asynchronous fashion the M3U playlist as well
+     * as the EPG guide from a user.
+     *
+     * @author zaclimon
+     * Creation date: 11/06/17
+     */
     public class AsyncEpgDownload extends AsyncTask<Void, Void, Boolean> {
 
         /*

@@ -7,7 +7,11 @@ import android.os.Bundle;
 import com.zaclimon.aceiptv.R;
 
 /**
- * Created by isaac on 17-06-11.
+ * Activity that is used to configure the A.C.E. IPTV channels upon going to the
+ * Live Channels application.
+ *
+ * @author zaclimon
+ * Creation date: 11/06/17
  */
 
 public class AceTvInputSetupActivity extends Activity {

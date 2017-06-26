@@ -11,11 +11,20 @@ import com.zaclimon.aceiptv.util.SharedPreferencesRepositoryImpl;
 import com.zaclimon.aceiptv.util.Constants;
 
 /**
- * Created by isaac on 17-06-24.
+ * Fourth step in the authentication process.
+ *
+ * It is mostly the core of the process since it is verifying that a given username/password
+ * match is valid and saves it for future use.
+ *
+ * @author zaclimon
+ * Creation date: 24/06/17
  */
 
 public class LoadingAuthGuidedFragment extends GuidedStepFragment implements AuthView {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -29,6 +38,9 @@ public class LoadingAuthGuidedFragment extends GuidedStepFragment implements Aut
         authPresenter.validateInfo(email, password, sharedPreferencesRepository);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GuidanceStylist onCreateGuidanceStylist() {
         return new GuidanceStylist() {
@@ -39,6 +51,9 @@ public class LoadingAuthGuidedFragment extends GuidedStepFragment implements Aut
         };
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onConnectionSuccess() {
         GuidedStepFragment connectedFragment = new ConnectedStepAuthGuidedFragment();
@@ -49,15 +64,21 @@ public class LoadingAuthGuidedFragment extends GuidedStepFragment implements Aut
         add(getFragmentManager(), connectedFragment);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onWrongCredentialsReceived() {
         Toast.makeText(getActivity(), R.string.wrong_credentials, Toast.LENGTH_LONG).show();
         popBackStackToGuidedStepFragment(PasswordStepAuthGuidedFragment.class, 0);
     }
 
-    // Could be honestly better since it's not the View's role to get the link...
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getPlaylistLink(String username, String password) {
+        // Could be honestly better since it's not the View's role to get the link...
         return (getString(R.string.ace_playlist_url, username, password, Constants.STREAM_TYPE_HLS));
     }
 }

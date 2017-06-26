@@ -7,7 +7,12 @@ import android.support.v17.leanback.app.GuidedStepFragment;
 import com.zaclimon.aceiptv.util.ActivityUtil;
 
 /**
- * Created by isaac on 17-06-07.
+ * Activity class used to start an authentication (sign-in) process for
+ * an A.C.E. IPTV user.
+ *
+ * @author zaclimon
+ * Creation date: 07/06/17
+ *
  */
 
 public class AuthActivityTv extends Activity {

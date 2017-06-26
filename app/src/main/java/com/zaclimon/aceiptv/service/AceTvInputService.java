@@ -37,32 +37,56 @@ import static android.R.attr.width;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 /**
- * Created by isaac on 17-06-11.
+ * Custom {@link BaseTvInputService} used for A.C.E. IPTV.
+ *
+ * @author zaclimon
+ * Creation date: 11/06/17
  */
 
 public class AceTvInputService extends BaseTvInputService {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Session onCreateSession(String inputId) {
         AceSession aceSession = new AceSession(this, inputId);
         return (super.sessionCreated(aceSession));
     }
 
+    /**
+     * Custom {@link com.google.android.media.tv.companionlibrary.BaseTvInputService.Session} which
+     * handles playback when a {@link Channel} is tuned.
+     *
+     * It also implements an {@link com.google.android.exoplayer2.ExoPlayer.EventListener} in which
+     * it can adapt better to callbacks from a {@link AcePlayer}
+     */
     private class AceSession extends Session implements ExoPlayer.EventListener {
 
         private AcePlayer mAcePlayer;
         private Context mContext;
 
+        /**
+         * Base constructor
+         * @param context context which will be used for session.
+         * @param inputId the input id of the application
+         */
         public AceSession(Context context, String inputId) {
             super(context, inputId);
             mContext = context;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public boolean onPlayProgram(Program program, long startPosMs) {
             return (true);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void onPlayChannel(Channel channel) {
             mAcePlayer = new AcePlayer(mContext, channel.getInternalProviderData().getVideoUrl());
@@ -81,19 +105,31 @@ public class AceTvInputService extends BaseTvInputService {
             mAcePlayer.play();
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void onSetCaptionEnabled(boolean enabled) {}
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public boolean onPlayRecordedProgram(RecordedProgram recordedProgram) {
             return (false);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public TvPlayer getTvPlayer() {
             return (mAcePlayer);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public boolean onTune(Uri channelUri) {
 
@@ -105,12 +141,18 @@ public class AceTvInputService extends BaseTvInputService {
             return super.onTune(channelUri);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void onRelease() {
             super.onRelease();
             releasePlayer();
         }
 
+        /**
+         * Method that stops and releases a given player's resources.
+         */
         public void releasePlayer() {
             if (mAcePlayer != null) {
                 mAcePlayer.setSurface(null);
@@ -120,6 +162,13 @@ public class AceTvInputService extends BaseTvInputService {
             }
         }
 
+        /**
+         * Gets a list of given tracks for a given channel, whether it is video or audio.
+         *
+         * This way, it is possible for a user to see in the Live Channels application the video
+         * resolution and the audio layout.
+         * @return the track list usable by the Live Channels application
+         */
         private List<TvTrackInfo> getAllTracks() {
             List<TvTrackInfo> tracks = new ArrayList<>();
             tracks.add(getTrack(TvTrackInfo.TYPE_VIDEO));
@@ -127,6 +176,11 @@ public class AceTvInputService extends BaseTvInputService {
             return (tracks);
         }
 
+        /**
+         * Returns a given track based on the player's video or audio format.
+         * @param trackType the type as defined by {@link TvTrackInfo#TYPE_VIDEO} or {@link TvTrackInfo#TYPE_AUDIO}
+         * @return the related {@link TvTrackInfo} for a given player track.
+         */
         private TvTrackInfo getTrack(int trackType) {
 
              /*
@@ -163,21 +217,33 @@ public class AceTvInputService extends BaseTvInputService {
             return (builder.build());
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void onTimelineChanged(Timeline timeline, Object manifest) {
 
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
 
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void onLoadingChanged(boolean isLoading) {
 
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
 
@@ -193,6 +259,9 @@ public class AceTvInputService extends BaseTvInputService {
             }
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void onPlayerError(ExoPlaybackException error) {
             if (error.getCause() instanceof BehindLiveWindowException) {
@@ -204,11 +273,17 @@ public class AceTvInputService extends BaseTvInputService {
             }
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void onPositionDiscontinuity() {
 
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
 

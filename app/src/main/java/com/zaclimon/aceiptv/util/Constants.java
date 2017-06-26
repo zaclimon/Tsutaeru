@@ -1,7 +1,10 @@
 package com.zaclimon.aceiptv.util;
 
 /**
- * Created by isaac on 17-06-17.
+ * List of constants to be used throughout the application's lifecycle.
+ *
+ * @author zaclimon
+ * Creation date: 17/06/17
  */
 
 public class Constants {

@@ -14,13 +14,20 @@ import com.zaclimon.aceiptv.util.ActivityUtil;
 
 
 /**
- * Created by isaac on 17-06-20.
+ * First activity upon opening the application. Decides of the layouts to use and if
+ * a sign-in is required.
+ *
+ * @author zaclimon
+ * Creation date: 20/06/17
  */
 
 public class MainActivity extends Activity {
 
     private final int AUTH_REQUEST = 0;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +47,9 @@ public class MainActivity extends Activity {
         }
     }
 
+    /**
+     * Adds the correct layout based on the display type
+     */
     private void configureLayout() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 
@@ -50,6 +60,9 @@ public class MainActivity extends Activity {
         fragmentTransaction.commit();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 

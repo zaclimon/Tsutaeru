@@ -21,7 +21,12 @@ import com.zaclimon.aceiptv.service.AceJobService;
 import com.zaclimon.aceiptv.util.ActivityUtil;
 
 /**
- * Created by isaac on 17-06-11.
+ * Fragment used to configure channels for A.C.E. IPTV whether it be on the first
+ * run of the Live Channel application or successive runs. It is created. every time
+ * a user wants to configure his/her channels.
+ *
+ * @author zaclimon
+ * Creation date: 11/06/17
  */
 
 public class AceTvInputSetupFragment extends ChannelSetupFragment {
@@ -45,6 +50,9 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
         return (fragmentView);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onScanStarted() {
         if (ActivityUtil.isUsernamePasswordEmpty(getActivity())) {
@@ -58,11 +66,17 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getInputId() {
         return (mInputId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onScanFinished() {
         if (!mErrorFound) {
@@ -74,12 +88,18 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
         getActivity().finish();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onScanError(int reason) {
         mErrorFound = true;
         Log.d(getClass().getSimpleName(), "Reason: " + reason);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -93,6 +113,10 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
         }
     }
 
+    /**
+     * Initially syncs the EPG data for a user. Basing itself from {@link AceJobService} it also
+     * sets up a periodic sync.
+     */
     private void startFirstSync() {
         EpgSyncJobService.cancelAllSyncRequests(getActivity());
         EpgSyncJobService.requestImmediateSync(getActivity(), mInputId, new ComponentName(getActivity(), AceJobService.class));

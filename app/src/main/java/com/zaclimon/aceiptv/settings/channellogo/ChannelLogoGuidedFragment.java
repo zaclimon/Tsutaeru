@@ -26,11 +26,18 @@ import java.util.List;
 import static android.R.attr.action;
 
 /**
- * Created by isaac on 17-06-23.
+ * Setting fragment which will either enable or disable the channel logos as seen on
+ * the Live Channels application
+ *
+ * @author zaclimon
+ * Creation date: 23/06/17
  */
 
 public class ChannelLogoGuidedFragment extends GuidedStepFragment {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
 
@@ -49,6 +56,9 @@ public class ChannelLogoGuidedFragment extends GuidedStepFragment {
         return (new GuidanceStylist.Guidance(title, description, breadcrumb, null));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreateActions (List<GuidedAction> actions, Bundle savedInstanceState) {
         GuidedAction.Builder yesAction = new GuidedAction.Builder(getActivity());
@@ -61,6 +71,9 @@ public class ChannelLogoGuidedFragment extends GuidedStepFragment {
         actions.add(noAction.build());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onGuidedActionClicked(GuidedAction guidedAction) {
 
@@ -98,6 +111,13 @@ public class ChannelLogoGuidedFragment extends GuidedStepFragment {
         getActivity().finish();
     }
 
+    /**
+     * Private class that will remove all A.C.E. channels logo's from the system's database
+     * in a asynchronous way.
+     *
+     * @author zaclimon
+     * Creation date: 23/06/17
+     */
     private class AsyncRemoveLogos extends AsyncTask<Void, Void, Void> {
 
         public Void doInBackground(Void... params) {

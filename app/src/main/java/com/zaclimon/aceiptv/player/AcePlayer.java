@@ -43,7 +43,13 @@ import static android.R.string.defaultMsisdnAlphaTag;
 import static android.R.string.ok;
 
 /**
- * Created by isaac on 17-06-11.
+ * Concrete implementation of the {@link TvPlayer} interface made for A.C.E IPTV.
+ *
+ * This current implementation is based on ExoPlayer 2.x series.
+ *
+ * @author zaclimon
+ * Creation date: 11/06/17
+ *
  */
 
 public class AcePlayer implements TvPlayer {
@@ -52,12 +58,21 @@ public class AcePlayer implements TvPlayer {
     private List<TvPlayer.Callback> callbacks;
     private String streamUrl;
 
+    /**
+     * Main constructor of the player.
+     * @param context the context used to initialize the player
+     * @param url the url containing the required stream to be played
+     */
     public AcePlayer(Context context, String url) {
         callbacks = new ArrayList<>();
         streamUrl = url;
         init(context);
     }
 
+    /**
+     * Initializes and prepares the player but doesn't make it play the content.
+     * @param context the context needed to initialize the player.
+     */
     private void init(Context context) {
         BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
         TrackSelection.Factory videoTrackSelectionFactory = new AdaptiveTrackSelection.Factory(bandwidthMeter);
@@ -67,6 +82,11 @@ public class AcePlayer implements TvPlayer {
         player.prepare(getMediaSource(context));
     }
 
+    /**
+     * Gets the required {@link MediaSource} depending on the stream source.
+     * @param context The required context to get the correct MediaSource
+     * @return the MediaSource used for the playback.
+     */
     private MediaSource getMediaSource(Context context) {
         Uri mediaUrl = Uri.parse(streamUrl);
         DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(context, Util.getUserAgent(context, context.getString(R.string.app_name)));
@@ -87,52 +107,82 @@ public class AcePlayer implements TvPlayer {
         return (mediaSource);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void play() {
         Log.d(getClass().getSimpleName(), "play() called!");
         player.setPlayWhenReady(true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void pause() {
         player.setPlayWhenReady(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setVolume(float volume) {
         player.setVolume(volume);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void registerCallback(TvPlayer.Callback callback) {
         callbacks.add(callback);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void unregisterCallback(TvPlayer.Callback callback) {
         callbacks.remove(callback);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void seekTo(long positionMs) {
         player.seekTo(positionMs);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public long getCurrentPosition() {
         return (player.getCurrentPosition());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setSurface(Surface surface) {
         player.setVideoSurface(surface);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public long getDuration() {
         return (player.getDuration());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setPlaybackParams(PlaybackParams params) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -141,26 +191,48 @@ public class AcePlayer implements TvPlayer {
         }
     }
 
+    /**
+     * Stops the player if required
+     */
     public void stop() {
         player.stop();
     }
 
+    /**
+     * Releases the resources used by the player
+     */
     public void release() {
         player.release();
     }
 
+    /**
+     * Re-prepares a streaming for the player
+     * @param context the context needed to re-prepare the player
+     */
     public void restart(Context context) {
         player.prepare(getMediaSource(context));
     }
 
+    /**
+     * Used to determine what is the main video format used by the player while streaming
+     * @return the video format used while streaming
+     */
     public Format getVideoFormat() {
         return (player.getVideoFormat());
     }
 
+    /**
+     * Used to determine what is the main audio format used by the player while streaming.
+     * @return the audio format used while streaming
+     */
     public Format getAudioFormat() {
         return (player.getAudioFormat());
     }
 
+    /**
+     * Adds listeners for eventual callbacks
+     * @param listener the given listener for callbacks.
+     */
     public void addListener(ExoPlayer.EventListener listener) {
         player.addListener(listener);
     }

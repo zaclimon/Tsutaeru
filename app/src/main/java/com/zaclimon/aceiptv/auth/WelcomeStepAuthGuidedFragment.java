@@ -10,11 +10,20 @@ import com.zaclimon.aceiptv.R;
 import java.util.List;
 
 /**
- * Created by isaac on 17-06-23.
+ * First step in the authentication process
+ *
+ * Shows the potential user a welcome screen requiring him/her to sign-in
+ * in order to benefit from A.C.E. IPTV services.
+ *
+ * @author zaclimon
+ * Creation date: 23/06/17
  */
 
 public class WelcomeStepAuthGuidedFragment extends GuidedStepFragment {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
         String title = getString(R.string.welcome_text);
@@ -23,6 +32,9 @@ public class WelcomeStepAuthGuidedFragment extends GuidedStepFragment {
         return (new GuidanceStylist.Guidance(title, description, null, null));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreateActions (List<GuidedAction> actions, Bundle savedInstanceState) {
         GuidedAction.Builder yesAction = new GuidedAction.Builder(getActivity());
@@ -35,6 +47,9 @@ public class WelcomeStepAuthGuidedFragment extends GuidedStepFragment {
         actions.add(noAction.build());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onGuidedActionClicked(GuidedAction guidedAction) {
 

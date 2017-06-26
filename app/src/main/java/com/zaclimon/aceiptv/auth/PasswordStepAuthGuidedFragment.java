@@ -14,7 +14,12 @@ import java.util.List;
 
 
 /**
- * Created by isaac on 17-06-23.
+ * Third step in the authentication process.
+ *
+ * Asks for a A.C.E. IPTV user it's password.
+ *
+ * @author zaclimon
+ * Creation date: 23/06/17
  */
 
 public class PasswordStepAuthGuidedFragment extends GuidedStepFragment {

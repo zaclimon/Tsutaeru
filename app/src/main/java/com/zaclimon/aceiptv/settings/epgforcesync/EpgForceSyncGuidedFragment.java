@@ -17,11 +17,17 @@ import com.zaclimon.aceiptv.util.AceChannelUtil;
 import java.util.List;
 
 /**
- * Created by isaac on 17-06-22.
+ * Setting option that forces an EPG sync for the next hour.
+ *
+ * @author zaclimon
+ * Creation date: 22/06/17
  */
 
 public class EpgForceSyncGuidedFragment extends GuidedStepFragment {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
         String title = getString(R.string.force_epg_sync_title);
@@ -30,6 +36,9 @@ public class EpgForceSyncGuidedFragment extends GuidedStepFragment {
         return (new GuidanceStylist.Guidance(title, description, null, null));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreateActions (List<GuidedAction> actions, Bundle savedInstanceState) {
         GuidedAction.Builder yesAction = new GuidedAction.Builder(getActivity());
@@ -42,6 +51,9 @@ public class EpgForceSyncGuidedFragment extends GuidedStepFragment {
         actions.add(noAction.build());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onGuidedActionClicked(GuidedAction guidedAction) {
         if (guidedAction.getId() == GuidedAction.ACTION_ID_YES) {

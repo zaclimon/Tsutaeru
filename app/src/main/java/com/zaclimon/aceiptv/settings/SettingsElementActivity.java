@@ -12,7 +12,10 @@ import com.zaclimon.aceiptv.settings.epgforcesync.EpgForceSyncGuidedFragment;
 import com.zaclimon.aceiptv.settings.streamtype.StreamTypeGuidedFragment;
 
 /**
- * Created by isaac on 17-06-21.
+ * Activity that shows a given setting based on it's name
+ *
+ * @author zaclimon
+ * Creation date: 21/06/17
  */
 
 public class SettingsElementActivity extends Activity {

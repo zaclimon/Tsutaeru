@@ -12,21 +12,35 @@ import com.zaclimon.aceiptv.R;
 import java.util.List;
 
 /**
- * Created by isaac on 17-06-23.
+ * Second step in the authentication process.
+ *
+ * It precisely asks for an A.C.E IPTV it's username which is its email address.
+ *
+ * @author zaclimon
+ * Creation date: 23/06/17
  */
 
 public class EmailStepAuthGuidedFragment extends GuidedStepFragment {
 
+    /**
+     * Email Argument used to pass between GuidedStepFragments in order to get a given value.
+     */
     protected static final String EMAIL_ARGUMENT = "email";
 
     private final int ACTION_EMAIL_ADDRESS = 0;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
         String title = getString(R.string.enter_email_title);
         return (new GuidanceStylist.Guidance(title, null, null, null));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreateActions (List<GuidedAction> actions, Bundle savedInstanceState) {
         GuidedAction.Builder emailAction = new GuidedAction.Builder(getActivity());
@@ -38,6 +52,9 @@ public class EmailStepAuthGuidedFragment extends GuidedStepFragment {
         actions.add(emailAction.build());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public long onGuidedActionEditedAndProceed (GuidedAction action) {
 

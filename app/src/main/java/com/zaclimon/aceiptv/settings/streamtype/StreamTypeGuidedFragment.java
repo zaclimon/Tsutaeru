@@ -21,7 +21,11 @@ import java.util.List;
 
 
 /**
- * Created by isaac on 17-06-21.
+ * Setting option that lets the user choose between either the MPEG-TS or the HLS
+ * streaming format.
+ *
+ * @author zaclimon
+ * Creation date: 21/06/17
  */
 
 public class StreamTypeGuidedFragment extends GuidedStepFragment {
@@ -29,6 +33,9 @@ public class StreamTypeGuidedFragment extends GuidedStepFragment {
     private final int ACTION_MPEG_TS = 0;
     private final int ACTION_HLS = 1;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
 
@@ -47,6 +54,9 @@ public class StreamTypeGuidedFragment extends GuidedStepFragment {
         return (new GuidanceStylist.Guidance(title, description, breadcrumb, null));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreateActions (List<GuidedAction> actions, Bundle savedInstanceState) {
         GuidedAction.Builder tsAction = new GuidedAction.Builder(getActivity());
@@ -59,6 +69,9 @@ public class StreamTypeGuidedFragment extends GuidedStepFragment {
         actions.add(tsAction.build());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onGuidedActionClicked(GuidedAction guidedAction) {
 

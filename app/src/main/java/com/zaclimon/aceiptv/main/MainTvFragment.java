@@ -17,13 +17,20 @@ import com.zaclimon.aceiptv.settings.SettingsElementActivity;
 import com.zaclimon.aceiptv.settings.SettingsObjectAdapter;
 
 /**
- * Created by isaac on 17-06-20.
+ * Main fragment used for the Android TV variant of the application
+ *
+ * @author zaclimon
+ * Creation date: 20/06/17
+ *
  */
 
 public class MainTvFragment extends BrowseFragment {
 
     private ArrayObjectAdapter mRowsAdapter;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -32,29 +39,51 @@ public class MainTvFragment extends BrowseFragment {
         setListeners();
     }
 
+    /**
+     * Sets the user interface (UI) for the Fragment.
+     */
     private void setupUI() {
         setTitle(getString(R.string.app_name));
         setHeadersState(HEADERS_ENABLED);
         setHeadersTransitionOnBackEnabled(true);
     }
 
+    /**
+     * Shows the different rows of the Fragment.
+     */
     private void showRows() {
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
         setSettingsRow();
         setAdapter(mRowsAdapter);
     }
 
+    /**
+     * Configures the listeners for the different rows
+     */
     private void setListeners() {
         setOnItemViewClickedListener(new TvItemClickListener());
     }
 
+    /**
+     * Configures the settings row which will be used as a Settings section.
+     */
     private void setSettingsRow() {
         HeaderItem settingsHeader = new HeaderItem(getString(R.string.settings_text));
         mRowsAdapter.add(new ListRow(settingsHeader, new SettingsObjectAdapter()));
     }
 
+    /**
+     * Private class implementing {@link OnItemViewClickedListener} which reacts for a given
+     * click when an item in a given row is selected.
+     *
+     * @author zaclimon
+     * Creation date: 21/06/17
+     */
     private class TvItemClickListener implements OnItemViewClickedListener {
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
 

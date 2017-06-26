@@ -7,14 +7,30 @@ import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.presenter.CardViewPresenter;
 
 /**
- * Created by isaac on 17-06-21.
+ * Class extending {@link ArrayObjectAdapter} which gives a list of current
+ * settings elements.
+ *
+ * It's main view is a {@link CardViewPresenter}
+ *
+ * @author zaclimon
+ * Creation date: 21/06/17
  */
 
 public class SettingsObjectAdapter extends ArrayObjectAdapter {
 
+    /**
+     * Static variable for identifying the name id.
+     */
     public static final String BUNDLE_SETTINGS_NAME_ID = "bundle_name_id";
+
+    /**
+     * Static variable for identifying the drawable id.
+     */
     public static final String BUNDLE_SETTINGS_DRAWABLE_ID = "bundle_drawable_id";
 
+    /**
+     * Default constructor. Sets up all settings elements
+     */
     public SettingsObjectAdapter() {
         super(new CardViewPresenter());
         setStreamTypeSection();
@@ -23,6 +39,9 @@ public class SettingsObjectAdapter extends ArrayObjectAdapter {
         setChangeUserSection();
     }
 
+    /**
+     * Configures the Stream type section
+     */
     private void setStreamTypeSection() {
         Bundle bundle = new Bundle();
         bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.stream_type);
@@ -30,6 +49,9 @@ public class SettingsObjectAdapter extends ArrayObjectAdapter {
         add(bundle);
     }
 
+    /**
+     * Configures the Channel Logo section for the Live Channels application.
+     */
     private void setChannelLogoSection() {
         Bundle bundle = new Bundle();
         bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.channel_logo_title_short);
@@ -37,6 +59,9 @@ public class SettingsObjectAdapter extends ArrayObjectAdapter {
         add(bundle);
     }
 
+    /**
+     * Configures the EPG sync forcing section.
+     */
     private void setForceEpgSyncSection() {
         Bundle bundle = new Bundle();
         bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.force_epg_sync_title_short);
@@ -44,6 +69,9 @@ public class SettingsObjectAdapter extends ArrayObjectAdapter {
         add(bundle);
     }
 
+    /**
+     * Configures the user switch section.
+     */
     private void setChangeUserSection() {
         Bundle bundle = new Bundle();
         bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.change_user_title);
