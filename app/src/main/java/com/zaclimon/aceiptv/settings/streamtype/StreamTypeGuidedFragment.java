@@ -51,12 +51,12 @@ public class StreamTypeGuidedFragment extends GuidedStepFragment {
     public void onCreateActions (List<GuidedAction> actions, Bundle savedInstanceState) {
         GuidedAction.Builder tsAction = new GuidedAction.Builder(getActivity());
         GuidedAction.Builder hlsAction = new GuidedAction.Builder(getActivity());
-        tsAction.title(R.string.mpeg_ts_text);
         hlsAction.title(R.string.hls_text);
-        tsAction.id(ACTION_MPEG_TS);
+        tsAction.title(R.string.mpeg_ts_text);
         hlsAction.id(ACTION_HLS);
-        actions.add(tsAction.build());
+        tsAction.id(ACTION_MPEG_TS);
         actions.add(hlsAction.build());
+        actions.add(tsAction.build());
     }
 
     @Override
@@ -68,11 +68,11 @@ public class StreamTypeGuidedFragment extends GuidedStepFragment {
         int action = (int) guidedAction.getId();
 
         switch (action) {
-            case ACTION_MPEG_TS:
-                editor.putString(Constants.STREAM_TYPE_PREFERENCE, Constants.STREAM_TYPE_MPEG_TS);
-                break;
             case ACTION_HLS:
                 editor.putString(Constants.STREAM_TYPE_PREFERENCE, Constants.STREAM_TYPE_HLS);
+                break;
+            case ACTION_MPEG_TS:
+                editor.putString(Constants.STREAM_TYPE_PREFERENCE, Constants.STREAM_TYPE_MPEG_TS);
                 break;
             default:
                 editor.putString(Constants.STREAM_TYPE_PREFERENCE, Constants.STREAM_TYPE_HLS);
