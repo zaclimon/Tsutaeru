@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.media.tv.TvContract;
 import android.media.tv.TvInputInfo;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,7 @@ import com.google.android.media.tv.companionlibrary.EpgSyncJobService;
 import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.auth.AuthActivityTv;
 import com.zaclimon.aceiptv.service.AceJobService;
-import com.zaclimon.aceiptv.util.Utilities;
+import com.zaclimon.aceiptv.util.ActivityUtil;
 
 /**
  * Created by isaac on 17-06-11.
@@ -48,7 +47,7 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
 
     @Override
     public void onScanStarted() {
-        if (Utilities.isUsernamePasswordEmpty(getActivity())) {
+        if (ActivityUtil.isUsernamePasswordEmpty(getActivity())) {
             // Remove all channels if there were any and authenticate the user.
             ContentResolver contentResolver = getActivity().getContentResolver();
             contentResolver.delete(TvContract.buildChannelsUriForInput(mInputId), null, null);

@@ -1,27 +1,16 @@
 package com.zaclimon.aceiptv.main;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.app.UiModeManager;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.media.tv.TvContract;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 
-import com.google.android.media.tv.companionlibrary.model.Channel;
-import com.google.android.media.tv.companionlibrary.utils.TvContractUtils;
 import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.auth.AuthActivityTv;
 import com.zaclimon.aceiptv.util.AceChannelUtil;
-import com.zaclimon.aceiptv.util.Constants;
-import com.zaclimon.aceiptv.util.Utilities;
-
-import java.util.List;
+import com.zaclimon.aceiptv.util.ActivityUtil;
 
 
 /**
@@ -37,7 +26,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (Utilities.isUsernamePasswordEmpty(this)) {
+        if (ActivityUtil.isUsernamePasswordEmpty(this)) {
 
             ContentResolver contentResolver = getContentResolver();
             Intent intent = new Intent(this, AuthActivityTv.class);
@@ -54,7 +43,7 @@ public class MainActivity extends Activity {
     private void configureLayout() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 
-        if (Utilities.isTvMode(this)) {
+        if (ActivityUtil.isTvMode(this)) {
             fragmentTransaction.add(R.id.activity_fragment_holder, new MainTvFragment());
         }
 

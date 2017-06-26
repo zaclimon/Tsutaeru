@@ -15,7 +15,7 @@ import static android.content.Context.UI_MODE_SERVICE;
  * Created by isaac on 17-06-25.
  */
 
-public class Utilities {
+public class ActivityUtil {
 
     public static boolean isUsernamePasswordEmpty(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.ACE_IPTV_PREFERENCES, MODE_PRIVATE);
