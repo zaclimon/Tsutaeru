@@ -1,21 +1,14 @@
 package com.zaclimon.aceiptv.auth;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v17.leanback.app.GuidedStepFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
-import android.support.v17.leanback.widget.GuidedAction;
-import android.text.InputType;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.zaclimon.aceiptv.R;
+import com.zaclimon.aceiptv.util.SharedPreferencesRepository;
+import com.zaclimon.aceiptv.util.SharedPreferencesRepositoryImpl;
 import com.zaclimon.aceiptv.util.Constants;
-
-import java.util.List;
 
 /**
  * Created by isaac on 17-06-24.
@@ -31,8 +24,9 @@ public class LoadingAuthGuidedFragment extends GuidedStepFragment implements Aut
         String email = arguments.getString(EmailStepAuthGuidedFragment.EMAIL_ARGUMENT);
         String password = arguments.getString(PasswordStepAuthGuidedFragment.PASSWORD_ARGUMENT);
         AuthPresenter authPresenter = new AuthPresenterImpl(this);
+        SharedPreferencesRepository sharedPreferencesRepository = new SharedPreferencesRepositoryImpl(getActivity());
 
-        authPresenter.validateInfo(email, password, getActivity());
+        authPresenter.validateInfo(email, password, sharedPreferencesRepository);
     }
 
     @Override
@@ -56,8 +50,14 @@ public class LoadingAuthGuidedFragment extends GuidedStepFragment implements Aut
     }
 
     @Override
-    public void onConnectionFailed(String reason) {
-        Toast.makeText(getActivity(), reason, Toast.LENGTH_LONG).show();
+    public void onWrongCredentialsReceived() {
+        Toast.makeText(getActivity(), R.string.wrong_credentials, Toast.LENGTH_LONG).show();
         popBackStackToGuidedStepFragment(PasswordStepAuthGuidedFragment.class, 0);
+    }
+
+    // Could be honestly better since it's not the View's role to get the link...
+    @Override
+    public String getPlaylistLink(String username, String password) {
+        return (getString(R.string.ace_playlist_url, username, password, Constants.STREAM_TYPE_HLS));
     }
 }

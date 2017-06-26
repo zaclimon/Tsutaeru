@@ -6,7 +6,8 @@ package com.zaclimon.aceiptv.auth;
 
 public interface AuthView {
 
+    String getPlaylistLink(String username, String password);
     void onConnectionSuccess();
-    void onConnectionFailed(String reason);
+    void onWrongCredentialsReceived();
 
 }

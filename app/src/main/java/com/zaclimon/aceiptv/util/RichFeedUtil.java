@@ -56,10 +56,11 @@ public class RichFeedUtil {
 
     public static InputStream getInputStream(Context context, Uri uri) throws IOException {
         InputStream inputStream;
+
         if (ContentResolver.SCHEME_ANDROID_RESOURCE.equals(uri.getScheme())
                 || ContentResolver.SCHEME_ANDROID_RESOURCE.equals(uri.getScheme())
                 || ContentResolver.SCHEME_FILE.equals(uri.getScheme())) {
-            inputStream = context.getContentResolver().openInputStream(uri);
+            inputStream = context != null ? context.getContentResolver().openInputStream(uri) : null;
         } else {
             URLConnection urlConnection = new URL(uri.toString()).openConnection();
             urlConnection.setConnectTimeout(URLCONNECTION_CONNECTION_TIMEOUT_MS);
@@ -69,4 +70,9 @@ public class RichFeedUtil {
 
         return inputStream == null ? null : new BufferedInputStream(inputStream);
     }
+
+    public static InputStream getInputStream(String url) throws IOException {
+        return (getInputStream(null, Uri.parse(url)));
+    }
+
 }
