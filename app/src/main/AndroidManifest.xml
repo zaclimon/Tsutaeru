@@ -31,11 +31,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".setup.AceTvInputSetupActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
+        <activity
+            android:name=".setup.AceTvInputSetupActivity"
+            android:exported="true"/>
 
         <activity android:name=".auth.AuthActivityTv"/>
         <activity android:name=".settings.SettingsElementActivity"/>
@@ -58,6 +56,14 @@
             android:name=".service.AceJobService"
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="true" />
+
+        <receiver
+            android:name=".receiver.AceTvEpgReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
