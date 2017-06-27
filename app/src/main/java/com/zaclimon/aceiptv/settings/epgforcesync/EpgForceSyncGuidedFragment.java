@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v17.leanback.app.GuidedStepFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
+import android.util.TimeUtils;
 import android.widget.Toast;
 
 import com.google.android.media.tv.companionlibrary.EpgSyncJobService;
@@ -15,6 +16,7 @@ import com.zaclimon.aceiptv.service.AceJobService;
 import com.zaclimon.aceiptv.util.AceChannelUtil;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Setting option that forces an EPG sync for the next hour.
@@ -58,7 +60,7 @@ public class EpgForceSyncGuidedFragment extends GuidedStepFragment {
     public void onGuidedActionClicked(GuidedAction guidedAction) {
         if (guidedAction.getId() == GuidedAction.ACTION_ID_YES) {
             String inputId = TvContract.buildInputId(AceChannelUtil.TV_INPUT_SERVICE_COMPONENT);
-            EpgSyncJobService.requestImmediateSync(getActivity(), inputId, new ComponentName(getActivity(), AceJobService.class));
+            EpgSyncJobService.requestImmediateSync(getActivity(), inputId, TimeUnit.HOURS.toMillis(48), new ComponentName(getActivity(), AceJobService.class));
             Toast.makeText(getActivity(), R.string.channel_update, Toast.LENGTH_LONG).show();
         }
         getActivity().finish();

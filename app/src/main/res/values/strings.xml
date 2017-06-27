@@ -21,7 +21,7 @@
     <string name="enter_password_title">Please enter your password</string>
     <string name="force_epg_sync_title">Force EPG sync?</string>
     <string name="force_epg_sync_title_short">Force sync</string>
-    <string name="force_epg_sync_description">Syncs the EPG guide for one hour.</string>
+    <string name="force_epg_sync_description">Syncs the EPG guide for 48 hours.</string>
     <string name="hls_text">HLS</string>
     <string name="invalid_channel">Channel invalid, please contact A.C.E</string>
     <string name="internet_not_available">Please verify your internet connection</string>
