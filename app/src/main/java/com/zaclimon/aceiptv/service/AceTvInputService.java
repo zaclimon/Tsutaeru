@@ -7,6 +7,7 @@ import android.media.tv.TvInputManager;
 import android.media.tv.TvTrackInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.Surface;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import com.google.android.exoplayer2.source.BehindLiveWindowException;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.source.UnrecognizedInputFormatException;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
+import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.media.tv.companionlibrary.BaseTvInputService;
 import com.google.android.media.tv.companionlibrary.TvPlayer;
 import com.google.android.media.tv.companionlibrary.model.Channel;
@@ -30,6 +32,7 @@ import com.zaclimon.aceiptv.BuildConfig;
 import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.player.AcePlayer;
 
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -265,11 +268,28 @@ public class AceTvInputService extends BaseTvInputService {
         @Override
         public void onPlayerError(ExoPlaybackException error) {
             if (error.getCause() instanceof BehindLiveWindowException) {
+                Toast.makeText(mContext, R.string.stream_failure_retry, Toast.LENGTH_SHORT).show();
                 mAcePlayer.restart(mContext);
                 mAcePlayer.play();
             } else if (error.getCause() instanceof UnrecognizedInputFormatException) {
-                Log.e(getClass().getSimpleName(), "Invalid Channel");
+                // Channel cannot be played in case of an error in parsing the ".m3u8" file.
                 Toast.makeText(mContext, mContext.getString(R.string.invalid_channel), Toast.LENGTH_SHORT).show();
+            } else if (error.getCause() instanceof HttpDataSource.InvalidResponseCodeException) {
+
+                 /*
+                  We might get errors different like 403 which indicate permission denied due to multiple
+                  connections at the same time or 502 meaning bad gateway.
+
+                  Restart the loading after 5 seconds.
+                  */
+
+                SystemClock.sleep(5000);
+                Toast.makeText(mContext, R.string.stream_failure_retry, Toast.LENGTH_SHORT).show();
+                mAcePlayer.restart(mContext);
+                mAcePlayer.play();
+            } else if (error.getCause() instanceof HttpDataSource.HttpDataSourceException) {
+                // Timeout, nothing we can do really...
+                Toast.makeText(mContext, R.string.invalid_channel, Toast.LENGTH_SHORT).show();
             }
         }
 

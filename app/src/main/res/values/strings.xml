@@ -34,6 +34,7 @@
     <string name="tv_input_label">A.C.E. IPTV</string>
     <string name="settings_text">Settings</string>
     <string name="signing_text">Signing in&#8230;</string>
+    <string name="stream_failure_retry">Stream failure, retrying&#8230;</string>
     <string name="stream_type">Stream type</string>
     <string name="stream_type_short_description">MPEG-TS/HLS</string>
     <string name="stream_type_description">Sets the current stream output for a given IPTV channel.</string>
