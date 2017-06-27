@@ -18,7 +18,7 @@
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/Theme.Leanback"
-        android:banner="@drawable/videos_by_google_banner">
+        android:banner="@drawable/ace_banner">
 
         <activity
             android:name="com.zaclimon.aceiptv.main.MainActivity"
