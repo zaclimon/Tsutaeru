@@ -6,7 +6,6 @@ import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.util.Patterns;
 
 import com.zaclimon.aceiptv.R;
 
@@ -63,7 +62,7 @@ public class PasswordStepAuthGuidedFragment extends GuidedStepFragment {
             if (!TextUtils.isEmpty(password)) {
                 GuidedStepFragment loadingFragment = new LoadingAuthGuidedFragment();
                 Bundle arguments = new Bundle();
-                arguments.putString(EmailStepAuthGuidedFragment.EMAIL_ARGUMENT, getArguments().getString(EmailStepAuthGuidedFragment.EMAIL_ARGUMENT));
+                arguments.putString(UsernameStepAuthGuidedFragment.USERNAME_ARGUMENT, getArguments().getString(UsernameStepAuthGuidedFragment.USERNAME_ARGUMENT));
                 arguments.putString(PASSWORD_ARGUMENT, password);
                 loadingFragment.setArguments(arguments);
                 add(getFragmentManager(), loadingFragment);

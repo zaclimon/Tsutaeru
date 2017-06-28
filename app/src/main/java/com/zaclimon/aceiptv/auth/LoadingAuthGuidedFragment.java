@@ -30,12 +30,12 @@ public class LoadingAuthGuidedFragment extends GuidedStepFragment implements Aut
         super.onStart();
 
         Bundle arguments = getArguments();
-        String email = arguments.getString(EmailStepAuthGuidedFragment.EMAIL_ARGUMENT);
+        String username = arguments.getString(UsernameStepAuthGuidedFragment.USERNAME_ARGUMENT);
         String password = arguments.getString(PasswordStepAuthGuidedFragment.PASSWORD_ARGUMENT);
         AuthPresenter authPresenter = new AuthPresenterImpl(this);
         SharedPreferencesRepository sharedPreferencesRepository = new SharedPreferencesRepositoryImpl(getActivity());
 
-        authPresenter.validateInfo(email, password, sharedPreferencesRepository);
+        authPresenter.validateInfo(username, password, sharedPreferencesRepository);
     }
 
     /**
@@ -59,7 +59,7 @@ public class LoadingAuthGuidedFragment extends GuidedStepFragment implements Aut
         GuidedStepFragment connectedFragment = new ConnectedStepAuthGuidedFragment();
         Bundle bundle = new Bundle();
 
-        bundle.putString(EmailStepAuthGuidedFragment.EMAIL_ARGUMENT, getArguments().getString(EmailStepAuthGuidedFragment.EMAIL_ARGUMENT));
+        bundle.putString(UsernameStepAuthGuidedFragment.USERNAME_ARGUMENT, getArguments().getString(UsernameStepAuthGuidedFragment.USERNAME_ARGUMENT));
         connectedFragment.setArguments(bundle);
         add(getFragmentManager(), connectedFragment);
     }

@@ -16,10 +16,8 @@
     <string name="connection_successful_text">Connection successful!</string>
     <string name="current_status_text">Current status: %1$s</string>
     <string name="deactivated_text">Deactivated</string>
-    <string name="email_not_valid">Please enter a valid email address</string>
-    <string name="email_text">Email address</string>
-    <string name="enter_email_title">Please enter your A.C.E. IPTV account email address</string>
     <string name="enter_password_title">Please enter your password</string>
+    <string name="enter_username_title">Please enter your A.C.E. IPTV account username</string>
     <string name="force_epg_sync_title">Force EPG sync?</string>
     <string name="force_epg_sync_title_short">Force sync</string>
     <string name="force_epg_sync_description">Syncs the EPG guide for 48 hours.</string>
@@ -39,6 +37,7 @@
     <string name="stream_type">Stream type</string>
     <string name="stream_type_short_description">MPEG-TS/HLS</string>
     <string name="stream_type_description">Sets the current stream output for a given IPTV channel.</string>
+    <string name="username_empty">Please enter a username</string>
     <string name="username_text">Username</string>
     <string name="welcome_text">Welcome</string>
     <string name="wont_be_long_text">It won\'t be too long&#8230;</string>

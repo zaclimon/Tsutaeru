@@ -56,7 +56,7 @@ public class WelcomeStepAuthGuidedFragment extends GuidedStepFragment {
         long id = guidedAction.getId();
 
         if (id == GuidedAction.ACTION_ID_OK) {
-            add(getActivity().getFragmentManager(), new EmailStepAuthGuidedFragment());
+            add(getActivity().getFragmentManager(), new UsernameStepAuthGuidedFragment());
         } else if (id == GuidedAction.ACTION_ID_CANCEL) {
             getActivity().finish();
         }
