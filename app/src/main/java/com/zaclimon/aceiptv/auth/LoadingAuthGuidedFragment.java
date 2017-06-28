@@ -69,7 +69,7 @@ public class LoadingAuthGuidedFragment extends GuidedStepFragment implements Aut
      */
     @Override
     public void onWrongCredentialsReceived() {
-        Toast.makeText(getActivity(), R.string.wrong_credentials, Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), R.string.wrong_credentials_toast, Toast.LENGTH_LONG).show();
         popBackStackToGuidedStepFragment(PasswordStepAuthGuidedFragment.class, 0);
     }
 
@@ -80,5 +80,14 @@ public class LoadingAuthGuidedFragment extends GuidedStepFragment implements Aut
     public String getPlaylistLink(String username, String password) {
         // Could be honestly better since it's not the View's role to get the link...
         return (getString(R.string.ace_playlist_url, username, password, Constants.STREAM_TYPE_HLS));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onTimeoutReceived() {
+        Toast.makeText(getActivity(), R.string.connection_timeout_toast, Toast.LENGTH_SHORT).show();
+        popBackStackToGuidedStepFragment(PasswordStepAuthGuidedFragment.class, 0);
     }
 }

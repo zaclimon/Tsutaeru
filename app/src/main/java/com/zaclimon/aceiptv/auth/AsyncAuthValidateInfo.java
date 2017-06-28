@@ -1,12 +1,15 @@
 package com.zaclimon.aceiptv.auth;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.zaclimon.aceiptv.util.SharedPreferencesRepository;
 import com.zaclimon.aceiptv.util.Constants;
 import com.zaclimon.aceiptv.util.RichFeedUtil;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 
 
 /**
@@ -23,6 +26,7 @@ public class AsyncAuthValidateInfo extends AsyncTask<Void, Void, Boolean> {
 
     private String asyncUsername;
     private String asyncPassword;
+    private IOException mIOException;
     private AuthView mAuthView;
     private SharedPreferencesRepository mSharedPreferencesRepository;
 
@@ -50,6 +54,8 @@ public class AsyncAuthValidateInfo extends AsyncTask<Void, Void, Boolean> {
             RichFeedUtil.getInputStream(m3uLink);
             return (true);
         } catch (IOException io) {
+            Log.d(getClass().getSimpleName(), io.toString());
+            mIOException = io;
             return (false);
         }
     }
@@ -64,8 +70,10 @@ public class AsyncAuthValidateInfo extends AsyncTask<Void, Void, Boolean> {
             mSharedPreferencesRepository.putString(Constants.PASSWORD_PREFERENCE, asyncPassword);
             mSharedPreferencesRepository.apply();
             mAuthView.onConnectionSuccess();
-        } else {
+        } else if (mIOException instanceof FileNotFoundException) {
             mAuthView.onWrongCredentialsReceived();
+        } else if (mIOException instanceof SocketTimeoutException) {
+            mAuthView.onTimeoutReceived();
         }
     }
 

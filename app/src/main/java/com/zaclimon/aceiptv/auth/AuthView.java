@@ -29,4 +29,8 @@ public interface AuthView {
      */
     void onWrongCredentialsReceived();
 
+    /**
+     * Callback method used to let the view know if there was a timeout on the server side.
+     */
+    void onTimeoutReceived();
 }
