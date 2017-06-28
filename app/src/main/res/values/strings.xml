@@ -16,6 +16,9 @@
     <string name="connection_successful_text">Connection successful!</string>
     <string name="current_status_text">Current status: %1$s</string>
     <string name="deactivated_text">Deactivated</string>
+    <string name="debug_log_title">Create debug log?</string>
+    <string name="debug_log_title_short">Debug log</string>
+    <string name="debug_log_description">Creates a text file usable for debugging purposes to your internal storage.</string>
     <string name="enter_password_title">Please enter your password</string>
     <string name="enter_username_title">Please enter your A.C.E. IPTV account username</string>
     <string name="force_epg_sync_title">Force EPG sync?</string>
@@ -41,6 +44,7 @@
     <string name="username_text">Username</string>
     <string name="welcome_text">Welcome</string>
     <string name="wont_be_long_text">It won\'t be too long&#8230;</string>
+    <string name="write_permissions_denied_toast">Can\'t write to the external storage</string>
     <string name="wrong_credentials_toast">Your credentials are not valid</string>
     <string name="yes_text">Yes</string>
 </resources>

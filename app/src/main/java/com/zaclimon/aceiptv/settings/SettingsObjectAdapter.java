@@ -37,6 +37,7 @@ public class SettingsObjectAdapter extends ArrayObjectAdapter {
         setChannelLogoSection();
         setForceEpgSyncSection();
         setChangeUserSection();
+        setDebugLogSection();
     }
 
     /**
@@ -76,6 +77,13 @@ public class SettingsObjectAdapter extends ArrayObjectAdapter {
         Bundle bundle = new Bundle();
         bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.change_user_title);
         bundle.putInt(BUNDLE_SETTINGS_DRAWABLE_ID, R.drawable.ic_change_user);
+        add(bundle);
+    }
+
+    private void setDebugLogSection() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.debug_log_title_short);
+        bundle.putInt(BUNDLE_SETTINGS_DRAWABLE_ID, R.drawable.ic_debug);
         add(bundle);
     }
 }

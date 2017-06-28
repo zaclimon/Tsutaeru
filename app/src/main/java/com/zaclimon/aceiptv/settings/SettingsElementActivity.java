@@ -8,6 +8,7 @@ import android.support.v17.leanback.app.GuidedStepFragment;
 import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.auth.AuthActivityTv;
 import com.zaclimon.aceiptv.settings.channellogo.ChannelLogoGuidedFragment;
+import com.zaclimon.aceiptv.settings.debuglog.DebugLogGuidedFragment;
 import com.zaclimon.aceiptv.settings.epgforcesync.EpgForceSyncGuidedFragment;
 import com.zaclimon.aceiptv.settings.streamtype.StreamTypeGuidedFragment;
 
@@ -46,6 +47,10 @@ public class SettingsElementActivity extends Activity {
                     Intent intent = new Intent(this, AuthActivityTv.class);
                     startActivity(intent);
                     finish();
+                    break;
+                case R.string.debug_log_title:
+                case R.string.debug_log_title_short:
+                    GuidedStepFragment.addAsRoot(this, new DebugLogGuidedFragment(), android.R.id.content);
                     break;
             }
         }
