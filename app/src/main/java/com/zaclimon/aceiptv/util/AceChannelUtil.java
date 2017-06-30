@@ -32,7 +32,7 @@ public class AceChannelUtil {
     /**
      * {@link ComponentName} used for defining easily an input id for the application
      */
-    public static final ComponentName TV_INPUT_SERVICE_COMPONENT = new ComponentName(AceTvInputService.class.getPackage().getName(), AceTvInputService.class.getName());
+    public static final ComponentName TV_INPUT_SERVICE_COMPONENT = new ComponentName("com.zaclimon.aceiptv", AceTvInputService.class.getName());
 
     private static final String LOG_TAG = "AceChannelUtil";
 
