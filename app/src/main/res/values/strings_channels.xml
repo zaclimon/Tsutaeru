@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sports_channels">
+        <item>SKY SPORTS</item>
+        <item>BT SPORT</item>
+        <item>RACING</item>
+        <item>RACES</item>
+        <item>BOX</item>
+        <item>EUROSPORT</item>
+        <item>PREMIER SPORTS</item>
+        <item>MOTORS</item>
+        <item>CHELSEA TV</item>
+        <item>LFC TV</item>
+        <item>MUTV</item>
+        <item>ABERDEEN FC</item>
+        <item>CELTIC TV</item>
+        <item>HEARTS FC TV</item>
+        <item>RANGERS TV</item>
+        <item>BEIN SPORT</item>
+        <item>OSN SPORTS</item>
+        <item>FOX 506</item>
+        <item>LE SPORTS</item>
+        <item>SKY BUNDESLIGA</item>
+        <item>TV2 SPORT</item>
+        <item>TV3 SPORT</item>
+        <item>CANAL LIGA</item>
+        <item>CANAL+FUTBOL</item>
+        <item>ARENA SPORT</item>
+        <item>SFR SPORT</item>
+        <item>IL:ONE</item>
+        <item>IL:SPORT</item>
+        <item>ELEVEN</item>
+        <item>MIO STADIUM</item>
+        <item>FOX SPORTS</item>
+        <item>MOTO GP</item>
+        <item>SKYNET SPORTS</item>
+        <item>ZIGGO SPORT</item>
+        <item>BENEFICA</item>
+        <item>SPORTS TV</item>
+        <item>C MORE</item>
+        <item>VIASAT</item>
+        <item>LIG TV</item>
+        <item>AFN SPORT</item>
+        <item>BIG TEN</item>
+        <item>CBS SPORTS</item>
+        <item>CBSN</item>
+        <item>ESPN</item>
+        <item>LONGHORN</item>
+        <item>NBCSN</item>
+        <item>NBC EXTRA TIME</item>
+        <item>NBC GOLF</item>
+        <item>OFFICIAL OLYMPIC CHANNEL</item>
+        <item>PAC12</item>
+        <item>RDS</item>
+        <item>SEC NETWORK</item>
+        <item>SPORTSNET</item>
+        <item>TENNIS CHANNEL</item>
+        <item>TSN</item>
+        <item>UFC</item>
+        <item>WILLOW CRICKET</item>
+        <item>WWE</item>
+        <item>NHL</item>
+        <item>NFL</item>
+        <item>NBA</item>
+        <item>MLB</item>
+    </string-array>
+
+    <string-array name="entertainment_channels">
+        <item>24/7</item>
+    </string-array>
+
+</resources>

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.media.tv.TvContract;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.SystemClock;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
@@ -25,6 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Custom {@link EpgSyncJobService} used for syncing A.C.E. IPTV content.
@@ -65,6 +67,9 @@ public class AceJobService extends EpgSyncJobService {
 
          If the channel id (EPG id) from the program matches the one saved in the Channel, add the
          required program to it's list.
+
+         Retrieve a given channel's genre based on it's internal provider data. This information
+         will be passed to the Live Channels's guide.
          */
 
         List<Program> listingPrograms = mTvListing.getAllPrograms();
@@ -72,20 +77,32 @@ public class AceJobService extends EpgSyncJobService {
 
         try {
             if (internalProviderData != null && internalProviderData.has(Constants.EPG_ID_PROVIDER)) {
-                // The provider data gets parsed as a string by default
+
+                // The provider data gets parsed as a string by default, same for the genre.
+                List<Program> tempPrograms = new ArrayList<>();
                 String epgId = (String) internalProviderData.get(Constants.EPG_ID_PROVIDER);
+                String channelGenre = (String) internalProviderData.get(Constants.CHANNEL_GENRE_PROVIDER);
                 int epgIdInt = Integer.parseInt(epgId);
 
                 if (epgIdInt != 0) {
-                    List<Program> tempPrograms = new ArrayList<>();
-
                     for (Program program : listingPrograms) {
                         if (program.getChannelId() == epgIdInt) {
-                            tempPrograms.add(program);
+                            Program.Builder builder = new Program.Builder(program);
+                            builder.setBroadcastGenres(new String[]{channelGenre});
+                            tempPrograms.add(builder.build());
                         }
                     }
-                    return (tempPrograms);
+                } else {
+                    // Create one temporary program that will be used to denote the channel's genre.
+                    Program.Builder builder = new Program.Builder(channel);
+                    long startTimeMillis = AceChannelUtil.getLastHalfHourMillis();
+                    long endTimeMillis = startTimeMillis + TimeUnit.DAYS.toMillis(7);
+                    builder.setStartTimeUtcMillis(startTimeMillis);
+                    builder.setEndTimeUtcMillis(endTimeMillis);
+                    builder.setBroadcastGenres(new String[]{channelGenre});
+                    tempPrograms.add(builder.build());
                 }
+                return (tempPrograms);
             }
         } catch (InternalProviderData.ParseException ps) {
             Log.e(LOG_TAG, "Channel " + channel.getDisplayName() + " Couldn't get checked");

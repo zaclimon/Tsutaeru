@@ -3,9 +3,12 @@ package com.zaclimon.aceiptv.util;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.tv.TvContract;
+import android.os.Build;
 
 import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.model.InternalProviderData;
+import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.service.AceTvInputService;
 
 import java.io.BufferedReader;
@@ -13,6 +16,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -87,9 +92,9 @@ public class AceChannelUtil {
 
                 if (tempId == tempChannel.getOriginalNetworkId() || j == channels.size() - 1) {
                     if (hasChannelLogo) {
-                        channel = createChannel(tempName, Integer.toString(i + 1), tempId, tempLogo, tempLink);
+                        channel = createChannel(tempName, Integer.toString(i + 1), tempId, tempLogo, tempLink, getProgramGenre(tempName, context));
                     } else {
-                        channel = createChannel(tempName, Integer.toString(i + 1), tempId, null, tempLink);
+                        channel = createChannel(tempName, Integer.toString(i + 1), tempId, null, tempLink, getProgramGenre(tempName, context));
                     }
                     tempList.add(channel);
                     break;
@@ -189,7 +194,7 @@ public class AceChannelUtil {
      * @param url the video url link
      * @return the channel to be used by the system.
      */
-    private static Channel createChannel(String displayName, String displayNumber, int epgId, String logo, String url) {
+    private static Channel createChannel(String displayName, String displayNumber, int epgId, String logo, String url, String genre) {
 
         /*
          In order to map correctly the programs to a given channel, store the EPG id somewhere in the
@@ -201,6 +206,9 @@ public class AceChannelUtil {
          as their original id isn't really original anymore...
 
          In that case, let's use the display name as the original network id instead of the EPG id.
+
+         Let's also retrieve the an example genre for the channel so it can be passed on the side
+         of the EPG guide.
         */
 
         Channel.Builder builder = new Channel.Builder();
@@ -208,6 +216,7 @@ public class AceChannelUtil {
 
         try {
             internalProviderData.put(Constants.EPG_ID_PROVIDER, epgId);
+            internalProviderData.put(Constants.CHANNEL_GENRE_PROVIDER, genre);
         } catch (InternalProviderData.ParseException ps) {
             // Can't do anything about this...
         }
@@ -219,5 +228,93 @@ public class AceChannelUtil {
         builder.setChannelLogo(logo);
         builder.setInternalProviderData(internalProviderData);
         return (builder.build());
+    }
+
+    /**
+     * Returns a genre for a given {@link com.google.android.media.tv.companionlibrary.model.Program}
+     * based on it's channel. The genre can be one of the following:
+     *
+     * {@link android.media.tv.TvContract.Programs.Genres#FAMILY_KIDS}
+     * {@link android.media.tv.TvContract.Programs.Genres#SPORTS}
+     * {@link android.media.tv.TvContract.Programs.Genres#SHOPPING}
+     * {@link android.media.tv.TvContract.Programs.Genres#MOVIES}
+     * {@link android.media.tv.TvContract.Programs.Genres#COMEDY}
+     * {@link android.media.tv.TvContract.Programs.Genres#TRAVEL}
+     * {@link android.media.tv.TvContract.Programs.Genres#DRAMA}
+     * {@link android.media.tv.TvContract.Programs.Genres#EDUCATION}
+     * {@link android.media.tv.TvContract.Programs.Genres#ANIMAL_WILDLIFE}
+     * {@link android.media.tv.TvContract.Programs.Genres#NEWS}
+     * {@link android.media.tv.TvContract.Programs.Genres#GAMING}
+     * {@link android.media.tv.TvContract.Programs.Genres#ARTS}
+     * {@link android.media.tv.TvContract.Programs.Genres#ENTERTAINMENT}
+     * {@link android.media.tv.TvContract.Programs.Genres#LIFE_STYLE}
+     * {@link android.media.tv.TvContract.Programs.Genres#MUSIC}
+     * {@link android.media.tv.TvContract.Programs.Genres#PREMIER}
+     * {@link android.media.tv.TvContract.Programs.Genres#TECH_SCIENCE}
+     *
+     * @param channelName The name of the channel
+     * @param context context required to access a string containing the channel names
+     * @return the genre of the channel as specified by in {@link android.media.tv.TvContract.Programs.Genres}
+     */
+    private static String getProgramGenre(String channelName, Context context) {
+
+         /*
+         Another thing that is weird with Google is that a given channel has a genre that shows
+         content based on it. However, it is the programs that has them.
+
+         I understand where the decision could come from since a Program could have a genre different
+         from it's channel. Nonetheless, it's the only way to do some kind of easy grouping in the
+         Live Channels app.
+         */
+
+        String[] sportsChannels = context.getResources().getStringArray(R.array.sports_channels);
+        String[] entertainmentChannels = context.getResources().getStringArray(R.array.entertainment_channels);
+
+        for (String channelCandidate : sportsChannels) {
+            if (channelName.contains(channelCandidate)) {
+                return (TvContract.Programs.Genres.SPORTS);
+            }
+        }
+
+        for (String channelCandidate : entertainmentChannels) {
+            if (channelName.contains(channelCandidate) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                return (TvContract.Programs.Genres.ENTERTAINMENT);
+            } else if (channelName.contains(channelCandidate)) {
+                return (TvContract.Programs.Genres.MOVIES);
+            }
+        }
+
+        return (null);
+    }
+
+    /**
+     * Calculates the current date with the last half hour passed.
+     * @return the current date with the last half hour in milliseconds
+     */
+    public static long getLastHalfHourMillis() {
+        return (getLastHalfHourMillis(System.currentTimeMillis()));
+    }
+
+    /**
+     * Calculates the current date with the last half hour passed
+     * @param originalMillis the desired calculated time in milliseconds
+     * @return the desired date with the last half hour in milliseconds
+     */
+    public static long getLastHalfHourMillis(long originalMillis) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(originalMillis);
+
+        int minutes = calendar.get(Calendar.MINUTE);
+        int difference = minutes % 30;
+
+        if (difference != 0) {
+            minutes -= difference;
+        }
+
+        calendar.set(Calendar.MINUTE, minutes);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return (calendar.getTimeInMillis());
     }
 }

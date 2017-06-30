@@ -27,4 +27,5 @@ public class Constants {
 
     // Channel configuration stuff
     public static final String EPG_ID_PROVIDER = "epg_id";
+    public static final String CHANNEL_GENRE_PROVIDER = "channel_provider";
 }
