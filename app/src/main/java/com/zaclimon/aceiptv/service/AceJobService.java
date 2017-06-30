@@ -1,13 +1,10 @@
 package com.zaclimon.aceiptv.service;
 
 import android.app.job.JobParameters;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.tv.TvContract;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.SystemClock;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
@@ -16,11 +13,13 @@ import com.google.android.media.tv.companionlibrary.XmlTvParser;
 import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.model.InternalProviderData;
 import com.google.android.media.tv.companionlibrary.model.Program;
-import com.google.android.media.tv.companionlibrary.utils.TvContractUtils;
 import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.util.AceChannelUtil;
 import com.zaclimon.aceiptv.util.Constants;
 import com.zaclimon.aceiptv.util.RichFeedUtil;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -78,17 +77,17 @@ public class AceJobService extends EpgSyncJobService {
         try {
             if (internalProviderData != null && internalProviderData.has(Constants.EPG_ID_PROVIDER)) {
 
-                // The provider data gets parsed as a string by default, same for the genre.
+                // The provider data gets parsed as a string by default, same for the genres.
                 List<Program> tempPrograms = new ArrayList<>();
                 String epgId = (String) internalProviderData.get(Constants.EPG_ID_PROVIDER);
-                String channelGenre = (String) internalProviderData.get(Constants.CHANNEL_GENRE_PROVIDER);
+                String channelGenresJson = (String) internalProviderData.get(Constants.CHANNEL_GENRES_PROVIDER);
                 int epgIdInt = Integer.parseInt(epgId);
 
                 if (epgIdInt != 0) {
                     for (Program program : listingPrograms) {
                         if (program.getChannelId() == epgIdInt) {
                             Program.Builder builder = new Program.Builder(program);
-                            builder.setBroadcastGenres(new String[]{channelGenre});
+                            builder.setBroadcastGenres(AceChannelUtil.getGenresArrayFromJson(channelGenresJson));
                             tempPrograms.add(builder.build());
                         }
                     }
@@ -99,7 +98,7 @@ public class AceJobService extends EpgSyncJobService {
                     long endTimeMillis = startTimeMillis + TimeUnit.DAYS.toMillis(7);
                     builder.setStartTimeUtcMillis(startTimeMillis);
                     builder.setEndTimeUtcMillis(endTimeMillis);
-                    builder.setBroadcastGenres(new String[]{channelGenre});
+                    builder.setBroadcastGenres(AceChannelUtil.getGenresArrayFromJson(channelGenresJson));
                     tempPrograms.add(builder.build());
                 }
                 return (tempPrograms);

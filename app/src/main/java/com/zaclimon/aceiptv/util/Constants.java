@@ -1,5 +1,7 @@
 package com.zaclimon.aceiptv.util;
 
+import android.media.tv.TvContract;
+
 /**
  * List of constants to be used throughout the application's lifecycle.
  *
@@ -27,5 +29,24 @@ public class Constants {
 
     // Channel configuration stuff
     public static final String EPG_ID_PROVIDER = "epg_id";
-    public static final String CHANNEL_GENRE_PROVIDER = "channel_provider";
+    public static final String CHANNEL_GENRES_PROVIDER = "channel_genres";
+    public static final String[] CHANNEL_GENRES = new String[] {
+            TvContract.Programs.Genres.ANIMAL_WILDLIFE,
+            TvContract.Programs.Genres.ARTS,
+            TvContract.Programs.Genres.COMEDY,
+            TvContract.Programs.Genres.DRAMA,
+            TvContract.Programs.Genres.EDUCATION,
+            TvContract.Programs.Genres.ENTERTAINMENT,
+            TvContract.Programs.Genres.FAMILY_KIDS,
+            TvContract.Programs.Genres.GAMING,
+            TvContract.Programs.Genres.LIFE_STYLE,
+            TvContract.Programs.Genres.MOVIES,
+            TvContract.Programs.Genres.MUSIC,
+            TvContract.Programs.Genres.NEWS,
+            TvContract.Programs.Genres.PREMIER,
+            TvContract.Programs.Genres.SHOPPING,
+            TvContract.Programs.Genres.SPORTS,
+            TvContract.Programs.Genres.TECH_SCIENCE,
+            TvContract.Programs.Genres.TRAVEL
+    };
 }

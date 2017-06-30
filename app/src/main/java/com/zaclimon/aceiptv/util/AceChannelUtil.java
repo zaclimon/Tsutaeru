@@ -4,19 +4,20 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.tv.TvContract;
-import android.os.Build;
 
 import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.model.InternalProviderData;
 import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.service.AceTvInputService;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -194,7 +195,7 @@ public class AceChannelUtil {
      * @param url the video url link
      * @return the channel to be used by the system.
      */
-    private static Channel createChannel(String displayName, String displayNumber, int epgId, String logo, String url, String genre) {
+    private static Channel createChannel(String displayName, String displayNumber, int epgId, String logo, String url, String[] genres) {
 
         /*
          In order to map correctly the programs to a given channel, store the EPG id somewhere in the
@@ -215,10 +216,13 @@ public class AceChannelUtil {
         InternalProviderData internalProviderData = new InternalProviderData();
 
         try {
+            JSONArray genresJsonArray = new JSONArray(genres);
             internalProviderData.put(Constants.EPG_ID_PROVIDER, epgId);
-            internalProviderData.put(Constants.CHANNEL_GENRE_PROVIDER, genre);
+            internalProviderData.put(Constants.CHANNEL_GENRES_PROVIDER, genresJsonArray);
         } catch (InternalProviderData.ParseException ps) {
             // Can't do anything about this...
+        } catch (JSONException json) {
+            json.printStackTrace();
         }
 
         internalProviderData.setVideoUrl(url);
@@ -231,8 +235,8 @@ public class AceChannelUtil {
     }
 
     /**
-     * Returns a genre for a given {@link com.google.android.media.tv.companionlibrary.model.Program}
-     * based on it's channel. The genre can be one of the following:
+     * Gives one or more genre(s) for a given {@link com.google.android.media.tv.companionlibrary.model.Program}
+     * based on it's channel. The genre(s) must be one of the following:
      *
      * {@link android.media.tv.TvContract.Programs.Genres#FAMILY_KIDS}
      * {@link android.media.tv.TvContract.Programs.Genres#SPORTS}
@@ -256,7 +260,7 @@ public class AceChannelUtil {
      * @param context context required to access a string containing the channel names
      * @return the genre of the channel as specified by in {@link android.media.tv.TvContract.Programs.Genres}
      */
-    private static String getProgramGenre(String channelName, Context context) {
+    private static String[] getProgramGenre(String channelName, Context context) {
 
          /*
          Another thing that is weird with Google is that a given channel has a genre that shows
@@ -267,24 +271,41 @@ public class AceChannelUtil {
          Live Channels app.
          */
 
-        String[] sportsChannels = context.getResources().getStringArray(R.array.sports_channels);
-        String[] entertainmentChannels = context.getResources().getStringArray(R.array.entertainment_channels);
+        List<String[]> allChannelGroups = new ArrayList<>();
+        List<String> currentChannelGroups = new ArrayList<>();
 
-        for (String channelCandidate : sportsChannels) {
-            if (channelName.contains(channelCandidate)) {
-                return (TvContract.Programs.Genres.SPORTS);
+        // Add all the groups now so we know we won't have any problems when comparing.
+        allChannelGroups.add(context.getResources().getStringArray(R.array.animal_wildlife_channels));
+        allChannelGroups.add(context.getResources().getStringArray(R.array.arts_channels));
+        allChannelGroups.add(context.getResources().getStringArray(R.array.comedy_channels));
+        allChannelGroups.add(context.getResources().getStringArray(R.array.drama_channels));
+        allChannelGroups.add(context.getResources().getStringArray(R.array.education_channels));
+        allChannelGroups.add(context.getResources().getStringArray(R.array.entertainment_channels));
+        allChannelGroups.add(context.getResources().getStringArray(R.array.family_kids_channels));
+        allChannelGroups.add(context.getResources().getStringArray(R.array.gaming_channels));
+        allChannelGroups.add(context.getResources().getStringArray(R.array.lifestyle_channels));
+        allChannelGroups.add(context.getResources().getStringArray(R.array.movies_channels));
+        allChannelGroups.add(context.getResources().getStringArray(R.array.music_channels));
+        allChannelGroups.add(context.getResources().getStringArray(R.array.news_channels));
+        allChannelGroups.add(context.getResources().getStringArray(R.array.premier_channels));
+        allChannelGroups.add(context.getResources().getStringArray(R.array.shopping_channels));
+        allChannelGroups.add(context.getResources().getStringArray(R.array.sports_channels));
+        allChannelGroups.add(context.getResources().getStringArray(R.array.tech_science_channels));
+        allChannelGroups.add(context.getResources().getStringArray(R.array.travel_channels));
+
+        for (int i = 0; i < allChannelGroups.size(); i++) {
+            String[] currentGroup = allChannelGroups.get(i);
+            for (String channelType : currentGroup) {
+                if (channelName.contains(channelType)) {
+                    currentChannelGroups.add(getGenreByPosition(i));
+                    break;
+                }
             }
         }
 
-        for (String channelCandidate : entertainmentChannels) {
-            if (channelName.contains(channelCandidate) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-                return (TvContract.Programs.Genres.ENTERTAINMENT);
-            } else if (channelName.contains(channelCandidate)) {
-                return (TvContract.Programs.Genres.MOVIES);
-            }
-        }
-
-        return (null);
+        String[] channelGroupsArray = new String[currentChannelGroups.size()];
+        channelGroupsArray = currentChannelGroups.toArray(channelGroupsArray);
+        return (channelGroupsArray);
     }
 
     /**
@@ -316,5 +337,31 @@ public class AceChannelUtil {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         return (calendar.getTimeInMillis());
+    }
+
+    /**
+     * Gives a Program's genre based on the {@link Constants#CHANNEL_GENRES} array position. If
+     * comparing must be made, the order should be based on this particular array as well.
+     *
+     * @param position the position of the wished genre.
+     * @return the genre literal as defined in {@link android.media.tv.TvContract.Programs.Genres}.
+     */
+    private static String getGenreByPosition(int position) {
+        return (Constants.CHANNEL_GENRES[position]);
+    }
+
+    public static String[] getGenresArrayFromJson(String json) {
+        try {
+            JSONArray jsonArray = new JSONArray(json);
+            String[] genresArray = new String[jsonArray.length()];
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                genresArray[i] = jsonArray.getString(i);
+            }
+            return (genresArray);
+        } catch (JSONException js) {
+            js.printStackTrace();
+        }
+        return (null);
     }
 }
