@@ -13,13 +13,11 @@ import com.google.android.media.tv.companionlibrary.XmlTvParser;
 import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.model.InternalProviderData;
 import com.google.android.media.tv.companionlibrary.model.Program;
+import com.google.android.media.tv.companionlibrary.utils.TvContractUtils;
 import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.util.AceChannelUtil;
 import com.zaclimon.aceiptv.util.Constants;
 import com.zaclimon.aceiptv.util.RichFeedUtil;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -162,9 +160,22 @@ public class AceJobService extends EpgSyncJobService {
             String epgUrl = getString(R.string.ace_epg_url, username, password);
 
             try {
+                List<Channel> currentChannels = TvContractUtils.getChannels(getContentResolver());
                 InputStream inputStream = RichFeedUtil.getInputStream(AceJobService.this, Uri.parse(playListUrl));
+
                 mTvListing = RichFeedUtil.getRichTvListings(AceJobService.this, epgUrl);
-                mChannels = AceChannelUtil.getChannelList(inputStream, mTvListing.getChannels(), AceJobService.this);
+
+                if (currentChannels.isEmpty()) {
+                    // Case where the channels are configured for the first time
+                    mChannels = AceChannelUtil.createOrUpdateChannelList(inputStream, mTvListing.getChannels(), AceJobService.this);
+                } else {
+                    /*
+                     Case where the channels are updated (Either from a difference in channels count
+                     or from logo/stream type)
+                     */
+                    mChannels = AceChannelUtil.createOrUpdateChannelList(inputStream, currentChannels, AceJobService.this);
+                }
+
                 return (mTvListing != null && mChannels != null);
             } catch (IOException io) {
                 io.printStackTrace();
