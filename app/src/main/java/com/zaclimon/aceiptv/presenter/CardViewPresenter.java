@@ -1,6 +1,8 @@
 package com.zaclimon.aceiptv.presenter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v17.leanback.widget.BaseCardView;
@@ -8,7 +10,10 @@ import android.support.v17.leanback.widget.ImageCardView;
 import android.support.v17.leanback.widget.Presenter;
 import android.view.ViewGroup;
 
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.zaclimon.aceiptv.R;
+import com.zaclimon.aceiptv.data.AvContent;
 import com.zaclimon.aceiptv.settings.SettingsObjectAdapter;
 
 /**
@@ -42,7 +47,7 @@ public class CardViewPresenter extends Presenter {
      */
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Object item) {
-        ImageCardView imageCardView = (ImageCardView) viewHolder.view;
+        final ImageCardView imageCardView = (ImageCardView) viewHolder.view;
         Context context = viewHolder.view.getContext();
 
         if (item instanceof Bundle) {
@@ -52,6 +57,12 @@ public class CardViewPresenter extends Presenter {
             Drawable drawable = context.getDrawable(settingsBundle.getInt(SettingsObjectAdapter.BUNDLE_SETTINGS_DRAWABLE_ID));
             imageCardView.setTitleText(name);
             imageCardView.setMainImage(drawable);
+        } else if (item instanceof AvContent) {
+            // We're dealing with an AvContent item (TvCatchup/VOD)
+            AvContent avContent = (AvContent) item;
+            Target target = getImageViewTarget(imageCardView);
+            imageCardView.setTitleText(avContent.getTitle());
+            Picasso.with(imageCardView.getContext()).load(avContent.getLogo()).into(target);
         }
     }
 
@@ -62,4 +73,26 @@ public class CardViewPresenter extends Presenter {
     public void onUnbindViewHolder(ViewHolder viewHolder) {
 
     }
+
+    private Target getImageViewTarget(final ImageCardView imageCardView) {
+        Target target = new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                Drawable drawable = new BitmapDrawable(imageCardView.getResources(), bitmap);
+                imageCardView.setMainImage(drawable);
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+                imageCardView.setMainImage(errorDrawable, true);
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+                imageCardView.setMainImage(placeHolderDrawable, true);
+            }
+        };
+        return (target);
+    }
+
 }
