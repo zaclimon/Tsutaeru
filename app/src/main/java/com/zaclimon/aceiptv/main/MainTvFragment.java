@@ -38,9 +38,6 @@ public class MainTvFragment extends BrowseFragment {
     private ArrayObjectAdapter mRowsAdapter;
     private BackgroundManager mBackgroundManager;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,9 +105,6 @@ public class MainTvFragment extends BrowseFragment {
      */
     private class TvItemClickListener implements OnItemViewClickedListener {
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
 

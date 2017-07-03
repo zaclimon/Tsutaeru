@@ -52,9 +52,6 @@ public class DebugLogGuidedFragment extends GuidedStepFragment {
 
     private final int WRITE_PERMISSION_REQUEST = 0;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
         String title = getString(R.string.debug_log_title);
@@ -63,9 +60,6 @@ public class DebugLogGuidedFragment extends GuidedStepFragment {
         return (new GuidanceStylist.Guidance(title, description, null, null));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onCreateActions (List<GuidedAction> actions, Bundle savedInstanceState) {
         GuidedAction.Builder yesAction = new GuidedAction.Builder(getActivity());
@@ -78,9 +72,6 @@ public class DebugLogGuidedFragment extends GuidedStepFragment {
         actions.add(noAction.build());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onGuidedActionClicked(GuidedAction guidedAction) {
         if (guidedAction.getId() == GuidedAction.ACTION_ID_YES) {
@@ -95,9 +86,6 @@ public class DebugLogGuidedFragment extends GuidedStepFragment {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 
@@ -128,9 +116,6 @@ public class DebugLogGuidedFragment extends GuidedStepFragment {
         private final String LOGCAT_COMMAND = "logcat -d";
         private final int OUTPUT_STREAM_BUFFER = 4096;
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public Boolean doInBackground(Void... params) {
 
@@ -152,9 +137,6 @@ public class DebugLogGuidedFragment extends GuidedStepFragment {
             return (true);
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public void onPostExecute(Boolean result) {
 

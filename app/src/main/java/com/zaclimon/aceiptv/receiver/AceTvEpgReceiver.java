@@ -26,9 +26,6 @@ import java.util.List;
 
 public class AceTvEpgReceiver extends BroadcastReceiver {
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onReceive(Context context, Intent intent) {
          /*

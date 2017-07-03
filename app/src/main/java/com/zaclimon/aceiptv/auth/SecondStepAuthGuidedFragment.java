@@ -30,18 +30,12 @@ public class SecondStepAuthGuidedFragment extends GuidedStepFragment {
 
     private final int ACTION_USERNAME = 0;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
         String title = getString(R.string.enter_username_title);
         return (new GuidanceStylist.Guidance(title, null, null, null));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onCreateActions (List<GuidedAction> actions, Bundle savedInstanceState) {
         GuidedAction.Builder usernameAction = new GuidedAction.Builder(getActivity());
@@ -53,9 +47,6 @@ public class SecondStepAuthGuidedFragment extends GuidedStepFragment {
         actions.add(usernameAction.build());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public long onGuidedActionEditedAndProceed (GuidedAction action) {
 

@@ -21,9 +21,6 @@ import java.util.List;
 
 public class FirstStepAuthGuidedFragment extends GuidedStepFragment {
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
         String title = getString(R.string.welcome_text);
@@ -32,9 +29,6 @@ public class FirstStepAuthGuidedFragment extends GuidedStepFragment {
         return (new GuidanceStylist.Guidance(title, description, null, null));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onCreateActions (List<GuidedAction> actions, Bundle savedInstanceState) {
         GuidedAction.Builder yesAction = new GuidedAction.Builder(getActivity());
@@ -47,9 +41,6 @@ public class FirstStepAuthGuidedFragment extends GuidedStepFragment {
         actions.add(noAction.build());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onGuidedActionClicked(GuidedAction guidedAction) {
 

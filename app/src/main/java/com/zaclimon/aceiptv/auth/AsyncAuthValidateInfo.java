@@ -44,9 +44,6 @@ public class AsyncAuthValidateInfo extends AsyncTask<Void, Void, Boolean> {
         mSharedPreferencesRepository = sharedPreferencesRepository;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected Boolean doInBackground(Void... params) {
         try {
@@ -60,9 +57,6 @@ public class AsyncAuthValidateInfo extends AsyncTask<Void, Void, Boolean> {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected void onPostExecute(Boolean result) {
         if (result) {

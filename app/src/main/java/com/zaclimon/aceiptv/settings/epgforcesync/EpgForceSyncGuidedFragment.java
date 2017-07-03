@@ -27,9 +27,6 @@ import java.util.concurrent.TimeUnit;
 
 public class EpgForceSyncGuidedFragment extends GuidedStepFragment {
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
         String title = getString(R.string.force_epg_sync_title);
@@ -38,9 +35,6 @@ public class EpgForceSyncGuidedFragment extends GuidedStepFragment {
         return (new GuidanceStylist.Guidance(title, description, null, null));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onCreateActions (List<GuidedAction> actions, Bundle savedInstanceState) {
         GuidedAction.Builder yesAction = new GuidedAction.Builder(getActivity());
@@ -53,9 +47,6 @@ public class EpgForceSyncGuidedFragment extends GuidedStepFragment {
         actions.add(noAction.build());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onGuidedActionClicked(GuidedAction guidedAction) {
         if (guidedAction.getId() == GuidedAction.ACTION_ID_YES) {

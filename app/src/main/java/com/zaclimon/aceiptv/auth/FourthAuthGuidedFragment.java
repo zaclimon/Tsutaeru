@@ -22,9 +22,6 @@ import com.zaclimon.aceiptv.util.Constants;
 
 public class FourthAuthGuidedFragment extends GuidedStepFragment implements AuthView {
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onStart() {
         super.onStart();
@@ -38,9 +35,6 @@ public class FourthAuthGuidedFragment extends GuidedStepFragment implements Auth
         authPresenter.validateInfo(username, password, sharedPreferencesRepository);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public GuidanceStylist onCreateGuidanceStylist() {
         return new GuidanceStylist() {
@@ -51,9 +45,6 @@ public class FourthAuthGuidedFragment extends GuidedStepFragment implements Auth
         };
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onConnectionSuccess() {
         GuidedStepFragment connectedFragment = new FifthStepAuthGuidedFragment();
@@ -64,27 +55,18 @@ public class FourthAuthGuidedFragment extends GuidedStepFragment implements Auth
         add(getFragmentManager(), connectedFragment);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onWrongCredentialsReceived() {
         Toast.makeText(getActivity(), R.string.wrong_credentials_toast, Toast.LENGTH_LONG).show();
         popBackStackToGuidedStepFragment(ThirdStepAuthGuidedFragment.class, 0);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getPlaylistLink(String username, String password) {
         // Could be honestly better since it's not the View's role to get the link...
         return (getString(R.string.ace_playlist_url, username, password, Constants.STREAM_TYPE_HLS));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onTimeoutReceived() {
         Toast.makeText(getActivity(), R.string.connection_timeout_toast, Toast.LENGTH_SHORT).show();

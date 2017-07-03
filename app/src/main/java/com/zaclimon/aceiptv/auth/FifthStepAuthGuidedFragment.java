@@ -24,9 +24,6 @@ import java.util.List;
 
 public class FifthStepAuthGuidedFragment extends GuidedStepFragment {
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
         String title = getString(R.string.connection_successful_text);
@@ -43,9 +40,6 @@ public class FifthStepAuthGuidedFragment extends GuidedStepFragment {
         return (new GuidanceStylist.Guidance(title, description, breadcrumb, null));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onCreateActions (List<GuidedAction> actions, Bundle savedInstanceState) {
         GuidedAction.Builder exitAction = new GuidedAction.Builder(getActivity());
@@ -54,9 +48,6 @@ public class FifthStepAuthGuidedFragment extends GuidedStepFragment {
         actions.add(exitAction.build());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onGuidedActionClicked(GuidedAction guidedAction) {
         getActivity().setResult(Activity.RESULT_OK);

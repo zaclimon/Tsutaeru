@@ -29,9 +29,6 @@ public class AuthPresenterImpl implements AuthPresenter {
         mAuthView = view;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void validateInfo(String username, String password, SharedPreferencesRepository sharedPreferencesRepository) {
         AsyncAuthValidateInfo asyncAuthValidateInfo = new AsyncAuthValidateInfo(username, password, mAuthView, sharedPreferencesRepository);

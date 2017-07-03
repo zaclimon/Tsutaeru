@@ -44,17 +44,11 @@ public class AceJobService extends EpgSyncJobService {
     private String mInputId;
     private XmlTvParser.TvListing mTvListing;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public List<Channel> getChannels() {
         return (mChannels);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public List<Program> getProgramsForChannel(Uri channelUri, Channel channel, long startMs, long endMs) {
 
@@ -108,9 +102,6 @@ public class AceJobService extends EpgSyncJobService {
         return (null);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean onStartJob(JobParameters params) {
         // Broadcast status

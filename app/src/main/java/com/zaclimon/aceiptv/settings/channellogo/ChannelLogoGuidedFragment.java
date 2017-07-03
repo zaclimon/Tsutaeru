@@ -35,9 +35,6 @@ import static android.R.attr.action;
 
 public class ChannelLogoGuidedFragment extends GuidedStepFragment {
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
 
@@ -56,9 +53,6 @@ public class ChannelLogoGuidedFragment extends GuidedStepFragment {
         return (new GuidanceStylist.Guidance(title, description, breadcrumb, null));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onCreateActions (List<GuidedAction> actions, Bundle savedInstanceState) {
         GuidedAction.Builder yesAction = new GuidedAction.Builder(getActivity());
@@ -71,9 +65,6 @@ public class ChannelLogoGuidedFragment extends GuidedStepFragment {
         actions.add(noAction.build());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onGuidedActionClicked(GuidedAction guidedAction) {
 

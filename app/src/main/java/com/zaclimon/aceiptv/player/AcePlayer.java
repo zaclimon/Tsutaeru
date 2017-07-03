@@ -107,82 +107,52 @@ public class AcePlayer implements TvPlayer {
         return (mediaSource);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void play() {
         Log.d(getClass().getSimpleName(), "play() called!");
         player.setPlayWhenReady(true);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void pause() {
         player.setPlayWhenReady(false);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setVolume(float volume) {
         player.setVolume(volume);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void registerCallback(TvPlayer.Callback callback) {
         callbacks.add(callback);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void unregisterCallback(TvPlayer.Callback callback) {
         callbacks.remove(callback);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void seekTo(long positionMs) {
         player.seekTo(positionMs);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public long getCurrentPosition() {
         return (player.getCurrentPosition());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setSurface(Surface surface) {
         player.setVideoSurface(surface);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public long getDuration() {
         return (player.getDuration());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setPlaybackParams(PlaybackParams params) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

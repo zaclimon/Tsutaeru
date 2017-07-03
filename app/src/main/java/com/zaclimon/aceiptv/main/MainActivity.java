@@ -25,9 +25,6 @@ public class MainActivity extends Activity {
 
     private final int AUTH_REQUEST = 0;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,9 +57,6 @@ public class MainActivity extends Activity {
         fragmentTransaction.commit();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 

@@ -48,9 +48,6 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 public class AceTvInputService extends BaseTvInputService {
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final Session onCreateSession(String inputId) {
         AceSession aceSession = new AceSession(this, inputId);
@@ -79,17 +76,11 @@ public class AceTvInputService extends BaseTvInputService {
             mContext = context;
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public boolean onPlayProgram(Program program, long startPosMs) {
             return (true);
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public void onPlayChannel(Channel channel) {
             mAcePlayer = new AcePlayer(mContext, channel.getInternalProviderData().getVideoUrl());
@@ -108,31 +99,19 @@ public class AceTvInputService extends BaseTvInputService {
             mAcePlayer.play();
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public void onSetCaptionEnabled(boolean enabled) {}
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public boolean onPlayRecordedProgram(RecordedProgram recordedProgram) {
             return (false);
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public TvPlayer getTvPlayer() {
             return (mAcePlayer);
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public boolean onTune(Uri channelUri) {
 
@@ -144,9 +123,6 @@ public class AceTvInputService extends BaseTvInputService {
             return super.onTune(channelUri);
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public void onRelease() {
             super.onRelease();
@@ -220,33 +196,21 @@ public class AceTvInputService extends BaseTvInputService {
             return (builder.build());
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public void onTimelineChanged(Timeline timeline, Object manifest) {
 
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
 
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public void onLoadingChanged(boolean isLoading) {
 
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
 
@@ -262,9 +226,6 @@ public class AceTvInputService extends BaseTvInputService {
             }
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public void onPlayerError(ExoPlaybackException error) {
             if (error.getCause() instanceof BehindLiveWindowException) {
@@ -293,17 +254,11 @@ public class AceTvInputService extends BaseTvInputService {
             }
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public void onPositionDiscontinuity() {
 
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
 

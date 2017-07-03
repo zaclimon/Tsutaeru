@@ -33,9 +33,6 @@ public class StreamTypeGuidedFragment extends GuidedStepFragment {
     private final int ACTION_MPEG_TS = 0;
     private final int ACTION_HLS = 1;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
 
@@ -54,9 +51,6 @@ public class StreamTypeGuidedFragment extends GuidedStepFragment {
         return (new GuidanceStylist.Guidance(title, description, breadcrumb, null));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onCreateActions (List<GuidedAction> actions, Bundle savedInstanceState) {
         GuidedAction.Builder tsAction = new GuidedAction.Builder(getActivity());
@@ -69,9 +63,6 @@ public class StreamTypeGuidedFragment extends GuidedStepFragment {
         actions.add(tsAction.build());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onGuidedActionClicked(GuidedAction guidedAction) {
 

@@ -50,9 +50,6 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
         return (fragmentView);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onScanStarted() {
         if (ActivityUtil.isUsernamePasswordEmpty(getActivity())) {
@@ -66,17 +63,11 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getInputId() {
         return (mInputId);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onScanFinished() {
         if (!mErrorFound) {
@@ -88,18 +79,12 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
         getActivity().finish();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onScanError(int reason) {
         mErrorFound = true;
         Log.d(getClass().getSimpleName(), "Reason: " + reason);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
