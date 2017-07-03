@@ -20,7 +20,7 @@ import com.zaclimon.aceiptv.util.Constants;
  * Creation date: 24/06/17
  */
 
-public class LoadingAuthGuidedFragment extends GuidedStepFragment implements AuthView {
+public class FourthAuthGuidedFragment extends GuidedStepFragment implements AuthView {
 
     /**
      * {@inheritDoc}
@@ -30,8 +30,8 @@ public class LoadingAuthGuidedFragment extends GuidedStepFragment implements Aut
         super.onStart();
 
         Bundle arguments = getArguments();
-        String username = arguments.getString(UsernameStepAuthGuidedFragment.USERNAME_ARGUMENT);
-        String password = arguments.getString(PasswordStepAuthGuidedFragment.PASSWORD_ARGUMENT);
+        String username = arguments.getString(SecondStepAuthGuidedFragment.USERNAME_ARGUMENT);
+        String password = arguments.getString(ThirdStepAuthGuidedFragment.PASSWORD_ARGUMENT);
         AuthPresenter authPresenter = new AuthPresenterImpl(this);
         SharedPreferencesRepository sharedPreferencesRepository = new SharedPreferencesRepositoryImpl(getActivity());
 
@@ -56,10 +56,10 @@ public class LoadingAuthGuidedFragment extends GuidedStepFragment implements Aut
      */
     @Override
     public void onConnectionSuccess() {
-        GuidedStepFragment connectedFragment = new ConnectedStepAuthGuidedFragment();
+        GuidedStepFragment connectedFragment = new FifthStepAuthGuidedFragment();
         Bundle bundle = new Bundle();
 
-        bundle.putString(UsernameStepAuthGuidedFragment.USERNAME_ARGUMENT, getArguments().getString(UsernameStepAuthGuidedFragment.USERNAME_ARGUMENT));
+        bundle.putString(SecondStepAuthGuidedFragment.USERNAME_ARGUMENT, getArguments().getString(SecondStepAuthGuidedFragment.USERNAME_ARGUMENT));
         connectedFragment.setArguments(bundle);
         add(getFragmentManager(), connectedFragment);
     }
@@ -70,7 +70,7 @@ public class LoadingAuthGuidedFragment extends GuidedStepFragment implements Aut
     @Override
     public void onWrongCredentialsReceived() {
         Toast.makeText(getActivity(), R.string.wrong_credentials_toast, Toast.LENGTH_LONG).show();
-        popBackStackToGuidedStepFragment(PasswordStepAuthGuidedFragment.class, 0);
+        popBackStackToGuidedStepFragment(ThirdStepAuthGuidedFragment.class, 0);
     }
 
     /**
@@ -88,6 +88,6 @@ public class LoadingAuthGuidedFragment extends GuidedStepFragment implements Aut
     @Override
     public void onTimeoutReceived() {
         Toast.makeText(getActivity(), R.string.connection_timeout_toast, Toast.LENGTH_SHORT).show();
-        popBackStackToGuidedStepFragment(PasswordStepAuthGuidedFragment.class, 0);
+        popBackStackToGuidedStepFragment(ThirdStepAuthGuidedFragment.class, 0);
     }
 }

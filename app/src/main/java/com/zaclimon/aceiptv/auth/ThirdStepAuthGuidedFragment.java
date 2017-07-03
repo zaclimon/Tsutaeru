@@ -21,7 +21,7 @@ import java.util.List;
  * Creation date: 23/06/17
  */
 
-public class PasswordStepAuthGuidedFragment extends GuidedStepFragment {
+public class ThirdStepAuthGuidedFragment extends GuidedStepFragment {
 
     protected static final String PASSWORD_ARGUMENT = "password";
 
@@ -60,9 +60,9 @@ public class PasswordStepAuthGuidedFragment extends GuidedStepFragment {
             String password = action.getEditTitle().toString();
 
             if (!TextUtils.isEmpty(password)) {
-                GuidedStepFragment loadingFragment = new LoadingAuthGuidedFragment();
+                GuidedStepFragment loadingFragment = new FourthAuthGuidedFragment();
                 Bundle arguments = new Bundle();
-                arguments.putString(UsernameStepAuthGuidedFragment.USERNAME_ARGUMENT, getArguments().getString(UsernameStepAuthGuidedFragment.USERNAME_ARGUMENT));
+                arguments.putString(SecondStepAuthGuidedFragment.USERNAME_ARGUMENT, getArguments().getString(SecondStepAuthGuidedFragment.USERNAME_ARGUMENT));
                 arguments.putString(PASSWORD_ARGUMENT, password);
                 loadingFragment.setArguments(arguments);
                 add(getFragmentManager(), loadingFragment);

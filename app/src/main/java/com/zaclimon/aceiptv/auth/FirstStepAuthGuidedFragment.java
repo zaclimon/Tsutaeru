@@ -19,7 +19,7 @@ import java.util.List;
  * Creation date: 23/06/17
  */
 
-public class WelcomeStepAuthGuidedFragment extends GuidedStepFragment {
+public class FirstStepAuthGuidedFragment extends GuidedStepFragment {
 
     /**
      * {@inheritDoc}
@@ -56,7 +56,7 @@ public class WelcomeStepAuthGuidedFragment extends GuidedStepFragment {
         long id = guidedAction.getId();
 
         if (id == GuidedAction.ACTION_ID_OK) {
-            add(getActivity().getFragmentManager(), new UsernameStepAuthGuidedFragment());
+            add(getActivity().getFragmentManager(), new SecondStepAuthGuidedFragment());
         } else if (id == GuidedAction.ACTION_ID_CANCEL) {
             getActivity().finish();
         }

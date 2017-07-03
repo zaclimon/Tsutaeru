@@ -22,7 +22,7 @@ import java.util.List;
  * Creation date: 24/06/17
  */
 
-public class ConnectedStepAuthGuidedFragment extends GuidedStepFragment {
+public class FifthStepAuthGuidedFragment extends GuidedStepFragment {
 
     /**
      * {@inheritDoc}
@@ -30,7 +30,7 @@ public class ConnectedStepAuthGuidedFragment extends GuidedStepFragment {
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
         String title = getString(R.string.connection_successful_text);
-        String breadcrumb = getArguments().getString(UsernameStepAuthGuidedFragment.USERNAME_ARGUMENT);
+        String breadcrumb = getArguments().getString(SecondStepAuthGuidedFragment.USERNAME_ARGUMENT);
         String description;
         ComponentName componentName = getActivity().getCallingActivity();
 

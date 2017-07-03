@@ -22,7 +22,7 @@ public class AuthActivityTv extends Activity {
         super.onCreate(savedInstanceState);
 
         if (ActivityUtil.isTvMode(this)) {
-            GuidedStepFragment.addAsRoot(this, new WelcomeStepAuthGuidedFragment(), android.R.id.content);
+            GuidedStepFragment.addAsRoot(this, new FirstStepAuthGuidedFragment(), android.R.id.content);
         }
     }
 
@@ -31,7 +31,7 @@ public class AuthActivityTv extends Activity {
         // Similar to the Leanback showcase, exit the Activity if we're connected.
         GuidedStepFragment guidedStepFragment = GuidedStepFragment.getCurrentGuidedStepFragment(getFragmentManager());
 
-        if (guidedStepFragment != null && guidedStepFragment instanceof ConnectedStepAuthGuidedFragment) {
+        if (guidedStepFragment != null && guidedStepFragment instanceof FifthStepAuthGuidedFragment) {
             finish();
         } else {
             super.onBackPressed();

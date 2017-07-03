@@ -21,7 +21,7 @@ import java.util.List;
  * Creation date: 23/06/17
  */
 
-public class UsernameStepAuthGuidedFragment extends GuidedStepFragment {
+public class SecondStepAuthGuidedFragment extends GuidedStepFragment {
 
     /**
      * Username argument used to pass between GuidedStepFragments in order to get a given value.
@@ -66,7 +66,7 @@ public class UsernameStepAuthGuidedFragment extends GuidedStepFragment {
             String username = action.getEditTitle().toString();
 
             if (!TextUtils.isEmpty(username)) {
-                GuidedStepFragment passwordFragment = new PasswordStepAuthGuidedFragment();
+                GuidedStepFragment passwordFragment = new ThirdStepAuthGuidedFragment();
                 Bundle arguments = new Bundle();
                 arguments.putString(USERNAME_ARGUMENT, username.trim());
                 passwordFragment.setArguments(arguments);
