@@ -22,7 +22,7 @@
         android:banner="@drawable/ace_banner">
 
         <activity
-            android:name="com.zaclimon.aceiptv.main.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.Leanback">
 
@@ -33,12 +33,12 @@
         </activity>
 
         <activity
-            android:name=".setup.AceTvInputSetupActivity"
+            android:name=".ui.setup.AceTvInputSetupActivity"
             android:exported="true"/>
 
-        <activity android:name=".auth.AuthActivityTv"/>
-        <activity android:name=".settings.SettingsElementActivity"/>
-        <activity android:name=".playback.PlaybackActivity" android:resizeableActivity="true"
+        <activity android:name=".ui.auth.AuthActivityTv"/>
+        <activity android:name=".ui.settings.SettingsElementActivity"/>
+        <activity android:name=".ui.playback.PlaybackActivity" android:resizeableActivity="true"
                   android:supportsPictureInPicture="true"
                   android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"/>
 
