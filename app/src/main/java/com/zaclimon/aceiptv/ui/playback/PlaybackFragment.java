@@ -1,14 +1,19 @@
 package com.zaclimon.aceiptv.ui.playback;
 
+import android.app.FragmentTransaction;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v17.leanback.app.ErrorFragment;
 import android.support.v17.leanback.app.VideoFragment;
 import android.support.v17.leanback.app.VideoFragmentGlueHost;
 import android.support.v17.leanback.media.PlaybackGlue;
 import android.support.v17.leanback.media.PlaybackTransportControlGlue;
+import android.util.Log;
 
+import com.google.android.exoplayer2.ExoPlaybackException;
+import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.ui.catchup.CatchupTvFragment;
 
 /**
@@ -63,6 +68,21 @@ public class PlaybackFragment extends VideoFragment {
         }
         super.onPause();
 
+    }
+
+    @Override
+    public void onError(int errorCode, CharSequence errorMessage) {
+
+        // Notify the user if a video can't be played.
+        if (errorCode == ExoPlaybackException.TYPE_SOURCE) {
+            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            ErrorFragment errorFragment = new ErrorFragment();
+            errorFragment.setDefaultBackground(true);
+            errorFragment.setMessage(getString(R.string.video_not_found));
+            errorFragment.setImageDrawable(getActivity().getDrawable(R.drawable.lb_ic_sad_cloud));
+            fragmentTransaction.replace(R.id.activity_playback_fragment, errorFragment);
+            fragmentTransaction.commit();
+        }
     }
 
 }

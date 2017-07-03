@@ -43,6 +43,7 @@
     <string name="stream_type_description">Sets the current stream output for a given IPTV channel.</string>
     <string name="username_empty">Please enter a username</string>
     <string name="username_text">Username</string>
+    <string name="video_not_found">Video not found! Please contact A.C.E.</string>
     <string name="welcome_text">Welcome</string>
     <string name="wont_be_long_text">It won\'t be too long&#8230;</string>
     <string name="write_permissions_denied_toast">Can\'t write to the external storage</string>
