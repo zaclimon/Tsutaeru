@@ -38,6 +38,9 @@
 
         <activity android:name=".auth.AuthActivityTv"/>
         <activity android:name=".settings.SettingsElementActivity"/>
+        <activity android:name=".playback.PlaybackActivity" android:resizeableActivity="true"
+                  android:supportsPictureInPicture="true"
+                  android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"/>
 
         <service android:name=".service.AceTvInputService"
                  android:label="@string/tv_input_label"

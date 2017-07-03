@@ -132,13 +132,16 @@ public class AvContentUtil {
         }
 
         String partialAttribute = playlistLine.substring(indexAttributeStart, indexAttributeEnd);
-        String[] partialAttributeParts = partialAttribute.split("=");
-        if (partialAttributeParts.length > 1) {
-            // We're using pure M3U attributes
-            return (partialAttributeParts[1].replace("\"", "").trim());
-        } else {
-            // We're most likely retrieving a content link.
-            return (partialAttribute.replace(",", ""));
+
+        switch (attribute) {
+            case Constants.ATTRIBUTE_TVG_NAME:
+                return (partialAttribute.replace(",", ""));
+            case Constants.ATTRIBUTE_LINK:
+                return (partialAttribute);
+            default:
+                // We're using pure M3U attributes
+                String[] partialAttributeParts = partialAttribute.split("=");
+                return (partialAttributeParts[1].replace("\"", "").trim());
         }
 
     }
