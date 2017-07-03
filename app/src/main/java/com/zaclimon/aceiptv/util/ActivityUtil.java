@@ -44,4 +44,15 @@ public class ActivityUtil {
         return (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION);
     }
 
+    /**
+     * Converts given density-independent pixels (dp) to pixels
+     * @param dp the number of dp to convert
+     * @param context the required context to convert the dp
+     * @return the number of pixel for the given dp.
+     */
+    public static int dpToPixel(int dp, Context context) {
+        float density = context.getResources().getDisplayMetrics().density;
+        return ((int) (dp * density + 0.5f));
+    }
+
 }

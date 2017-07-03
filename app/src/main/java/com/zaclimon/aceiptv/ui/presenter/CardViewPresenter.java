@@ -1,8 +1,6 @@
 package com.zaclimon.aceiptv.ui.presenter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v17.leanback.widget.BaseCardView;
@@ -11,9 +9,9 @@ import android.support.v17.leanback.widget.Presenter;
 import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 import com.zaclimon.aceiptv.data.AvContent;
 import com.zaclimon.aceiptv.ui.settings.SettingsObjectAdapter;
+import com.zaclimon.aceiptv.util.ActivityUtil;
 
 /**
  * Custom {@link Presenter} class that is used to show {@link ImageCardView}
@@ -25,16 +23,25 @@ import com.zaclimon.aceiptv.ui.settings.SettingsObjectAdapter;
 
 public class CardViewPresenter extends Presenter {
 
-    private static final int CARDVIEW_WIDTH = 200;
-    private static final int CARDVIEW_HEIGHT = 200;
+    /*
+      Let's use Google's square cards example CardView for the dimensions found here:
+
+      https://github.com/googlesamples/leanback-showcase/blob/master/app/src/main/res/values/dims.xml
+     */
+    private static final int CARDVIEW_WIDTH_DP = 128;
+    private static final int CARDVIEW_HEIGHT_DP = 128;
 
     @Override
     public Presenter.ViewHolder onCreateViewHolder(ViewGroup parent) {
         ImageCardView imageCardView = new ImageCardView(parent.getContext());
+
+        int widthPixels = ActivityUtil.dpToPixel(CARDVIEW_WIDTH_DP, imageCardView.getContext());
+        int heightPixels = ActivityUtil.dpToPixel(CARDVIEW_HEIGHT_DP, imageCardView.getContext());
+
         imageCardView.setInfoVisibility(BaseCardView.CARD_REGION_VISIBLE_ALWAYS);
         imageCardView.setFocusable(true);
         imageCardView.setFocusableInTouchMode(true);
-        imageCardView.setMainImageDimensions(CARDVIEW_WIDTH, CARDVIEW_HEIGHT);
+        imageCardView.setMainImageDimensions(widthPixels, heightPixels);
         return (new ViewHolder(imageCardView));
     }
 
@@ -42,6 +49,9 @@ public class CardViewPresenter extends Presenter {
     public void onBindViewHolder(ViewHolder viewHolder, Object item) {
         final ImageCardView imageCardView = (ImageCardView) viewHolder.view;
         Context context = viewHolder.view.getContext();
+
+        int widthPixels = ActivityUtil.dpToPixel(CARDVIEW_WIDTH_DP, context);
+        int heightPixels = ActivityUtil.dpToPixel(CARDVIEW_HEIGHT_DP, context);
 
         if (item instanceof Bundle) {
             // We're dealing with a Settings menu value
@@ -53,9 +63,8 @@ public class CardViewPresenter extends Presenter {
         } else if (item instanceof AvContent) {
             // We're dealing with an AvContent item (TvCatchup/VOD)
             AvContent avContent = (AvContent) item;
-            Target target = getImageViewTarget(imageCardView);
             imageCardView.setTitleText(avContent.getTitle());
-            Picasso.with(imageCardView.getContext()).load(avContent.getLogo()).into(target);
+            Picasso.with(imageCardView.getContext()).load(avContent.getLogo()).resize(widthPixels, heightPixels).into(imageCardView.getMainImageView());
         }
     }
 
@@ -63,26 +72,4 @@ public class CardViewPresenter extends Presenter {
     public void onUnbindViewHolder(ViewHolder viewHolder) {
 
     }
-
-    private Target getImageViewTarget(final ImageCardView imageCardView) {
-        Target target = new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                Drawable drawable = new BitmapDrawable(imageCardView.getResources(), bitmap);
-                imageCardView.setMainImage(drawable);
-            }
-
-            @Override
-            public void onBitmapFailed(Drawable errorDrawable) {
-                imageCardView.setMainImage(errorDrawable, true);
-            }
-
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-                imageCardView.setMainImage(placeHolderDrawable, true);
-            }
-        };
-        return (target);
-    }
-
 }
