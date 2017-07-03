@@ -17,7 +17,10 @@ import android.util.Log;
 import com.zaclimon.aceiptv.catchup.CatchupTvFragment;
 
 /**
- * Created by isaac on 17-07-02.
+ * Fragment responsible for playing an {@link com.zaclimon.aceiptv.data.AvContent}
+ *
+ * @author zaclimon
+ * Creation date: 02/07/17
  */
 
 public class PlaybackFragment extends VideoFragment {

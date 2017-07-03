@@ -12,13 +12,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by isaac on 17-07-01.
+ * Utility class responsible for handling {@link AvContent}
+ *
+ * AvContents can be handled differently for example for A.C.E. IPTV, an M3U from it's given
+ * Android API is shown like this:
+ *
+ * #EXTINF:-1 tvg-name="" group-title="" tvg-logo="", "title" "content-link"
+ *
+ * @author zaclimon
+ * Creation date: 01/07/17
  */
 
 public class AvContentUtil {
 
     private static final String LOG_TAG = "AvContentUtil";
 
+    /**
+     * Generates required {@link AvContent} for a given M3U playlist
+     * @param playlist stream containing the M3U playlist
+     * @return the list of AvContents from that playlist
+     */
     public static List<AvContent> getAvContentsList(InputStream playlist) {
 
         List<String> playlistStrings = getAvContentsAsString(playlist);
@@ -33,6 +46,11 @@ public class AvContentUtil {
         return (avContents);
     }
 
+    /**
+     * Generates the groups for given {@link AvContent}
+     * @param contents the list containing all the AvContents
+     * @return the list of different groups for the given content
+     */
     public static List<String> getAvContentsGroup(List<AvContent> contents) {
 
         List<String> tempGroups = new ArrayList<>();
@@ -58,6 +76,11 @@ public class AvContentUtil {
         return (tempGroups);
     }
 
+    /**
+     * Reads a stream from the M3U playlist from a user for easier parsing.
+     * @param playlist a user's M3U playlist stream
+     * @return a List containing every lines of the M3U playlist
+     */
     private static List<String> getAvContentsAsString(InputStream playlist) {
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(playlist));
@@ -89,6 +112,11 @@ public class AvContentUtil {
         }
     }
 
+    /**
+     * Creates a {@link AvContent} from a given playlist line.
+     * @param playlistLine The required playlist line
+     * @return the AvContent from this line
+     */
     private static AvContent createAvContent(String playlistLine) {
 
         if (playlistLine.contains("#EXTINF:-1 tvg-name=\"\"")) {
@@ -104,6 +132,12 @@ public class AvContentUtil {
 
     }
 
+    /**
+     * Returns a given attribute for an M3U playlist file based on it's parameter.
+     * @param attribute an attribute as found in {@link Constants}
+     * @param playlistLine a line from a given playlist.
+     * @return The attribute for that line.
+     */
     private static String getAttributeFromPlaylistLine(String attribute, String playlistLine) {
 
         int indexAttributeStart;

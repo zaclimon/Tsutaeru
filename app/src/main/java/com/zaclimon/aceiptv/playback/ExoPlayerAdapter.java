@@ -1,9 +1,5 @@
 package com.zaclimon.aceiptv.playback;
 
-/**
- * Created by isaac on 17-07-02.
- */
-
 import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
@@ -37,6 +33,8 @@ import com.zaclimon.aceiptv.R;
  * Adapted from the leanback-showcase example originally found here:
  *
  * https://github.com/googlesamples/leanback-showcase/blob/master/app/src/main/java/android/support/v17/leanback/supportleanbackshowcase/app/media/ExoPlayerAdapter.java
+ *
+ * Original import date: 02/07/17
  */
 public class ExoPlayerAdapter extends PlayerAdapter implements ExoPlayer.EventListener{
 

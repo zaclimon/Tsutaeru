@@ -12,7 +12,10 @@ import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 
 /**
- * Created by isaac on 17-07-01.
+ * Fragment handling the Settings from a TV standpoint
+ *
+ * @author zaclimon
+ * Creation date: 01/07/17
  */
 
 public class SettingsTvFragment extends RowsFragment {
@@ -31,6 +34,12 @@ public class SettingsTvFragment extends RowsFragment {
         getMainFragmentAdapter().getFragmentHost().notifyDataReady(getMainFragmentAdapter());
     }
 
+    /**
+     * Class offering an {@link OnItemViewClickedListener} for the various settings elements.
+     *
+     * @author zaclimon
+     * Creation date: 01/07/17
+     */
     private class SettingsItemClickListener implements OnItemViewClickedListener {
 
         @Override

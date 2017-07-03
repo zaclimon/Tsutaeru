@@ -8,7 +8,10 @@ import android.os.Bundle;
 import com.zaclimon.aceiptv.R;
 
 /**
- * Created by isaac on 17-07-02.
+ * Activity responsible of playing a given {@link com.zaclimon.aceiptv.data.AvContent}
+ *
+ * @author zaclimon
+ * Creation date: 02/07/17
  */
 
 public class PlaybackActivity extends Activity {

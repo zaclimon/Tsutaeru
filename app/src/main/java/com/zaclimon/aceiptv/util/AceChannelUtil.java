@@ -185,7 +185,7 @@ public class AceChannelUtil {
     /**
      * Returns a given attribute for an M3U playlist file based on it's parameter.
      * @param playlist a list containing all the user's playlist lines.
-     * @param attribute an attributes as found in {@link Constants}
+     * @param attribute an attribute as found in {@link Constants}
      * @return a list containing the given attribute for all the channels of a user's playlist.
      */
     private static List<String> getChannelAttribute(List<String> playlist, String attribute) {

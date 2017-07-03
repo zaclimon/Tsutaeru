@@ -30,14 +30,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by isaac on 17-07-01.
+ * Fragment responsible for showing Tv Catchup content for ACE IPTV
+ *
+ * @author zaclimon
+ * Creation date: 01/07/17
  */
 
 public class CatchupTvFragment extends RowsFragment {
 
+    /**
+     * Variable for accessing an {@link AvContent} title
+     */
     public static final String AV_CONTENT_TITLE_BUNDLE = "av_content_title";
+
+    /**
+     * Variable for accessing an {@link AvContent} logo url
+     */
     public static final String AV_CONTENT_LOGO_BUNDLE = "av_content_logo";
+
+    /**
+     * Variable for accessing an {@link AvContent} content url
+     */
     public static final String AV_CONTENT_LINK_BUNDLE = "av_content_link";
+
+    /**
+     * Variable for accessing an {@link AvContent} group (provider)
+     */
     public static final String AV_CONTENT_GROUP_BUNDLE = "av_content_group";
 
     private final String LOG_TAG = getClass().getSimpleName();
@@ -53,6 +71,10 @@ public class CatchupTvFragment extends RowsFragment {
 
     }
 
+    /**
+     * Async class that will process everything for the Catchup TV content. This way, a clean we
+     * don't break on the user experience.
+     */
     private class AsyncProcessCatchup extends AsyncTask<Void, Void, Boolean> {
 
         @Override
@@ -66,7 +88,7 @@ public class CatchupTvFragment extends RowsFragment {
                 InputStream catchupInputStream = RichFeedUtil.getInputStream(catchupUrl);
                 List<AvContent> avContents = AvContentUtil.getAvContentsList(catchupInputStream);
                 List<String> avGroups = AvContentUtil.getAvContentsGroup(avContents);
-                List<ArrayObjectAdapter> avAdapters = getObjectAdapters(avContents, avGroups);
+                List<ArrayObjectAdapter> avAdapters = getProvidersContent(avContents, avGroups);
 
                 for (int i = 0; i < avAdapters.size(); i++) {
                     HeaderItem catchupItem = new HeaderItem(avGroups.get(i));
@@ -92,7 +114,13 @@ public class CatchupTvFragment extends RowsFragment {
             }
         }
 
-        private List<ArrayObjectAdapter> getObjectAdapters(List<AvContent> avContents, List<String> avGroups) {
+        /**
+         * Gives all the contents available by a given providers for TV catchup
+         * @param avContents All the audio visual content available
+         * @param avGroups All the different providers offering the said content
+         * @return the list of object adapters to be displayed in a {@link ListRow}
+         */
+        private List<ArrayObjectAdapter> getProvidersContent(List<AvContent> avContents, List<String> avGroups) {
 
             List<ArrayObjectAdapter> tempAdapters = new ArrayList<>();
 
@@ -111,6 +139,12 @@ public class CatchupTvFragment extends RowsFragment {
 
     }
 
+    /**
+     * Class acting as a onItemViewClickedListener to play an {@link AvContent}
+     *
+     * @author zaclimon
+     * Creation date: 02/07/17
+     */
     private class CatchupTvItemClickListener implements OnItemViewClickedListener {
 
         @Override
