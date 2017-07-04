@@ -73,15 +73,14 @@ public class UserInfoGuidedFragment extends GuidedStepFragment implements UserIn
 
     @Override
     public void onGuidedActionClicked(GuidedAction guidedAction) {
-        int id = (int) guidedAction.getId();
 
          /*
           There seems to have an issue with popBackStackToGuidedStepFragment(), let's just use the
           classical popBackStack().
           */
-        if (id == GuidedAction.ACTION_ID_OK) {
-            getFragmentManager().popBackStack();
-        }
+
+        getFragmentManager().popBackStack();
+
     }
 
     @Override

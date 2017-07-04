@@ -52,10 +52,8 @@ public class DebugLogGuidedFragment extends GuidedStepFragment {
     public void onCreateActions (List<GuidedAction> actions, Bundle savedInstanceState) {
         GuidedAction.Builder yesAction = new GuidedAction.Builder(getActivity());
         GuidedAction.Builder noAction = new GuidedAction.Builder(getActivity());
-        yesAction.title(R.string.yes_text);
-        noAction.title(R.string.no_text);
-        yesAction.id(GuidedAction.ACTION_ID_YES);
-        noAction.id(GuidedAction.ACTION_ID_NO);
+        yesAction.clickAction(GuidedAction.ACTION_ID_YES);
+        noAction.clickAction(GuidedAction.ACTION_ID_NO);
         actions.add(yesAction.build());
         actions.add(noAction.build());
     }
