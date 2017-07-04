@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Ace IPTV</string>
+    <string name="about_text">About</string>
     <string name="activated_text">Activated</string>
     <string name="authentication_not_possible">Can\'t authenticate</string>
     <string name="authentication_required">In order to use A.C.E. IPTV services, you must sign-in.</string>
@@ -33,6 +34,7 @@
     <string name="password_empty">Please enter a password.</string>
     <string name="no_text">No</string>
     <string name="not_yet_text">Not yet</string>
+    <string name="ok_text">Ok</string>
     <string name="password_text">Password</string>
     <string name="tv_input_label">A.C.E. IPTV</string>
     <string name="settings_text">Settings</string>
@@ -41,8 +43,12 @@
     <string name="stream_type">Stream type</string>
     <string name="stream_type_short_description">MPEG-TS/HLS</string>
     <string name="stream_type_description">Sets the current stream output for a given IPTV channel.</string>
+    <string name="user_info_text">User info</string>
+    <string name="user_info_description">Status: %1$s\nExpiration date: %2$s\nTrial account: %3$s\nMaximum connections: %4$s</string>
+    <string name="user_info_not_accessible">The user info could not be accessed.</string>
     <string name="username_empty">Please enter a username</string>
     <string name="username_text">Username</string>
+    <string name="version_text">Version: %1$s</string>
     <string name="video_not_found">Video not found! Please contact A.C.E.</string>
     <string name="welcome_text">Welcome</string>
     <string name="wont_be_long_text">It won\'t be too long&#8230;</string>

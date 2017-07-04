@@ -66,7 +66,7 @@ public class MainTvFragment extends BrowseFragment {
      */
     private void showRows() {
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
-        setCatchupRow();
+        //setCatchupRow();
         setSettingsRow();
         setAdapter(mRowsAdapter);
     }

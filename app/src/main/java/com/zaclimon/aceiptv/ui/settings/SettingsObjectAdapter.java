@@ -38,6 +38,7 @@ public class SettingsObjectAdapter extends ArrayObjectAdapter {
         setForceEpgSyncSection();
         setChangeUserSection();
         setDebugLogSection();
+        setAboutSection();
     }
 
     /**
@@ -80,10 +81,20 @@ public class SettingsObjectAdapter extends ArrayObjectAdapter {
         add(bundle);
     }
 
+    /**
+     * Configures the debug log section
+     */
     private void setDebugLogSection() {
         Bundle bundle = new Bundle();
         bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.debug_log_title_short);
         bundle.putInt(BUNDLE_SETTINGS_DRAWABLE_ID, R.drawable.ic_debug);
+        add(bundle);
+    }
+
+    private void setAboutSection() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.about_text);
+        bundle.putInt(BUNDLE_SETTINGS_DRAWABLE_ID, R.drawable.ic_about);
         add(bundle);
     }
 }

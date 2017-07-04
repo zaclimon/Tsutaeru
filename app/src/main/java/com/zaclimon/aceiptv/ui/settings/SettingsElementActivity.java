@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v17.leanback.app.GuidedStepFragment;
+import android.support.v17.leanback.app.ProgressBarManager;
+import android.view.ViewGroup;
 
 import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.ui.auth.AuthActivityTv;
@@ -47,6 +49,9 @@ public class SettingsElementActivity extends Activity {
                 case R.string.debug_log_title:
                 case R.string.debug_log_title_short:
                     GuidedStepFragment.addAsRoot(this, new DebugLogGuidedFragment(), android.R.id.content);
+                    break;
+                case R.string.about_text:
+                    GuidedStepFragment.addAsRoot(this, new AboutGuidedFragment(), android.R.id.content);
                     break;
             }
         }
