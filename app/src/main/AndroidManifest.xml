@@ -32,12 +32,10 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ui.setup.AceTvInputSetupActivity"
-            android:exported="true"/>
-
+        <activity android:name=".ui.setup.AceTvInputSetupActivity" android:exported="true"/>
         <activity android:name=".ui.auth.AuthActivityTv"/>
         <activity android:name=".ui.settings.SettingsElementActivity"/>
+
         <activity android:name=".ui.playback.PlaybackActivity" android:resizeableActivity="true"
                   android:supportsPictureInPicture="true"
                   android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"/>
