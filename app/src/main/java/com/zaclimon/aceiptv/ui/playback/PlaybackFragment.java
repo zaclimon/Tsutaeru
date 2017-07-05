@@ -77,7 +77,7 @@ public class PlaybackFragment extends VideoFragment {
             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
             ErrorFragment errorFragment = new ErrorFragment();
             errorFragment.setDefaultBackground(true);
-            errorFragment.setMessage(getString(R.string.video_not_found));
+            errorFragment.setMessage(getString(R.string.video_not_playable));
             errorFragment.setImageDrawable(getActivity().getDrawable(R.drawable.lb_ic_sad_cloud));
             fragmentTransaction.replace(R.id.activity_playback_fragment, errorFragment);
             fragmentTransaction.commit();
