@@ -15,6 +15,7 @@ import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 
 import com.zaclimon.aceiptv.R;
+import com.zaclimon.aceiptv.ui.vod.VodTvFragment;
 import com.zaclimon.aceiptv.ui.vod.catchup.CatchupTvFragment;
 import com.zaclimon.aceiptv.ui.settings.SettingsElementActivity;
 import com.zaclimon.aceiptv.ui.settings.SettingsTvFragment;
@@ -30,9 +31,10 @@ import com.zaclimon.aceiptv.ui.vod.series.SeriesTvFragment;
 
 public class MainTvFragment extends BrowseFragment {
 
-    private static final int SERIES_ID = 0;
-    private static final int CATCHUP_ID = 1;
-    private static final int SETTINGS_ID = 2;
+    private static final int VOD_ID = 0;
+    private static final int SERIES_ID = 1;
+    private static final int CATCHUP_ID = 2;
+    private static final int SETTINGS_ID = 3;
 
     private ArrayObjectAdapter mRowsAdapter;
     private BackgroundManager mBackgroundManager;
@@ -67,6 +69,7 @@ public class MainTvFragment extends BrowseFragment {
      */
     private void showRows() {
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
+        setVodRow();
         setSeriesRow();
         setCatchupRow();
         setSettingsRow();
@@ -108,6 +111,12 @@ public class MainTvFragment extends BrowseFragment {
         mRowsAdapter.add(seriesRow);
     }
 
+    private void setVodRow() {
+        HeaderItem vodHeader = new HeaderItem(VOD_ID, getString(R.string.vod_text));
+        PageRow vodRow = new PageRow(vodHeader);
+        mRowsAdapter.add(vodRow);
+    }
+
     /**
      * Private class implementing {@link OnItemViewClickedListener} which reacts for a given
      * click when an item in a given row is selected.
@@ -145,7 +154,9 @@ public class MainTvFragment extends BrowseFragment {
         public Fragment createFragment(Object row) {
             Row tempRow = (Row) row;
 
-            if (tempRow.getId() == SERIES_ID) {
+            if (tempRow.getId() == VOD_ID) {
+                return (new VodTvFragment());
+            } else if (tempRow.getId() == SERIES_ID) {
                 return (new SeriesTvFragment());
             } else if (tempRow.getId() == CATCHUP_ID) {
                 return (new CatchupTvFragment());

@@ -51,6 +51,7 @@
     <string name="username_text">Username</string>
     <string name="version_text">Version: %1$s</string>
     <string name="video_not_found">Video not found! Please contact A.C.E.</string>
+    <string name="vod_text">VOD</string>
     <string name="welcome_text">Welcome</string>
     <string name="wont_be_long_text">It won\'t be too long&#8230;</string>
     <string name="write_permissions_denied_toast">Can\'t write to the external storage</string>

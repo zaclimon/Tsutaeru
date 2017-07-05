@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -58,27 +60,18 @@ public class AvContentUtil {
      */
     public static List<String> getAvContentsGroup(List<AvContent> contents) {
 
-        List<String> tempGroups = new ArrayList<>();
+        HashSet<String> tempGroups = new HashSet<>();
 
         for (int i = 0; i < contents.size(); i++) {
 
              /*
-             Compare two given AvContent's group and if they aren't the same, add it to the temporary
-             list.
-
-             In this case, it would be the last from a given group that will be added. The only exception
-             is for the last element in case a single element from a group has been added at the end
-             of the list.
+             Some values might not be sorted equally and as a result, there might be duplicates in
+             the list. Use HashSet to not include any of them.
              */
 
-            AvContent tempAvContent = contents.get(i);
-
-            if (i != contents.size() - 1 && !tempAvContent.getGroup().equals(contents.get(i + 1).getGroup())
-                    || i == contents.size() - 1 && !tempAvContent.getGroup().equals(contents.get(i - 1).getGroup())) {
-                tempGroups.add(tempAvContent.getGroup());
-            }
+             tempGroups.add(contents.get(i).getGroup());
         }
-        return (tempGroups);
+        return (new ArrayList<>(tempGroups));
     }
 
     /**
@@ -120,7 +113,7 @@ public class AvContentUtil {
                             stringBuilder.delete(contentUrlIndex, stringBuilder.length() - 1);
                         }
                         contents.add(stringBuilder.toString().trim());
-                        Log.d(LOG_TAG, stringBuilder.toString().trim());
+                        //Log.d(LOG_TAG, stringBuilder.toString().trim());
                         stringBuilder = new StringBuilder();
                     }
                 }
@@ -171,12 +164,18 @@ public class AvContentUtil {
                 indexAttributeEnd = playlistLine.indexOf(Constants.ATTRIBUTE_TVG_LOGO);
                 break;
             case Constants.ATTRIBUTE_TVG_LOGO:
+                // Some titles can have "," in them. Start from the logo attribute in this case.
                 indexAttributeStart = playlistLine.indexOf(Constants.ATTRIBUTE_TVG_LOGO);
-                indexAttributeEnd = playlistLine.indexOf(",");
+                indexAttributeEnd = playlistLine.indexOf(",", indexAttributeStart);
                 break;
             case Constants.ATTRIBUTE_TVG_NAME:
-                // That's kinda a hack but let's use it since it seems to always be defined.
-                indexAttributeStart = playlistLine.indexOf(",");
+                 /*
+                  That's kinda a hack but let's use it since it seems to always be defined. Since
+                  some names have "," in them, let's begin from the end of the logo. We're sure to
+                  find a name there.
+                  */
+                int indexEndOfLogo = playlistLine.indexOf(",", playlistLine.indexOf(Constants.ATTRIBUTE_TVG_LOGO));
+                indexAttributeStart = playlistLine.indexOf(",", indexEndOfLogo);
                 indexAttributeEnd = playlistLine.length();
                 break;
             default:
