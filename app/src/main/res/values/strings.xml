@@ -37,6 +37,7 @@
     <string name="ok_text">Ok</string>
     <string name="password_text">Password</string>
     <string name="tv_input_label">A.C.E. IPTV</string>
+    <string name="series_title">TV Series</string>
     <string name="settings_text">Settings</string>
     <string name="signing_text">Signing in&#8230;</string>
     <string name="stream_failure_retry">Stream failure, retrying&#8230;</string>

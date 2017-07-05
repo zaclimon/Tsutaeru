@@ -10,11 +10,10 @@ import android.support.v17.leanback.app.VideoFragment;
 import android.support.v17.leanback.app.VideoFragmentGlueHost;
 import android.support.v17.leanback.media.PlaybackGlue;
 import android.support.v17.leanback.media.PlaybackTransportControlGlue;
-import android.util.Log;
 
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.zaclimon.aceiptv.R;
-import com.zaclimon.aceiptv.ui.catchup.CatchupTvFragment;
+import com.zaclimon.aceiptv.ui.vod.VodTvSectionFragment;
 
 /**
  * Fragment responsible for playing an {@link com.zaclimon.aceiptv.data.AvContent}
@@ -32,14 +31,14 @@ public class PlaybackFragment extends VideoFragment {
         super.onCreate(savedInstanceState);
 
         Bundle arguments = getArguments();
-        String url = arguments.getString(CatchupTvFragment.AV_CONTENT_LINK_BUNDLE);
+        String url = arguments.getString(VodTvSectionFragment.AV_CONTENT_LINK_BUNDLE);
 
         ExoPlayerAdapter exoPlayerAdapter = new ExoPlayerAdapter(getActivity());
         exoPlayerAdapter.setAudioStreamType(AudioManager.USE_DEFAULT_STREAM_TYPE);
         mPlayerGlue = new AceVideoMediaPlayerGlue<>(getActivity(), exoPlayerAdapter);
         mPlayerGlue.setHost(new VideoFragmentGlueHost(this));
-        mPlayerGlue.setTitle(arguments.getString(CatchupTvFragment.AV_CONTENT_TITLE_BUNDLE));
-        mPlayerGlue.setSubtitle(arguments.getString(CatchupTvFragment.AV_CONTENT_GROUP_BUNDLE));
+        mPlayerGlue.setTitle(arguments.getString(VodTvSectionFragment.AV_CONTENT_TITLE_BUNDLE));
+        mPlayerGlue.setSubtitle(arguments.getString(VodTvSectionFragment.AV_CONTENT_GROUP_BUNDLE));
         mPlayerGlue.getPlayerAdapter().setDataSource(Uri.parse(url));
 
         if (mPlayerGlue.isPrepared()) {

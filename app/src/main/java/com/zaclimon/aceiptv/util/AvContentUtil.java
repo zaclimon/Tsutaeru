@@ -1,6 +1,7 @@
 package com.zaclimon.aceiptv.util;
 
 import android.util.Log;
+import android.util.Patterns;
 
 import com.zaclimon.aceiptv.data.AvContent;
 
@@ -17,7 +18,8 @@ import java.util.List;
  * AvContents can be handled differently for example for A.C.E. IPTV, an M3U from it's given
  * Android API is shown like this:
  *
- * #EXTINF:-1 tvg-name="" group-title="" tvg-logo="", "title" "content-link"
+ * #EXTINF:-1 tvg-name="" group-title="" tvg-logo="", "title"
+ * "content-link"
  *
  * @author zaclimon
  * Creation date: 01/07/17
@@ -37,12 +39,15 @@ public class AvContentUtil {
         List<String> playlistStrings = getAvContentsAsString(playlist);
         List<AvContent> avContents = new ArrayList<>();
 
-        for (String content : playlistStrings) {
-            AvContent avContent = createAvContent(content);
-            if (avContent != null) {
-                avContents.add(avContent);
+        for (int i = 0; i < playlistStrings.size(); i++) {
+            if (!Patterns.WEB_URL.matcher(playlistStrings.get(i)).matches() && i != playlistStrings.size() - 1) {
+                AvContent avContent = createAvContent(playlistStrings.get(i), playlistStrings.get(i + 1));
+                if (avContent != null) {
+                    avContents.add(avContent);
+                }
             }
         }
+
         return (avContents);
     }
 
@@ -87,21 +92,39 @@ public class AvContentUtil {
         StringBuilder stringBuilder = new StringBuilder();
         List<String> contents = new ArrayList<>();
         boolean firstCharacterRead = false;
-        int character;
+        int characterInt;
 
         try {
-            while ((character = bufferedReader.read()) != -1) {
+            while ((characterInt = bufferedReader.read()) != -1) {
 
-                if ((char) character == '#') {
+                char character = (char) characterInt;
+
+                if (character == '#') {
 
                     if (!firstCharacterRead) {
                         firstCharacterRead = true;
                     } else {
-                        contents.add(stringBuilder.toString());
+                         /*
+                          For some API's there might not be any newlines between actual lines
+                          For this reason, check if there is a whitespace instead of a newline
+                          before the content link section.
+
+                          This way, we can see if it's the real link and not a letter from a content
+                          title for example.
+                          */
+                        int contentUrlIndex = stringBuilder.toString().lastIndexOf("http://");
+
+                        if (contentUrlIndex != -1 && Character.isWhitespace(stringBuilder.toString().charAt(contentUrlIndex - 1))) {
+                            String contentUrl = stringBuilder.toString().substring(contentUrlIndex);
+                            contents.add(contentUrl.trim());
+                            stringBuilder.delete(contentUrlIndex, stringBuilder.length() - 1);
+                        }
+                        contents.add(stringBuilder.toString().trim());
+                        Log.d(LOG_TAG, stringBuilder.toString().trim());
                         stringBuilder = new StringBuilder();
                     }
                 }
-                stringBuilder.append((char) character);
+                stringBuilder.append(character);
             }
 
             playlist.close();
@@ -117,14 +140,13 @@ public class AvContentUtil {
      * @param playlistLine The required playlist line
      * @return the AvContent from this line
      */
-    private static AvContent createAvContent(String playlistLine) {
+    private static AvContent createAvContent(String playlistLine, String contentLink) {
 
-        if (playlistLine.contains("#EXTINF:-1 tvg-name=\"\"")) {
+        if (playlistLine.contains(Constants.ATTRIBUTE_TVG_NAME)) {
             String title = getAttributeFromPlaylistLine(Constants.ATTRIBUTE_TVG_NAME, playlistLine);
             String logo = getAttributeFromPlaylistLine(Constants.ATTRIBUTE_TVG_LOGO, playlistLine);
             String group = getAttributeFromPlaylistLine(Constants.ATTRIBUTE_GROUP_TITLE, playlistLine);
-            String link = getAttributeFromPlaylistLine(Constants.ATTRIBUTE_LINK, playlistLine);
-            return (new AvContent(title, logo, group, link));
+            return (new AvContent(title, logo, group, contentLink));
         } else {
             Log.e(LOG_TAG, "Current line not valid for creating AvContent: " + playlistLine);
             return (null);
@@ -153,13 +175,9 @@ public class AvContentUtil {
                 indexAttributeEnd = playlistLine.indexOf(",");
                 break;
             case Constants.ATTRIBUTE_TVG_NAME:
-                // That's kinda a hack but let's use it since it is not set anyway.
+                // That's kinda a hack but let's use it since it seems to always be defined.
                 indexAttributeStart = playlistLine.indexOf(",");
-                indexAttributeEnd = playlistLine.lastIndexOf("http");
-                break;
-            case Constants.ATTRIBUTE_LINK:
-                indexAttributeStart = playlistLine.lastIndexOf("http");
-                indexAttributeEnd = playlistLine.length() - 1;
+                indexAttributeEnd = playlistLine.length();
                 break;
             default:
                 throw new IllegalArgumentException("Invalid attribute: " + attribute);
@@ -167,15 +185,12 @@ public class AvContentUtil {
 
         String partialAttribute = playlistLine.substring(indexAttributeStart, indexAttributeEnd);
 
-        switch (attribute) {
-            case Constants.ATTRIBUTE_TVG_NAME:
-                return (partialAttribute.replace(",", ""));
-            case Constants.ATTRIBUTE_LINK:
-                return (partialAttribute);
-            default:
-                // We're using pure M3U attributes
-                String[] partialAttributeParts = partialAttribute.split("=");
-                return (partialAttributeParts[1].replace("\"", "").trim());
+        if (attribute.equals(Constants.ATTRIBUTE_TVG_NAME)) {
+            return (partialAttribute.replace(",", ""));
+        } else {
+            // We're using pure M3U attributes
+            String[] partialAttributeParts = partialAttribute.split("=");
+            return (partialAttributeParts[1].replace("\"", "").trim());
         }
 
     }

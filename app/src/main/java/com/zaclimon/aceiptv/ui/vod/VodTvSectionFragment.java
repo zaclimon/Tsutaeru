@@ -1,8 +1,6 @@
-package com.zaclimon.aceiptv.ui.catchup;
+package com.zaclimon.aceiptv.ui.vod;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v17.leanback.app.RowsFragment;
@@ -16,12 +14,10 @@ import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 import android.util.Log;
 
-import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.data.AvContent;
 import com.zaclimon.aceiptv.ui.playback.PlaybackActivity;
 import com.zaclimon.aceiptv.ui.presenter.CardViewPresenter;
 import com.zaclimon.aceiptv.util.AvContentUtil;
-import com.zaclimon.aceiptv.util.Constants;
 import com.zaclimon.aceiptv.util.RichFeedUtil;
 
 import java.io.IOException;
@@ -30,13 +26,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Fragment responsible for showing Tv Catchup content for ACE IPTV
+ * Base class in which VOD-like fragments can base off in order to have a complete list
+ * of content based on their provider.
  *
  * @author zaclimon
- * Creation date: 01/07/17
+ * Creation date: 05/07/17
  */
 
-public class CatchupTvFragment extends RowsFragment {
+public abstract class VodTvSectionFragment extends RowsFragment {
 
     /**
      * Variable for accessing an {@link AvContent} title
@@ -62,30 +59,32 @@ public class CatchupTvFragment extends RowsFragment {
 
     private ArrayObjectAdapter mRowsAdapter;
 
+    /**
+     * Gets the link to retrieve an M3U playlist from a given endpoint
+     * @return the link to to retrieve VOD content.
+     */
+    protected abstract String getVodContentApiLink();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
-        new AsyncProcessCatchup().execute();
-
+        new AsyncProcessAvContent().execute();
     }
 
     /**
-     * Async class that will process everything for the Catchup TV content. This way, a clean we
+     * Async class that will process everything for a given content list. This way, we
      * don't break on the user experience.
      */
-    private class AsyncProcessCatchup extends AsyncTask<Void, Void, Boolean> {
+    private class AsyncProcessAvContent extends AsyncTask<Void, Void, Boolean> {
 
         @Override
         public Boolean doInBackground(Void... params) {
-            SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.ACE_IPTV_PREFERENCES, Context.MODE_PRIVATE);
-            String username = sharedPreferences.getString(Constants.USERNAME_PREFERENCE, "");
-            String password = sharedPreferences.getString(Constants.PASSWORD_PREFERENCE, "");
-            String catchupUrl = getString(R.string.ace_catchup_url, username, password);
+            String avContentLink = getVodContentApiLink();
 
             try {
-                InputStream catchupInputStream = RichFeedUtil.getInputStream(catchupUrl);
+                InputStream catchupInputStream = RichFeedUtil.getInputStream(avContentLink);
                 List<AvContent> avContents = AvContentUtil.getAvContentsList(catchupInputStream);
                 List<String> avGroups = AvContentUtil.getAvContentsGroup(avContents);
                 List<ArrayObjectAdapter> avAdapters = getProvidersContent(avContents, avGroups);
@@ -107,15 +106,15 @@ public class CatchupTvFragment extends RowsFragment {
         public void onPostExecute(Boolean result) {
             if (result) {
                 setAdapter(mRowsAdapter);
-                setOnItemViewClickedListener(new CatchupTvItemClickListener());
+                setOnItemViewClickedListener(new AvContentTvItemClickListener());
                 getMainFragmentAdapter().getFragmentHost().notifyDataReady(getMainFragmentAdapter());
             } else {
-                Log.e(LOG_TAG, "Couldn't parse TV catchup!");
+                Log.e(LOG_TAG, "Couldn't parse contents");
             }
         }
 
         /**
-         * Gives all the contents available by a given providers for TV catchup
+         * Gives all the contents available by a given providers for an VodTvSectionFragment
          * @param avContents All the audio visual content available
          * @param avGroups All the different providers offering the said content
          * @return the list of object adapters to be displayed in a {@link ListRow}
@@ -145,7 +144,7 @@ public class CatchupTvFragment extends RowsFragment {
      * @author zaclimon
      * Creation date: 02/07/17
      */
-    private class CatchupTvItemClickListener implements OnItemViewClickedListener {
+    private class AvContentTvItemClickListener implements OnItemViewClickedListener {
 
         @Override
         public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
@@ -164,5 +163,6 @@ public class CatchupTvFragment extends RowsFragment {
             }
         }
     }
+
 
 }

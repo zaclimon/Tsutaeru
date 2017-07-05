@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v17.leanback.widget.BaseCardView;
 import android.support.v17.leanback.widget.ImageCardView;
 import android.support.v17.leanback.widget.Presenter;
+import android.text.TextUtils;
 import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
@@ -64,7 +65,9 @@ public class CardViewPresenter extends Presenter {
             // We're dealing with an AvContent item (TvCatchup/VOD)
             AvContent avContent = (AvContent) item;
             imageCardView.setTitleText(avContent.getTitle());
-            Picasso.with(imageCardView.getContext()).load(avContent.getLogo()).resize(widthPixels, heightPixels).into(imageCardView.getMainImageView());
+            if (!TextUtils.isEmpty(avContent.getLogo())) {
+                Picasso.with(imageCardView.getContext()).load(avContent.getLogo()).resize(widthPixels, heightPixels).into(imageCardView.getMainImageView());
+            }
         }
     }
 

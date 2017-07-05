@@ -15,9 +15,10 @@ import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 
 import com.zaclimon.aceiptv.R;
-import com.zaclimon.aceiptv.ui.catchup.CatchupTvFragment;
+import com.zaclimon.aceiptv.ui.vod.catchup.CatchupTvFragment;
 import com.zaclimon.aceiptv.ui.settings.SettingsElementActivity;
 import com.zaclimon.aceiptv.ui.settings.SettingsTvFragment;
+import com.zaclimon.aceiptv.ui.vod.series.SeriesTvFragment;
 
 /**
  * Main fragment used for the Android TV variant of the application
@@ -29,7 +30,7 @@ import com.zaclimon.aceiptv.ui.settings.SettingsTvFragment;
 
 public class MainTvFragment extends BrowseFragment {
 
-    private static final int VOD_ID = 0;
+    private static final int SERIES_ID = 0;
     private static final int CATCHUP_ID = 1;
     private static final int SETTINGS_ID = 2;
 
@@ -66,7 +67,8 @@ public class MainTvFragment extends BrowseFragment {
      */
     private void showRows() {
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
-        //setCatchupRow();
+        setSeriesRow();
+        setCatchupRow();
         setSettingsRow();
         setAdapter(mRowsAdapter);
     }
@@ -79,7 +81,7 @@ public class MainTvFragment extends BrowseFragment {
     }
 
     /**
-     * Configures the settings row which will be used as a Settings section.
+     * Configures the settings row.
      */
     private void setSettingsRow() {
         HeaderItem settingsHeader = new HeaderItem(SETTINGS_ID, getString(R.string.settings_text));
@@ -88,10 +90,22 @@ public class MainTvFragment extends BrowseFragment {
         //mRowsAdapter.add(new ListRow(settingsHeader, new SettingsObjectAdapter()));
     }
 
+    /**
+     * Configures the Tv Catchup row.
+     */
     private void setCatchupRow() {
         HeaderItem catchupHeader = new HeaderItem(CATCHUP_ID, getString(R.string.catchup_title));
         PageRow catchupRow = new PageRow(catchupHeader);
         mRowsAdapter.add(catchupRow);
+    }
+
+    /**
+     * Configures the Tv Series row
+     */
+    private void setSeriesRow() {
+        HeaderItem seriesHeader = new HeaderItem(SERIES_ID, getString(R.string.series_title));
+        PageRow seriesRow = new PageRow(seriesHeader);
+        mRowsAdapter.add(seriesRow);
     }
 
     /**
@@ -117,14 +131,22 @@ public class MainTvFragment extends BrowseFragment {
         }
 
     }
+
+    /**
+     * Private class acting as a Fragment factory in order to implement custom fragments
+     * into Leanback.
+     *
+     * @author zaclimon
+     * Creation date: 02/07/17
+     */
     private class TvFragmentFactory extends FragmentFactory {
 
         @Override
         public Fragment createFragment(Object row) {
             Row tempRow = (Row) row;
 
-            if (tempRow.getId() == VOD_ID) {
-
+            if (tempRow.getId() == SERIES_ID) {
+                return (new SeriesTvFragment());
             } else if (tempRow.getId() == CATCHUP_ID) {
                 return (new CatchupTvFragment());
             } else if (tempRow.getId() == SETTINGS_ID) {
