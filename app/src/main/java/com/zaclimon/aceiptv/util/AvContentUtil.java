@@ -42,7 +42,8 @@ public class AvContentUtil {
         List<AvContent> avContents = new ArrayList<>();
 
         for (int i = 0; i < playlistStrings.size(); i++) {
-            if (!Patterns.WEB_URL.matcher(playlistStrings.get(i)).matches() && i != playlistStrings.size() - 1) {
+            if (!Patterns.WEB_URL.matcher(playlistStrings.get(i)).matches() && !playlistStrings.get(i).contains("#EXTM3U")) {
+                // The next line is guaranteed to be the content link.
                 AvContent avContent = createAvContent(playlistStrings.get(i), playlistStrings.get(i + 1));
                 if (avContent != null) {
                     avContents.add(avContent);
@@ -62,13 +63,12 @@ public class AvContentUtil {
 
         HashSet<String> tempGroups = new HashSet<>();
 
+        /*
+         Some values might not be sorted equally and as a result, there might be duplicates in
+         the list. Use HashSet to not include any of them.
+         */
+
         for (int i = 0; i < contents.size(); i++) {
-
-             /*
-             Some values might not be sorted equally and as a result, there might be duplicates in
-             the list. Use HashSet to not include any of them.
-             */
-
              tempGroups.add(contents.get(i).getGroup());
         }
         return (new ArrayList<>(tempGroups));
@@ -82,50 +82,83 @@ public class AvContentUtil {
     private static List<String> getAvContentsAsString(InputStream playlist) {
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(playlist));
-        StringBuilder stringBuilder = new StringBuilder();
         List<String> contents = new ArrayList<>();
-        boolean firstCharacterRead = false;
-        int characterInt;
+        String tempLine;
 
         try {
-            while ((characterInt = bufferedReader.read()) != -1) {
-
-                char character = (char) characterInt;
-
-                if (character == '#') {
-
-                    if (!firstCharacterRead) {
-                        firstCharacterRead = true;
-                    } else {
-                         /*
-                          For some API's there might not be any newlines between actual lines
-                          For this reason, check if there is a whitespace instead of a newline
-                          before the content link section.
-
-                          This way, we can see if it's the real link and not a letter from a content
-                          title for example.
-                          */
-                        int contentUrlIndex = stringBuilder.toString().lastIndexOf("http://");
-
-                        if (contentUrlIndex != -1 && Character.isWhitespace(stringBuilder.toString().charAt(contentUrlIndex - 1))) {
-                            String contentUrl = stringBuilder.toString().substring(contentUrlIndex);
-                            contents.add(contentUrl.trim());
-                            stringBuilder.delete(contentUrlIndex, stringBuilder.length() - 1);
-                        }
-                        contents.add(stringBuilder.toString().trim());
-                        //Log.d(LOG_TAG, stringBuilder.toString().trim());
-                        stringBuilder = new StringBuilder();
-                    }
-                }
-                stringBuilder.append(character);
+            while ((tempLine = bufferedReader.readLine()) != null) {
+                contents.add(tempLine);
             }
 
-            playlist.close();
-            return (contents);
+            if (contents.size() == 1) {
+                return (generatePlaylistLinesSingle(contents.get(0)));
+            } else {
+                return (generatePlaylistLinesMulti(contents));
+            }
         } catch (IOException io) {
             // Couldn't read the stream
             return (null);
         }
+    }
+
+    /**
+     * Generates the required M3U playlist lines if the given playlist was on a single line (That is
+     * without a new line)
+     * @param playlist the whole playlist.
+     * @return A list containing all the lines of the M3U playlist.
+     */
+    private static List<String> generatePlaylistLinesSingle(String playlist) {
+
+        /*
+         For some API's there might not be any newlines between actual lines
+         For this reason, check if there is a whitespace instead of a newline
+         before the content link section.
+
+         This way, we can see if it's the real link and not a letter from a content
+         title for example.
+        */
+
+        List<String> contents = new ArrayList<>();
+        StringBuilder stringBuilder = new StringBuilder();
+        boolean firstCharacterRead = false;
+
+        for (int i = 0; i < playlist.length(); i++) {
+            char character = playlist.charAt(i);
+
+            if (character == '#' && firstCharacterRead) {
+                String currentString = stringBuilder.toString();
+                int contentUrlIndex = currentString.lastIndexOf("http://");
+
+                if (contentUrlIndex != -1 && Character.isWhitespace(currentString.charAt(contentUrlIndex - 1))) {
+                    String contentUrl = stringBuilder.toString().substring(contentUrlIndex);
+                    contents.add(contentUrl.trim());
+                    stringBuilder.delete(contentUrlIndex, stringBuilder.length() - 1);
+                    contents.add(stringBuilder.toString().trim());
+                    stringBuilder = new StringBuilder();
+                }
+            } else {
+                firstCharacterRead = true;
+            }
+            stringBuilder.append(character);
+        }
+        return (contents);
+    }
+
+    /**
+     * Generates all the required lines from a given playlist if that playlist had multiple lines.
+     * @param playlist the playlist as a list separated by it's lines
+     * @return a list having the required M3U playlist lines.
+     */
+    private static List<String> generatePlaylistLinesMulti(List<String> playlist) {
+
+        List<String> contents = new ArrayList<>();
+
+        for (String playlistLine : playlist) {
+            if (playlistLine.startsWith("#EXTINF") || playlistLine.startsWith("http://")) {
+                contents.add(playlistLine);
+            }
+        }
+        return (contents);
     }
 
     /**
