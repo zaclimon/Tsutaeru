@@ -3,6 +3,8 @@ package com.zaclimon.aceiptv.ui.vod;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v17.leanback.app.BrowseFragment;
+import android.support.v17.leanback.app.ProgressBarManager;
 import android.support.v17.leanback.app.RowsFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.HeaderItem;
@@ -13,7 +15,9 @@ import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 import android.util.Log;
+import android.view.ViewGroup;
 
+import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.data.AvContent;
 import com.zaclimon.aceiptv.ui.playback.PlaybackActivity;
 import com.zaclimon.aceiptv.ui.presenter.CardViewPresenter;
@@ -58,6 +62,7 @@ public abstract class VodTvSectionFragment extends RowsFragment {
     private final String LOG_TAG = getClass().getSimpleName();
 
     private ArrayObjectAdapter mRowsAdapter;
+    private ProgressBarManager mProgressBarManager;
 
     /**
      * Gets the link to retrieve an M3U playlist from a given endpoint
@@ -70,6 +75,7 @@ public abstract class VodTvSectionFragment extends RowsFragment {
         super.onCreate(savedInstanceState);
 
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
+        mProgressBarManager = ((BrowseFragment) getParentFragment()).getProgressBarManager();
         new AsyncProcessAvContent().execute();
     }
 
@@ -78,6 +84,11 @@ public abstract class VodTvSectionFragment extends RowsFragment {
      * don't break on the user experience.
      */
     private class AsyncProcessAvContent extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        public void onPreExecute() {
+            mProgressBarManager.show();
+        }
 
         @Override
         public Boolean doInBackground(Void... params) {
@@ -104,6 +115,7 @@ public abstract class VodTvSectionFragment extends RowsFragment {
 
         @Override
         public void onPostExecute(Boolean result) {
+
             if (result) {
                 setAdapter(mRowsAdapter);
                 setOnItemViewClickedListener(new AvContentTvItemClickListener());
@@ -111,6 +123,7 @@ public abstract class VodTvSectionFragment extends RowsFragment {
             } else {
                 Log.e(LOG_TAG, "Couldn't parse contents");
             }
+            mProgressBarManager.hide();
         }
 
         /**
