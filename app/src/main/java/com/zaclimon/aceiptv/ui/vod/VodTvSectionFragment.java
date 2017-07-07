@@ -22,7 +22,8 @@ import android.view.ViewGroup;
 import com.zaclimon.aceiptv.R;
 import com.zaclimon.aceiptv.data.AvContent;
 import com.zaclimon.aceiptv.ui.playback.PlaybackActivity;
-import com.zaclimon.aceiptv.ui.presenter.CardViewPresenter;
+import com.zaclimon.aceiptv.ui.presenter.cardview.CardViewPresenter;
+import com.zaclimon.aceiptv.ui.presenter.cardview.PicassoCardViewImageProcessor;
 import com.zaclimon.aceiptv.util.AvContentUtil;
 import com.zaclimon.aceiptv.util.RichFeedUtil;
 
@@ -170,7 +171,7 @@ public abstract class VodTvSectionFragment extends RowsFragment {
             List<ArrayObjectAdapter> tempAdapters = new ArrayList<>();
 
             for (String group : avGroups) {
-                ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(new CardViewPresenter());
+                ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(new CardViewPresenter(new PicassoCardViewImageProcessor()));
 
                 for (AvContent content : avContents) {
                     if (content.getGroup().equals(group)) {

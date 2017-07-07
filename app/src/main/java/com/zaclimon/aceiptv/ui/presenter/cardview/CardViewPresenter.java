@@ -1,4 +1,4 @@
-package com.zaclimon.aceiptv.ui.presenter;
+package com.zaclimon.aceiptv.ui.presenter.cardview;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -9,7 +9,6 @@ import android.support.v17.leanback.widget.Presenter;
 import android.text.TextUtils;
 import android.view.ViewGroup;
 
-import com.squareup.picasso.Picasso;
 import com.zaclimon.aceiptv.data.AvContent;
 import com.zaclimon.aceiptv.ui.settings.SettingsObjectAdapter;
 import com.zaclimon.aceiptv.util.ActivityUtil;
@@ -31,6 +30,23 @@ public class CardViewPresenter extends Presenter {
      */
     private static final int CARDVIEW_WIDTH_DP = 128;
     private static final int CARDVIEW_HEIGHT_DP = 128;
+
+    private CardViewImageProcessor mCardViewImageProcessor;
+
+    /**
+     * Default constructor
+     */
+    public CardViewPresenter() {
+        mCardViewImageProcessor = null;
+    }
+
+    /**
+     * Additional constructor if processing an image from an external resource is required
+     * @param cardViewImageProcessor the processor which will be used to retrieve an image.
+     */
+    public CardViewPresenter(CardViewImageProcessor cardViewImageProcessor) {
+        mCardViewImageProcessor = cardViewImageProcessor;
+    }
 
     @Override
     public Presenter.ViewHolder onCreateViewHolder(ViewGroup parent) {
@@ -65,8 +81,8 @@ public class CardViewPresenter extends Presenter {
             // We're dealing with an AvContent item (TvCatchup/VOD)
             AvContent avContent = (AvContent) item;
             imageCardView.setTitleText(avContent.getTitle());
-            if (!TextUtils.isEmpty(avContent.getLogo())) {
-                Picasso.with(imageCardView.getContext()).load(avContent.getLogo()).resize(widthPixels, heightPixels).into(imageCardView.getMainImageView());
+            if (!TextUtils.isEmpty(avContent.getLogo()) && mCardViewImageProcessor != null) {
+                mCardViewImageProcessor.loadImage(avContent.getLogo(), widthPixels, heightPixels, imageCardView.getMainImageView());
             }
         }
     }
