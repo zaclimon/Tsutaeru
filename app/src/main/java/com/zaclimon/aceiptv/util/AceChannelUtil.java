@@ -125,7 +125,11 @@ public class AceChannelUtil {
                     } else {
                         channel = createChannel(tempName, Integer.toString(i + 1), tempId, null, tempLink, getProgramGenre(tempName, context));
                     }
-                    tempList.add(channel);
+
+                    // Premium users might have VOD content in their playlist, don't include them.
+                    if (isLiveChannel(channel)) {
+                        tempList.add(channel);
+                    }
                     break;
                 }
             }
@@ -453,6 +457,16 @@ public class AceChannelUtil {
     private static boolean hasChannelLogo(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.ACE_IPTV_PREFERENCES, Context.MODE_PRIVATE);
         return (sharedPreferences.getBoolean(Constants.CHANNEL_LOGO_PREFERENCE, true));
+    }
+
+    /**
+     * Verifies if a given channel is a live one
+     * @param channel the channel to be verified
+     * @return true if the channel streams live content.
+     */
+    private static boolean isLiveChannel(Channel channel) {
+        InternalProviderData internalProviderData = channel.getInternalProviderData();
+        return (internalProviderData != null && internalProviderData.getVideoUrl().contains("/live/"));
     }
 
 }
