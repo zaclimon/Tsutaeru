@@ -167,14 +167,16 @@ public class AceJobService extends EpgSyncJobService {
 
                 mTvListing = RichFeedUtil.getRichTvListings(AceJobService.this, epgUrl);
 
+                /*
+                 The first case describes where the channels are configured for the first time.
+
+                 The second one describes where the channels are updated (Either from a difference
+                 in channels count or from logo/stream type)
+                 */
+
                 if (currentChannels.isEmpty()) {
-                    // Case where the channels are configured for the first time
                     mChannels = AceChannelUtil.createOrUpdateChannelList(inputStream, mTvListing.getChannels(), AceJobService.this);
                 } else {
-                    /*
-                     Case where the channels are updated (Either from a difference in channels count
-                     or from logo/stream type)
-                     */
                     mChannels = AceChannelUtil.createOrUpdateChannelList(inputStream, currentChannels, AceJobService.this);
                 }
 
