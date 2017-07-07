@@ -50,7 +50,6 @@ public class MainTvFragment extends BrowseFragment {
             mBackgroundManager = mBackgroundManager.getInstance(getActivity());
             mBackgroundManager.attach(getActivity().getWindow());
             getMainFragmentRegistry().registerFragment(PageRow.class, new TvFragmentFactory());
-            startEntranceTransition();
         }
     }
 
@@ -61,7 +60,6 @@ public class MainTvFragment extends BrowseFragment {
         setTitle(getString(R.string.app_name));
         setHeadersState(HEADERS_ENABLED);
         setHeadersTransitionOnBackEnabled(true);
-        prepareEntranceTransition();
     }
 
     /**
@@ -111,6 +109,9 @@ public class MainTvFragment extends BrowseFragment {
         mRowsAdapter.add(seriesRow);
     }
 
+    /**
+     * Configures the VOD row
+     */
     private void setVodRow() {
         HeaderItem vodHeader = new HeaderItem(VOD_ID, getString(R.string.vod_text));
         PageRow vodRow = new PageRow(vodHeader);

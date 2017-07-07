@@ -1,9 +1,11 @@
 package com.zaclimon.aceiptv.ui.vod;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v17.leanback.app.BrowseFragment;
+import android.support.v17.leanback.app.ErrorFragment;
 import android.support.v17.leanback.app.ProgressBarManager;
 import android.support.v17.leanback.app.RowsFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
@@ -63,6 +65,7 @@ public abstract class VodTvSectionFragment extends RowsFragment {
 
     private ArrayObjectAdapter mRowsAdapter;
     private ProgressBarManager mProgressBarManager;
+    private AsyncProcessAvContent mAsyncProcessAvContent;
 
     /**
      * Gets the link to retrieve an M3U playlist from a given endpoint
@@ -76,7 +79,34 @@ public abstract class VodTvSectionFragment extends RowsFragment {
 
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
         mProgressBarManager = ((BrowseFragment) getParentFragment()).getProgressBarManager();
-        new AsyncProcessAvContent().execute();
+        mProgressBarManager.setRootView((ViewGroup) getActivity().findViewById(R.id.browse_container_dock));
+        mAsyncProcessAvContent = new AsyncProcessAvContent();
+        mAsyncProcessAvContent.execute();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // Cancel the processing and hide the progress bar if we're changing rows for example.
+        if (mAsyncProcessAvContent.getStatus() == AsyncTask.Status.RUNNING) {
+            mAsyncProcessAvContent.cancel(true);
+            mProgressBarManager.hide();
+        }
+    }
+
+    private void showErrorFragment() {
+        if (isAdded()) {
+            ErrorFragment errorFragment = new ErrorFragment();
+            errorFragment.setDefaultBackground(true);
+            errorFragment.setMessage(getString(R.string.content_not_available));
+            errorFragment.setImageDrawable(getActivity().getDrawable(R.drawable.lb_ic_sad_cloud));
+            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.scale_frame, errorFragment);
+            fragmentTransaction.commit();
+
+        }
     }
 
     /**
@@ -116,12 +146,15 @@ public abstract class VodTvSectionFragment extends RowsFragment {
         @Override
         public void onPostExecute(Boolean result) {
 
-            if (result) {
+            if (result && mRowsAdapter.size() > 0) {
                 setAdapter(mRowsAdapter);
                 setOnItemViewClickedListener(new AvContentTvItemClickListener());
-                getMainFragmentAdapter().getFragmentHost().notifyDataReady(getMainFragmentAdapter());
             } else {
-                Log.e(LOG_TAG, "Couldn't parse contents");
+                if (!result) {
+                    Log.e(LOG_TAG, "Couldn't parse contents");
+                    Log.e(LOG_TAG, "Api Link: " + getVodContentApiLink());
+                }
+                showErrorFragment();
             }
             mProgressBarManager.hide();
         }
