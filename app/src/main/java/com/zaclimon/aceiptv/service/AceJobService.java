@@ -57,10 +57,18 @@ public class AceJobService extends EpgSyncJobService {
          In that case, it will be stored in the internal provider data of the given channel.
 
          If the channel id (EPG id) from the program matches the one saved in the Channel, add the
-         required program to it's list.
+         required program to it's list. We cannot use the retrieving method from XmlTvParser (and
+         thus optimizing the process a little) because of 2 reasons:
 
-         Retrieve a given channel's genre based on it's internal provider data. This information
-         will be passed to the Live Channels's guide.
+         1. The original id set by the channel corresponds to it's hashed display name (which will
+         not be found in the given map)
+
+         2. We could try retrieving by using EPG id but it's possible that there are multiple
+         occurrence for a given channel with the same EPG id. In this case, the map doesn't know
+         which program list to give.
+
+         Finally, retrieve a given channel's genre based on it's internal provider data. This
+         information will be passed to the Live Channels's guide.
          */
 
         List<Program> listingPrograms = mTvListing.getAllPrograms();
@@ -83,8 +91,10 @@ public class AceJobService extends EpgSyncJobService {
                             tempPrograms.add(builder.build());
                         }
                     }
-                } else {
-                    // Create one temporary program that will be used to denote the channel's genre.
+                }
+
+                // Create a dummy program for listing a channel's genre if there are no programs.
+                if (tempPrograms.isEmpty()) {
                     Program.Builder builder = new Program.Builder(channel);
                     long startTimeMillis = AceChannelUtil.getLastHalfHourMillis();
                     long endTimeMillis = startTimeMillis + TimeUnit.DAYS.toMillis(7);
@@ -93,6 +103,7 @@ public class AceJobService extends EpgSyncJobService {
                     builder.setBroadcastGenres(AceChannelUtil.getGenresArrayFromJson(channelGenresJson));
                     tempPrograms.add(builder.build());
                 }
+
                 return (tempPrograms);
             }
         } catch (InternalProviderData.ParseException ps) {
