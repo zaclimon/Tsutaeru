@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
     defaultConfig {
-        applicationId "com.zaclimon.aceiptv"
+        applicationId "com.zaclimon.acetv"
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
@@ -28,6 +28,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:support-v13:26.0.0-beta2'
     compile 'com.squareup.picasso:picasso:2.5.2'
+
     // Android TV stuff
     compile 'com.android.support:leanback-v17:26.0.0-beta2'
     compile 'com.google.android.exoplayer:exoplayer-core:r2.4.1'
