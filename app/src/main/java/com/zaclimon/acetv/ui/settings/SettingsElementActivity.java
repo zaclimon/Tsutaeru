@@ -7,6 +7,7 @@ import android.support.v17.leanback.app.GuidedStepFragment;
 
 import com.zaclimon.acetv.R;
 import com.zaclimon.acetv.ui.auth.AuthActivityTv;
+import com.zaclimon.acetv.util.ActivityUtil;
 
 /**
  * Activity that shows a given setting based on it's name
@@ -20,6 +21,10 @@ public class SettingsElementActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (ActivityUtil.isTvMode(this)) {
+            setTheme(R.style.TvTheme);
+        }
 
         Bundle extras = getIntent().getExtras();
 

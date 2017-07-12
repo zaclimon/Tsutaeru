@@ -18,13 +18,12 @@
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:theme="@style/Theme.Leanback"
         android:banner="@drawable/ace_banner">
 
         <activity
             android:name="com.zaclimon.acetv.ui.main.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Leanback">
+            android:theme="@style/TvTheme">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -32,7 +31,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.zaclimon.acetv.ui.setup.AceTvInputSetupActivity" android:exported="true"/>
+        <activity android:name="com.zaclimon.acetv.ui.setup.AceTvInputSetupActivity" android:theme="@style/TvTheme" android:exported="true"/>
         <activity android:name="com.zaclimon.acetv.ui.auth.AuthActivityTv"/>
         <activity android:name="com.zaclimon.acetv.ui.settings.SettingsElementActivity"/>
 

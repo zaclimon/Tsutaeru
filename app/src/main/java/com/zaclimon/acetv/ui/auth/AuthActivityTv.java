@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v17.leanback.app.GuidedStepFragment;
 
+import com.zaclimon.acetv.R;
 import com.zaclimon.acetv.util.ActivityUtil;
 
 /**
@@ -22,6 +23,7 @@ public class AuthActivityTv extends Activity {
         super.onCreate(savedInstanceState);
 
         if (ActivityUtil.isTvMode(this)) {
+            setTheme(R.style.TvTheme);
             GuidedStepFragment.addAsRoot(this, new FirstStepAuthGuidedFragment(), android.R.id.content);
         }
     }

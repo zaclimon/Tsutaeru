@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.zaclimon.acetv.R;
+import com.zaclimon.acetv.util.ActivityUtil;
 
 /**
  * Activity responsible of playing a given {@link com.zaclimon.acetv.data.AvContent}
@@ -19,6 +20,11 @@ public class PlaybackActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (ActivityUtil.isTvMode(this)) {
+            setTheme(R.style.TvTheme);
+        }
+
         setContentView(R.layout.activity_playback);
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();

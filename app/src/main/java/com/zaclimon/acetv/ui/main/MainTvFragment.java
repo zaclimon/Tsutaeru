@@ -60,6 +60,7 @@ public class MainTvFragment extends BrowseFragment {
         setTitle(getString(R.string.app_name));
         setHeadersState(HEADERS_ENABLED);
         setHeadersTransitionOnBackEnabled(true);
+        setBadgeDrawable(getActivity().getDrawable(R.drawable.ace_badge_white));
     }
 
     /**
@@ -88,7 +89,6 @@ public class MainTvFragment extends BrowseFragment {
         HeaderItem settingsHeader = new HeaderItem(SETTINGS_ID, getString(R.string.settings_text));
         PageRow settingsRow = new PageRow(settingsHeader);
         mRowsAdapter.add(settingsRow);
-        //mRowsAdapter.add(new ListRow(settingsHeader, new SettingsObjectAdapter()));
     }
 
     /**

@@ -4,13 +4,16 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.media.tv.TvContract;
 import android.media.tv.TvInputInfo;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.media.tv.companionlibrary.ChannelSetupFragment;
@@ -45,8 +48,12 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
+        ProgressBar progressBar = fragmentView.findViewById(R.id.tune_progress);
+        progressBar.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(getActivity(), R.color.colorAccentTv)));
         setChannelListVisibility(true);
         setTitle(R.string.app_name);
+        setBadge(getActivity().getDrawable(R.drawable.ace_badge));
+        setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryTv));
         return (fragmentView);
     }
 
