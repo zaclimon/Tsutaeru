@@ -40,48 +40,23 @@ public class AceChannelUtil {
     private static final String LOG_TAG = "AceChannelUtil";
 
     /**
-     * Creates or updates a channel list based on a M3U playlist and a given reference channel list
-     * @param playlist the stream containing the M3U playlist
-     * @param channels the reference channel list used (Might be used or already populated)
-     * @param context the context required for some other operations (Adding the logo for example)
-     * @return the newly created or updated channel list for a given user.
-     */
-    public static List<Channel> createOrUpdateChannelList(InputStream playlist, List<Channel> channels, Context context) {
-
-        List<String> playlistLines = getPlaylistAsStrings(playlist);
-        List<String> names = getChannelAttribute(playlistLines, Constants.ATTRIBUTE_TVG_NAME);
-
-        /*
-         Don't force unnecessary computing if the channel list is the same between the
-         device and ACE's servers. Only update the EPG listing.
-
-         In both cases, if we're using the XmlTvParser channels or that the list from the ace server
-         is different, we'll have to create new ones.
-         */
-
-        if (names.size() != channels.size()) {
-            return (createChannelList(playlistLines, context));
-        } else {
-            return (updateChannelList(playlistLines, channels, context));
-        }
-
-    }
-
-    /**
      * Gets a list of channels based on the M3U playlist of a given user.
      * @param playlist List of the playlist lines containing the user's channels
      * @param context the context required for some other operations (Adding the logo for example)
      * @return the list of channels for a given user
      */
-    private static List<Channel> createChannelList(List<String> playlist, Context context) {
+    public static List<Channel> createChannelList(InputStream playlist, Context context) {
 
-        List<String> names = getChannelAttribute(playlist, Constants.ATTRIBUTE_TVG_NAME);
-        List<String> links = getChannelAttribute(playlist, Constants.ATTRIBUTE_LINK);
-        List<String> logos = getChannelAttribute(playlist, Constants.ATTRIBUTE_TVG_LOGO);
-        List<String> ids = getChannelAttribute(playlist, Constants.ATTRIBUTE_TVG_ID);
+        List<String> playlistLines = getPlaylistAsStrings(playlist);
+
+        List<String> names = getChannelAttribute(playlistLines, Constants.ATTRIBUTE_TVG_NAME);
+        List<String> links = getChannelAttribute(playlistLines, Constants.ATTRIBUTE_LINK);
+        List<String> logos = getChannelAttribute(playlistLines, Constants.ATTRIBUTE_TVG_LOGO);
+        List<String> ids = getChannelAttribute(playlistLines, Constants.ATTRIBUTE_TVG_ID);
         List<Channel> tempList = new ArrayList<>();
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.ACE_TV_PREFERENCES, Context.MODE_PRIVATE);
+        boolean hasChannelLogo = sharedPreferences.getBoolean(Constants.CHANNEL_LOGO_PREFERENCE, true);
 
         /*
          Google is kind of "weird" when it comes to the way it has of tuning channel/program
@@ -98,7 +73,6 @@ public class AceChannelUtil {
             String tempLink = links.get(i);
             Channel channel;
             int tempId = ids.get(i).hashCode();
-            boolean hasChannelLogo = sharedPreferences.getBoolean(Constants.CHANNEL_LOGO_PREFERENCE, true);
 
             if (hasChannelLogo) {
                 channel = createChannel(tempName, Integer.toString(i + 1), tempId, tempLogo, tempLink, getProgramGenre(tempName, context));
@@ -112,31 +86,6 @@ public class AceChannelUtil {
             }
         }
         return (tempList);
-    }
-
-    /**
-     * Updates a given channel based on a given M3U playlist.
-     * @param playlist the list containing each of the user's channels
-     * @param channels the list of channels getting updated
-     * @param context the context required for some other operations (Updating the logo for example)
-     * @return the updated list of channels.
-     */
-    private static List<Channel> updateChannelList(List<String> playlist, List<Channel> channels, Context context) {
-
-        List<String> logos = getChannelAttribute(playlist, Constants.ATTRIBUTE_TVG_LOGO);
-        List<String> links = getChannelAttribute(playlist, Constants.ATTRIBUTE_LINK);
-
-        for (int i = 0; i < channels.size(); i++) {
-            Channel tempChannel;
-            Channel currentChannel = channels.get(i);
-            if (hasChannelLogo(context)) {
-                tempChannel = updateChannel(currentChannel, logos.get(i), links.get(i));
-            } else {
-                tempChannel = updateChannel(currentChannel, null, links.get(i));
-            }
-            channels.set(i, tempChannel);
-        }
-        return (channels);
     }
 
     /**
@@ -265,28 +214,6 @@ public class AceChannelUtil {
         builder.setOriginalNetworkId(displayName.hashCode());
         builder.setChannelLogo(logo);
         builder.setInternalProviderData(internalProviderData);
-        return (builder.build());
-    }
-
-    /**
-     * Updates a {@link Channel} registered in the Android TV's framework. It was implemented
-     * in a way to alleviate the overhead of recreating channels all over again.
-     *
-     * @param channel The channel to update
-     * @param logo the url of the logo for the channel to be shown in the guide of the Live Channels app
-     * @param url the channel's video stream link
-     * @return the updated channel.
-     */
-    private static Channel updateChannel(Channel channel, String logo, String url) {
-        Channel.Builder builder = new Channel.Builder(channel);
-        InternalProviderData internalProviderData = channel.getInternalProviderData();
-
-        if (internalProviderData != null) {
-            internalProviderData.setVideoUrl(url);
-        }
-
-        builder.setInternalProviderData(internalProviderData);
-        builder.setChannelLogo(logo);
         return (builder.build());
     }
 
@@ -424,16 +351,6 @@ public class AceChannelUtil {
             js.printStackTrace();
         }
         return (null);
-    }
-
-    /**
-     * Determines whether has channel logos enabled on the EPG in the Live Channels app
-     * @param context the context required to access the preferences
-     * @return true if the user has the logos enabled.
-     */
-    private static boolean hasChannelLogo(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.ACE_TV_PREFERENCES, Context.MODE_PRIVATE);
-        return (sharedPreferences.getBoolean(Constants.CHANNEL_LOGO_PREFERENCE, true));
     }
 
     /**
