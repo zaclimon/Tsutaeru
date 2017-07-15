@@ -2,6 +2,8 @@ package com.zaclimon.acetv.util;
 
 import android.media.tv.TvContract;
 
+import java.util.regex.Pattern;
+
 /**
  * List of constants to be used throughout the application's lifecycle.
  *
@@ -12,11 +14,10 @@ import android.media.tv.TvContract;
 public class Constants {
 
     // M3U file attributes
-    public static final String ATTRIBUTE_TVG_ID = "tvg-id";
-    public static final String ATTRIBUTE_LINK = "link";
-    public static final String ATTRIBUTE_TVG_LOGO = "tvg-logo";
-    public static final String ATTRIBUTE_TVG_NAME = "tvg-name";
-    public static final String ATTRIBUTE_GROUP_TITLE = "group-title";
+    public static final Pattern ATTRIBUTE_TVG_ID_PATTERN = Pattern.compile("tvg-id.\"(.*?)\"");
+    public static final Pattern ATTRIBUTE_TVG_LOGO_PATTERN = Pattern.compile("tvg-logo.\"(.*?)\"");
+    public static final Pattern ATTRIBUTE_TVG_NAME_PATTERN = Pattern.compile("tvg-name.\"(.*?)\"");
+    public static final Pattern ATTRIBUTE_GROUP_TITLE_PATTERN = Pattern.compile("group-title.\"(.*?)\"");
 
     // Preferences stuff
     public static final String ACE_TV_PREFERENCES = "AceSharedPreferences";

@@ -1,5 +1,6 @@
 package com.zaclimon.acetv.util;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 
@@ -12,6 +13,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Utility class responsible for handling {@link AvContent}
@@ -60,7 +64,7 @@ public class AvContentUtil {
      */
     public static List<String> getAvContentsGroup(List<AvContent> contents) {
 
-        HashSet<String> tempGroups = new HashSet<>();
+        Set<String> tempGroups = new HashSet<>();
 
         /*
          Some values might not be sorted equally and as a result, there might be duplicates in
@@ -167,11 +171,12 @@ public class AvContentUtil {
      */
     private static AvContent createAvContent(String playlistLine, String contentLink) {
 
-        if (playlistLine.contains(Constants.ATTRIBUTE_TVG_NAME)) {
-            String title = getAttributeFromPlaylistLine(Constants.ATTRIBUTE_TVG_NAME, playlistLine);
-            String logo = getAttributeFromPlaylistLine(Constants.ATTRIBUTE_TVG_LOGO, playlistLine);
-            String group = getAttributeFromPlaylistLine(Constants.ATTRIBUTE_GROUP_TITLE, playlistLine);
-            return (new AvContent(title, logo, group, contentLink));
+        if (Constants.ATTRIBUTE_TVG_NAME_PATTERN.matcher(playlistLine).find()) {
+            String title = getAttributeFromPlaylistLine(Constants.ATTRIBUTE_TVG_NAME_PATTERN, playlistLine);
+            String logo = getAttributeFromPlaylistLine(Constants.ATTRIBUTE_TVG_LOGO_PATTERN, playlistLine);
+            String group = getAttributeFromPlaylistLine(Constants.ATTRIBUTE_GROUP_TITLE_PATTERN, playlistLine);
+            int id = getAttributeFromPlaylistLine(Constants.ATTRIBUTE_TVG_ID_PATTERN, playlistLine).hashCode();
+            return (new AvContent(title, logo, group, contentLink, id));
         } else {
             Log.e(LOG_TAG, "Current line not valid for creating AvContent: " + playlistLine);
             return (null);
@@ -185,44 +190,31 @@ public class AvContentUtil {
      * @param playlistLine a line from a given playlist.
      * @return The attribute for that line.
      */
-    private static String getAttributeFromPlaylistLine(String attribute, String playlistLine) {
+    private static String getAttributeFromPlaylistLine(Pattern attribute, String playlistLine) {
 
-        int indexAttributeStart;
-        int indexAttributeEnd;
+        Matcher matcher = attribute.matcher(playlistLine);
 
-        switch (attribute) {
-            case Constants.ATTRIBUTE_GROUP_TITLE:
-                indexAttributeStart = playlistLine.indexOf(Constants.ATTRIBUTE_GROUP_TITLE);
-                indexAttributeEnd = playlistLine.indexOf(Constants.ATTRIBUTE_TVG_LOGO);
-                break;
-            case Constants.ATTRIBUTE_TVG_LOGO:
-                // Some titles can have "," in them. Start from the logo attribute in this case.
-                indexAttributeStart = playlistLine.indexOf(Constants.ATTRIBUTE_TVG_LOGO);
-                indexAttributeEnd = playlistLine.indexOf(",", indexAttributeStart);
-                break;
-            case Constants.ATTRIBUTE_TVG_NAME:
-                 /*
-                  That's kinda a hack but let's use it since it seems to always be defined. Since
-                  some names have "," in them, let's begin from the end of the logo. We're sure to
-                  find a name there.
-                  */
-                int indexEndOfLogo = playlistLine.indexOf(",", playlistLine.indexOf(Constants.ATTRIBUTE_TVG_LOGO));
-                indexAttributeStart = playlistLine.indexOf(",", indexEndOfLogo);
-                indexAttributeEnd = playlistLine.length();
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid attribute: " + attribute);
-        }
+        if (matcher.find()) {
+            String[] parts = matcher.group().split("=");
+            String contents = parts[1].replace("\"", "");
 
-        String partialAttribute = playlistLine.substring(indexAttributeStart, indexAttributeEnd);
+             /*
+              It might be possible that the title isn't in the tvg-name tag, retrieve it from the
+              region after the comma.
+              */
 
-        if (attribute.equals(Constants.ATTRIBUTE_TVG_NAME)) {
-            return (partialAttribute.replace(",", ""));
+            if (TextUtils.isEmpty(contents) && attribute.equals(Constants.ATTRIBUTE_TVG_NAME_PATTERN)) {
+                Pattern commaPattern = Pattern.compile(",.*");
+                Matcher commaMatcher = commaPattern.matcher(playlistLine);
+
+                if (commaMatcher.find()) {
+                    // Don't include the first comma in the title
+                    return (commaMatcher.group().substring(1));
+                }
+            }
+            return (contents);
         } else {
-            // We're using pure M3U attributes
-            String[] partialAttributeParts = partialAttribute.split("=");
-            return (partialAttributeParts[1].replace("\"", "").trim());
+            return ("");
         }
-
     }
 }

@@ -9,6 +9,7 @@ import com.google.android.media.tv.companionlibrary.XmlTvParser;
 import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.model.InternalProviderData;
 import com.zaclimon.acetv.R;
+import com.zaclimon.acetv.data.AvContent;
 import com.zaclimon.acetv.service.AceTvInputService;
 
 import org.json.JSONArray;
@@ -47,12 +48,7 @@ public class AceChannelUtil {
      */
     public static List<Channel> createChannelList(InputStream playlist, Context context) {
 
-        List<String> playlistLines = getPlaylistAsStrings(playlist);
-
-        List<String> names = getChannelAttribute(playlistLines, Constants.ATTRIBUTE_TVG_NAME);
-        List<String> links = getChannelAttribute(playlistLines, Constants.ATTRIBUTE_LINK);
-        List<String> logos = getChannelAttribute(playlistLines, Constants.ATTRIBUTE_TVG_LOGO);
-        List<String> ids = getChannelAttribute(playlistLines, Constants.ATTRIBUTE_TVG_ID);
+        List<AvContent> channelContents = AvContentUtil.getAvContentsList(playlist);
         List<Channel> tempList = new ArrayList<>();
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.ACE_TV_PREFERENCES, Context.MODE_PRIVATE);
@@ -67,12 +63,12 @@ public class AceChannelUtil {
          id and leave the parsing to when programs will get created.
          */
 
-        for (int i = 0; i < names.size(); i++) {
-            String tempName = names.get(i);
-            String tempLogo = logos.get(i);
-            String tempLink = links.get(i);
+        for (int i = 0; i < channelContents.size(); i++) {
             Channel channel;
-            int tempId = ids.get(i).hashCode();
+            String tempName = channelContents.get(i).getTitle();
+            String tempLogo = channelContents.get(i).getLogo();
+            String tempLink = channelContents.get(i).getContentLink();
+            int tempId = channelContents.get(i).getId();
 
             if (hasChannelLogo) {
                 channel = createChannel(tempName, Integer.toString(i + 1), tempId, tempLogo, tempLink, getProgramGenre(tempName, context));
@@ -86,87 +82,6 @@ public class AceChannelUtil {
             }
         }
         return (tempList);
-    }
-
-    /**
-     * Reads a stream from the M3U playlist from a user for easier parsing.
-     * @param playlist a user's M3U playlist stream
-     * @return a List containing every lines of the M3U playlist
-     */
-    private static List<String> getPlaylistAsStrings(InputStream playlist) {
-
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(playlist));
-        List<String> tempList = new ArrayList<>();
-        String line;
-
-        try {
-            while ((line = bufferedReader.readLine()) != null) {
-                tempList.add(line);
-            }
-
-            playlist.close();
-            return (tempList);
-        } catch (IOException io) {
-            // Couldn't read the stream
-        }
-        return (null);
-    }
-
-    /**
-     * Returns a given attribute for an M3U playlist file based on it's parameter.
-     * @param playlist a list containing all the user's playlist lines.
-     * @param attribute an attribute as found in {@link Constants}
-     * @return a list containing the given attribute for all the channels of a user's playlist.
-     */
-    private static List<String> getChannelAttribute(List<String> playlist, String attribute) {
-
-        List<String> attributes = new ArrayList<>();
-
-        for (String line : playlist) {
-            // Be sure we're on the channel's information line and not the link one first
-            if (line.startsWith("#EXTINF") && !attribute.equals(Constants.ATTRIBUTE_LINK)) {
-
-                int indexAttributeStart;
-                int indexAttributeEnd;
-
-                switch (attribute) {
-                    case Constants.ATTRIBUTE_TVG_ID:
-                        indexAttributeStart = line.indexOf(Constants.ATTRIBUTE_TVG_ID);
-                        indexAttributeEnd = line.indexOf(Constants.ATTRIBUTE_TVG_NAME);
-                        break;
-                    case Constants.ATTRIBUTE_TVG_NAME:
-                        indexAttributeStart = line.indexOf(Constants.ATTRIBUTE_TVG_NAME);
-                        indexAttributeEnd = line.indexOf(Constants.ATTRIBUTE_TVG_LOGO);
-                        break;
-                    case Constants.ATTRIBUTE_TVG_LOGO:
-                        indexAttributeStart = line.indexOf(Constants.ATTRIBUTE_TVG_LOGO);
-                        indexAttributeEnd = line.indexOf(Constants.ATTRIBUTE_GROUP_TITLE);
-                        break;
-                    case Constants.ATTRIBUTE_GROUP_TITLE:
-                        indexAttributeStart = line.indexOf(Constants.ATTRIBUTE_GROUP_TITLE);
-                        indexAttributeEnd = line.length() - 1;
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Wrong attribute: " + attribute);
-                }
-
-                String attributePart = line.substring(indexAttributeStart, indexAttributeEnd);
-
-                String[] realPart = attributePart.split("=");
-
-                /*
-                Trim just to be sure in order to not have unpleasant surprises...
-                (Strings with different hashcodes because of a space for example.)
-                */
-
-                attributes.add(realPart[1].replace("\"", "").trim());
-
-            } else if (line.startsWith("http://") && attribute.equals(Constants.ATTRIBUTE_LINK)) {
-                attributes.add(line);
-            }
-        }
-
-        return (attributes);
     }
 
     /**
