@@ -3,6 +3,7 @@ package com.zaclimon.acetv.util;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.google.android.media.tv.companionlibrary.XmlTvParser;
 import com.google.android.media.tv.companionlibrary.model.Channel;
@@ -19,6 +20,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -58,7 +60,7 @@ public class AceChannelUtil {
          */
 
         if (names.size() != channels.size()) {
-            return (createChannelList(playlistLines, channels, context));
+            return (createChannelList(playlistLines, context));
         } else {
             return (updateChannelList(playlistLines, channels, context));
         }
@@ -68,11 +70,10 @@ public class AceChannelUtil {
     /**
      * Gets a list of channels based on the M3U playlist of a given user.
      * @param playlist List of the playlist lines containing the user's channels
-     * @param channels A complete list of already added channel. Mostly paired with channels coming from {@link XmlTvParser}
      * @param context the context required for some other operations (Adding the logo for example)
      * @return the list of channels for a given user
      */
-    private static List<Channel> createChannelList(List<String> playlist, List<Channel> channels, Context context) {
+    private static List<Channel> createChannelList(List<String> playlist, Context context) {
 
         List<String> names = getChannelAttribute(playlist, Constants.ATTRIBUTE_TVG_NAME);
         List<String> links = getChannelAttribute(playlist, Constants.ATTRIBUTE_LINK);
@@ -87,17 +88,8 @@ public class AceChannelUtil {
          data. In most cases, the TIF expects to have a program available for each channels in order
          to play them.
 
-         However, ACE doesn't have all programs available for a given channel so let's
-         retrieve all channels with programs in the EPG first. Then, we'll retrieve all channels that
-         doesn't have an entry in the EPG.
-
-         This is definitely not the most efficient way of retrieving channels since we're doing at most
-         the following operation:
-
-         ((Number of entries in the playlist) * (the number of channels available in the EPG))
-
-         Which can get high pretty quickly. However, it is the only way I've found it to be made
-         in one set of loops.
+         However, ACE doesn't have all programs available for a given channel so simply save the EPG
+         id and leave the parsing to when programs will get created.
          */
 
         for (int i = 0; i < names.size(); i++) {
@@ -108,29 +100,15 @@ public class AceChannelUtil {
             int tempId = ids.get(i).hashCode();
             boolean hasChannelLogo = sharedPreferences.getBoolean(Constants.CHANNEL_LOGO_PREFERENCE, true);
 
-            for (int j = 0; j < channels.size(); j++) {
+            if (hasChannelLogo) {
+                channel = createChannel(tempName, Integer.toString(i + 1), tempId, tempLogo, tempLink, getProgramGenre(tempName, context));
+            } else {
+                channel = createChannel(tempName, Integer.toString(i + 1), tempId, null, tempLink, getProgramGenre(tempName, context));
+            }
 
-                /*
-                 If the id from the channel is the same as the one found from the XMLTvParser or
-                 if we're at the end of the EPG listed channels, create a custom channel to return
-                 to for the EpgJobService.
-                 */
-
-                Channel tempChannel = channels.get(j);
-
-                if (tempId == tempChannel.getOriginalNetworkId() || j == channels.size() - 1) {
-                    if (hasChannelLogo) {
-                        channel = createChannel(tempName, Integer.toString(i + 1), tempId, tempLogo, tempLink, getProgramGenre(tempName, context));
-                    } else {
-                        channel = createChannel(tempName, Integer.toString(i + 1), tempId, null, tempLink, getProgramGenre(tempName, context));
-                    }
-
-                    // Premium users might have VOD content in their playlist, don't include them.
-                    if (isLiveChannel(channel)) {
-                        tempList.add(channel);
-                    }
-                    break;
-                }
+            // Premium users might have VOD content in their playlist, don't include them.
+            if (isLiveChannel(channel)) {
+                tempList.add(channel);
             }
         }
         return (tempList);
