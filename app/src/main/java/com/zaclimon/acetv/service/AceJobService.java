@@ -56,22 +56,14 @@ public class AceJobService extends EpgSyncJobService {
          The XMLTV file from the EPG contains an ID that might be used across one or several channels.
          In that case, it will be stored in the internal provider data of the given channel.
 
-         If the channel id (EPG id) from the program matches the one saved in the Channel, add the
-         required program to it's list. We cannot use the retrieving method from XmlTvParser (and
-         thus optimizing the process a little) because of 2 reasons:
-
-         1. The original id set by the channel corresponds to it's hashed display name (which will
-         not be found in the given map)
-
-         2. We could try retrieving by using EPG id but it's possible that there are multiple
-         occurrence for a given channel with the same EPG id. In this case, the map doesn't know
-         which program list to give.
+         XmlTvParser has a internal HashMap in which Programs can be retrieved. Let's use it as our
+         primary means of getting them. If there aren't any available programs for a channel,
+         create a dummy program so the EPG guide from "Live Channels" can categorize the channel.
 
          Finally, retrieve a given channel's genre based on it's internal provider data. This
          information will be passed to the Live Channels's guide.
          */
 
-        List<Program> listingPrograms = mTvListing.getAllPrograms();
         InternalProviderData internalProviderData = channel.getInternalProviderData();
 
         try {
@@ -84,13 +76,7 @@ public class AceJobService extends EpgSyncJobService {
                 int epgIdInt = Integer.parseInt(epgId);
 
                 if (epgIdInt != 0) {
-                    for (Program program : listingPrograms) {
-                        if (program.getChannelId() == epgIdInt) {
-                            Program.Builder builder = new Program.Builder(program);
-                            builder.setBroadcastGenres(AceChannelUtil.getGenresArrayFromJson(channelGenresJson));
-                            tempPrograms.add(builder.build());
-                        }
-                    }
+                    tempPrograms = mTvListing.getPrograms(epgIdInt);
                 }
 
                 // Create a dummy program for listing a channel's genre if there are no programs.
