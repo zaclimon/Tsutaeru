@@ -17,7 +17,7 @@
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:banner="@drawable/ace_banner">
 
         <activity
@@ -42,12 +42,9 @@
         <service android:name="com.zaclimon.acetv.service.AceTvInputService"
                  android:label="@string/tv_input_label"
                  android:permission="android.permission.BIND_TV_INPUT">
-            <!-- Required filter used by the system to launch our account service. -->
             <intent-filter>
                 <action android:name="android.media.tv.TvInputService" />
             </intent-filter>
-            <!-- An XML file which describes this input. This provides pointers to
-            the RichTvInputSetupActivity to the system/TV app. -->
             <meta-data
                 android:name="android.media.tv.input"
                 android:resource="@xml/acetvinputservice" />
