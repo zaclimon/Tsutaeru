@@ -3,6 +3,7 @@ package com.zaclimon.acetv.ui.settings;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v13.app.FragmentCompat;
@@ -10,14 +11,19 @@ import android.support.v17.leanback.app.GuidedStepFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.zaclimon.acetv.R;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -108,6 +114,7 @@ public class DebugLogGuidedFragment extends GuidedStepFragment {
             try {
                 Process process = Runtime.getRuntime().exec(LOGCAT_COMMAND);
                 InputStream inputStream = process.getInputStream();
+                StringBuilder stringBuilder = new StringBuilder();
                 byte[] buffer = new byte[OUTPUT_STREAM_BUFFER];
                 int bytesRead;
 
@@ -117,6 +124,16 @@ public class DebugLogGuidedFragment extends GuidedStepFragment {
                 while ((bytesRead = inputStream.read(buffer)) != -1) {
                     outputStream.write(buffer, 0, bytesRead);
                 }
+
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(LOG_PATH)));
+                String line;
+
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line);
+                    stringBuilder.append("\n");
+                }
+
+                Crashlytics.log(stringBuilder.toString());
             } catch (IOException io) {
                 return (false);
             }
@@ -128,6 +145,11 @@ public class DebugLogGuidedFragment extends GuidedStepFragment {
 
             if (result) {
                 Toast.makeText(getActivity(), "Log saved to " + LOG_PATH, Toast.LENGTH_SHORT).show();
+
+                if (Build.BRAND.equalsIgnoreCase("Sony")) {
+                    throw new RuntimeException("Sony TV Detected!");
+                }
+
             } else {
                 Toast.makeText(getActivity(), "An problem occurred when writing the file", Toast.LENGTH_SHORT).show();
             }
