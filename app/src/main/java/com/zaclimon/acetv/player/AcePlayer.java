@@ -102,7 +102,6 @@ public class AcePlayer implements TvPlayer {
 
     @Override
     public void play() {
-        Log.d(getClass().getSimpleName(), "play() called!");
         player.setPlayWhenReady(true);
     }
 

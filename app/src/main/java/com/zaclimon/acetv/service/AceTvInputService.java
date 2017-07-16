@@ -109,8 +109,6 @@ public class AceTvInputService extends BaseTvInputService {
         @Override
         public boolean onTune(Uri channelUri) {
 
-            Log.d(getClass().getSimpleName(), "Tune to " + channelUri.toString());
-
             // Notify the video to be unavailable in order to not show artifacts when changing channels.
             notifyVideoUnavailable(TvInputManager.VIDEO_UNAVAILABLE_REASON_TUNING);
             releasePlayer();
