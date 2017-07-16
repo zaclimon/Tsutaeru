@@ -16,10 +16,10 @@ import android.support.v17.leanback.widget.RowPresenter;
 
 import com.zaclimon.acetv.R;
 import com.zaclimon.acetv.ui.vod.VodTvFragment;
-import com.zaclimon.acetv.ui.vod.catchup.CatchupTvFragment;
+import com.zaclimon.acetv.ui.vod.CatchupTvFragment;
 import com.zaclimon.acetv.ui.settings.SettingsElementActivity;
 import com.zaclimon.acetv.ui.settings.SettingsTvFragment;
-import com.zaclimon.acetv.ui.vod.series.SeriesTvFragment;
+import com.zaclimon.acetv.ui.vod.SeriesTvFragment;
 
 /**
  * Main fragment used for the Android TV variant of the application
