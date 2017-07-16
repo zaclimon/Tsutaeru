@@ -1,11 +1,9 @@
 package com.zaclimon.acetv.ui.vod;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v17.leanback.app.BrowseFragment;
-import android.support.v17.leanback.app.ErrorFragment;
 import android.support.v17.leanback.app.ProgressBarManager;
 import android.support.v17.leanback.app.RowsFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
@@ -16,9 +14,12 @@ import android.support.v17.leanback.widget.OnItemViewClickedListener;
 import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
+import android.support.v17.leanback.widget.ScaleFrameLayout;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 
+import com.crashlytics.android.Crashlytics;
 import com.zaclimon.acetv.R;
 import com.zaclimon.acetv.data.AvContent;
 import com.zaclimon.acetv.ui.playback.PlaybackActivity;
@@ -33,8 +34,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Base class in which VOD-like fragments can base off in order to have a complete list
- * of content based on their provider.
+ * Base class in which VOD-like (Video on demand) fragments can base off in order to have a complete
+ * list of content based on their provider's catalog.
  *
  * @author zaclimon
  * Creation date: 05/07/17
@@ -67,6 +68,7 @@ public abstract class VodTvSectionFragment extends RowsFragment {
     private ArrayObjectAdapter mRowsAdapter;
     private ProgressBarManager mProgressBarManager;
     private AsyncProcessAvContent mAsyncProcessAvContent;
+    private ScaleFrameLayout mScaleFrameLayout;
 
     /**
      * Gets the link to retrieve an M3U playlist from a given endpoint
@@ -80,6 +82,7 @@ public abstract class VodTvSectionFragment extends RowsFragment {
 
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
         mProgressBarManager = ((BrowseFragment) getParentFragment()).getProgressBarManager();
+        mScaleFrameLayout = getActivity().findViewById(R.id.scale_frame);
         mProgressBarManager.setRootView((ViewGroup) getActivity().findViewById(R.id.browse_container_dock));
         mAsyncProcessAvContent = new AsyncProcessAvContent();
         mAsyncProcessAvContent.execute();
@@ -95,18 +98,14 @@ public abstract class VodTvSectionFragment extends RowsFragment {
             mAsyncProcessAvContent.cancel(true);
             mProgressBarManager.hide();
         }
+
+        mScaleFrameLayout.removeAllViews();
     }
 
-    private void showErrorFragment() {
+    private void showErrorView() {
         if (isAdded()) {
-            ErrorFragment errorFragment = new ErrorFragment();
-            errorFragment.setDefaultBackground(true);
-            errorFragment.setMessage(getString(R.string.content_not_available));
-            errorFragment.setImageDrawable(getActivity().getDrawable(R.drawable.lb_ic_sad_cloud));
-            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.scale_frame, errorFragment);
-            fragmentTransaction.commit();
-
+            View view = View.inflate(getActivity(), R.layout.view_content_unavailable, null);
+            mScaleFrameLayout.addView(view);
         }
     }
 
@@ -138,7 +137,7 @@ public abstract class VodTvSectionFragment extends RowsFragment {
 
                 return (true);
             } catch (IOException io) {
-                // Nothing to be done...
+                Crashlytics.logException(io);
                 return (false);
             }
 
@@ -155,7 +154,7 @@ public abstract class VodTvSectionFragment extends RowsFragment {
                     Log.e(LOG_TAG, "Couldn't parse contents");
                     Log.e(LOG_TAG, "Api Link: " + getVodContentApiLink());
                 }
-                showErrorFragment();
+                showErrorView();
             }
             mProgressBarManager.hide();
         }
