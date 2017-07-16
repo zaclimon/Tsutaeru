@@ -20,7 +20,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by isaac on 17-07-03.
+ * Fragment used to show the current user's account status.
+ *
+ * @author zaclimon
+ * Creation date: 03/07/17
  */
 
 public class UserInfoGuidedFragment extends GuidedStepFragment implements UserInfoView {

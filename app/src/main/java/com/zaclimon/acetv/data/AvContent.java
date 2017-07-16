@@ -17,9 +17,10 @@ public class AvContent {
 
     /**
      * Base constructor
-     * @param title the title of the content
-     * @param logo the URL pointing to the related logo of the content
-     * @param group the category in which a content might belong to
+     *
+     * @param title       the title of the content
+     * @param logo        the URL pointing to the related logo of the content
+     * @param group       the category in which a content might belong to
      * @param contentLink the URL pointing to the content itself
      */
     public AvContent(String title, String logo, String group, String contentLink) {
@@ -31,11 +32,12 @@ public class AvContent {
 
     /**
      * Constructor for an AvContent having a special identifier.
-     * @param title the title of the content
-     * @param logo the URL pointing to the related logo of the content
-     * @param group the category in which a content might belong to
+     *
+     * @param title       the title of the content
+     * @param logo        the URL pointing to the related logo of the content
+     * @param group       the category in which a content might belong to
      * @param contentLink the URL pointing to the content itself
-     * @param id An additional id that can be given to the content
+     * @param id          An additional id that can be given to the content
      */
     public AvContent(String title, String logo, String group, String contentLink, int id) {
         mTitle = title;
@@ -47,6 +49,7 @@ public class AvContent {
 
     /**
      * Gets the title
+     *
      * @return the title of the content
      */
     public String getTitle() {
@@ -55,6 +58,7 @@ public class AvContent {
 
     /**
      * Gets the logo
+     *
      * @return the logo URL of the content
      */
     public String getLogo() {
@@ -63,6 +67,7 @@ public class AvContent {
 
     /**
      * Gets the category
+     *
      * @return the category of the content
      */
     public String getGroup() {
@@ -71,6 +76,7 @@ public class AvContent {
 
     /**
      * Gets the link
+     *
      * @return the link to the content
      */
     public String getContentLink() {
@@ -79,6 +85,7 @@ public class AvContent {
 
     /**
      * Gets the id
+     *
      * @return the id of the content if any
      */
     public int getId() {

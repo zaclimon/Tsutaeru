@@ -26,10 +26,10 @@ import android.widget.Toast;
 
 /**
  * PlayerGlue for video playback
- *
+ * <p>
  * Adapted from the leanback-showcase implementation found here:
  * https://github.com/googlesamples/leanback-showcase/blob/master/app/src/main/java/android/support/v17/leanback/supportleanbackshowcase/app/media/VideoMediaPlayerGlue.java
- *
+ * <p>
  * Original import date: 02/07/17
  *
  * @param <T>

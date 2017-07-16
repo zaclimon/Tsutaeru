@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * Third step in the authentication process.
- *
+ * <p>
  * Asks for a Ace TV user it's password.
  *
  * @author zaclimon
@@ -34,7 +34,7 @@ public class ThirdStepAuthGuidedFragment extends GuidedStepFragment {
     }
 
     @Override
-    public void onCreateActions (List<GuidedAction> actions, Bundle savedInstanceState) {
+    public void onCreateActions(List<GuidedAction> actions, Bundle savedInstanceState) {
 
          /*
          Interesting note. For the input type, the type class must be fused with with the variation
@@ -51,7 +51,7 @@ public class ThirdStepAuthGuidedFragment extends GuidedStepFragment {
     }
 
     @Override
-    public long onGuidedActionEditedAndProceed (GuidedAction action) {
+    public long onGuidedActionEditedAndProceed(GuidedAction action) {
 
         int id = (int) action.getId();
 

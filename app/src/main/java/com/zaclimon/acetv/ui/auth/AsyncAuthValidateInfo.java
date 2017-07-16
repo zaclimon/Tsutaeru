@@ -14,7 +14,7 @@ import java.net.SocketTimeoutException;
 
 /**
  * AsyncTask class that verifies the given credentials of a given user.
- *
+ * <p>
  * Note that for it to be used, a {@link AuthView} and a {@link SharedPreferencesRepository} are
  * required since callback to both of them will be made.
  *
@@ -32,9 +32,10 @@ public class AsyncAuthValidateInfo extends AsyncTask<Void, Void, Boolean> {
 
     /**
      * Default constructor of the class
-     * @param username the username of the user
-     * @param password the password of the user
-     * @param authView the AuthView in which callbacks will be called
+     *
+     * @param username                    the username of the user
+     * @param password                    the password of the user
+     * @param authView                    the AuthView in which callbacks will be called
      * @param sharedPreferencesRepository the SharedPreferencesRepository used to save the credentials
      */
     public AsyncAuthValidateInfo(String username, String password, AuthView authView, SharedPreferencesRepository sharedPreferencesRepository) {

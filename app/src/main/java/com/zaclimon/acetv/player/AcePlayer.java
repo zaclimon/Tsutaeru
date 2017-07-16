@@ -35,12 +35,11 @@ import java.util.List;
 
 /**
  * Concrete implementation of the {@link TvPlayer} interface made for Ace TV.
- *
+ * <p>
  * This current implementation is based on ExoPlayer 2.x series.
  *
  * @author zaclimon
  * Creation date: 11/06/17
- *
  */
 
 public class AcePlayer implements TvPlayer {
@@ -51,8 +50,9 @@ public class AcePlayer implements TvPlayer {
 
     /**
      * Main constructor of the player.
+     *
      * @param context the context used to initialize the player
-     * @param url the url containing the required stream to be played
+     * @param url     the url containing the required stream to be played
      */
     public AcePlayer(Context context, String url) {
         callbacks = new ArrayList<>();
@@ -62,6 +62,7 @@ public class AcePlayer implements TvPlayer {
 
     /**
      * Initializes and prepares the player but doesn't make it play the content.
+     *
      * @param context the context needed to initialize the player.
      */
     private void init(Context context) {
@@ -75,6 +76,7 @@ public class AcePlayer implements TvPlayer {
 
     /**
      * Gets the required {@link MediaSource} depending on the stream source.
+     *
      * @param context The required context to get the correct MediaSource
      * @return the MediaSource used for the playback.
      */
@@ -168,6 +170,7 @@ public class AcePlayer implements TvPlayer {
 
     /**
      * Re-prepares a streaming for the player
+     *
      * @param context the context needed to re-prepare the player
      */
     public void restart(Context context) {
@@ -176,6 +179,7 @@ public class AcePlayer implements TvPlayer {
 
     /**
      * Used to determine what is the main video format used by the player while streaming
+     *
      * @return the video format used while streaming
      */
     public Format getVideoFormat() {
@@ -184,6 +188,7 @@ public class AcePlayer implements TvPlayer {
 
     /**
      * Used to determine what is the main audio format used by the player while streaming.
+     *
      * @return the audio format used while streaming
      */
     public Format getAudioFormat() {
@@ -192,6 +197,7 @@ public class AcePlayer implements TvPlayer {
 
     /**
      * Adds listeners for eventual callbacks
+     *
      * @param listener the given listener for callbacks.
      */
     public void addListener(ExoPlayer.EventListener listener) {

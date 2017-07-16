@@ -11,7 +11,6 @@ import android.support.v17.leanback.app.GuidedStepFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -33,7 +32,7 @@ import java.util.Locale;
 /**
  * Setting section where the users can create a log file that can be sent over for debugging
  * purposes.
- *
+ * <p>
  * The logs are generated using Logcat. Note that since Android 4.1, applications can only see
  * the debugging information related to their process. If one wants to see a device's activity,
  * he/she needs to use adb for further needs.
@@ -55,7 +54,7 @@ public class DebugLogGuidedFragment extends GuidedStepFragment {
     }
 
     @Override
-    public void onCreateActions (List<GuidedAction> actions, Bundle savedInstanceState) {
+    public void onCreateActions(List<GuidedAction> actions, Bundle savedInstanceState) {
         GuidedAction.Builder yesAction = new GuidedAction.Builder(getActivity());
         GuidedAction.Builder noAction = new GuidedAction.Builder(getActivity());
         yesAction.clickAction(GuidedAction.ACTION_ID_YES);
@@ -96,11 +95,11 @@ public class DebugLogGuidedFragment extends GuidedStepFragment {
     /**
      * Class that gets the output from the logcat and then saves it in the internal storage of a
      * given device.
-     *
+     * <p>
      * Made in an asynchronous fashion in order to keep a consistent UI experience.
      *
      * @author zaclimon
-     * Creation date: 28/06/17
+     *         Creation date: 28/06/17
      */
     private class AsyncLoadLogcat extends AsyncTask<Void, Void, Boolean> {
 

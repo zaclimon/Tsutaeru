@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * Second step in the authentication process.
- *
+ * <p>
  * It precisely asks for an Ace TV it's username. In some cases, it is an email address, in
  * others it is a custom one.
  *
@@ -37,7 +37,7 @@ public class SecondStepAuthGuidedFragment extends GuidedStepFragment {
     }
 
     @Override
-    public void onCreateActions (List<GuidedAction> actions, Bundle savedInstanceState) {
+    public void onCreateActions(List<GuidedAction> actions, Bundle savedInstanceState) {
         GuidedAction.Builder usernameAction = new GuidedAction.Builder(getActivity());
         usernameAction.title(R.string.username_text);
         usernameAction.editTitle("");
@@ -48,7 +48,7 @@ public class SecondStepAuthGuidedFragment extends GuidedStepFragment {
     }
 
     @Override
-    public long onGuidedActionEditedAndProceed (GuidedAction action) {
+    public long onGuidedActionEditedAndProceed(GuidedAction action) {
 
         int id = (int) action.getId();
 

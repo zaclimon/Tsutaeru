@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * Fifth and last step of the authentication process.
- *
+ * <p>
  * Shows the user that he/she is connected and that he/she may now enjoy it's
  * experience with Ace TV.
  *
@@ -41,7 +41,7 @@ public class FifthStepAuthGuidedFragment extends GuidedStepFragment {
     }
 
     @Override
-    public void onCreateActions (List<GuidedAction> actions, Bundle savedInstanceState) {
+    public void onCreateActions(List<GuidedAction> actions, Bundle savedInstanceState) {
         GuidedAction.Builder exitAction = new GuidedAction.Builder(getActivity());
         exitAction.title(R.string.lets_go_text);
         exitAction.id(GuidedAction.ACTION_ID_OK);

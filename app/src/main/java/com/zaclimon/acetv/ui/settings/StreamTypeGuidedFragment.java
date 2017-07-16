@@ -51,7 +51,7 @@ public class StreamTypeGuidedFragment extends GuidedStepFragment {
     }
 
     @Override
-    public void onCreateActions (List<GuidedAction> actions, Bundle savedInstanceState) {
+    public void onCreateActions(List<GuidedAction> actions, Bundle savedInstanceState) {
         GuidedAction.Builder tsAction = new GuidedAction.Builder(getActivity());
         GuidedAction.Builder hlsAction = new GuidedAction.Builder(getActivity());
         hlsAction.title(R.string.hls_text);

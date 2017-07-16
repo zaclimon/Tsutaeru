@@ -38,7 +38,7 @@ public class SettingsTvFragment extends RowsFragment {
      * Class offering an {@link OnItemViewClickedListener} for the various settings elements.
      *
      * @author zaclimon
-     * Creation date: 01/07/17
+     *         Creation date: 01/07/17
      */
     private class SettingsItemClickListener implements OnItemViewClickedListener {
 

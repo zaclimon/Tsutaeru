@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * First step in the authentication process
- *
+ * <p>
  * Shows the potential user a welcome screen requiring him/her to sign-in
  * in order to benefit from Ace TV services.
  *
@@ -30,7 +30,7 @@ public class FirstStepAuthGuidedFragment extends GuidedStepFragment {
     }
 
     @Override
-    public void onCreateActions (List<GuidedAction> actions, Bundle savedInstanceState) {
+    public void onCreateActions(List<GuidedAction> actions, Bundle savedInstanceState) {
         GuidedAction.Builder yesAction = new GuidedAction.Builder(getActivity());
         GuidedAction.Builder noAction = new GuidedAction.Builder(getActivity());
         yesAction.title(R.string.lets_go_text);

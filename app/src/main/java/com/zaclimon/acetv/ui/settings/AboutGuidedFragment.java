@@ -31,7 +31,7 @@ public class AboutGuidedFragment extends GuidedStepFragment {
     }
 
     @Override
-    public void onCreateActions (List<GuidedAction> actions, Bundle savedInstanceState) {
+    public void onCreateActions(List<GuidedAction> actions, Bundle savedInstanceState) {
         GuidedAction.Builder userInfoAction = new GuidedAction.Builder(getActivity());
         GuidedAction.Builder okAction = new GuidedAction.Builder(getActivity());
         userInfoAction.title(R.string.user_info_text);

@@ -13,6 +13,7 @@ public class UserInfoPresenterImpl implements UserInfoPresenter {
 
     /**
      * Default constructor
+     *
      * @param userInfoView the view which will receive the required callbacks.
      */
     public UserInfoPresenterImpl(UserInfoView userInfoView) {

@@ -9,7 +9,7 @@ import com.zaclimon.acetv.ui.presenter.cardview.CardViewPresenter;
 /**
  * Class extending {@link ArrayObjectAdapter} which gives a list of current
  * settings elements.
- *
+ * <p>
  * It's main view is a {@link CardViewPresenter}
  *
  * @author zaclimon

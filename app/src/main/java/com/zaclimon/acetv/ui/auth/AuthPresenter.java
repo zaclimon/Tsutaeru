@@ -13,8 +13,9 @@ public interface AuthPresenter {
 
     /**
      * Validates the credentials sent by a user and calls, if found, required callback methods.
-     * @param username the user's username
-     * @param password the user's password
+     *
+     * @param username                        the user's username
+     * @param password                        the user's password
      * @param sharedPreferencesRepository the repository of SharedPreferences.
      */
     void validateInfo(String username, String password, SharedPreferencesRepository sharedPreferencesRepository);

@@ -34,7 +34,7 @@ public class EpgForceSyncGuidedFragment extends GuidedStepFragment {
     }
 
     @Override
-    public void onCreateActions (List<GuidedAction> actions, Bundle savedInstanceState) {
+    public void onCreateActions(List<GuidedAction> actions, Bundle savedInstanceState) {
         GuidedAction.Builder yesAction = new GuidedAction.Builder(getActivity());
         GuidedAction.Builder noAction = new GuidedAction.Builder(getActivity());
         yesAction.clickAction(GuidedAction.ACTION_ID_YES);

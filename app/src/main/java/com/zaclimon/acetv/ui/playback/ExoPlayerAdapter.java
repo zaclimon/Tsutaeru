@@ -29,18 +29,17 @@ import com.zaclimon.acetv.R;
 
 /**
  * This implementation extends the {@link PlayerAdapter} with a {@link SimpleExoPlayer}.
- *
+ * <p>
  * Adapted from the leanback-showcase example originally found here:
- *
+ * <p>
  * https://github.com/googlesamples/leanback-showcase/blob/master/app/src/main/java/android/support/v17/leanback/supportleanbackshowcase/app/media/ExoPlayerAdapter.java
- *
+ * <p>
  * Original import date: 02/07/17
  */
-public class ExoPlayerAdapter extends PlayerAdapter implements ExoPlayer.EventListener{
+public class ExoPlayerAdapter extends PlayerAdapter implements ExoPlayer.EventListener {
 
-    Context mContext;
     final SimpleExoPlayer mPlayer;
-    SurfaceHolderGlueHost mSurfaceHolderGlueHost;
+    final Handler mHandler = new Handler();
     final Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
@@ -49,12 +48,14 @@ public class ExoPlayerAdapter extends PlayerAdapter implements ExoPlayer.EventLi
             mHandler.postDelayed(this, getUpdatePeriod());
         }
     };
-    final Handler mHandler = new Handler();
+    Context mContext;
+    SurfaceHolderGlueHost mSurfaceHolderGlueHost;
     boolean mInitialized = false;
     Uri mMediaSourceUri = null;
     boolean mHasDisplay;
     boolean mBufferingStart;
-    @C.StreamType int mAudioStreamType;
+    @C.StreamType
+    int mAudioStreamType;
 
     /**
      * Constructor.
@@ -239,6 +240,7 @@ public class ExoPlayerAdapter extends PlayerAdapter implements ExoPlayer.EventLi
     /**
      * Set {@link MediaSource} for {@link SimpleExoPlayer}. An app may override this method in order
      * to use different {@link MediaSource}.
+     *
      * @param uri The url of media source
      * @return MediaSource for the player
      */
@@ -285,28 +287,6 @@ public class ExoPlayerAdapter extends PlayerAdapter implements ExoPlayer.EventLi
         return mInitialized && (mSurfaceHolderGlueHost == null || mHasDisplay);
     }
 
-    /**
-     * Implements {@link SurfaceHolder.Callback} that can then be set on the
-     * {@link PlaybackGlueHost}.
-     */
-    class VideoPlayerSurfaceHolderCallback implements SurfaceHolder.Callback {
-        @Override
-        public void surfaceCreated(SurfaceHolder surfaceHolder) {
-            setDisplay(surfaceHolder);
-        }
-
-        @Override
-        public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-        }
-
-        @Override
-        public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-            setDisplay(null);
-        }
-    }
-
-    // ExoPlayer Event Listeners
-
     @Override
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
         mBufferingStart = false;
@@ -323,6 +303,8 @@ public class ExoPlayerAdapter extends PlayerAdapter implements ExoPlayer.EventLi
         }
         notifyBufferingStartEnd();
     }
+
+    // ExoPlayer Event Listeners
 
     @Override
     public void onPlayerError(ExoPlaybackException error) {
@@ -350,5 +332,25 @@ public class ExoPlayerAdapter extends PlayerAdapter implements ExoPlayer.EventLi
 
     @Override
     public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+    }
+
+    /**
+     * Implements {@link SurfaceHolder.Callback} that can then be set on the
+     * {@link PlaybackGlueHost}.
+     */
+    class VideoPlayerSurfaceHolderCallback implements SurfaceHolder.Callback {
+        @Override
+        public void surfaceCreated(SurfaceHolder surfaceHolder) {
+            setDisplay(surfaceHolder);
+        }
+
+        @Override
+        public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
+        }
+
+        @Override
+        public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
+            setDisplay(null);
+        }
     }
 }

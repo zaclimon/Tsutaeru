@@ -13,7 +13,6 @@ import com.google.android.media.tv.companionlibrary.XmlTvParser;
 import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.model.InternalProviderData;
 import com.google.android.media.tv.companionlibrary.model.Program;
-import com.google.android.media.tv.companionlibrary.utils.TvContractUtils;
 import com.zaclimon.acetv.R;
 import com.zaclimon.acetv.util.AceChannelUtil;
 import com.zaclimon.acetv.util.Constants;
@@ -27,13 +26,12 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Custom {@link EpgSyncJobService} used for syncing Ace TV content.
- *
+ * <p>
  * It downloads and parses the content from a user's M3U playlist + EPG XMLTV to add it to the
  * Android TV's system database in order to be used by the Live Channels application.
  *
  * @author zaclimon
  * Creation date: 11/06/17
- *
  */
 
 public class AceJobService extends EpgSyncJobService {
@@ -120,7 +118,7 @@ public class AceJobService extends EpgSyncJobService {
      * as the EPG guide from a user.
      *
      * @author zaclimon
-     * Creation date: 11/06/17
+     *         Creation date: 11/06/17
      */
     public class AsyncEpgDownload extends AsyncTask<Void, Void, Boolean> {
 

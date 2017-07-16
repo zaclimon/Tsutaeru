@@ -3,9 +3,7 @@ package com.zaclimon.acetv.util;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
-import com.google.android.media.tv.companionlibrary.XmlTvParser;
 import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.model.InternalProviderData;
 import com.zaclimon.acetv.R;
@@ -15,13 +13,9 @@ import com.zaclimon.acetv.service.AceTvInputService;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -42,8 +36,9 @@ public class AceChannelUtil {
 
     /**
      * Gets a list of channels based on the M3U playlist of a given user.
+     *
      * @param playlist List of the playlist lines containing the user's channels
-     * @param context the context required for some other operations (Adding the logo for example)
+     * @param context  the context required for some other operations (Adding the logo for example)
      * @return the list of channels for a given user
      */
     public static List<Channel> createChannelList(InputStream playlist, Context context) {
@@ -86,11 +81,12 @@ public class AceChannelUtil {
 
     /**
      * Creates a {@link Channel} that can be used by the Android TV framework and the Live Channels application.
-     * @param displayName the display name of the channel
+     *
+     * @param displayName   the display name of the channel
      * @param displayNumber the display number of the channel
-     * @param epgId the id as defined in {@link com.google.android.media.tv.companionlibrary.XmlTvParser}
-     * @param logo the logo url link
-     * @param url the video url link
+     * @param epgId         the id as defined in {@link com.google.android.media.tv.companionlibrary.XmlTvParser}
+     * @param logo          the logo url link
+     * @param url           the video url link
      * @return the channel to be used by the system.
      */
     private static Channel createChannel(String displayName, String displayNumber, int epgId, String logo, String url, String[] genres) {
@@ -135,7 +131,7 @@ public class AceChannelUtil {
     /**
      * Gives one or more genre(s) for a given {@link com.google.android.media.tv.companionlibrary.model.Program}
      * based on it's channel. The genre(s) must be one of the following:
-     *
+     * <p>
      * {@link android.media.tv.TvContract.Programs.Genres#FAMILY_KIDS}
      * {@link android.media.tv.TvContract.Programs.Genres#SPORTS}
      * {@link android.media.tv.TvContract.Programs.Genres#SHOPPING}
@@ -155,7 +151,7 @@ public class AceChannelUtil {
      * {@link android.media.tv.TvContract.Programs.Genres#TECH_SCIENCE}
      *
      * @param channelName The name of the channel
-     * @param context context required to access a string containing the channel names
+     * @param context     context required to access a string containing the channel names
      * @return the genre of the channel as specified by in {@link android.media.tv.TvContract.Programs.Genres}
      */
     private static String[] getProgramGenre(String channelName, Context context) {
@@ -208,6 +204,7 @@ public class AceChannelUtil {
 
     /**
      * Calculates the current date with the last half hour passed.
+     *
      * @return the current date with the last half hour in milliseconds
      */
     public static long getLastHalfHourMillis() {
@@ -216,6 +213,7 @@ public class AceChannelUtil {
 
     /**
      * Calculates the current date with the last half hour passed
+     *
      * @param originalMillis the desired calculated time in milliseconds
      * @return the desired date with the last half hour in milliseconds
      */
@@ -250,6 +248,7 @@ public class AceChannelUtil {
 
     /**
      * Gives all possible genres for a given channel based on it's json contents.
+     *
      * @param json the json parsed as a String.
      * @return the array of all the genres for the channel.
      */
@@ -270,6 +269,7 @@ public class AceChannelUtil {
 
     /**
      * Verifies if a given channel is a live one
+     *
      * @param channel the channel to be verified
      * @return true if the channel streams live content.
      */

@@ -42,6 +42,7 @@ public class CardViewPresenter extends Presenter {
 
     /**
      * Additional constructor if processing an image from an external resource is required
+     *
      * @param cardViewImageProcessor the processor which will be used to retrieve an image.
      */
     public CardViewPresenter(CardViewImageProcessor cardViewImageProcessor) {

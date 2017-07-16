@@ -15,18 +15,17 @@ import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 
 import com.zaclimon.acetv.R;
-import com.zaclimon.acetv.ui.vod.VodTvFragment;
-import com.zaclimon.acetv.ui.vod.CatchupTvFragment;
 import com.zaclimon.acetv.ui.settings.SettingsElementActivity;
 import com.zaclimon.acetv.ui.settings.SettingsTvFragment;
+import com.zaclimon.acetv.ui.vod.CatchupTvFragment;
 import com.zaclimon.acetv.ui.vod.SeriesTvFragment;
+import com.zaclimon.acetv.ui.vod.VodTvFragment;
 
 /**
  * Main fragment used for the Android TV variant of the application
  *
  * @author zaclimon
  * Creation date: 20/06/17
- *
  */
 
 public class MainTvFragment extends BrowseFragment {
@@ -123,7 +122,7 @@ public class MainTvFragment extends BrowseFragment {
      * click when an item in a given row is selected.
      *
      * @author zaclimon
-     * Creation date: 21/06/17
+     *         Creation date: 21/06/17
      */
     private class TvItemClickListener implements OnItemViewClickedListener {
 
@@ -147,7 +146,7 @@ public class MainTvFragment extends BrowseFragment {
      * into Leanback.
      *
      * @author zaclimon
-     * Creation date: 02/07/17
+     *         Creation date: 02/07/17
      */
     private class TvFragmentFactory extends FragmentFactory {
 

@@ -21,6 +21,7 @@ public class ActivityUtil {
 
     /**
      * Verifies if there is not a username/password match from within the application.
+     *
      * @param context the required context to verify the username/password
      * @return true if there is not a username or a password.
      */
@@ -35,6 +36,7 @@ public class ActivityUtil {
     /**
      * Verifies if the current user interface (UI) mode is for television (Mostly if we're in
      * Android TV)
+     *
      * @param activity the activity verifying the UI mode.
      * @return true if the application is running in Android TV.
      */
@@ -45,7 +47,8 @@ public class ActivityUtil {
 
     /**
      * Converts given density-independent pixels (dp) to pixels
-     * @param dp the number of dp to convert
+     *
+     * @param dp      the number of dp to convert
      * @param context the required context to convert the dp
      * @return the number of pixel for the given dp.
      */

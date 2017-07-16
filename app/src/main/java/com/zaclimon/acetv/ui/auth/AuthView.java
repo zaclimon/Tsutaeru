@@ -12,6 +12,7 @@ public interface AuthView {
 
     /**
      * Gets a custom playlist link based on the username and the password of a given user.
+     *
      * @param username the user's username
      * @param password the user's password
      * @return the required playlist link for a given user

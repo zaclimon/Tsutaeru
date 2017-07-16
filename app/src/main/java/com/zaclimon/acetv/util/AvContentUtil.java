@@ -2,7 +2,6 @@ package com.zaclimon.acetv.util;
 
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Patterns;
 
 import com.zaclimon.acetv.data.AvContent;
 
@@ -19,10 +18,10 @@ import java.util.regex.Pattern;
 
 /**
  * Utility class responsible for handling {@link AvContent}
- *
+ * <p>
  * AvContents can be handled differently for example for Ace TV, an M3U from it's given
  * Android API is shown like this:
- *
+ * <p>
  * #EXTINF:-1 tvg-name="" group-title="" tvg-logo="", "title"
  * "content-link"
  *
@@ -36,6 +35,7 @@ public class AvContentUtil {
 
     /**
      * Generates required {@link AvContent} for a given M3U playlist
+     *
      * @param playlist stream containing the M3U playlist
      * @return the list of AvContents from that playlist
      */
@@ -59,6 +59,7 @@ public class AvContentUtil {
 
     /**
      * Generates the groups for given {@link AvContent}
+     *
      * @param contents the list containing all the AvContents
      * @return the list of different groups for the given content
      */
@@ -72,13 +73,14 @@ public class AvContentUtil {
          */
 
         for (int i = 0; i < contents.size(); i++) {
-             tempGroups.add(contents.get(i).getGroup());
+            tempGroups.add(contents.get(i).getGroup());
         }
         return (new ArrayList<>(tempGroups));
     }
 
     /**
      * Reads a stream from the M3U playlist from a user for easier parsing.
+     *
      * @param playlist a user's M3U playlist stream
      * @return a List containing every lines of the M3U playlist
      */
@@ -107,6 +109,7 @@ public class AvContentUtil {
     /**
      * Generates the required M3U playlist lines if the given playlist was on a single line (That is
      * without a new line)
+     *
      * @param playlist the whole playlist.
      * @return A list containing all the lines of the M3U playlist.
      */
@@ -149,6 +152,7 @@ public class AvContentUtil {
 
     /**
      * Generates all the required lines from a given playlist if that playlist had multiple lines.
+     *
      * @param playlist the playlist as a list separated by it's lines
      * @return a list having the required M3U playlist lines.
      */
@@ -166,6 +170,7 @@ public class AvContentUtil {
 
     /**
      * Creates a {@link AvContent} from a given playlist line.
+     *
      * @param playlistLine The required playlist line
      * @return the AvContent from this line
      */
@@ -186,7 +191,8 @@ public class AvContentUtil {
 
     /**
      * Returns a given attribute for an M3U playlist file based on it's parameter.
-     * @param attribute an attribute as found in {@link Constants}
+     *
+     * @param attribute    an attribute as found in {@link Constants}
      * @param playlistLine a line from a given playlist.
      * @return The attribute for that line.
      */

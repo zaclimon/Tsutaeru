@@ -16,23 +16,19 @@ import java.net.URLConnection;
 /**
  * Static helper methods for fetching the channel feed. Based on the example from
  * android-tv-sample here:
- *
+ * <p>
  * https://github.com/googlesamples/androidtv-sample-inputs/blob/master/app/src/main/java/com/example/android/sampletvinput/rich/RichFeedUtil.java
  */
 public class RichFeedUtil {
-    private static final String TAG = "RichFeedUtil";
-
     // A key for the channel display number used in the app link intent from the xmltv_feed.
     public static final String EXTRA_DISPLAY_NUMBER = "display-number";
-
-    private static XmlTvParser.TvListing sSampleTvListing;
-
+    private static final String TAG = "RichFeedUtil";
     // For this sample we will use the local XML TV feed. In your real app, you will want to use a
     // remote feed to provide your users with up to date channel listings.
     private static final boolean USE_LOCAL_XML_FEED = true;
-
     private static final int URLCONNECTION_CONNECTION_TIMEOUT_MS = 3000;  // 3 sec
     private static final int URLCONNECTION_READ_TIMEOUT_MS = 10000;  // 10 sec
+    private static XmlTvParser.TvListing sSampleTvListing;
 
     private RichFeedUtil() {
     }

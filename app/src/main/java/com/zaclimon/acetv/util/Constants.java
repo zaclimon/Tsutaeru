@@ -31,7 +31,7 @@ public class Constants {
     // Channel configuration stuff
     public static final String EPG_ID_PROVIDER = "epg_id";
     public static final String CHANNEL_GENRES_PROVIDER = "channel_genres";
-    public static final String[] CHANNEL_GENRES = new String[] {
+    public static final String[] CHANNEL_GENRES = new String[]{
             TvContract.Programs.Genres.ANIMAL_WILDLIFE,
             TvContract.Programs.Genres.ARTS,
             TvContract.Programs.Genres.COMEDY,

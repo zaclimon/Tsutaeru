@@ -19,8 +19,8 @@ import android.widget.Toast;
 import com.google.android.media.tv.companionlibrary.ChannelSetupFragment;
 import com.google.android.media.tv.companionlibrary.EpgSyncJobService;
 import com.zaclimon.acetv.R;
-import com.zaclimon.acetv.ui.auth.AuthActivityTv;
 import com.zaclimon.acetv.service.AceJobService;
+import com.zaclimon.acetv.ui.auth.AuthActivityTv;
 import com.zaclimon.acetv.util.ActivityUtil;
 
 /**

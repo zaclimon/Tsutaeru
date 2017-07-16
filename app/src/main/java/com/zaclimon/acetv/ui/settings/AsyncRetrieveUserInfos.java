@@ -38,6 +38,7 @@ public class AsyncRetrieveUserInfos extends AsyncTask<Void, Void, Boolean> {
 
     /**
      * Default constructor of the class
+     *
      * @param userInfoView the view that will receive the concerned callbacks.
      */
     public AsyncRetrieveUserInfos(UserInfoView userInfoView) {

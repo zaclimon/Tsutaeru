@@ -19,6 +19,7 @@ public class SharedPreferencesRepositoryImpl implements SharedPreferencesReposit
 
     /**
      * Base constructor for this class
+     *
      * @param context is the context needed to retrieve the SharedPreferences instance.
      */
     public SharedPreferencesRepositoryImpl(Context context) {

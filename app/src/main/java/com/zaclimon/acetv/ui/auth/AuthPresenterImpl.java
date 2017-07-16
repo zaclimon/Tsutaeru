@@ -23,6 +23,7 @@ public class AuthPresenterImpl implements AuthPresenter {
 
     /**
      * Default construction of the AuthPresenter implementation.
+     *
      * @param view the AuthView used to callback depending on the authentication results.
      */
     public AuthPresenterImpl(AuthView view) {

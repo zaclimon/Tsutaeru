@@ -49,7 +49,7 @@ public class AceTvInputService extends BaseTvInputService {
     /**
      * Custom {@link com.google.android.media.tv.companionlibrary.BaseTvInputService.Session} which
      * handles playback when a {@link Channel} is tuned.
-     *
+     * <p>
      * It also implements an {@link com.google.android.exoplayer2.ExoPlayer.EventListener} in which
      * it can adapt better to callbacks from a {@link AcePlayer}
      */
@@ -60,6 +60,7 @@ public class AceTvInputService extends BaseTvInputService {
 
         /**
          * Base constructor
+         *
          * @param context context which will be used for session.
          * @param inputId the input id of the application
          */
@@ -92,7 +93,8 @@ public class AceTvInputService extends BaseTvInputService {
         }
 
         @Override
-        public void onSetCaptionEnabled(boolean enabled) {}
+        public void onSetCaptionEnabled(boolean enabled) {
+        }
 
         @Override
         public boolean onPlayRecordedProgram(RecordedProgram recordedProgram) {
@@ -135,9 +137,10 @@ public class AceTvInputService extends BaseTvInputService {
 
         /**
          * Gets a list of given tracks for a given channel, whether it is video or audio.
-         *
+         * <p>
          * This way, it is possible for a user to see in the Live Channels application the video
          * resolution and the audio layout.
+         *
          * @return the track list usable by the Live Channels application
          */
         private List<TvTrackInfo> getAllTracks() {
@@ -149,6 +152,7 @@ public class AceTvInputService extends BaseTvInputService {
 
         /**
          * Returns a given track based on the player's video or audio format.
+         *
          * @param trackType the type as defined by {@link TvTrackInfo#TYPE_VIDEO} or {@link TvTrackInfo#TYPE_AUDIO}
          * @return the related {@link TvTrackInfo} for a given player track.
          */

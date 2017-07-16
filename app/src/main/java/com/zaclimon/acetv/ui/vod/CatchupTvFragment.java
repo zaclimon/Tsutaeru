@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.zaclimon.acetv.R;
-import com.zaclimon.acetv.ui.vod.VodTvSectionFragment;
 import com.zaclimon.acetv.util.Constants;
 
 /**

@@ -13,7 +13,6 @@ import com.zaclimon.acetv.util.ActivityUtil;
  *
  * @author zaclimon
  * Creation date: 07/06/17
- *
  */
 
 public class AuthActivityTv extends Activity {

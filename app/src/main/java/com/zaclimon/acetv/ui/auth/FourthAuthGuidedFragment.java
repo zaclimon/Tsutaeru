@@ -12,7 +12,7 @@ import com.zaclimon.acetv.util.Constants;
 
 /**
  * Fourth step in the authentication process.
- *
+ * <p>
  * It is mostly the core of the process since it is verifying that a given username/password
  * match is valid and saves it for future use.
  *

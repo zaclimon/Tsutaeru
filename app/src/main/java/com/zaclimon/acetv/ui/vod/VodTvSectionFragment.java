@@ -72,6 +72,7 @@ public abstract class VodTvSectionFragment extends RowsFragment {
 
     /**
      * Gets the link to retrieve an M3U playlist from a given endpoint
+     *
      * @return the link to to retrieve VOD content.
      */
     protected abstract String getVodContentApiLink();
@@ -163,8 +164,9 @@ public abstract class VodTvSectionFragment extends RowsFragment {
 
         /**
          * Gives all the contents available by a given providers for an VodTvSectionFragment
+         *
          * @param avContents All the audio visual content available
-         * @param avGroups All the different providers offering the said content
+         * @param avGroups   All the different providers offering the said content
          * @return the list of object adapters to be displayed in a {@link ListRow}
          */
         private List<ArrayObjectAdapter> getProvidersContent(List<AvContent> avContents, List<String> avGroups) {
@@ -190,7 +192,7 @@ public abstract class VodTvSectionFragment extends RowsFragment {
      * Class acting as a onItemViewClickedListener to play an {@link AvContent}
      *
      * @author zaclimon
-     * Creation date: 02/07/17
+     *         Creation date: 02/07/17
      */
     private class AvContentTvItemClickListener implements OnItemViewClickedListener {
 
