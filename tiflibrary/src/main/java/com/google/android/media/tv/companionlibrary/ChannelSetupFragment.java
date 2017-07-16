@@ -76,7 +76,7 @@ import java.util.ArrayList;
  */
 public abstract class ChannelSetupFragment extends Fragment {
     private static final String TAG = "ScanFragment";
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
 
     private ProgressBar mProgressBar;
     private View mChannelHolder;
