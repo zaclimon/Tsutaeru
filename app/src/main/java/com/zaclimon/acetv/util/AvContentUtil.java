@@ -45,7 +45,7 @@ public class AvContentUtil {
         List<AvContent> avContents = new ArrayList<>();
 
         for (int i = 0; i < playlistStrings.size(); i++) {
-            if (!Patterns.WEB_URL.matcher(playlistStrings.get(i)).matches() && !playlistStrings.get(i).contains("#EXTM3U")) {
+            if (playlistStrings.get(i).contains("#EXTINF")) {
                 // The next line is guaranteed to be the content link.
                 AvContent avContent = createAvContent(playlistStrings.get(i), playlistStrings.get(i + 1));
                 if (avContent != null) {
