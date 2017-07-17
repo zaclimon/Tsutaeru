@@ -5,7 +5,6 @@ import android.media.PlaybackParams;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Surface;
 
 import com.google.android.exoplayer2.ExoPlayer;
