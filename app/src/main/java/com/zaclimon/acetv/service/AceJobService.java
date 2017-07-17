@@ -86,6 +86,13 @@ public class AceJobService extends EpgSyncJobService {
                     builder.setEndTimeUtcMillis(endTimeMillis);
                     builder.setBroadcastGenres(AceChannelUtil.getGenresArrayFromJson(channelGenresJson));
                     tempPrograms.add(builder.build());
+                } else {
+                    // Set genres a given channel if it has programs.
+                    for (int i = 0; i < tempPrograms.size(); i++) {
+                        Program.Builder builder = new Program.Builder(tempPrograms.get(i));
+                        builder.setBroadcastGenres(AceChannelUtil.getGenresArrayFromJson(channelGenresJson));
+                        tempPrograms.set(i, builder.build());
+                    }
                 }
 
                 return (tempPrograms);
