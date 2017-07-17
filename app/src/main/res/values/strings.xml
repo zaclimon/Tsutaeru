@@ -9,8 +9,9 @@
     <string name="channel_logo_title">Display channel logo?</string>
     <string name="channel_logo_title_short">Channel logo</string>
     <string name="channel_logo_description">Displays the channel\'s logo on the EPG interactive guide when using the Live Channels application. (Might take a bit of time for a full sync)</string>
-    <string name="channel_update">Updating channels&#8230;</string>
+    <string name="channel_stream_failure">Stream failure. Please try again later or contact Ace TV</string>
     <string name="connect_text">Connect</string>
+    <string name="channel_update">Updating channels&#8230;</string>
     <string name="connected_description_live_channels">The channels will now sync into the Live Channels. Happy watching!</string>
     <string name="connected_description_standalone">You can now download the Live Channels app to benefit from live TV or you can watch VOD\'s/Catchup here.</string>
     <string name="connection_description_account_change">Enjoy using your new account</string>
@@ -28,7 +29,6 @@
     <string name="force_epg_sync_title_short">Force sync</string>
     <string name="force_epg_sync_description">Syncs the EPG guide for 48 hours.</string>
     <string name="hls_text">HLS</string>
-    <string name="invalid_channel">Channel invalid, please contact Ace</string>
     <string name="internet_not_available">Please verify your internet connection</string>
     <string name="lets_go_text">Let\'s go</string>
     <string name="mpeg_ts_text">MPEG-TS</string>

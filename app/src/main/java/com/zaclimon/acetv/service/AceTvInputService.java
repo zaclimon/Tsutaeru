@@ -228,7 +228,7 @@ public class AceTvInputService extends BaseTvInputService {
                 mAcePlayer.play();
             } else if (error.getCause() instanceof UnrecognizedInputFormatException) {
                 // Channel cannot be played in case of an error in parsing the ".m3u8" file.
-                Toast.makeText(mContext, mContext.getString(R.string.invalid_channel), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, mContext.getString(R.string.channel_stream_failure), Toast.LENGTH_SHORT).show();
             } else if (error.getCause() instanceof HttpDataSource.InvalidResponseCodeException) {
 
                  /*
@@ -244,7 +244,7 @@ public class AceTvInputService extends BaseTvInputService {
                 mAcePlayer.play();
             } else if (error.getCause() instanceof HttpDataSource.HttpDataSourceException) {
                 // Timeout, nothing we can do really...
-                Toast.makeText(mContext, R.string.invalid_channel, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, R.string.channel_stream_failure, Toast.LENGTH_SHORT).show();
             }
         }
 
