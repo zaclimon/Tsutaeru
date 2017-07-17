@@ -146,6 +146,7 @@ public class AceChannelUtil {
      * {@link android.media.tv.TvContract.Programs.Genres#ARTS}
      * {@link android.media.tv.TvContract.Programs.Genres#ENTERTAINMENT}
      * {@link android.media.tv.TvContract.Programs.Genres#LIFE_STYLE}
+     * {@link android.media.tv.TvContract.Programs.Genres#MOVIES}
      * {@link android.media.tv.TvContract.Programs.Genres#MUSIC}
      * {@link android.media.tv.TvContract.Programs.Genres#PREMIER}
      * {@link android.media.tv.TvContract.Programs.Genres#TECH_SCIENCE}
