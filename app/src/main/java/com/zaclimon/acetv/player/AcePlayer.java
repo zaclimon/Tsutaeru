@@ -147,7 +147,14 @@ public class AcePlayer implements TvPlayer {
     @Override
     public void setPlaybackParams(PlaybackParams params) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            PlaybackParameters playbackParameters = new PlaybackParameters(params.getSpeed(), params.getPitch());
+            PlaybackParameters playbackParameters;
+
+            try {
+                playbackParameters = new PlaybackParameters(params.getSpeed(), params.getPitch());
+            } catch (IllegalStateException is) {
+                playbackParameters = PlaybackParameters.DEFAULT;
+            }
+
             player.setPlaybackParameters(playbackParameters);
         }
     }
