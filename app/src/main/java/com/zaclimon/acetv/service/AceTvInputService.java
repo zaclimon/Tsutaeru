@@ -165,7 +165,14 @@ public class AceTvInputService extends BaseTvInputService {
               */
 
             Format format = null;
-            TvTrackInfo.Builder builder = new TvTrackInfo.Builder(trackType, Integer.toString(0));
+            TvTrackInfo.Builder builder;
+
+            // Versions before Nougat expects a general TvTrackInfo id and not one based on the type.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                builder = new TvTrackInfo.Builder(trackType, Integer.toString(0));
+            } else {
+                builder = new TvTrackInfo.Builder(trackType, Integer.toString(trackType));
+            }
 
             if (trackType == TvTrackInfo.TYPE_VIDEO) {
                 format = mAcePlayer.getVideoFormat();
@@ -210,8 +217,8 @@ public class AceTvInputService extends BaseTvInputService {
 
             if (playWhenReady && playbackState == ExoPlayer.STATE_READY) {
                 notifyTracksChanged(getAllTracks());
-                notifyTrackSelected(TvTrackInfo.TYPE_VIDEO, Integer.toString(0));
-                notifyTrackSelected(TvTrackInfo.TYPE_AUDIO, Integer.toString(0));
+                notifyTrackSelected(TvTrackInfo.TYPE_VIDEO, getTrackId(TvTrackInfo.TYPE_VIDEO));
+                notifyTrackSelected(TvTrackInfo.TYPE_AUDIO, getTrackId(TvTrackInfo.TYPE_AUDIO));
                 notifyVideoAvailable();
             }
 
@@ -256,6 +263,26 @@ public class AceTvInputService extends BaseTvInputService {
         @Override
         public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
 
+        }
+
+        /**
+         * Gives the id for a given track based on it's type between {@link TvTrackInfo#TYPE_VIDEO}
+         * or {@link TvTrackInfo#TYPE_AUDIO}
+         *
+         * @param trackType The track type of the stream
+         * @return the default track id used for the stream.
+         */
+        private String getTrackId(int trackType) {
+
+            /*
+             Android versions before Nougat, each track has a global unique id that can't be used
+             for different track types.
+             */
+            if ((trackType == TvTrackInfo.TYPE_VIDEO || trackType == TvTrackInfo.TYPE_AUDIO) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                return (Integer.toString(0));
+            } else {
+                return (Integer.toString(trackType));
+            }
         }
 
     }
