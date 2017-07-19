@@ -2,6 +2,7 @@
     <string name="app_name">Ace TV</string>
     <string name="about_text">About</string>
     <string name="activated_text">Activated</string>
+    <string name="android_tv_only_toast">This application works only on Android TV devices.</string>
     <string name="authentication_not_possible">Can\'t authenticate</string>
     <string name="authentication_required">In order to use Ace TV services, you must sign-in.</string>
     <string name="catchup_title">TV Catchup</string>

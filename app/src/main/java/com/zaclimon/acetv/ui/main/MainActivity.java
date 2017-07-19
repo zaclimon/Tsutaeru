@@ -6,6 +6,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.media.tv.TvContract;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.zaclimon.acetv.R;
@@ -35,7 +36,7 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
 
-        if (ActivityUtil.isUsernamePasswordEmpty(this)) {
+        if (ActivityUtil.isUsernamePasswordEmpty(this) && ActivityUtil.isTvMode(this)) {
 
             ContentResolver contentResolver = getContentResolver();
             Intent intent = new Intent(this, AuthActivityTv.class);
@@ -57,6 +58,9 @@ public class MainActivity extends Activity {
 
         if (ActivityUtil.isTvMode(this)) {
             fragmentTransaction.add(R.id.activity_fragment_holder, new MainTvFragment());
+        } else {
+            Toast.makeText(this, R.string.android_tv_only_toast, Toast.LENGTH_SHORT).show();
+            finish();
         }
 
         fragmentTransaction.commit();
