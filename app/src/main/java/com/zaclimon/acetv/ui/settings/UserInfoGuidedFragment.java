@@ -105,9 +105,13 @@ public class UserInfoGuidedFragment extends GuidedStepFragment implements UserIn
 
     @Override
     public String getUserInfoApiEndpoint() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.ACE_TV_PREFERENCES, Context.MODE_PRIVATE);
-        String username = sharedPreferences.getString(Constants.USERNAME_PREFERENCE, "");
-        String password = sharedPreferences.getString(Constants.PASSWORD_PREFERENCE, "");
-        return (getString(R.string.ace_user_info_url, username, password));
+        if (isAdded()) {
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.ACE_TV_PREFERENCES, Context.MODE_PRIVATE);
+            String username = sharedPreferences.getString(Constants.USERNAME_PREFERENCE, "");
+            String password = sharedPreferences.getString(Constants.PASSWORD_PREFERENCE, "");
+            return (getString(R.string.ace_user_info_url, username, password));
+        } else {
+            return (null);
+        }
     }
 }

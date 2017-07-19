@@ -111,12 +111,14 @@ public class ChannelLogoGuidedFragment extends GuidedStepFragment {
 
         public Void doInBackground(Void... params) {
 
-            ContentResolver contentResolver = getActivity().getContentResolver();
-            List<Channel> channels = TvContractUtils.getChannels(contentResolver);
+            if (isAdded()) {
+                ContentResolver contentResolver = getActivity().getContentResolver();
+                List<Channel> channels = TvContractUtils.getChannels(contentResolver);
 
-            for (Channel channel : channels) {
-                Uri channelLogoUri = TvContract.buildChannelLogoUri(channel.getId());
-                contentResolver.delete(channelLogoUri, null, null);
+                for (Channel channel : channels) {
+                    Uri channelLogoUri = TvContract.buildChannelLogoUri(channel.getId());
+                    contentResolver.delete(channelLogoUri, null, null);
+                }
             }
             return (null);
         }
