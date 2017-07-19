@@ -100,7 +100,7 @@ public abstract class VodTvSectionFragment extends RowsFragment {
             mProgressBarManager.hide();
         }
 
-        if (mRowsAdapter.size() == 0) {
+        if (mRowsAdapter.size() == 0 && mScaleFrameLayout != null) {
             mScaleFrameLayout.removeAllViews();
         }
     }
