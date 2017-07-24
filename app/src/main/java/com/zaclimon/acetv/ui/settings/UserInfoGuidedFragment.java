@@ -80,27 +80,32 @@ public class UserInfoGuidedFragment extends GuidedStepFragment implements UserIn
 
     @Override
     public void onConnectionSuccess(String status, Date expirationDate, boolean isTrial, int maxConnections) {
-        TextView descriptionView = getGuidanceStylist().getDescriptionView();
-        String trial = isTrial ? getString(R.string.yes_text) : getString(R.string.no_text);
 
-        mProgressBarManager.hide();
+        if (isAdded()) {
+            TextView descriptionView = getGuidanceStylist().getDescriptionView();
+            String trial = isTrial ? getString(R.string.yes_text) : getString(R.string.no_text);
 
-        getGuidanceStylist().getTitleView().setVisibility(View.VISIBLE);
-        descriptionView.setText(getString(R.string.user_info_description, status, expirationDate, trial, Integer.toString(maxConnections)));
-        descriptionView.setVisibility(View.VISIBLE);
-        getGuidanceStylist().getBreadcrumbView().setVisibility(View.VISIBLE);
+            mProgressBarManager.hide();
+
+            getGuidanceStylist().getTitleView().setVisibility(View.VISIBLE);
+            descriptionView.setText(getString(R.string.user_info_description, status, expirationDate, trial, Integer.toString(maxConnections)));
+            descriptionView.setVisibility(View.VISIBLE);
+            getGuidanceStylist().getBreadcrumbView().setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void onConnectionFailed() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        ErrorFragment errorFragment = new ErrorFragment();
-        errorFragment.setImageDrawable(getActivity().getDrawable(R.drawable.lb_ic_sad_cloud));
-        errorFragment.setMessage(getString(R.string.user_info_not_accessible));
-        errorFragment.setDefaultBackground(true);
-        transaction.add(android.R.id.content, errorFragment);
-        mProgressBarManager.hide();
-        transaction.commit();
+        if (isAdded()) {
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            ErrorFragment errorFragment = new ErrorFragment();
+            errorFragment.setImageDrawable(getActivity().getDrawable(R.drawable.lb_ic_sad_cloud));
+            errorFragment.setMessage(getString(R.string.user_info_not_accessible));
+            errorFragment.setDefaultBackground(true);
+            transaction.add(android.R.id.content, errorFragment);
+            mProgressBarManager.hide();
+            transaction.commit();
+        }
     }
 
     @Override
