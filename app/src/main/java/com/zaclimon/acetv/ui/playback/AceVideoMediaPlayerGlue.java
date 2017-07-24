@@ -46,7 +46,8 @@ public class AceVideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTr
     @Override
     protected void onCreateSecondaryActions(ArrayObjectAdapter adapter) {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-            adapter.add(mPipAction);
+            // TODO: Fix Picture-in-Picture "divide by zero" crash.
+            //adapter.add(mPipAction);
         }
     }
 
