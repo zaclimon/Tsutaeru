@@ -1,4 +1,9 @@
-V1.1 (18/07/17)
+V1.0.2 (23/07/17)
+- Add all possible groups for Live TV
+- Remove Picture-In-Picture for the moment (Causes some crashs)
+- More bugfixes
+
+V1.0.1 (18/07/17)
 - Don't open the app if the device doesn't run Android TV
 - Some bugfixes
 
