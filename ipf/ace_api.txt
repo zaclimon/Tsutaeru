@@ -1,0 +1,33 @@
+# This file contains a list of possible api's in order to retrive content from ACE IPTV.
+#
+# Isaac Pateau (zaclimon)
+
+1. Retrive M3U master playlist:
+http://ace-tv.xyz:25461/get.php?username=xxxx&password=xxxx&type=m3u_plus&output=ts
+
+- Username = Email Address/Custom username
+- Password = Password
+
+- Possible outputs:
+    - ts (MPEG-TS)
+    - hls (HLS)
+
+Alternative (Gives MPEG-TS output):
+http://mikkm.xyz/android/androidApi.php?url=http://ace-tv.xyz:25461/&mode=live&username=xxxx&password=xxxx
+
+
+2. Retrieve user information
+http://mikkm.xyz/android/androidApi.php?url=http://ace-tv.xyz:25461/&mode=user_info&username=xxxx&password=xxxx
+
+3. Retrieve TV series:
+http://mikkm.xyz/android/androidApi.php?url=http://ace-tv.xyz:25461/&mode=series&username=xxxx&password=xxxx
+
+4. Retrieve VOD content:
+http://mikkm.xyz/android/androidApi.php?url=http://ace-tv.xyz:25461/&mode=vod&username=xxxx&password=xxxx
+
+5. Retrieve TV-Catchup content:
+http://mikkm.xyz/android/androidApi.php?url=http://ace-tv.xyz:25461/&mode=timeshift&username=xxxx&password=xxxx
+
+In every calls:
+- Username = Ace Email Address/Custom username
+- Password = Ace Password

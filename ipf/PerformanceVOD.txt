@@ -1,0 +1,60 @@
+Performance measurement of VodTvSectionFragments (As of July 17th 2017)
+
+Number of elements (AvContent):
+
+- VodTvFragment: 447
+- SeriesTvFragment: 835
+- CatchupTvFragment: 12774
+
+Old method (List):
+
+VodTvFragment:
+Time to complete: 470 ms (Startup)
+Time to complete: 154 ms
+Time to complete: 151 ms
+Time to complete: 142 ms
+Time to complete: 377 ms
+Mean: 258.8 ms --> 0.26 second
+
+SeriesTvFragment
+Time to complete: 734 ms
+Time to complete: 404 ms
+Time to complete: 294 ms
+Time to complete: 302 ms
+Time to complete: 566 ms
+Mean: 459.4 ms --> 0.46 second
+
+CatchupTvFragment:
+Time to complete: 13244 ms
+Time to complete: 13057 ms
+Time to complete: 13222 ms
+Time to complete: 13153 ms
+Time to complete: 13631 ms
+Mean: 13261.4 ms --> 13.3 seconds
+
+
+New method (Map):
+
+VodTvFragment:
+Time to complete: 279 ms
+Time to complete: 282 ms
+Time to complete: 275 ms
+Time to complete: 51 ms
+Time to complete: 277 ms
+Mean: 232.8 ms --> 0.23 second
+
+SeriesTvFragment:
+Time to complete: 589 ms
+Time to complete: 693 ms
+Time to complete: 535 ms
+Time to complete: 535 ms
+Time to complete: 644 ms
+Mean: 599.2 ms --> 0.6 second
+
+CatchupTvFragment:
+Time to complete: 12849 ms
+Time to complete: 13237 ms
+Time to complete: 13242 ms
+Time to complete: 13359 ms
+Time to complete: 13278 ms
+Mean: 13193 ms --> 13.2 seconds
