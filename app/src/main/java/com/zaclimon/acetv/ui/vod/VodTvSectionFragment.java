@@ -153,6 +153,11 @@ public abstract class VodTvSectionFragment extends RowsFragment {
             mScaleFrameLayout.removeAllViews();
         }
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
         mRealm.close();
     }
 
@@ -186,9 +191,9 @@ public abstract class VodTvSectionFragment extends RowsFragment {
         @Override
         public Boolean doInBackground(Void... params) {
             String avContentLink = getVodContentApiLink();
-            Realm realm = Realm.getDefaultInstance();
 
-            try {
+            try (InputStream catchupInputStream = RichFeedUtil.getInputStream(avContentLink);
+                 Realm realm = Realm.getDefaultInstance()) {
                 RealmResults<AvContent> realmContents = realm.where(AvContent.class).equalTo("mContentCategory", VodTvSectionFragment.this.getClass().getSimpleName()).findAll();
 
 
@@ -201,7 +206,6 @@ public abstract class VodTvSectionFragment extends RowsFragment {
                     duplicate values might not be a problem if we erase all the contents first.
                     */
 
-                    InputStream catchupInputStream = RichFeedUtil.getInputStream(avContentLink);
                     List<AvContent> avContents = AvContentUtil.getAvContentsList(catchupInputStream, VodTvSectionFragment.this.getClass().getSimpleName());
 
                     if (avContents.size() != realmContents.size()) {
@@ -217,8 +221,6 @@ public abstract class VodTvSectionFragment extends RowsFragment {
             } catch (IOException io) {
                 Crashlytics.logException(io);
                 return (false);
-            } finally {
-                realm.close();
             }
 
         }
