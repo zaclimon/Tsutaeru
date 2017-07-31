@@ -57,4 +57,15 @@ public class ActivityUtil {
         return ((int) (dp * density + 0.5f));
     }
 
+    /**
+     * Determines whether a given video playback should entirely fit to the screen
+     *
+     * @param context the context required to determine the preference
+     * @return true if the user wants the video content to fit to the screen
+     */
+    public static boolean isVideoFitToScreen(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.ACE_TV_PREFERENCES, MODE_PRIVATE);
+        return (sharedPreferences.getBoolean(Constants.VIDEO_FIT_SCREEN_PREFERENCE, false));
+    }
+
 }

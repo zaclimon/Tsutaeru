@@ -37,6 +37,7 @@ public class SettingsObjectAdapter extends ArrayObjectAdapter {
         setChannelLogoSection();
         setForceEpgSyncSection();
         setChangeUserSection();
+        setForceFitScreen();
         setDebugLogSection();
         setAboutSection();
     }
@@ -72,6 +73,16 @@ public class SettingsObjectAdapter extends ArrayObjectAdapter {
     }
 
     /**
+     * Configures the fit-to-screen section.
+     */
+    private void setForceFitScreen() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.force_video_fit_title_short);
+        bundle.putInt(BUNDLE_SETTINGS_DRAWABLE_ID, R.drawable.ic_force_video_fit);
+        add(bundle);
+    }
+
+    /**
      * Configures the user switch section.
      */
     private void setChangeUserSection() {
@@ -91,6 +102,9 @@ public class SettingsObjectAdapter extends ArrayObjectAdapter {
         add(bundle);
     }
 
+    /**
+     * Displays the about section of the application.
+     */
     private void setAboutSection() {
         Bundle bundle = new Bundle();
         bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.about_text);

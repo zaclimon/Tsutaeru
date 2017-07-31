@@ -27,6 +27,7 @@ public class Constants {
     public static final String STREAM_TYPE_MPEG_TS = "ts";
     public static final String STREAM_TYPE_HLS = "hls";
     public static final String CHANNEL_LOGO_PREFERENCE = "channel_logo";
+    public static final String VIDEO_FIT_SCREEN_PREFERENCE = "video_fit_screen";
 
     // Channel configuration stuff
     public static final String EPG_ID_PROVIDER = "epg_id";

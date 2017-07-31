@@ -10,10 +10,12 @@ import android.support.v17.leanback.app.VideoFragment;
 import android.support.v17.leanback.app.VideoFragmentGlueHost;
 import android.support.v17.leanback.media.PlaybackGlue;
 import android.support.v17.leanback.media.PlaybackTransportControlGlue;
+import android.util.DisplayMetrics;
 
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.zaclimon.acetv.R;
 import com.zaclimon.acetv.ui.vod.VodTvSectionFragment;
+import com.zaclimon.acetv.util.ActivityUtil;
 
 /**
  * Fragment responsible for playing an {@link com.zaclimon.acetv.data.AvContent}
@@ -49,10 +51,18 @@ public class PlaybackFragment extends VideoFragment {
                 public void onPreparedStateChanged(PlaybackGlue glue) {
                     super.onPreparedStateChanged(glue);
                     if (glue.isPrepared()) {
-                        // Only add seek if the video is seekable...
+
+                        // Only add seek for capable videos...
                         if (mPlayerGlue.getDuration() > 0) {
                             mPlayerGlue.setSeekProvider(new AcePlaybackSeekDataProvider(mPlayerGlue.getDuration()));
                         }
+
+                        // Force content to fit to screen if wanted.
+                        if (ActivityUtil.isVideoFitToScreen(getActivity())) {
+                            DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
+                            mPlayerGlue.getPlayerAdapter().getCallback().onVideoSizeChanged(mPlayerGlue.getPlayerAdapter(), displayMetrics.widthPixels, displayMetrics.heightPixels);
+                        }
+
                         glue.removePlayerCallback(this);
                         glue.play();
                     }

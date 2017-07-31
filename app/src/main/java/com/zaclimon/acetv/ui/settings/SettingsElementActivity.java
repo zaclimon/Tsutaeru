@@ -44,6 +44,10 @@ public class SettingsElementActivity extends Activity {
                 case R.string.force_epg_sync_title_short:
                     GuidedStepFragment.addAsRoot(this, new EpgForceSyncGuidedFragment(), android.R.id.content);
                     break;
+                case R.string.force_video_fit_title:
+                case R.string.force_video_fit_title_short:
+                    GuidedStepFragment.addAsRoot(this, new ForceFitScreenGuidedFragment(), android.R.id.content);
+                    break;
                 case R.string.change_user_title:
                     Intent intent = new Intent(this, AuthActivityTv.class);
                     startActivity(intent);
