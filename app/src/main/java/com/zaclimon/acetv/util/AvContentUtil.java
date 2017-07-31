@@ -40,6 +40,17 @@ public class AvContentUtil {
      * @return the list of AvContents from that playlist
      */
     public static List<AvContent> getAvContentsList(InputStream playlist) {
+        return (getAvContentsList(playlist, null));
+    }
+
+    /**
+     * Generates required {@link AvContent} for a given M3U playlist
+     *
+     * @param playlist stream containing the M3U playlist
+     * @param contentCategory the category in which the content will be
+     * @return the list of AvContents from that playlist
+     */
+    public static List<AvContent> getAvContentsList(InputStream playlist, String contentCategory) {
 
         List<String> playlistStrings = getAvContentsAsString(playlist);
         List<AvContent> avContents = new ArrayList<>();
@@ -47,7 +58,7 @@ public class AvContentUtil {
         for (int i = 0; i < playlistStrings.size(); i++) {
             if (playlistStrings.get(i).contains("#EXTINF")) {
                 // The next line is guaranteed to be the content link.
-                AvContent avContent = createAvContent(playlistStrings.get(i), playlistStrings.get(i + 1));
+                AvContent avContent = createAvContent(playlistStrings.get(i), playlistStrings.get(i + 1), contentCategory);
                 if (avContent != null) {
                     avContents.add(avContent);
                 }
@@ -174,14 +185,15 @@ public class AvContentUtil {
      * @param playlistLine The required playlist line
      * @return the AvContent from this line
      */
-    private static AvContent createAvContent(String playlistLine, String contentLink) {
+    private static AvContent createAvContent(String playlistLine, String contentLink, String contentCategory) {
 
         if (Constants.ATTRIBUTE_TVG_NAME_PATTERN.matcher(playlistLine).find()) {
             String title = getAttributeFromPlaylistLine(Constants.ATTRIBUTE_TVG_NAME_PATTERN, playlistLine);
             String logo = getAttributeFromPlaylistLine(Constants.ATTRIBUTE_TVG_LOGO_PATTERN, playlistLine);
             String group = getAttributeFromPlaylistLine(Constants.ATTRIBUTE_GROUP_TITLE_PATTERN, playlistLine);
             int id = getAttributeFromPlaylistLine(Constants.ATTRIBUTE_TVG_ID_PATTERN, playlistLine).hashCode();
-            return (new AvContent(title, logo, group, contentLink, id));
+
+            return (new AvContent(title, logo, group, contentCategory, contentLink, id));
         } else {
             Log.e(LOG_TAG, "Current line not valid for creating AvContent: " + playlistLine);
             return (null);

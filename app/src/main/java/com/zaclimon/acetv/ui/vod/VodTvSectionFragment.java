@@ -3,6 +3,7 @@ package com.zaclimon.acetv.ui.vod;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v17.leanback.app.BrowseFragment;
 import android.support.v17.leanback.app.ProgressBarManager;
 import android.support.v17.leanback.app.RowsFragment;
@@ -32,6 +33,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmChangeListener;
+import io.realm.RealmResults;
+
 
 /**
  * Base class in which VOD-like (Video on demand) fragments can base off in order to have a complete
@@ -69,6 +75,7 @@ public abstract class VodTvSectionFragment extends RowsFragment {
     private ProgressBarManager mProgressBarManager;
     private AsyncProcessAvContent mAsyncProcessAvContent;
     private ScaleFrameLayout mScaleFrameLayout;
+    private Realm mRealm;
 
     /**
      * Gets the link to retrieve an M3U playlist from a given endpoint
@@ -84,10 +91,52 @@ public abstract class VodTvSectionFragment extends RowsFragment {
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
         mProgressBarManager = ((BrowseFragment) getParentFragment()).getProgressBarManager();
         mScaleFrameLayout = getActivity().findViewById(R.id.scale_frame);
+        mRealm = mRealm.getDefaultInstance();
         mProgressBarManager.setRootView((ViewGroup) getActivity().findViewById(R.id.browse_container_dock));
+        setOnItemViewClickedListener(new AvContentTvItemClickListener());
+        setAdapter(mRowsAdapter);
+
         mAsyncProcessAvContent = new AsyncProcessAvContent();
         mAsyncProcessAvContent.execute();
 
+    }
+
+    /**
+     * Updates the main RowAdapter of the Fragment.
+     */
+    private void updateRowsAdapter() {
+
+        final List<String> avGroups = new ArrayList<>();
+        final List<ArrayObjectAdapter> avAdapters = new ArrayList<>();
+        final RealmResults<AvContent> contents = mRealm.where(AvContent.class).equalTo("mContentCategory", VodTvSectionFragment.this.getClass().getSimpleName()).findAllSortedAsync("mGroup");
+
+        contents.addChangeListener(new RealmChangeListener<RealmResults<AvContent>>() {
+            @Override
+            public void onChange(RealmResults<AvContent> foundContents) {
+                String currentGroup = foundContents.get(0).getGroup();
+                ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(new CardViewPresenter(new PicassoCardViewImageProcessor()));
+                avGroups.add(currentGroup);
+
+                for (AvContent content : foundContents) {
+                    if (!currentGroup.equals(content.getGroup())) {
+                        avAdapters.add(arrayObjectAdapter);
+                        avGroups.add(content.getGroup());
+                        arrayObjectAdapter = new ArrayObjectAdapter(new CardViewPresenter(new PicassoCardViewImageProcessor()));
+                        currentGroup = content.getGroup();
+                    }
+                    arrayObjectAdapter.add(content);
+                }
+
+                if (mRowsAdapter.size() == 0) {
+                    for (int i = 0; i < avAdapters.size(); i++) {
+                        HeaderItem catchupItem = new HeaderItem(avGroups.get(i));
+                        mRowsAdapter.add(new ListRow(catchupItem, avAdapters.get(i)));
+                    }
+                } else {
+                    mRowsAdapter.notifyArrayItemRangeChanged(0, contents.size());
+                }
+            }
+        });
     }
 
     @Override
@@ -103,8 +152,13 @@ public abstract class VodTvSectionFragment extends RowsFragment {
         if (mRowsAdapter.size() == 0 && mScaleFrameLayout != null) {
             mScaleFrameLayout.removeAllViews();
         }
+
+        mRealm.close();
     }
 
+    /**
+     * Shows a view in which content is not available.
+     */
     private void showErrorView() {
         if (isAdded()) {
             View view = View.inflate(getActivity(), R.layout.view_content_unavailable, null);
@@ -126,66 +180,59 @@ public abstract class VodTvSectionFragment extends RowsFragment {
         @Override
         public Boolean doInBackground(Void... params) {
             String avContentLink = getVodContentApiLink();
+            Realm realm = Realm.getDefaultInstance();
 
             try {
-                InputStream catchupInputStream = RichFeedUtil.getInputStream(avContentLink);
-                List<AvContent> avContents = AvContentUtil.getAvContentsList(catchupInputStream);
-                List<String> avGroups = AvContentUtil.getAvContentsGroup(avContents);
-                List<ArrayObjectAdapter> avAdapters = getProvidersContent(avContents, avGroups);
+                RealmResults<AvContent> realmContents = realm.where(AvContent.class).equalTo("mContentCategory", VodTvSectionFragment.this.getClass().getSimpleName()).findAll();
 
-                for (int i = 0; i < avAdapters.size(); i++) {
-                    HeaderItem catchupItem = new HeaderItem(avGroups.get(i));
-                    mRowsAdapter.add(new ListRow(catchupItem, avAdapters.get(i)));
+                if (realmContents.size() > 0) {
+                    publishProgress();
+                }
+
+                InputStream catchupInputStream = RichFeedUtil.getInputStream(avContentLink);
+                List<AvContent> avContents = AvContentUtil.getAvContentsList(catchupInputStream, VodTvSectionFragment.this.getClass().getSimpleName());
+                Log.d(LOG_TAG, "contents size: " + realmContents.size());
+                Log.d(LOG_TAG, "avContents size: " + avContents.size());
+
+                 /*
+                 It might be risky to insert data without updating and there might be duplicate values.
+
+                 That said, in order to have AvContent with distinct content categories, having
+                 duplicate values might not be a problem if we erase all the contents first.
+                 */
+                if (avContents.size() != realmContents.size()) {
+                    realm.beginTransaction();
+                    realmContents.deleteAllFromRealm();
+                    realm.insert(avContents);
+                    realm.commitTransaction();
+                    publishProgress();
                 }
 
                 return (true);
             } catch (IOException io) {
                 Crashlytics.logException(io);
                 return (false);
+            } finally {
+                realm.close();
             }
 
         }
 
         @Override
-        public void onPostExecute(Boolean result) {
-
-            if (result && mRowsAdapter.size() > 0) {
-                setAdapter(mRowsAdapter);
-                setOnItemViewClickedListener(new AvContentTvItemClickListener());
-            } else {
-                if (!result) {
-                    Log.e(LOG_TAG, "Couldn't parse contents");
-                    Log.e(LOG_TAG, "Api Link: " + getVodContentApiLink());
-                }
-                showErrorView();
-            }
+        public void onProgressUpdate(Void... progress) {
+            updateRowsAdapter();
             mProgressBarManager.hide();
         }
 
-        /**
-         * Gives all the contents available by a given providers for an VodTvSectionFragment
-         *
-         * @param avContents All the audio visual content available
-         * @param avGroups   All the different providers offering the said content
-         * @return the list of object adapters to be displayed in a {@link ListRow}
-         */
-        private List<ArrayObjectAdapter> getProvidersContent(List<AvContent> avContents, List<String> avGroups) {
+        @Override
+        public void onPostExecute(Boolean result) {
 
-            List<ArrayObjectAdapter> tempAdapters = new ArrayList<>();
-
-            for (String group : avGroups) {
-                ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(new CardViewPresenter(new PicassoCardViewImageProcessor()));
-
-                for (AvContent content : avContents) {
-                    if (content.getGroup().equals(group)) {
-                        arrayObjectAdapter.add(content);
-                    }
-                }
-                tempAdapters.add(arrayObjectAdapter);
+            if (!result) {
+                Log.e(LOG_TAG, "Couldn't parse contents");
+                Log.e(LOG_TAG, "Api Link: " + getVodContentApiLink());
+                showErrorView();
             }
-            return (tempAdapters);
         }
-
     }
 
     /**
@@ -213,6 +260,4 @@ public abstract class VodTvSectionFragment extends RowsFragment {
             }
         }
     }
-
-
 }

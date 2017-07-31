@@ -15,6 +15,7 @@ import com.zaclimon.acetv.util.AceChannelUtil;
 import com.zaclimon.acetv.util.ActivityUtil;
 
 import io.fabric.sdk.android.Fabric;
+import io.realm.Realm;
 
 
 /**
@@ -33,6 +34,7 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
+        Realm.init(this);
 
         setContentView(R.layout.activity_main);
 
