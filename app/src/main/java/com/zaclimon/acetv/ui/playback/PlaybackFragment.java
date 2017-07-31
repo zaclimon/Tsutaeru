@@ -49,6 +49,10 @@ public class PlaybackFragment extends VideoFragment {
                 public void onPreparedStateChanged(PlaybackGlue glue) {
                     super.onPreparedStateChanged(glue);
                     if (glue.isPrepared()) {
+                        // Only add seek if the video is seekable...
+                        if (mPlayerGlue.getDuration() > 0) {
+                            mPlayerGlue.setSeekProvider(new AcePlaybackSeekDataProvider(mPlayerGlue.getDuration()));
+                        }
                         glue.removePlayerCallback(this);
                         glue.play();
                     }
