@@ -174,7 +174,13 @@ public abstract class VodTvSectionFragment extends RowsFragment {
 
         @Override
         public void onPreExecute() {
-            mProgressBarManager.show();
+            long realmContentsSize = mRealm.where(AvContent.class).equalTo("mContentCategory", VodTvSectionFragment.this.getClass().getSimpleName()).count();
+
+            if (realmContentsSize > 0) {
+                updateRowsAdapter();
+            } else {
+                mProgressBarManager.show();
+            }
         }
 
         @Override
@@ -185,27 +191,26 @@ public abstract class VodTvSectionFragment extends RowsFragment {
             try {
                 RealmResults<AvContent> realmContents = realm.where(AvContent.class).equalTo("mContentCategory", VodTvSectionFragment.this.getClass().getSimpleName()).findAll();
 
-                if (realmContents.size() > 0) {
-                    publishProgress();
-                }
 
-                InputStream catchupInputStream = RichFeedUtil.getInputStream(avContentLink);
-                List<AvContent> avContents = AvContentUtil.getAvContentsList(catchupInputStream, VodTvSectionFragment.this.getClass().getSimpleName());
-                Log.d(LOG_TAG, "contents size: " + realmContents.size());
-                Log.d(LOG_TAG, "avContents size: " + avContents.size());
+                if (!isCancelled()) {
 
-                 /*
-                 It might be risky to insert data without updating and there might be duplicate values.
+                    /*
+                    It might be risky to insert data without updating and there might be duplicate values.
 
-                 That said, in order to have AvContent with distinct content categories, having
-                 duplicate values might not be a problem if we erase all the contents first.
-                 */
-                if (avContents.size() != realmContents.size()) {
-                    realm.beginTransaction();
-                    realmContents.deleteAllFromRealm();
-                    realm.insert(avContents);
-                    realm.commitTransaction();
-                    publishProgress();
+                    That said, in order to have AvContent with distinct content categories, having
+                    duplicate values might not be a problem if we erase all the contents first.
+                    */
+
+                    InputStream catchupInputStream = RichFeedUtil.getInputStream(avContentLink);
+                    List<AvContent> avContents = AvContentUtil.getAvContentsList(catchupInputStream, VodTvSectionFragment.this.getClass().getSimpleName());
+
+                    if (avContents.size() != realmContents.size()) {
+                        realm.beginTransaction();
+                        realmContents.deleteAllFromRealm();
+                        realm.insert(avContents);
+                        realm.commitTransaction();
+                        publishProgress();
+                    }
                 }
 
                 return (true);
