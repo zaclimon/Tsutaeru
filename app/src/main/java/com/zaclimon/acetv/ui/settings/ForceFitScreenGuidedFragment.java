@@ -1,23 +1,16 @@
 package com.zaclimon.acetv.ui.settings;
 
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.media.tv.TvContract;
 import android.os.Bundle;
 import android.support.v17.leanback.app.GuidedStepFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
-import android.widget.Toast;
 
-import com.google.android.media.tv.companionlibrary.EpgSyncJobService;
 import com.zaclimon.acetv.R;
-import com.zaclimon.acetv.service.AceJobService;
-import com.zaclimon.acetv.util.AceChannelUtil;
 import com.zaclimon.acetv.util.Constants;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by isaac on 17-07-31.

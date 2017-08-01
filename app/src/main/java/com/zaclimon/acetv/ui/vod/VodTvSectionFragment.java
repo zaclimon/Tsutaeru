@@ -3,7 +3,6 @@ package com.zaclimon.acetv.ui.vod;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v17.leanback.app.BrowseFragment;
 import android.support.v17.leanback.app.ProgressBarManager;
 import android.support.v17.leanback.app.RowsFragment;
