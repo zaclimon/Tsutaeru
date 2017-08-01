@@ -41,8 +41,8 @@ dependencies {
 
     // Android TV stuff
     compile 'com.android.support:leanback-v17:26.0.0'
-    compile 'com.google.android.exoplayer:exoplayer-core:r2.4.1'
-    compile 'com.google.android.exoplayer:exoplayer-hls:r2.4.1'
+    compile 'com.google.android.exoplayer:exoplayer-core:r2.4.4'
+    compile 'com.google.android.exoplayer:exoplayer-hls:r2.4.4'
     compile project(':tiflibrary')
 
     // JUnit stuff
