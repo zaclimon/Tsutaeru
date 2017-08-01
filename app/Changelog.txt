@@ -1,3 +1,10 @@
+V1.1 (31/07/17)
+- Add caching for VOD content
+- Add basic seeking for VOD content
+- Content is now sorted in alphabetic order
+- Add force fit-to-screen for low resolution VOD content
+- Misc fixes
+
 V1.0.2 (23/07/17)
 - Add all possible groups for Live TV
 - Remove Picture-In-Picture for the moment (Causes some crashs)
