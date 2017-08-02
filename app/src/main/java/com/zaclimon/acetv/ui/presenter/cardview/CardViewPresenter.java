@@ -7,7 +7,9 @@ import android.support.v17.leanback.widget.BaseCardView;
 import android.support.v17.leanback.widget.ImageCardView;
 import android.support.v17.leanback.widget.Presenter;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.zaclimon.acetv.data.AvContent;
 import com.zaclimon.acetv.ui.settings.SettingsObjectAdapter;
@@ -80,8 +82,17 @@ public class CardViewPresenter extends Presenter {
             imageCardView.setMainImage(drawable);
         } else if (item instanceof AvContent) {
             // We're dealing with an AvContent item (TvCatchup/VOD)
-            AvContent avContent = (AvContent) item;
+            final AvContent avContent = (AvContent) item;
             imageCardView.setTitleText(avContent.getTitle());
+
+            viewHolder.view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    Toast.makeText(view.getContext(), avContent.getTitle(), Toast.LENGTH_SHORT).show();
+                    return (true);
+                }
+            });
+
             if (!TextUtils.isEmpty(avContent.getLogo()) && mCardViewImageProcessor != null) {
                 mCardViewImageProcessor.loadImage(avContent.getLogo(), widthPixels, heightPixels, imageCardView.getMainImageView());
             }
