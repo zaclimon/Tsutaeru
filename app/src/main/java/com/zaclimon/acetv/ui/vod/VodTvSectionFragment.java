@@ -75,6 +75,7 @@ public abstract class VodTvSectionFragment extends RowsFragment {
     private AsyncProcessAvContent mAsyncProcessAvContent;
     private ScaleFrameLayout mScaleFrameLayout;
     private Realm mRealm;
+    private List<AvContent> mModifiedContents;
 
     /**
      * Gets the link to retrieve an M3U playlist from a given endpoint
@@ -112,27 +113,30 @@ public abstract class VodTvSectionFragment extends RowsFragment {
         contents.addChangeListener(new RealmChangeListener<RealmResults<AvContent>>() {
             @Override
             public void onChange(RealmResults<AvContent> foundContents) {
-                String currentGroup = foundContents.get(0).getGroup();
-                ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(new CardViewPresenter(new PicassoCardViewImageProcessor()));
-                avGroups.add(currentGroup);
 
-                for (AvContent content : foundContents) {
-                    if (!currentGroup.equals(content.getGroup())) {
-                        avAdapters.add(arrayObjectAdapter);
-                        avGroups.add(content.getGroup());
-                        arrayObjectAdapter = new ArrayObjectAdapter(new CardViewPresenter(new PicassoCardViewImageProcessor()));
-                        currentGroup = content.getGroup();
-                    }
-                    arrayObjectAdapter.add(content);
-                }
+                if (!foundContents.isEmpty()) {
+                    String currentGroup = foundContents.get(0).getGroup();
+                    ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(new CardViewPresenter(new PicassoCardViewImageProcessor()));
+                    avGroups.add(currentGroup);
 
-                if (mRowsAdapter.size() == 0) {
-                    for (int i = 0; i < avAdapters.size(); i++) {
-                        HeaderItem catchupItem = new HeaderItem(avGroups.get(i));
-                        mRowsAdapter.add(new ListRow(catchupItem, avAdapters.get(i)));
+                    for (AvContent content : foundContents) {
+                        if (!currentGroup.equals(content.getGroup())) {
+                            avAdapters.add(arrayObjectAdapter);
+                            avGroups.add(content.getGroup());
+                            arrayObjectAdapter = new ArrayObjectAdapter(new CardViewPresenter(new PicassoCardViewImageProcessor()));
+                            currentGroup = content.getGroup();
+                        }
+                        arrayObjectAdapter.add(content);
                     }
-                } else {
-                    mRowsAdapter.notifyArrayItemRangeChanged(0, contents.size());
+
+                    if (mRowsAdapter.size() == 0) {
+                        for (int i = 0; i < avAdapters.size(); i++) {
+                            HeaderItem catchupItem = new HeaderItem(avGroups.get(i));
+                            mRowsAdapter.add(new ListRow(catchupItem, avAdapters.get(i)));
+                        }
+                    }
+                } else if (mScaleFrameLayout != null) {
+                    showErrorView();
                 }
             }
         });
@@ -157,16 +161,29 @@ public abstract class VodTvSectionFragment extends RowsFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+        if (mModifiedContents != null) {
+            mRealm.executeTransactionAsync(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    RealmResults results = realm.where(AvContent.class).equalTo("mContentCategory", VodTvSectionFragment.this.getClass().getSimpleName()).findAll();
+                    results.deleteAllFromRealm();
+                    realm.insert(mModifiedContents);
+                }
+            });
+        }
+
         mRealm.close();
     }
 
     /**
-     * Shows a view in which content is not available.
+     * Shows a view in which content is not available and hides the progress bar if it was shown.
      */
     private void showErrorView() {
         if (isAdded()) {
             View view = View.inflate(getActivity(), R.layout.view_content_unavailable, null);
             mScaleFrameLayout.addView(view);
+            mProgressBarManager.hide();
         }
     }
 
@@ -195,24 +212,28 @@ public abstract class VodTvSectionFragment extends RowsFragment {
                  Realm realm = Realm.getDefaultInstance()) {
                 RealmResults<AvContent> realmContents = realm.where(AvContent.class).equalTo("mContentCategory", VodTvSectionFragment.this.getClass().getSimpleName()).findAll();
 
-
                 if (!isCancelled()) {
 
                     /*
-                    It might be risky to insert data without updating and there might be duplicate values.
+                    Only execute a Realm transaction if it's the first time we're populating the
+                    database.
 
-                    That said, in order to have AvContent with distinct content categories, having
-                    duplicate values might not be a problem if we erase all the contents first.
+                    In other cases, in order to not disrupt the user experience, use a temporary
+                    list to save all the elements and then make the required modifications.
+                    (When destroying the Fragment)
                     */
 
-                    List<AvContent> avContents = AvContentUtil.getAvContentsList(catchupInputStream, VodTvSectionFragment.this.getClass().getSimpleName());
+                    final List<AvContent> avContents = AvContentUtil.getAvContentsList(catchupInputStream, VodTvSectionFragment.this.getClass().getSimpleName());
 
-                    if (avContents.size() != realmContents.size()) {
-                        realm.beginTransaction();
-                        realmContents.deleteAllFromRealm();
-                        realm.insert(avContents);
-                        realm.commitTransaction();
-                        publishProgress();
+                    if (avContents.size() != realmContents.size() && realmContents.isEmpty()) {
+                        realm.executeTransaction(new Realm.Transaction() {
+                            @Override
+                            public void execute(Realm realm) {
+                                realm.insert(avContents);
+                            }
+                        });
+                    } else if (avContents.size() != realmContents.size()) {
+                        mModifiedContents = avContents;
                     }
                 }
 
@@ -225,15 +246,15 @@ public abstract class VodTvSectionFragment extends RowsFragment {
         }
 
         @Override
-        public void onProgressUpdate(Void... progress) {
-            updateRowsAdapter();
-            mProgressBarManager.hide();
-        }
-
-        @Override
         public void onPostExecute(Boolean result) {
 
-            if (!result) {
+             /*
+              Only valid if it's the first time the database has been populated or if the content
+              isn't available.
+              */
+            if (result && mRowsAdapter.size() == 0) {
+                updateRowsAdapter();
+            } else if (!result) {
                 Log.e(LOG_TAG, "Couldn't parse contents");
                 Log.e(LOG_TAG, "Api Link: " + getVodContentApiLink());
                 showErrorView();
