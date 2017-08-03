@@ -73,7 +73,7 @@ public class AceJobService extends EpgSyncJobService {
                 String channelGenresJson = (String) internalProviderData.get(Constants.CHANNEL_GENRES_PROVIDER);
                 int epgIdInt = Integer.parseInt(epgId);
 
-                if (epgIdInt != 0) {
+                if (epgIdInt != 0 && mTvListing.getPrograms(epgIdInt) != null) {
                     tempPrograms = mTvListing.getPrograms(epgIdInt);
                 }
 
