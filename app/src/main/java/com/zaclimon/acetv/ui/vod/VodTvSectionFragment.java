@@ -114,6 +114,8 @@ public abstract class VodTvSectionFragment extends RowsFragment {
             @Override
             public void onChange(RealmResults<AvContent> foundContents) {
 
+                mProgressBarManager.hide();
+
                 if (!foundContents.isEmpty()) {
                     String currentGroup = foundContents.get(0).getGroup();
                     ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(new CardViewPresenter(new PicassoCardViewImageProcessor()));
@@ -166,7 +168,7 @@ public abstract class VodTvSectionFragment extends RowsFragment {
             mRealm.executeTransactionAsync(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
-                    RealmResults results = realm.where(AvContent.class).equalTo("mContentCategory", VodTvSectionFragment.this.getClass().getSimpleName()).findAll();
+                    RealmResults<AvContent> results = realm.where(AvContent.class).equalTo("mContentCategory", VodTvSectionFragment.this.getClass().getSimpleName()).findAll();
                     results.deleteAllFromRealm();
                     realm.insert(mModifiedContents);
                 }
@@ -183,7 +185,6 @@ public abstract class VodTvSectionFragment extends RowsFragment {
         if (isAdded()) {
             View view = View.inflate(getActivity(), R.layout.view_content_unavailable, null);
             mScaleFrameLayout.addView(view);
-            mProgressBarManager.hide();
         }
     }
 
