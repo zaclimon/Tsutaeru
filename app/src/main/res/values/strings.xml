@@ -42,6 +42,7 @@
     <string name="lets_go_text">Let\'s go</string>
     <string name="mpeg_ts_text">MPEG-TS</string>
     <string name="new_version_available">New version available!</string>
+    <string name="new_version_available_toast">New version available! (%1$s)</string>
     <string name="password_empty">Please enter a password.</string>
     <string name="no_text">No</string>
     <string name="no_update_available">You are running the latest version!</string>

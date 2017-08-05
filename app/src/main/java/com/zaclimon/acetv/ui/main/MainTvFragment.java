@@ -13,10 +13,13 @@ import android.support.v17.leanback.widget.PageRow;
 import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
+import android.widget.Toast;
 
 import com.zaclimon.acetv.R;
 import com.zaclimon.acetv.ui.settings.SettingsElementActivity;
 import com.zaclimon.acetv.ui.settings.SettingsTvFragment;
+import com.zaclimon.acetv.ui.settings.appupdate.AppUpdatePresenterImpl;
+import com.zaclimon.acetv.ui.settings.appupdate.AppUpdateView;
 import com.zaclimon.acetv.ui.vod.CatchupTvFragment;
 import com.zaclimon.acetv.ui.vod.SeriesTvFragment;
 import com.zaclimon.acetv.ui.vod.VodTvFragment;
@@ -28,7 +31,7 @@ import com.zaclimon.acetv.ui.vod.VodTvFragment;
  * Creation date: 20/06/17
  */
 
-public class MainTvFragment extends BrowseFragment {
+public class MainTvFragment extends BrowseFragment implements AppUpdateView {
 
     private static final int VOD_ID = 0;
     private static final int SERIES_ID = 1;
@@ -49,6 +52,7 @@ public class MainTvFragment extends BrowseFragment {
             mBackgroundManager = mBackgroundManager.getInstance(getActivity());
             mBackgroundManager.attach(getActivity().getWindow());
             getMainFragmentRegistry().registerFragment(PageRow.class, new TvFragmentFactory());
+            new AppUpdatePresenterImpl(this).fetchUpdate();
         }
     }
 
@@ -116,6 +120,18 @@ public class MainTvFragment extends BrowseFragment {
         PageRow vodRow = new PageRow(vodHeader);
         mRowsAdapter.add(vodRow);
     }
+
+    @Override
+    public void onNewVersionDetected(String versionName, String[] changelog) {
+        Toast.makeText(getActivity(), getString(R.string.new_version_available_toast, versionName), Toast.LENGTH_SHORT).show();
+    }
+
+    // No need to implement these methods
+    @Override
+    public void onSameVersionDetected() {}
+
+    @Override
+    public void onFetchFailed() {}
 
     /**
      * Private class implementing {@link OnItemViewClickedListener} which reacts for a given
