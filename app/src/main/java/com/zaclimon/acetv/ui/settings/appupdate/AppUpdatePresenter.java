@@ -1,4 +1,4 @@
-package com.zaclimon.acetv.ui.settings;
+package com.zaclimon.acetv.ui.settings.appupdate;
 
 /**
  * Presenter used to fetch updates for the application.

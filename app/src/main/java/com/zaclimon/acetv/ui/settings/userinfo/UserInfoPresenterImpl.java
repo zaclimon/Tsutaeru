@@ -1,4 +1,6 @@
-package com.zaclimon.acetv.ui.settings;
+package com.zaclimon.acetv.ui.settings.userinfo;
+
+import com.zaclimon.acetv.ui.settings.AsyncRetrieveUserInfos;
 
 /**
  * Concrete implementation of the {@link UserInfoPresenter} interface.

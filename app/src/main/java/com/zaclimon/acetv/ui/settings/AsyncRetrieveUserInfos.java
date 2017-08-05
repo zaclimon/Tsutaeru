@@ -3,6 +3,7 @@ package com.zaclimon.acetv.ui.settings;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 
+import com.zaclimon.acetv.ui.settings.userinfo.UserInfoView;
 import com.zaclimon.acetv.util.RichFeedUtil;
 
 import org.json.JSONException;

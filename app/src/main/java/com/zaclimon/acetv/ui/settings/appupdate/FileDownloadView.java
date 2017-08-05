@@ -1,4 +1,4 @@
-package com.zaclimon.acetv.ui.settings;
+package com.zaclimon.acetv.ui.settings.appupdate;
 
 /**
  * Interface for a given View to interact with a {@link FileDownloadPresenter} in order to download

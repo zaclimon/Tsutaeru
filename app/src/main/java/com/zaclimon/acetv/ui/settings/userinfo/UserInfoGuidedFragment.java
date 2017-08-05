@@ -1,4 +1,4 @@
-package com.zaclimon.acetv.ui.settings;
+package com.zaclimon.acetv.ui.settings.userinfo;
 
 import android.app.FragmentTransaction;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.zaclimon.acetv.ui.settings;
+package com.zaclimon.acetv.ui.settings.appupdate;
 
 import android.app.FragmentManager;
 import android.os.Bundle;
@@ -12,8 +12,6 @@ import com.zaclimon.acetv.BuildConfig;
 import com.zaclimon.acetv.R;
 
 import java.util.List;
-
-import static android.R.attr.id;
 
 /**
  * Fragment used to determine whether the application needs update or not.

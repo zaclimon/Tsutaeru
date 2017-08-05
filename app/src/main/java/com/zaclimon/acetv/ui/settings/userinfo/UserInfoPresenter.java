@@ -1,4 +1,4 @@
-package com.zaclimon.acetv.ui.settings;
+package com.zaclimon.acetv.ui.settings.userinfo;
 
 /**
  * Interface used to retrieve user information.

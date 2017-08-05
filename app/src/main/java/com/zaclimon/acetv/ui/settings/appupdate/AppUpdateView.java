@@ -1,4 +1,4 @@
-package com.zaclimon.acetv.ui.settings;
+package com.zaclimon.acetv.ui.settings.appupdate;
 
 /**
  * Interface in which a View can register itself in order to retrieve callbacks when

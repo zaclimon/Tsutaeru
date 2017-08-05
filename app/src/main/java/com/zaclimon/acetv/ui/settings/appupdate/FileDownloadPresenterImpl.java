@@ -1,4 +1,4 @@
-package com.zaclimon.acetv.ui.settings;
+package com.zaclimon.acetv.ui.settings.appupdate;
 
 /**
  * Concrete implementation of {@link FileDownloadPresenter} for Ace TV.

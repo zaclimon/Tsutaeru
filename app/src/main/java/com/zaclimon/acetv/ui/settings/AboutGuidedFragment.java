@@ -7,6 +7,8 @@ import android.support.v17.leanback.widget.GuidedAction;
 
 import com.zaclimon.acetv.BuildConfig;
 import com.zaclimon.acetv.R;
+import com.zaclimon.acetv.ui.settings.appupdate.AppUpdateGuidedFragment;
+import com.zaclimon.acetv.ui.settings.userinfo.UserInfoGuidedFragment;
 
 import java.util.List;
 
