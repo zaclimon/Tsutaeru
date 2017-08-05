@@ -20,6 +20,7 @@ import java.util.List;
 public class AboutGuidedFragment extends GuidedStepFragment {
 
     private final int USER_INFO_ACTION = 0;
+    private final int APP_UPDATE_ACTION = 1;
 
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
@@ -33,12 +34,17 @@ public class AboutGuidedFragment extends GuidedStepFragment {
     @Override
     public void onCreateActions(List<GuidedAction> actions, Bundle savedInstanceState) {
         GuidedAction.Builder userInfoAction = new GuidedAction.Builder(getActivity());
+        GuidedAction.Builder appUpdateAction = new GuidedAction.Builder(getActivity());
         GuidedAction.Builder okAction = new GuidedAction.Builder(getActivity());
+
         userInfoAction.title(R.string.user_info_text);
-        okAction.title(R.string.ok_text);
         userInfoAction.id(USER_INFO_ACTION);
-        okAction.id(GuidedAction.ACTION_ID_OK);
+        appUpdateAction.title(R.string.app_update_title);
+        appUpdateAction.id(APP_UPDATE_ACTION);
+        okAction.clickAction(GuidedAction.ACTION_ID_OK);
+
         actions.add(userInfoAction.build());
+        actions.add(appUpdateAction.build());
         actions.add(okAction.build());
     }
 
@@ -49,6 +55,8 @@ public class AboutGuidedFragment extends GuidedStepFragment {
 
         if (id == USER_INFO_ACTION) {
             add(getFragmentManager(), new UserInfoGuidedFragment());
+        } else if (id == APP_UPDATE_ACTION) {
+            add(getFragmentManager(), new AppUpdateGuidedFragment());
         } else {
             getActivity().finish();
         }

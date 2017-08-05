@@ -51,4 +51,9 @@ public class Constants {
             TvContract.Programs.Genres.TECH_SCIENCE,
             TvContract.Programs.Genres.TRAVEL
     };
+
+    // App update stuff
+    public static final String ACE_BASE_URL = "https://quantaworks.io/public/acetv/";
+    public static final String ACE_CHANGELOG_URL = ACE_BASE_URL + "updater/changelog.json";
+    public static final String ACE_RELEASES_URL = ACE_BASE_URL + "releases/";
 }

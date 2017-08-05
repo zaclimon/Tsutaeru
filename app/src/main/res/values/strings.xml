@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Ace TV</string>
     <string name="about_text">About</string>
+    <string name="app_update_title">Check for updates</string>
+    <string name="app_update_download_failure">Could not download the update!</string>
     <string name="activated_text">Activated</string>
     <string name="android_tv_only_toast">This application works only on Android TV devices.</string>
     <string name="authentication_not_possible">Can\'t authenticate</string>
@@ -24,8 +26,11 @@
     <string name="debug_log_title">Create debug log?</string>
     <string name="debug_log_title_short">Debug log</string>
     <string name="debug_log_description">Creates a text file usable for debugging purposes to your internal storage.</string>
+    <string name="download_update_text">Download update</string>
     <string name="enter_password_title">Please enter your password</string>
     <string name="enter_username_title">Please enter your Ace TV account username</string>
+    <string name="error_text">Error</string>
+    <string name="file_saved_storage">File saved at %1$s</string>
     <string name="force_epg_sync_title">Force EPG sync?</string>
     <string name="force_epg_sync_title_short">Force sync</string>
     <string name="force_epg_sync_description">Syncs the EPG guide for 48 hours.</string>
@@ -36,8 +41,10 @@
     <string name="internet_not_available">Please verify your internet connection</string>
     <string name="lets_go_text">Let\'s go</string>
     <string name="mpeg_ts_text">MPEG-TS</string>
+    <string name="new_version_available">New version available!</string>
     <string name="password_empty">Please enter a password.</string>
     <string name="no_text">No</string>
+    <string name="no_update_available">You are running the latest version!</string>
     <string name="not_yet_text">Not yet</string>
     <string name="ok_text">Ok</string>
     <string name="password_text">Password</string>
@@ -49,6 +56,7 @@
     <string name="stream_type">Stream type</string>
     <string name="stream_type_short_description">MPEG-TS/HLS</string>
     <string name="stream_type_description">Sets the current stream output for a given TV channel.</string>
+    <string name="update_check_failed">Couldn\'t check the server!</string>
     <string name="user_info_text">User info</string>
     <string name="user_info_description">Status: %1$s\nExpiration date: %2$s\nTrial account: %3$s\nMaximum connections: %4$s</string>
     <string name="user_info_not_accessible">The user info could not be accessed.</string>
