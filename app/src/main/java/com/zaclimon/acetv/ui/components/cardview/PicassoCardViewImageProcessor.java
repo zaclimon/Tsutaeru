@@ -1,4 +1,4 @@
-package com.zaclimon.acetv.ui.presenter.cardview;
+package com.zaclimon.acetv.ui.components.cardview;
 
 import android.widget.ImageView;
 

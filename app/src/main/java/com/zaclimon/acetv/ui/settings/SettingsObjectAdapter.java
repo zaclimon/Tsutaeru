@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 
 import com.zaclimon.acetv.R;
-import com.zaclimon.acetv.ui.presenter.cardview.CardViewPresenter;
+import com.zaclimon.acetv.ui.components.cardview.CardViewPresenter;
 
 /**
  * Class extending {@link ArrayObjectAdapter} which gives a list of current
