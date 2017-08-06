@@ -109,7 +109,7 @@ public class AppUpdateDownloadGuidedFragment extends GuidedStepFragment implemen
 
         if (requestCode == STORAGE_PERMISSION_REQUEST) {
 
-            if (permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 startDownload();
             } else {
                 Toast.makeText(getActivity(), R.string.write_permissions_denied_toast, Toast.LENGTH_SHORT).show();

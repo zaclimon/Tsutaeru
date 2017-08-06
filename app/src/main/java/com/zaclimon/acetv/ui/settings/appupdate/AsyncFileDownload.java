@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.os.Environment;
 
 import com.crashlytics.android.Crashlytics;
-import com.zaclimon.acetv.ui.settings.appupdate.FileDownloadView;
 
 import java.io.BufferedInputStream;
 import java.io.File;

@@ -22,9 +22,9 @@ import android.view.ViewGroup;
 import com.crashlytics.android.Crashlytics;
 import com.zaclimon.acetv.R;
 import com.zaclimon.acetv.data.AvContent;
-import com.zaclimon.acetv.ui.playback.PlaybackActivity;
 import com.zaclimon.acetv.ui.components.cardview.CardViewPresenter;
 import com.zaclimon.acetv.ui.components.cardview.PicassoCardViewImageProcessor;
+import com.zaclimon.acetv.ui.playback.PlaybackActivity;
 import com.zaclimon.acetv.util.AvContentUtil;
 import com.zaclimon.acetv.util.RichFeedUtil;
 

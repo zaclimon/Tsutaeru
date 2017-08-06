@@ -3,7 +3,6 @@ package com.zaclimon.acetv.ui.settings;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v13.app.FragmentCompat;
@@ -13,16 +12,12 @@ import android.support.v17.leanback.widget.GuidedAction;
 import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
 import com.zaclimon.acetv.R;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;

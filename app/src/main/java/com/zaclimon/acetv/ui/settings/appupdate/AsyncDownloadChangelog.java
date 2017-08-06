@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 
 import com.crashlytics.android.Crashlytics;
 import com.zaclimon.acetv.BuildConfig;
-import com.zaclimon.acetv.ui.settings.appupdate.AppUpdateView;
 import com.zaclimon.acetv.util.Constants;
 import com.zaclimon.acetv.util.RichFeedUtil;
 
