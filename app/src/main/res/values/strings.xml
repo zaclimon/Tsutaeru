@@ -33,6 +33,7 @@
     <string name="enter_username_title">Please enter your Ace TV account username</string>
     <string name="error_text">Error</string>
     <string name="file_saved_storage">File saved at %1$s</string>
+    <string name="file_saving_error">An problem occurred while saving the file</string>
     <string name="force_epg_sync_title">Force EPG sync?</string>
     <string name="force_epg_sync_title_short">Force sync</string>
     <string name="force_epg_sync_description">Syncs the EPG guide for 48 hours.</string>

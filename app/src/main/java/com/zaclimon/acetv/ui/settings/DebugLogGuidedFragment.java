@@ -113,7 +113,6 @@ public class DebugLogGuidedFragment extends GuidedStepFragment {
             try {
                 Process process = Runtime.getRuntime().exec(LOGCAT_COMMAND);
                 InputStream inputStream = process.getInputStream();
-                StringBuilder stringBuilder = new StringBuilder();
                 byte[] buffer = new byte[OUTPUT_STREAM_BUFFER];
                 int bytesRead;
 
@@ -124,15 +123,6 @@ public class DebugLogGuidedFragment extends GuidedStepFragment {
                     outputStream.write(buffer, 0, bytesRead);
                 }
 
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(LOG_PATH)));
-                String line;
-
-                while ((line = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(line);
-                    stringBuilder.append("\n");
-                }
-
-                Crashlytics.log(stringBuilder.toString());
             } catch (IOException io) {
                 return (false);
             }
@@ -143,15 +133,11 @@ public class DebugLogGuidedFragment extends GuidedStepFragment {
         public void onPostExecute(Boolean result) {
 
             if (result) {
-                Toast.makeText(getActivity(), "Log saved to " + LOG_PATH, Toast.LENGTH_SHORT).show();
-
-                if (Build.BRAND.equalsIgnoreCase("Sony")) {
-                    throw new RuntimeException("Sony TV Detected!");
-                }
-
+                Toast.makeText(getActivity(), getString(R.string.file_saved_storage, LOG_PATH), Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getActivity(), "An problem occurred when writing the file", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.file_saving_error, Toast.LENGTH_SHORT).show();
             }
+
             getActivity().finish();
 
         }
