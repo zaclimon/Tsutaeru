@@ -48,9 +48,10 @@ public class EpgForceSyncGuidedFragment extends GuidedStepFragment {
         if (guidedAction.getId() == GuidedAction.ACTION_ID_YES) {
             String inputId = TvContract.buildInputId(AceChannelUtil.TV_INPUT_SERVICE_COMPONENT);
             EpgSyncJobService.requestImmediateSync(getActivity(), inputId, TimeUnit.HOURS.toMillis(48), new ComponentName(getActivity(), AceJobService.class));
-            Toast.makeText(getActivity(), R.string.channel_update, Toast.LENGTH_LONG).show();
+            add(getFragmentManager(), new EpgSyncLoadingGuidedFragment());
+        } else {
+            getActivity().finish();
         }
-        getActivity().finish();
     }
 
 }

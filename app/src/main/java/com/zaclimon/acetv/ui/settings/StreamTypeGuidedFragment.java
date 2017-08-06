@@ -89,10 +89,10 @@ public class StreamTypeGuidedFragment extends GuidedStepFragment {
             // Sync the channels to reflect the latest changes only if the stream type is different from before.
             String inputId = TvContract.buildInputId(AceChannelUtil.TV_INPUT_SERVICE_COMPONENT);
             EpgSyncJobService.requestImmediateSync(getActivity(), inputId, new ComponentName(getActivity(), AceJobService.class));
-            Toast.makeText(getActivity(), R.string.channel_update, Toast.LENGTH_LONG).show();
+            add(getFragmentManager(), new EpgSyncLoadingGuidedFragment());
+        } else {
+            getActivity().finish();
         }
-
-        getActivity().finish();
     }
 
 }

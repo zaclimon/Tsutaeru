@@ -3,6 +3,7 @@ package com.zaclimon.acetv.ui.auth;
 import android.os.Bundle;
 import android.support.v17.leanback.app.GuidedStepFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zaclimon.acetv.R;
@@ -29,9 +30,11 @@ public class FourthAuthGuidedFragment extends GuidedStepFragment implements Auth
         Bundle arguments = getArguments();
         String username = arguments.getString(SecondStepAuthGuidedFragment.USERNAME_ARGUMENT);
         String password = arguments.getString(ThirdStepAuthGuidedFragment.PASSWORD_ARGUMENT);
+        TextView loadingTitle = getActivity().findViewById(R.id.loading_title);
         AuthPresenter authPresenter = new AuthPresenterImpl(this);
         SharedPreferencesRepository sharedPreferencesRepository = new SharedPreferencesRepositoryImpl(getActivity());
 
+        loadingTitle.setText(R.string.wont_be_long_text);
         authPresenter.validateInfo(username, password, sharedPreferencesRepository);
     }
 
