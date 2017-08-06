@@ -1,4 +1,4 @@
-package com.zaclimon.acetv.ui.setup;
+package com.zaclimon.acetv.ui.tvinputsetup;
 
 import android.app.Activity;
 import android.content.ComponentName;

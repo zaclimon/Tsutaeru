@@ -1,4 +1,4 @@
-package com.zaclimon.acetv.ui.setup;
+package com.zaclimon.acetv.ui.tvinputsetup;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -18,6 +18,6 @@ public class AceTvInputSetupActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ace_setup);
+        setContentView(R.layout.activity_ace_tv_input_setup);
     }
 }

@@ -32,7 +32,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.zaclimon.acetv.ui.setup.AceTvInputSetupActivity" android:theme="@style/TvTheme" android:exported="true"/>
+        <activity android:name="com.zaclimon.acetv.ui.tvinputsetup.AceTvInputSetupActivity" android:theme="@style/TvTheme" android:exported="true"/>
         <activity android:name="com.zaclimon.acetv.ui.auth.AuthActivityTv"/>
         <activity android:name="com.zaclimon.acetv.ui.settings.SettingsElementActivity"/>
 

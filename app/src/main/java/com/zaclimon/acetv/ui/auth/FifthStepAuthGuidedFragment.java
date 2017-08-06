@@ -8,7 +8,7 @@ import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
 
 import com.zaclimon.acetv.R;
-import com.zaclimon.acetv.ui.setup.AceTvInputSetupActivity;
+import com.zaclimon.acetv.ui.tvinputsetup.AceTvInputSetupActivity;
 
 import java.util.List;
 
