@@ -28,6 +28,9 @@ public class Constants {
     public static final String STREAM_TYPE_HLS = "hls";
     public static final String CHANNEL_LOGO_PREFERENCE = "channel_logo";
     public static final String VIDEO_FIT_SCREEN_PREFERENCE = "video_fit_screen";
+    public static final String UK_REGION_PREFERENCE = "uk_region";
+    public static final String NA_REGION_PREFERENCE = "na_region";
+    public static final String INTERNATIONAL_REGION_PREFERENCE = "int_region";
 
     // Channel configuration stuff
     public static final String EPG_ID_PROVIDER = "epg_id";

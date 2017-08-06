@@ -38,6 +38,7 @@ public class SettingsObjectAdapter extends ArrayObjectAdapter {
         setForceEpgSyncSection();
         setChangeUserSection();
         setForceFitScreen();
+        setChannelRegionSection();
         setDebugLogSection();
         setAboutSection();
     }
@@ -79,6 +80,16 @@ public class SettingsObjectAdapter extends ArrayObjectAdapter {
         Bundle bundle = new Bundle();
         bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.force_video_fit_title_short);
         bundle.putInt(BUNDLE_SETTINGS_DRAWABLE_ID, R.drawable.ic_force_video_fit);
+        add(bundle);
+    }
+
+    /**
+     * Configures the channel region section
+     */
+    private void setChannelRegionSection() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.channel_region_title);
+        bundle.putInt(BUNDLE_SETTINGS_DRAWABLE_ID, R.drawable.ic_channel_region);
         add(bundle);
     }
 

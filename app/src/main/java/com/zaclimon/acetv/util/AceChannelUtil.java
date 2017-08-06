@@ -63,16 +63,17 @@ public class AceChannelUtil {
             String tempName = channelContents.get(i).getTitle();
             String tempLogo = channelContents.get(i).getLogo();
             String tempLink = channelContents.get(i).getContentLink();
+            String tempGroup = channelContents.get(i).getGroup();
             int tempId = channelContents.get(i).getId();
 
             if (hasChannelLogo) {
-                channel = createChannel(tempName, Integer.toString(i + 1), tempId, tempLogo, tempLink, getProgramGenre(tempName, context));
+                channel = createChannel(tempName, Integer.toString(i + 1), tempId, tempLogo, tempLink, tempGroup, getProgramGenre(tempName, context));
             } else {
-                channel = createChannel(tempName, Integer.toString(i + 1), tempId, null, tempLink, getProgramGenre(tempName, context));
+                channel = createChannel(tempName, Integer.toString(i + 1), tempId, null, tempLink, tempGroup, getProgramGenre(tempName, context));
             }
 
             // Premium users might have VOD content in their playlist, don't include them.
-            if (isLiveChannel(channel)) {
+            if (isLiveChannel(channel) && isChannelRegionValid(channel, sharedPreferences)) {
                 tempList.add(channel);
             }
         }
@@ -89,7 +90,7 @@ public class AceChannelUtil {
      * @param url           the video url link
      * @return the channel to be used by the system.
      */
-    private static Channel createChannel(String displayName, String displayNumber, int epgId, String logo, String url, String[] genres) {
+    private static Channel createChannel(String displayName, String displayNumber, int epgId, String logo, String url, String group, String[] genres) {
 
         /*
          In order to map correctly the programs to a given channel, store the EPG id somewhere in the
@@ -124,6 +125,7 @@ public class AceChannelUtil {
         builder.setDisplayNumber(displayNumber);
         builder.setOriginalNetworkId(displayName.hashCode());
         builder.setChannelLogo(logo);
+        builder.setNetworkAffiliation(group);
         builder.setInternalProviderData(internalProviderData);
         return (builder.build());
     }
@@ -277,6 +279,26 @@ public class AceChannelUtil {
     private static boolean isLiveChannel(Channel channel) {
         InternalProviderData internalProviderData = channel.getInternalProviderData();
         return (internalProviderData != null && internalProviderData.getVideoUrl().contains("/live/"));
+    }
+
+    /**
+     * Verifies if the region of a given channel is valid so it can be added to the list of Live Channels.
+     * @param channel The channel that is getting verified
+     * @param sharedPreferences the preferences to ensure that it corresponds to the viewer's choice.
+     * @return true if the channel's region corresponds to the one wanted by the user.
+     */
+    private static boolean isChannelRegionValid(Channel channel, SharedPreferences sharedPreferences) {
+
+        InternalProviderData internalProviderData = channel.getInternalProviderData();
+
+        if (channel.getDisplayName().contains("UK:") || channel.getDisplayName().contains("IRE:")) {
+            return (sharedPreferences.getBoolean(Constants.UK_REGION_PREFERENCE, true));
+        } else if (channel.getDisplayName().contains("USA/CA:")) {
+            return (sharedPreferences.getBoolean(Constants.NA_REGION_PREFERENCE, true));
+        } else {
+            // Don't include 24/7 channels and live event channels into the international ones.
+            return (channel.getDisplayName().contains("24/7") || channel.getNetworkAffiliation().contains("LIVE") || sharedPreferences.getBoolean(Constants.INTERNATIONAL_REGION_PREFERENCE, true));
+        }
     }
 
 }
