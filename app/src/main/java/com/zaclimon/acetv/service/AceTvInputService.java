@@ -80,7 +80,7 @@ public class AceTvInputService extends BaseTvInputService {
             mAcePlayer.addListener(this);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                notifyTimeShiftStatusChanged(TvInputManager.TIME_SHIFT_STATUS_AVAILABLE);
+                notifyTimeShiftStatusChanged(TvInputManager.TIME_SHIFT_STATUS_UNSUPPORTED);
             }
 
             if (BuildConfig.DEBUG) {
