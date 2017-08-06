@@ -36,9 +36,9 @@ public class SettingsObjectAdapter extends ArrayObjectAdapter {
         setStreamTypeSection();
         setChannelLogoSection();
         setForceEpgSyncSection();
-        setChangeUserSection();
-        setForceFitScreen();
+        setForceFitScreenSection();
         setChannelRegionSection();
+        setChangeUserSection();
         setDebugLogSection();
         setAboutSection();
     }
@@ -76,7 +76,7 @@ public class SettingsObjectAdapter extends ArrayObjectAdapter {
     /**
      * Configures the fit-to-screen section.
      */
-    private void setForceFitScreen() {
+    private void setForceFitScreenSection() {
         Bundle bundle = new Bundle();
         bundle.putInt(BUNDLE_SETTINGS_NAME_ID, R.string.force_video_fit_title_short);
         bundle.putInt(BUNDLE_SETTINGS_DRAWABLE_ID, R.drawable.ic_force_video_fit);
