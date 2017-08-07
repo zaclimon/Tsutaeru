@@ -1,3 +1,10 @@
+V1.1.1 (06/08/17)
+- Added an inline updater for easier future updates
+- VOD: Added full title show by long-pressing on the content
+- Live TV: Added channel region filtering
+- Live TV: Remove timeshifting
+- Misc fixes/improvements
+
 V1.1 (31/07/17)
 - Add caching for VOD content
 - Add basic seeking for VOD content

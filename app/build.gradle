@@ -13,8 +13,8 @@ android {
         applicationId "com.zaclimon.acetv"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 4
-        versionName "1.1"
+        versionCode 5
+        versionName "1.1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
