@@ -63,8 +63,10 @@ public class EpgSyncLoadingGuidedFragment extends GuidedStepFragment {
 
                 if (syncStatus.equals(EpgSyncJobService.SYNC_FINISHED)) {
                     Toast.makeText(context, R.string.restart_live_channels, Toast.LENGTH_SHORT).show();
-                    getActivity().finish();
                     LocalBroadcastManager.getInstance(context).unregisterReceiver(this);
+                    if (getActivity() != null) {
+                        getActivity().finish();
+                    }
                 }
 
             }
