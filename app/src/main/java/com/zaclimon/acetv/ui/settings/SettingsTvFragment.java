@@ -31,7 +31,6 @@ public class SettingsTvFragment extends RowsFragment {
         setAdapter(mRowsAdapter);
         setOnItemViewClickedListener(new SettingsItemClickListener());
 
-        getMainFragmentAdapter().getFragmentHost().notifyDataReady(getMainFragmentAdapter());
     }
 
     /**
