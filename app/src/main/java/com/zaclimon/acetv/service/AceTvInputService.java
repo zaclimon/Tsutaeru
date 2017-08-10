@@ -13,6 +13,7 @@ import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.PlaybackParameters;
+import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.source.BehindLiveWindowException;
 import com.google.android.exoplayer2.source.TrackGroupArray;
@@ -50,10 +51,10 @@ public class AceTvInputService extends BaseTvInputService {
      * Custom {@link com.google.android.media.tv.companionlibrary.BaseTvInputService.Session} which
      * handles playback when a {@link Channel} is tuned.
      * <p>
-     * It also implements an {@link com.google.android.exoplayer2.ExoPlayer.EventListener} in which
+     * It also implements an {@link com.google.android.exoplayer2.Player.EventListener} in which
      * it can adapt better to callbacks from a {@link AcePlayer}
      */
-    private class AceSession extends Session implements ExoPlayer.EventListener {
+    private class AceSession extends Session implements Player.EventListener {
 
         private AcePlayer mAcePlayer;
         private Context mContext;
@@ -198,24 +199,20 @@ public class AceTvInputService extends BaseTvInputService {
         }
 
         @Override
-        public void onTimelineChanged(Timeline timeline, Object manifest) {
-
-        }
+        public void onTimelineChanged(Timeline timeline, Object manifest) {}
 
         @Override
         public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
-
         }
 
         @Override
         public void onLoadingChanged(boolean isLoading) {
-
         }
 
         @Override
         public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
 
-            if (playWhenReady && playbackState == ExoPlayer.STATE_READY) {
+            if (playWhenReady && playbackState == Player.STATE_READY) {
                 notifyTracksChanged(getAllTracks());
                 notifyTrackSelected(TvTrackInfo.TYPE_VIDEO, getTrackId(TvTrackInfo.TYPE_VIDEO));
                 notifyTrackSelected(TvTrackInfo.TYPE_AUDIO, getTrackId(TvTrackInfo.TYPE_AUDIO));
@@ -257,12 +254,14 @@ public class AceTvInputService extends BaseTvInputService {
 
         @Override
         public void onPositionDiscontinuity() {
-
         }
 
         @Override
         public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+        }
 
+        @Override
+        public void onRepeatModeChanged(int repeatMode) {
         }
 
         /**
