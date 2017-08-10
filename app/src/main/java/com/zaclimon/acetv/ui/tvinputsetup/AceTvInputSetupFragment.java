@@ -9,7 +9,6 @@ import android.media.tv.TvContract;
 import android.media.tv.TvInputInfo;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +35,6 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
 
     private static final int ASKING_AUTHENTICATION = 0;
 
-    private boolean mErrorFound;
     private String mInputId;
 
     @Override
@@ -66,7 +64,7 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
             Intent authIntent = new Intent(getActivity(), AuthActivityTv.class);
             startActivityForResult(authIntent, ASKING_AUTHENTICATION);
         } else {
-            startFirstSync();
+            startEpgSync();
         }
     }
 
@@ -77,19 +75,8 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
 
     @Override
     public void onScanFinished() {
-        if (!mErrorFound) {
-            EpgSyncJobService.cancelAllSyncRequests(getActivity());
-            getActivity().setResult(Activity.RESULT_OK);
-        } else {
-            getActivity().setResult(Activity.RESULT_CANCELED);
-        }
+        getActivity().setResult(Activity.RESULT_OK);
         getActivity().finish();
-    }
-
-    @Override
-    public void onScanError(int reason) {
-        mErrorFound = true;
-        Log.d(getClass().getSimpleName(), "Reason: " + reason);
     }
 
     @Override
@@ -97,7 +84,7 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
 
         if (requestCode == ASKING_AUTHENTICATION) {
             if (resultCode == Activity.RESULT_OK) {
-                startFirstSync();
+                startEpgSync();
             } else {
                 Toast.makeText(getActivity(), getString(R.string.authentication_not_possible), Toast.LENGTH_LONG).show();
                 getActivity().finish();
@@ -109,7 +96,7 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
      * Initially syncs the EPG data for a user. Basing itself from {@link AceJobService} it also
      * sets up a periodic sync.
      */
-    private void startFirstSync() {
+    private void startEpgSync() {
         EpgSyncJobService.cancelAllSyncRequests(getActivity());
         EpgSyncJobService.requestImmediateSync(getActivity(), mInputId, new ComponentName(getActivity(), AceJobService.class));
         EpgSyncJobService.setUpPeriodicSync(getActivity(), mInputId, new ComponentName(getActivity(), AceJobService.class));
