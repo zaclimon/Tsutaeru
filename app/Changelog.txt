@@ -1,3 +1,8 @@
+V1.1.2 (10/08/17)
+- Fixed the EPG not being updated periodically
+- Improvements to the internal player
+- Even more bugfixes
+
 V1.1.1 (06/08/17)
 - Added an inline updater for easier future updates
 - VOD: Added full title show by long-pressing on the content
