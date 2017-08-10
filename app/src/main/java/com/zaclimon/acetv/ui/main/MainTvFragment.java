@@ -39,7 +39,6 @@ public class MainTvFragment extends BrowseFragment implements AppUpdateView {
     private static final int SETTINGS_ID = 3;
 
     private ArrayObjectAdapter mRowsAdapter;
-    private BackgroundManager mBackgroundManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,8 +48,6 @@ public class MainTvFragment extends BrowseFragment implements AppUpdateView {
             setupUI();
             showRows();
             setListeners();
-            mBackgroundManager = mBackgroundManager.getInstance(getActivity());
-            mBackgroundManager.attach(getActivity().getWindow());
             getMainFragmentRegistry().registerFragment(PageRow.class, new TvFragmentFactory());
             new AppUpdatePresenterImpl(this).fetchUpdate();
         }
