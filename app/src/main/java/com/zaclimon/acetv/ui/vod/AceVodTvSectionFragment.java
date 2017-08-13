@@ -1,5 +1,7 @@
 package com.zaclimon.acetv.ui.vod;
 
+import android.os.Bundle;
+
 import com.zaclimon.acetv.ui.components.cardview.PicassoCardViewImageProcessor;
 import com.zaclimon.acetv.ui.playback.AcePlaybackActivity;
 import com.zaclimon.xipl.persistence.ContentPersistence;
@@ -18,9 +20,17 @@ import com.zaclimon.xipl.ui.vod.VodTvSectionFragment;
 
 public abstract class AceVodTvSectionFragment extends VodTvSectionFragment {
 
+    private ContentPersistence mContentPersistence;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mContentPersistence = new RealmContentPersistence();
+    }
+
     @Override
     protected ContentPersistence getContentPersistence() {
-        return (new RealmContentPersistence());
+        return (mContentPersistence);
     }
 
     @Override
