@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import com.crashlytics.android.Crashlytics;
 import com.zaclimon.acetv.BuildConfig;
 import com.zaclimon.acetv.util.Constants;
-import com.zaclimon.acetv.util.RichFeedUtil;
+import com.zaclimon.acetv.util.NetworkUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,7 +49,7 @@ public class AsyncDownloadChangelog extends AsyncTask<Void, Void, Integer> {
     @Override
     public Integer doInBackground(Void... params) {
 
-        try (InputStream changelogStream = RichFeedUtil.getInputStream(Constants.ACE_CHANGELOG_URL);
+        try (InputStream changelogStream = NetworkUtils.getNetworkInputStream(Constants.ACE_CHANGELOG_URL);
              BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(changelogStream))) {
 
             StringBuilder stringBuilder = new StringBuilder();

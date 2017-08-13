@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.zaclimon.acetv.repository.SharedPreferencesRepository;
 import com.zaclimon.acetv.util.Constants;
-import com.zaclimon.acetv.util.RichFeedUtil;
+import com.zaclimon.acetv.util.NetworkUtils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -49,7 +49,7 @@ public class AsyncAuthValidateInfo extends AsyncTask<Void, Void, Boolean> {
     protected Boolean doInBackground(Void... params) {
         try {
             String m3uLink = mAuthView.getPlaylistLink(asyncUsername, asyncPassword);
-            RichFeedUtil.getInputStream(m3uLink);
+            NetworkUtils.getNetworkInputStream(m3uLink);
             return (true);
         } catch (IOException io) {
             Log.d(getClass().getSimpleName(), io.toString());

@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 import android.text.TextUtils;
 
 import com.zaclimon.acetv.ui.settings.userinfo.UserInfoView;
-import com.zaclimon.acetv.util.RichFeedUtil;
+import com.zaclimon.acetv.util.NetworkUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,7 +51,7 @@ public class AsyncRetrieveUserInfos extends AsyncTask<Void, Void, Boolean> {
 
         try {
             // The ace endpoint returns a Json file. Let's parse it...
-            InputStream inputStream = RichFeedUtil.getInputStream(mUserInfoView.getUserInfoApiEndpoint());
+            InputStream inputStream = NetworkUtils.getNetworkInputStream(mUserInfoView.getUserInfoApiEndpoint());
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             StringBuilder stringBuilder = new StringBuilder();
             int character;

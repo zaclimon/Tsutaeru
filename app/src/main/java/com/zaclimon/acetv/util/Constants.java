@@ -21,12 +21,6 @@ public class Constants {
      */
     public static final ComponentName TV_INPUT_SERVICE_COMPONENT = new ComponentName("com.zaclimon.acetv", ProviderTvInputService.class.getName());
 
-    // M3U file attributes
-    public static final Pattern ATTRIBUTE_TVG_ID_PATTERN = Pattern.compile("tvg-id.\"(.*?)\"");
-    public static final Pattern ATTRIBUTE_TVG_LOGO_PATTERN = Pattern.compile("tvg-logo.\"(.*?)\"");
-    public static final Pattern ATTRIBUTE_TVG_NAME_PATTERN = Pattern.compile("tvg-name.\"(.*?)\"");
-    public static final Pattern ATTRIBUTE_GROUP_TITLE_PATTERN = Pattern.compile("group-title.\"(.*?)\"");
-
     // Preferences stuff
     public static final String ACE_TV_PREFERENCES = "AceSharedPreferences";
     public static final String USERNAME_PREFERENCE = "username";

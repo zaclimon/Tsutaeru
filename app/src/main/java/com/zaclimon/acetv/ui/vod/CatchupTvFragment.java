@@ -13,7 +13,7 @@ import com.zaclimon.acetv.util.Constants;
  * Creation date: 01/07/17
  */
 
-public class CatchupTvFragment extends VodTvSectionFragment {
+public class CatchupTvFragment extends AceVodTvSectionFragment {
 
     @Override
     protected String getVodContentApiLink() {

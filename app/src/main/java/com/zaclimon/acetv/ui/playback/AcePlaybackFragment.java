@@ -3,13 +3,14 @@ package com.zaclimon.acetv.ui.playback;
 import android.content.Context;
 
 import com.zaclimon.acetv.R;
+import com.zaclimon.acetv.data.RealmAvContent;
 import com.zaclimon.acetv.properties.AceVodPlaybackProperties;
 import com.zaclimon.acetv.util.Constants;
 import com.zaclimon.xipl.properties.VodProperties;
 import com.zaclimon.xipl.ui.vod.VodPlaybackFragment;
 
 /**
- * Fragment responsible for playing an {@link com.zaclimon.acetv.data.AvContent}
+ * Fragment responsible for playing an {@link RealmAvContent}
  *
  * @author zaclimon
  * Creation date: 02/07/17

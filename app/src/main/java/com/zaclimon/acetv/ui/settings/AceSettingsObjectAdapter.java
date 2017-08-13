@@ -1,10 +1,6 @@
 package com.zaclimon.acetv.ui.settings;
 
-import android.os.Bundle;
-import android.support.v17.leanback.widget.ArrayObjectAdapter;
-
 import com.zaclimon.acetv.R;
-import com.zaclimon.acetv.ui.components.cardview.CardViewPresenter;
 import com.zaclimon.xipl.ui.settings.ProviderSettingsObjectAdapter;
 
 /**
