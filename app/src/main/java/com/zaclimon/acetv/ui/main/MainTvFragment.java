@@ -41,6 +41,7 @@ public class MainTvFragment extends ProviderTvFragment implements AppUpdateView 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setBadgeDrawable(getActivity().getDrawable(R.drawable.ace_badge_white));
         new AppUpdatePresenterImpl(this).fetchUpdate();
     }
 
@@ -51,6 +52,7 @@ public class MainTvFragment extends ProviderTvFragment implements AppUpdateView 
 
     @Override
     protected Map<String, RowsFragment> getFragmentMap() {
+        // A LinkedHashMap is used in this case since it retains the position of each inserted object.
         Map<String, RowsFragment> aceFragments = new LinkedHashMap<>();
 
         aceFragments.put(getString(R.string.vod_text), new VodTvFragment());
