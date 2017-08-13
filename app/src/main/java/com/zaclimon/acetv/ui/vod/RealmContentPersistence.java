@@ -124,7 +124,7 @@ public class RealmContentPersistence implements ContentPersistence {
             String contentLink = content.getContentLink();
             String contentCategory = content.getContentCategory();
             int id = content.getId();
-            tempList.add(new AvContent(title, logo, group, contentLink, contentCategory, id));
+            tempList.add(new AvContent(title, logo, group, contentCategory, contentLink, id));
         }
         return (tempList);
     }

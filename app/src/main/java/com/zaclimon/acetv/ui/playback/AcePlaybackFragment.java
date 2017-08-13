@@ -10,7 +10,7 @@ import com.zaclimon.xipl.properties.VodProperties;
 import com.zaclimon.xipl.ui.vod.VodPlaybackFragment;
 
 /**
- * Fragment responsible for playing an {@link RealmAvContent}
+ * Fragment responsible for playing a given VOD content
  *
  * @author zaclimon
  * Creation date: 02/07/17

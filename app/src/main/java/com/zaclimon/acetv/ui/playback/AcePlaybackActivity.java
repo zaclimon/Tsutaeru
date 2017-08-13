@@ -18,7 +18,7 @@ import com.zaclimon.xipl.ui.vod.VodPlaybackFragment;
  * Creation date: 02/07/17
  */
 
-public class AcePlaybackActivity extends VodPlaybackActivity{
+public class AcePlaybackActivity extends VodPlaybackActivity {
 
     @Override
     protected int getThemeId(){
