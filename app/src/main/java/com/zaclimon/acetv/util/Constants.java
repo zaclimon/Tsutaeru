@@ -1,6 +1,9 @@
 package com.zaclimon.acetv.util;
 
+import android.content.ComponentName;
 import android.media.tv.TvContract;
+
+import com.zaclimon.xipl.service.ProviderTvInputService;
 
 import java.util.regex.Pattern;
 
@@ -12,6 +15,11 @@ import java.util.regex.Pattern;
  */
 
 public class Constants {
+
+    /**
+     * {@link ComponentName} used for defining easily an input id for the application
+     */
+    public static final ComponentName TV_INPUT_SERVICE_COMPONENT = new ComponentName("com.zaclimon.acetv", ProviderTvInputService.class.getName());
 
     // M3U file attributes
     public static final Pattern ATTRIBUTE_TVG_ID_PATTERN = Pattern.compile("tvg-id.\"(.*?)\"");
@@ -31,29 +39,6 @@ public class Constants {
     public static final String UK_REGION_PREFERENCE = "uk_region";
     public static final String NA_REGION_PREFERENCE = "na_region";
     public static final String INTERNATIONAL_REGION_PREFERENCE = "int_region";
-
-    // Channel configuration stuff
-    public static final String EPG_ID_PROVIDER = "epg_id";
-    public static final String CHANNEL_GENRES_PROVIDER = "channel_genres";
-    public static final String[] CHANNEL_GENRES = new String[]{
-            TvContract.Programs.Genres.ANIMAL_WILDLIFE,
-            TvContract.Programs.Genres.ARTS,
-            TvContract.Programs.Genres.COMEDY,
-            TvContract.Programs.Genres.DRAMA,
-            TvContract.Programs.Genres.EDUCATION,
-            TvContract.Programs.Genres.ENTERTAINMENT,
-            TvContract.Programs.Genres.FAMILY_KIDS,
-            TvContract.Programs.Genres.GAMING,
-            TvContract.Programs.Genres.LIFE_STYLE,
-            TvContract.Programs.Genres.MOVIES,
-            TvContract.Programs.Genres.MUSIC,
-            TvContract.Programs.Genres.NEWS,
-            TvContract.Programs.Genres.PREMIER,
-            TvContract.Programs.Genres.SHOPPING,
-            TvContract.Programs.Genres.SPORTS,
-            TvContract.Programs.Genres.TECH_SCIENCE,
-            TvContract.Programs.Genres.TRAVEL
-    };
 
     // App update stuff
     public static final String ACE_BASE_URL = "https://quantaworks.io/public/acetv/";

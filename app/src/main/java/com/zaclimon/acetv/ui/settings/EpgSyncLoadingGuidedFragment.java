@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.google.android.media.tv.companionlibrary.EpgSyncJobService;
 import com.zaclimon.acetv.R;
-import com.zaclimon.acetv.util.AceChannelUtil;
+import com.zaclimon.acetv.util.Constants;
 
 /**
  * GuidedStepFragment that sync itself with the broadcast intent sent by
@@ -56,7 +56,7 @@ public class EpgSyncLoadingGuidedFragment extends GuidedStepFragment {
         public void onReceive(Context context, Intent intent) {
 
             String inputIdExtra = intent.getStringExtra(EpgSyncJobService.BUNDLE_KEY_INPUT_ID);
-            String aceInputId = TvContract.buildInputId(AceChannelUtil.TV_INPUT_SERVICE_COMPONENT);
+            String aceInputId = TvContract.buildInputId(Constants.TV_INPUT_SERVICE_COMPONENT);
 
             if (inputIdExtra.equals(aceInputId)) {
                 String syncStatus = intent.getStringExtra(EpgSyncJobService.SYNC_STATUS);

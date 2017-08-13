@@ -11,7 +11,7 @@ import android.os.Build;
 
 import com.google.android.media.tv.companionlibrary.EpgSyncJobService;
 import com.zaclimon.acetv.service.AceJobService;
-import com.zaclimon.acetv.util.AceChannelUtil;
+import com.zaclimon.acetv.util.Constants;
 
 import java.util.List;
 
@@ -37,7 +37,7 @@ public class AceTvEpgReceiver extends BroadcastReceiver {
 
         // Setup periodic sync if we can't find it.
         if (jobInfos.isEmpty()) {
-            String inputId = TvContract.buildInputId(AceChannelUtil.TV_INPUT_SERVICE_COMPONENT);
+            String inputId = TvContract.buildInputId(Constants.TV_INPUT_SERVICE_COMPONENT);
             EpgSyncJobService.setUpPeriodicSync(context, inputId, new ComponentName(context, AceJobService.class));
             return;
         }

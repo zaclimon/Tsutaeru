@@ -12,7 +12,6 @@ import android.support.v17.leanback.widget.GuidedAction;
 import com.google.android.media.tv.companionlibrary.EpgSyncJobService;
 import com.zaclimon.acetv.R;
 import com.zaclimon.acetv.service.AceJobService;
-import com.zaclimon.acetv.util.AceChannelUtil;
 import com.zaclimon.acetv.util.Constants;
 
 import java.util.List;
@@ -97,7 +96,7 @@ public class ChannelRegionGuidedFragment extends GuidedStepFragment {
               */
 
             if (getActions().get(0).isChecked() != isUkEnabled || getActions().get(1).isChecked() != isNaEnabled || getActions().get(2).isChecked() != isIntEnabled) {
-                String inputId = TvContract.buildInputId(AceChannelUtil.TV_INPUT_SERVICE_COMPONENT);
+                String inputId = TvContract.buildInputId(Constants.TV_INPUT_SERVICE_COMPONENT);
                 EpgSyncJobService.requestImmediateSync(getActivity(), inputId, TimeUnit.HOURS.toMillis(48), new ComponentName(getActivity(), AceJobService.class));
                 editor.putBoolean(Constants.UK_REGION_PREFERENCE, getActions().get(0).isChecked());
                 editor.putBoolean(Constants.NA_REGION_PREFERENCE, getActions().get(1).isChecked());

@@ -10,7 +10,7 @@ import android.support.v17.leanback.widget.GuidedAction;
 import com.google.android.media.tv.companionlibrary.EpgSyncJobService;
 import com.zaclimon.acetv.R;
 import com.zaclimon.acetv.service.AceJobService;
-import com.zaclimon.acetv.util.AceChannelUtil;
+import com.zaclimon.acetv.util.Constants;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -45,7 +45,7 @@ public class EpgForceSyncGuidedFragment extends GuidedStepFragment {
     @Override
     public void onGuidedActionClicked(GuidedAction guidedAction) {
         if (guidedAction.getId() == GuidedAction.ACTION_ID_YES) {
-            String inputId = TvContract.buildInputId(AceChannelUtil.TV_INPUT_SERVICE_COMPONENT);
+            String inputId = TvContract.buildInputId(Constants.TV_INPUT_SERVICE_COMPONENT);
             EpgSyncJobService.requestImmediateSync(getActivity(), inputId, TimeUnit.HOURS.toMillis(48), new ComponentName(getActivity(), AceJobService.class));
             add(getFragmentManager(), new EpgSyncLoadingGuidedFragment());
         } else {

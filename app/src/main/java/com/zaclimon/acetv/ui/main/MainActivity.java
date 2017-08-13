@@ -11,8 +11,8 @@ import android.widget.Toast;
 import com.crashlytics.android.Crashlytics;
 import com.zaclimon.acetv.R;
 import com.zaclimon.acetv.ui.auth.AuthActivityTv;
-import com.zaclimon.acetv.util.AceChannelUtil;
 import com.zaclimon.acetv.util.ActivityUtil;
+import com.zaclimon.acetv.util.Constants;
 
 import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
 
             ContentResolver contentResolver = getContentResolver();
             Intent intent = new Intent(this, AuthActivityTv.class);
-            String inputId = TvContract.buildInputId(AceChannelUtil.TV_INPUT_SERVICE_COMPONENT);
+            String inputId = TvContract.buildInputId(Constants.TV_INPUT_SERVICE_COMPONENT);
 
             // Delete all channels in case of where the user data has been cleared.
             contentResolver.delete(TvContract.buildChannelsUriForInput(inputId), null, null);

@@ -1,4 +1,4 @@
-package com.zaclimon.acetv.ui.playback;
+package com.zaclimon.acetv.properties;
 
 import android.content.Context;
 import android.content.SharedPreferences;

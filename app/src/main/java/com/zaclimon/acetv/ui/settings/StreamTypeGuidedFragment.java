@@ -12,7 +12,6 @@ import android.support.v17.leanback.widget.GuidedAction;
 import com.google.android.media.tv.companionlibrary.EpgSyncJobService;
 import com.zaclimon.acetv.R;
 import com.zaclimon.acetv.service.AceJobService;
-import com.zaclimon.acetv.util.AceChannelUtil;
 import com.zaclimon.acetv.util.Constants;
 
 import java.util.List;
@@ -86,7 +85,7 @@ public class StreamTypeGuidedFragment extends GuidedStepFragment {
 
         if (!initialAction.equals(modifiedAction)) {
             // Sync the channels to reflect the latest changes only if the stream type is different from before.
-            String inputId = TvContract.buildInputId(AceChannelUtil.TV_INPUT_SERVICE_COMPONENT);
+            String inputId = TvContract.buildInputId(Constants.TV_INPUT_SERVICE_COMPONENT);
             EpgSyncJobService.requestImmediateSync(getActivity(), inputId, new ComponentName(getActivity(), AceJobService.class));
             add(getFragmentManager(), new EpgSyncLoadingGuidedFragment());
         } else {

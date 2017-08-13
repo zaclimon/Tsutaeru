@@ -17,7 +17,6 @@ import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.utils.TvContractUtils;
 import com.zaclimon.acetv.R;
 import com.zaclimon.acetv.service.AceJobService;
-import com.zaclimon.acetv.util.AceChannelUtil;
 import com.zaclimon.acetv.util.Constants;
 
 import java.util.List;
@@ -91,7 +90,7 @@ public class ChannelLogoGuidedFragment extends GuidedStepFragment {
                 new AsyncRemoveLogos().execute();
             }
 
-            String inputId = TvContract.buildInputId(AceChannelUtil.TV_INPUT_SERVICE_COMPONENT);
+            String inputId = TvContract.buildInputId(Constants.TV_INPUT_SERVICE_COMPONENT);
             EpgSyncJobService.requestImmediateSync(getActivity(), inputId, new ComponentName(getActivity(), AceJobService.class));
             add(getFragmentManager(), new EpgSyncLoadingGuidedFragment());
         } else {
