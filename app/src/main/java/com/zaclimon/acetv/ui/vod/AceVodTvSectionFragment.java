@@ -24,8 +24,8 @@ public abstract class AceVodTvSectionFragment extends VodTvSectionFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         mContentPersistence = new RealmContentPersistence();
+        super.onCreate(savedInstanceState);
     }
 
     @Override
