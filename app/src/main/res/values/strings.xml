@@ -17,6 +17,9 @@
     <string name="channel_stream_failure">Stream failure. Please try again later or contact Ace TV</string>
     <string name="connect_text">Connect</string>
     <string name="channel_update">Updating channels&#8230;</string>
+    <string name="clear_cache_title">Clear database cache?</string>
+    <string name="clear_cache_title_short">Clear cache</string>
+    <string name="clear_cache_description">Clears the data inside the application\'s internal database.</string>
     <string name="connected_description_live_channels">The channels will now sync into the Live Channels. Happy watching!</string>
     <string name="connected_description_standalone">You can now download the Live Channels app to benefit from live TV or you can watch VOD\'s/Catchup here.</string>
     <string name="connection_description_account_change">Enjoy using your new account</string>
@@ -24,6 +27,7 @@
     <string name="connection_successful_text">Connection successful!</string>
     <string name="content_not_available">Content not available.</string>
     <string name="current_status_text">Current status: %1$s</string>
+    <string name="database_cleared_text">The database has been cleared.</string>
     <string name="deactivated_text">Deactivated</string>
     <string name="debug_log_title">Create debug log?</string>
     <string name="debug_log_title_short">Debug log</string>

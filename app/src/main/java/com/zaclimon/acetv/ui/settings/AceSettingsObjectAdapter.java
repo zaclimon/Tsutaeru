@@ -19,6 +19,7 @@ public class AceSettingsObjectAdapter extends ProviderSettingsObjectAdapter {
         addSection(R.string.force_video_fit_title, R.drawable.ic_force_video_fit);
         addSection(R.string.channel_region_title, R.drawable.ic_channel_region);
         addSection(R.string.change_user_title, R.drawable.ic_change_user);
+        addSection(R.string.clear_cache_title_short, R.drawable.ic_clear_cache);
         addSection(R.string.debug_log_title_short, R.drawable.ic_debug);
         addSection(R.string.about_text, R.drawable.ic_about);
     }

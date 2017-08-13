@@ -57,6 +57,10 @@ public class AceSettingsElementActivity extends Activity {
                     startActivity(intent);
                     finish();
                     break;
+                case R.string.clear_cache_title:
+                case R.string.clear_cache_title_short:
+                    GuidedStepFragment.addAsRoot(this, new ClearCacheGuidedFragment(), android.R.id.content);
+                    break;
                 case R.string.debug_log_title:
                 case R.string.debug_log_title_short:
                     GuidedStepFragment.addAsRoot(this, new DebugLogGuidedFragment(), android.R.id.content);
