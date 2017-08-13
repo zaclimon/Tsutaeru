@@ -12,8 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.zaclimon.acetv.data.AvContent;
-import com.zaclimon.acetv.ui.settings.SettingsObjectAdapter;
+import com.zaclimon.acetv.ui.settings.AceSettingsObjectAdapter;
 import com.zaclimon.acetv.util.ActivityUtil;
+import com.zaclimon.xipl.ui.settings.ProviderSettingsObjectAdapter;
 
 /**
  * Custom {@link Presenter} class that is used to show {@link ImageCardView}
@@ -76,8 +77,8 @@ public class CardViewPresenter extends Presenter {
         if (item instanceof Bundle) {
             // We're dealing with a Settings menu value
             Bundle settingsBundle = (Bundle) item;
-            String name = context.getString(settingsBundle.getInt(SettingsObjectAdapter.BUNDLE_SETTINGS_NAME_ID));
-            Drawable drawable = context.getDrawable(settingsBundle.getInt(SettingsObjectAdapter.BUNDLE_SETTINGS_DRAWABLE_ID));
+            String name = context.getString(settingsBundle.getInt(ProviderSettingsObjectAdapter.BUNDLE_SETTINGS_NAME_ID));
+            Drawable drawable = context.getDrawable(settingsBundle.getInt(ProviderSettingsObjectAdapter.BUNDLE_SETTINGS_DRAWABLE_ID));
             imageCardView.setTitleText(name);
             imageCardView.setMainImage(drawable);
         } else if (item instanceof AvContent) {

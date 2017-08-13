@@ -24,7 +24,7 @@ import com.zaclimon.acetv.R;
 import com.zaclimon.acetv.data.AvContent;
 import com.zaclimon.acetv.ui.components.cardview.CardViewPresenter;
 import com.zaclimon.acetv.ui.components.cardview.PicassoCardViewImageProcessor;
-import com.zaclimon.acetv.ui.playback.PlaybackActivity;
+import com.zaclimon.acetv.ui.playback.AcePlaybackActivity;
 import com.zaclimon.acetv.util.AvContentUtil;
 import com.zaclimon.acetv.util.RichFeedUtil;
 
@@ -277,7 +277,7 @@ public abstract class VodTvSectionFragment extends RowsFragment {
             if (item instanceof AvContent) {
                 // The item comes from an AvContent element.
                 AvContent avContent = (AvContent) item;
-                Intent intent = new Intent(getActivity(), PlaybackActivity.class);
+                Intent intent = new Intent(getActivity(), AcePlaybackActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString(AV_CONTENT_TITLE_BUNDLE, avContent.getTitle());
                 bundle.putString(AV_CONTENT_LOGO_BUNDLE, avContent.getLogo());

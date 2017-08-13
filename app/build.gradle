@@ -43,7 +43,7 @@ dependencies {
     compile 'com.android.support:leanback-v17:26.0.1'
     compile 'com.google.android.exoplayer:exoplayer-core:r2.5.1'
     compile 'com.google.android.exoplayer:exoplayer-hls:r2.5.1'
-    compile project(':tiflibrary')
+    compile project(':xipl')
 
     // JUnit stuff
     testCompile 'junit:junit:4.12'

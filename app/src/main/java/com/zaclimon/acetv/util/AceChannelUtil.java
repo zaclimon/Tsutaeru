@@ -8,7 +8,7 @@ import com.google.android.media.tv.companionlibrary.model.Channel;
 import com.google.android.media.tv.companionlibrary.model.InternalProviderData;
 import com.zaclimon.acetv.R;
 import com.zaclimon.acetv.data.AvContent;
-import com.zaclimon.acetv.service.AceTvInputService;
+import com.zaclimon.xipl.service.ProviderTvInputService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +30,7 @@ public class AceChannelUtil {
     /**
      * {@link ComponentName} used for defining easily an input id for the application
      */
-    public static final ComponentName TV_INPUT_SERVICE_COMPONENT = new ComponentName("com.zaclimon.acetv", AceTvInputService.class.getName());
+    public static final ComponentName TV_INPUT_SERVICE_COMPONENT = new ComponentName("com.zaclimon.acetv", ProviderTvInputService.class.getName());
 
     private static final String LOG_TAG = "AceChannelUtil";
 

@@ -1,1 +1,4 @@
-include ':app', ':tiflibrary'
+include ':app', ':xipl', ':tiflibrary'
+
+project (':xipl').projectDir = new File('../XtreamCodesIPTVProviderLibrary/library')
+project (':tiflibrary').projectDir = new File('../XtreamCodesIPTVProviderLibrary/tiflibrary')

@@ -8,6 +8,7 @@ import android.support.v17.leanback.app.GuidedStepFragment;
 import com.zaclimon.acetv.R;
 import com.zaclimon.acetv.ui.auth.AuthActivityTv;
 import com.zaclimon.acetv.util.ActivityUtil;
+import com.zaclimon.xipl.ui.settings.ProviderSettingsObjectAdapter;
 
 /**
  * Activity that shows a given setting based on it's name
@@ -16,7 +17,7 @@ import com.zaclimon.acetv.util.ActivityUtil;
  * Creation date: 21/06/17
  */
 
-public class SettingsElementActivity extends Activity {
+public class AceSettingsElementActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class SettingsElementActivity extends Activity {
 
         if (savedInstanceState == null && extras != null) {
             // Since the extras contain the id's, we shouldn't have any problems comparing them.
-            int stringId = extras.getInt(SettingsObjectAdapter.BUNDLE_SETTINGS_NAME_ID);
+            int stringId = extras.getInt(ProviderSettingsObjectAdapter.BUNDLE_SETTINGS_NAME_ID);
 
             switch (stringId) {
                 case R.string.stream_type:

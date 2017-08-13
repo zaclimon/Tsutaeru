@@ -34,13 +34,13 @@
 
         <activity android:name="com.zaclimon.acetv.ui.tvinputsetup.AceTvInputSetupActivity" android:theme="@style/TvTheme" android:exported="true"/>
         <activity android:name="com.zaclimon.acetv.ui.auth.AuthActivityTv"/>
-        <activity android:name="com.zaclimon.acetv.ui.settings.SettingsElementActivity"/>
+        <activity android:name="com.zaclimon.acetv.ui.settings.AceSettingsElementActivity"/>
 
-        <activity android:name="com.zaclimon.acetv.ui.playback.PlaybackActivity" android:resizeableActivity="true"
+        <activity android:name="com.zaclimon.acetv.ui.playback.AcePlaybackActivity" android:resizeableActivity="true"
                   android:supportsPictureInPicture="true"
                   android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"/>
 
-        <service android:name="com.zaclimon.acetv.service.AceTvInputService"
+        <service android:name="com.zaclimon.xipl.service.ProviderTvInputService"
                  android:label="@string/tv_input_label"
                  android:permission="android.permission.BIND_TV_INPUT">
             <intent-filter>
@@ -48,7 +48,7 @@
             </intent-filter>
             <meta-data
                 android:name="android.media.tv.input"
-                android:resource="@xml/acetvinputservice" />
+                android:resource="@xml/ace_tv_input_service" />
         </service>
 
         <service

@@ -15,8 +15,8 @@ import android.support.v17.leanback.widget.RowPresenter;
 import android.widget.Toast;
 
 import com.zaclimon.acetv.R;
-import com.zaclimon.acetv.ui.settings.SettingsElementActivity;
-import com.zaclimon.acetv.ui.settings.SettingsTvFragment;
+import com.zaclimon.acetv.ui.settings.AceSettingsElementActivity;
+import com.zaclimon.acetv.ui.settings.AceSettingsFragment;
 import com.zaclimon.acetv.ui.settings.appupdate.AppUpdatePresenterImpl;
 import com.zaclimon.acetv.ui.settings.appupdate.AppUpdateView;
 import com.zaclimon.acetv.ui.vod.CatchupTvFragment;
@@ -144,7 +144,7 @@ public class MainTvFragment extends BrowseFragment implements AppUpdateView {
             if (item instanceof Bundle) {
                 // The item comes from a Settings element.
                 Bundle bundle = (Bundle) item;
-                Intent intent = new Intent(itemViewHolder.view.getContext(), SettingsElementActivity.class);
+                Intent intent = new Intent(itemViewHolder.view.getContext(), AceSettingsElementActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -173,7 +173,7 @@ public class MainTvFragment extends BrowseFragment implements AppUpdateView {
             } else if (tempRow.getId() == CATCHUP_ID) {
                 return (new CatchupTvFragment());
             } else if (tempRow.getId() == SETTINGS_ID) {
-                return (new SettingsTvFragment());
+                return (new AceSettingsFragment());
             }
             throw new IllegalArgumentException("Invalid row: " + row);
         }
