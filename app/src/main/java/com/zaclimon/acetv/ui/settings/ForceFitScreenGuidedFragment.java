@@ -13,7 +13,11 @@ import com.zaclimon.acetv.util.Constants;
 import java.util.List;
 
 /**
- * Created by isaac on 17-07-31.
+ * GuidedStepFragment used to force an audio-visual content to strech in order to fit the total
+ * resolution of a display.
+ *
+ * @author zaclimon
+ * Creation date: 31/07/17
  */
 
 public class ForceFitScreenGuidedFragment extends GuidedStepFragment {

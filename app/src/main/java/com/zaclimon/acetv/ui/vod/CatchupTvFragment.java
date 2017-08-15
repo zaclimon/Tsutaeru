@@ -7,7 +7,7 @@ import com.zaclimon.acetv.R;
 import com.zaclimon.acetv.util.Constants;
 
 /**
- * Fragment responsible for showing Tv Catchup content for Ace TV
+ * Fragment responsible for showing Tv Catchup content for Ace TV.
  *
  * @author zaclimon
  * Creation date: 01/07/17

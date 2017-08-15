@@ -103,7 +103,7 @@ public class ChannelLogoGuidedFragment extends GuidedStepFragment {
      * in a asynchronous way.
      *
      * @author zaclimon
-     *         Creation date: 23/06/17
+     * Creation date: 23/06/17
      */
     private class AsyncRemoveLogos extends AsyncTask<Void, Void, Void> {
 
