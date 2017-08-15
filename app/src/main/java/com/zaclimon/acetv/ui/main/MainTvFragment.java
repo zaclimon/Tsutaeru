@@ -1,22 +1,10 @@
 package com.zaclimon.acetv.ui.main;
 
-import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v17.leanback.app.BrowseFragment;
 import android.support.v17.leanback.app.RowsFragment;
-import android.support.v17.leanback.widget.ArrayObjectAdapter;
-import android.support.v17.leanback.widget.HeaderItem;
-import android.support.v17.leanback.widget.ListRowPresenter;
-import android.support.v17.leanback.widget.OnItemViewClickedListener;
-import android.support.v17.leanback.widget.PageRow;
-import android.support.v17.leanback.widget.Presenter;
-import android.support.v17.leanback.widget.Row;
-import android.support.v17.leanback.widget.RowPresenter;
 import android.widget.Toast;
 
 import com.zaclimon.acetv.R;
-import com.zaclimon.acetv.ui.settings.AceSettingsElementActivity;
 import com.zaclimon.acetv.ui.settings.AceSettingsFragment;
 import com.zaclimon.acetv.ui.settings.appupdate.AppUpdatePresenterImpl;
 import com.zaclimon.acetv.ui.settings.appupdate.AppUpdateView;
@@ -25,7 +13,6 @@ import com.zaclimon.acetv.ui.vod.SeriesTvFragment;
 import com.zaclimon.acetv.ui.vod.VodTvFragment;
 import com.zaclimon.xipl.ui.main.ProviderTvFragment;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

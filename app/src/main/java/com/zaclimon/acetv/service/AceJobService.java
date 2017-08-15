@@ -1,5 +1,6 @@
 package com.zaclimon.acetv.service;
 
+import android.app.job.JobParameters;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -22,6 +23,14 @@ import com.zaclimon.xipl.service.ProviderEpgService;
 
 public class AceJobService extends ProviderEpgService {
 
+    private ChannelProperties mChannelProperties;
+
+    @Override
+    public boolean onStartJob(JobParameters params) {
+        mChannelProperties = new AceChannelProperties(getSharedPreferences(Constants.ACE_TV_PREFERENCES, Context.MODE_PRIVATE));
+        return (super.onStartJob(params));
+    }
+
     @Override
     public String getPlaylistUrl() {
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.ACE_TV_PREFERENCES, Context.MODE_PRIVATE);
@@ -41,6 +50,6 @@ public class AceJobService extends ProviderEpgService {
 
     @Override
     public ChannelProperties getChannelProperties() {
-        return (new AceChannelProperties(getSharedPreferences(Constants.ACE_TV_PREFERENCES, Context.MODE_PRIVATE)));
+        return (mChannelProperties);
     }
 }

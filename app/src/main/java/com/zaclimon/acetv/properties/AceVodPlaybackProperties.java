@@ -1,6 +1,5 @@
 package com.zaclimon.acetv.properties;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.zaclimon.acetv.util.Constants;

@@ -1,11 +1,8 @@
 package com.zaclimon.acetv.util;
 
 import android.content.ComponentName;
-import android.media.tv.TvContract;
 
 import com.zaclimon.xipl.service.ProviderTvInputService;
-
-import java.util.regex.Pattern;
 
 /**
  * List of constants to be used throughout the application's lifecycle.

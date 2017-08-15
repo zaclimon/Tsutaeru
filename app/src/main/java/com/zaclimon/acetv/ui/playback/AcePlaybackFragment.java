@@ -3,7 +3,6 @@ package com.zaclimon.acetv.ui.playback;
 import android.content.Context;
 
 import com.zaclimon.acetv.R;
-import com.zaclimon.acetv.data.RealmAvContent;
 import com.zaclimon.acetv.properties.AceVodPlaybackProperties;
 import com.zaclimon.acetv.util.Constants;
 import com.zaclimon.xipl.properties.VodProperties;

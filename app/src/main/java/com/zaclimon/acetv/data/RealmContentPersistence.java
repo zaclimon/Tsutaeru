@@ -1,6 +1,5 @@
 package com.zaclimon.acetv.data;
 
-import com.zaclimon.acetv.data.RealmAvContent;
 import com.zaclimon.xipl.model.AvContent;
 import com.zaclimon.xipl.persistence.ContentPersistence;
 

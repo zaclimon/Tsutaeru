@@ -1,12 +1,6 @@
 package com.zaclimon.acetv.ui.playback;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
-import android.os.Bundle;
-
 import com.zaclimon.acetv.R;
-import com.zaclimon.acetv.util.ActivityUtil;
 import com.zaclimon.xipl.ui.vod.VodPlaybackActivity;
 import com.zaclimon.xipl.ui.vod.VodPlaybackFragment;
 
