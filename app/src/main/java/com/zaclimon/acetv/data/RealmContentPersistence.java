@@ -1,4 +1,4 @@
-package com.zaclimon.acetv.ui.vod;
+package com.zaclimon.acetv.data;
 
 import com.zaclimon.acetv.data.RealmAvContent;
 import com.zaclimon.xipl.model.AvContent;
@@ -49,17 +49,27 @@ public class RealmContentPersistence implements ContentPersistence {
     }
 
     @Override
-    public void deleteCategory(String category) {
+    public void deleteCategory(final String category) {
         Realm realm = Realm.getDefaultInstance();
-        RealmResults<RealmAvContent> results = realm.where(RealmAvContent.class).equalTo(CONTENT_CATEGORY_VARIABLE, category).findAll();
-        results.deleteAllFromRealm();
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                RealmResults<RealmAvContent> results = realm.where(RealmAvContent.class).equalTo(CONTENT_CATEGORY_VARIABLE, category).findAll();
+                results.deleteAllFromRealm();
+            }
+        });
         realm.close();
     }
 
     @Override
     public void deleteAllItems() {
         Realm realm = Realm.getDefaultInstance();
-        realm.where(RealmAvContent.class).findAll().deleteAllFromRealm();
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.where(RealmAvContent.class).findAll().deleteAllFromRealm();
+            }
+        });
         realm.close();
     }
 
