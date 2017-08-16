@@ -5,6 +5,7 @@ import android.support.v17.leanback.app.RowsFragment;
 import android.widget.Toast;
 
 import com.zaclimon.acetv.R;
+import com.zaclimon.acetv.ui.search.AceProviderSearchActivity;
 import com.zaclimon.acetv.ui.settings.AceSettingsFragment;
 import com.zaclimon.acetv.ui.settings.appupdate.AppUpdatePresenterImpl;
 import com.zaclimon.acetv.ui.settings.appupdate.AppUpdateView;
@@ -12,6 +13,7 @@ import com.zaclimon.acetv.ui.vod.CatchupTvFragment;
 import com.zaclimon.acetv.ui.vod.SeriesTvFragment;
 import com.zaclimon.acetv.ui.vod.VodTvFragment;
 import com.zaclimon.xipl.ui.main.ProviderTvFragment;
+import com.zaclimon.xipl.ui.search.ProviderSearchActivity;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -47,6 +49,11 @@ public class MainTvFragment extends ProviderTvFragment implements AppUpdateView 
         aceFragments.put(getString(R.string.catchup_title), new CatchupTvFragment());
         aceFragments.put(getString(R.string.settings_text), new AceSettingsFragment());
         return (aceFragments);
+    }
+
+    @Override
+    protected Class<? extends ProviderSearchActivity> getSearchActivity() {
+        return (AceProviderSearchActivity.class);
     }
 
     @Override

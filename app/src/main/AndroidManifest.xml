@@ -35,6 +35,7 @@
         <activity android:name="com.zaclimon.acetv.ui.tvinputsetup.AceTvInputSetupActivity" android:theme="@style/TvTheme" android:exported="true"/>
         <activity android:name="com.zaclimon.acetv.ui.auth.AuthActivityTv"/>
         <activity android:name="com.zaclimon.acetv.ui.settings.AceSettingsElementActivity"/>
+        <activity android:name=".ui.search.AceProviderSearchActivity"/>
 
         <activity android:name="com.zaclimon.acetv.ui.playback.AcePlaybackActivity" android:resizeableActivity="true"
                   android:supportsPictureInPicture="true"

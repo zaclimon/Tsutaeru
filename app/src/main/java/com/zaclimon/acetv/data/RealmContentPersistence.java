@@ -1,11 +1,14 @@
 package com.zaclimon.acetv.data;
 
+import android.util.Log;
+
 import com.zaclimon.xipl.model.AvContent;
 import com.zaclimon.xipl.persistence.ContentPersistence;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Case;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -19,6 +22,7 @@ import io.realm.RealmResults;
 
 public class RealmContentPersistence implements ContentPersistence {
 
+    private static final String TITLE_VARIABLE = "mTitle";
     private static final String CONTENT_CATEGORY_VARIABLE = "mContentCategory";
     private static final String GROUP_VARIABLE = "mGroup";
 
@@ -94,6 +98,22 @@ public class RealmContentPersistence implements ContentPersistence {
         realm.close();
         return (tempList);
 
+    }
+
+    @Override
+    public List<AvContent> searchTitle(String title, boolean isAlphabeticallySorted) {
+        Realm realm = Realm.getDefaultInstance();
+        List<AvContent> tempList;
+
+        if (isAlphabeticallySorted) {
+            tempList = convertFromRealm(realm.where(RealmAvContent.class).contains(TITLE_VARIABLE, title, Case.INSENSITIVE).findAllSorted(TITLE_VARIABLE));
+        } else {
+            tempList = convertFromRealm(realm.where(RealmAvContent.class).contains(TITLE_VARIABLE, title, Case.INSENSITIVE).findAll());
+        }
+        Log.d(getClass().getSimpleName(), "templist size: " + tempList.size());
+        realm.close();
+
+        return (tempList);
     }
 
     @Override
