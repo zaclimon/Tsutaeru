@@ -4,9 +4,11 @@ import android.os.Bundle;
 
 import com.zaclimon.acetv.data.RealmContentPersistence;
 import com.zaclimon.acetv.ui.components.cardview.PicassoCardViewImageProcessor;
+import com.zaclimon.acetv.ui.playback.AcePlaybackActivity;
 import com.zaclimon.xipl.persistence.ContentPersistence;
 import com.zaclimon.xipl.ui.components.cardview.CardViewImageProcessor;
 import com.zaclimon.xipl.ui.search.ProviderSearchFragment;
+import com.zaclimon.xipl.ui.vod.VodPlaybackActivity;
 
 /**
  * Concrete implementation of a {@link ProviderSearchFragment} for Ace TV.
@@ -35,6 +37,11 @@ public class AceProviderSearchFragment extends ProviderSearchFragment {
     @Override
     public CardViewImageProcessor getCardViewImageProcessor() {
         return (mCardViewImageProcessor);
+    }
+
+    @Override
+    public Class<? extends VodPlaybackActivity> getPlaybackActivity() {
+        return (AcePlaybackActivity.class);
     }
 
 }
