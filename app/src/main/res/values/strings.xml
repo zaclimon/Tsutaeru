@@ -32,6 +32,7 @@
     <string name="debug_log_title">Create debug log?</string>
     <string name="debug_log_title_short">Debug log</string>
     <string name="debug_log_description">Creates a text file usable for debugging purposes to your internal storage.</string>
+    <string name="download_text">Downloading&#8230;</string>
     <string name="download_update_text">Download update</string>
     <string name="enter_password_title">Please enter your password</string>
     <string name="enter_username_title">Please enter your Ace TV account username</string>

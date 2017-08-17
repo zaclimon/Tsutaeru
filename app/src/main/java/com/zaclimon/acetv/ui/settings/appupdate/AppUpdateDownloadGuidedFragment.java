@@ -11,6 +11,7 @@ import android.support.v17.leanback.app.GuidedStepFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zaclimon.acetv.BuildConfig;
@@ -39,6 +40,8 @@ public class AppUpdateDownloadGuidedFragment extends GuidedStepFragment implemen
     @Override
     public void onStart() {
         super.onStart();
+        TextView title = getActivity().findViewById(R.id.loading_title);
+        title.setText(R.string.download_text);
         startDownload();
     }
 
