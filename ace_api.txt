@@ -28,6 +28,11 @@ http://mikkm.xyz/android/androidApi.php?url=http://ace-tv.xyz:25461/&mode=vod&us
 5. Retrieve TV-Catchup content:
 http://mikkm.xyz/android/androidApi.php?url=http://ace-tv.xyz:25461/&mode=timeshift&username=xxxx&password=xxxx
 
+6. Retrieve TV-Catchup content (With EPG offset):
+http://mikkm.xyz/android/androidApi.php?url=http://ace-tv.xyz:25461/&mode=timeshift&epg_shift=x&username=xxxx&password=xxxx
+
+Where x is the number of hours where the offset can be made (Ace is based in the UK) 
+
 In every calls:
 - Username = Ace Email Address/Custom username
 - Password = Ace Password
