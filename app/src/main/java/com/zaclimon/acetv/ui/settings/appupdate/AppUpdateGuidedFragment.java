@@ -102,34 +102,40 @@ public class AppUpdateGuidedFragment extends GuidedStepFragment implements AppUp
             }
         }
 
-        mProgressBarManager.hide();
-        getGuidanceStylist().getTitleView().setText(R.string.new_version_available);
-        getGuidanceStylist().getBreadcrumbView().setText(getString(R.string.version_text, versionName));
-        getGuidanceStylist().getDescriptionView().setText(changelogBuilder.toString());
+        if (isAdded()) {
+            mProgressBarManager.hide();
+            getGuidanceStylist().getTitleView().setText(R.string.new_version_available);
+            getGuidanceStylist().getBreadcrumbView().setText(getString(R.string.version_text, versionName));
+            getGuidanceStylist().getDescriptionView().setText(changelogBuilder.toString());
 
-        getGuidanceStylist().getTitleView().setVisibility(View.VISIBLE);
-        getGuidanceStylist().getBreadcrumbView().setVisibility(View.VISIBLE);
-        getGuidanceStylist().getDescriptionView().setVisibility(View.VISIBLE);
-        mNewVersionName = versionName;
+            getGuidanceStylist().getTitleView().setVisibility(View.VISIBLE);
+            getGuidanceStylist().getBreadcrumbView().setVisibility(View.VISIBLE);
+            getGuidanceStylist().getDescriptionView().setVisibility(View.VISIBLE);
+            mNewVersionName = versionName;
+        }
 
     }
 
     @Override
     public void onSameVersionDetected() {
-        mProgressBarManager.hide();
-        getGuidanceStylist().getTitleView().setText(R.string.no_update_available);
-        getGuidanceStylist().getBreadcrumbView().setText(getString(R.string.version_text, BuildConfig.VERSION_NAME));
-        getGuidanceStylist().getTitleView().setVisibility(View.VISIBLE);
-        getGuidanceStylist().getBreadcrumbView().setVisibility(View.VISIBLE);
+        if (isAdded()) {
+            mProgressBarManager.hide();
+            getGuidanceStylist().getTitleView().setText(R.string.no_update_available);
+            getGuidanceStylist().getBreadcrumbView().setText(getString(R.string.version_text, BuildConfig.VERSION_NAME));
+            getGuidanceStylist().getTitleView().setVisibility(View.VISIBLE);
+            getGuidanceStylist().getBreadcrumbView().setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void onFetchFailed() {
-        mProgressBarManager.hide();
-        getGuidanceStylist().getTitleView().setText(R.string.error_text);
-        getGuidanceStylist().getDescriptionView().setText(R.string.update_check_failed);
-        getGuidanceStylist().getTitleView().setVisibility(View.VISIBLE);
-        getGuidanceStylist().getDescriptionView().setVisibility(View.VISIBLE);
+        if (isAdded()) {
+            mProgressBarManager.hide();
+            getGuidanceStylist().getTitleView().setText(R.string.error_text);
+            getGuidanceStylist().getDescriptionView().setText(R.string.update_check_failed);
+            getGuidanceStylist().getTitleView().setVisibility(View.VISIBLE);
+            getGuidanceStylist().getDescriptionView().setVisibility(View.VISIBLE);
+        }
     }
 
 }
