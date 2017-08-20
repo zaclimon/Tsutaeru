@@ -80,6 +80,14 @@ public class AceTvInputSetupFragment extends ChannelSetupFragment {
     }
 
     @Override
+    public void onScanError(int reason) {
+        if (reason == EpgSyncJobService.ERROR_NO_CHANNELS) {
+            Toast.makeText(getActivity(), R.string.channel_sync_failure, Toast.LENGTH_SHORT).show();
+            getActivity().finish();
+        }
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == ASKING_AUTHENTICATION) {
