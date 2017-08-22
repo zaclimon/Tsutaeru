@@ -25,4 +25,9 @@ public class AceVodPlaybackProperties implements VodProperties {
         return (mSharedPreferences.getBoolean(Constants.VIDEO_FIT_SCREEN_PREFERENCE, false));
     }
 
+    @Override
+    public boolean isExternalPlayerUsed() {
+        return (mSharedPreferences.getBoolean(Constants.EXTERNAL_PLAYER_PREFERENCE, false));
+    }
+
 }

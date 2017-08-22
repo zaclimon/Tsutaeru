@@ -41,6 +41,9 @@
     <string name="epg_offset_title_short">EPG offset</string>
     <string name="epg_offset_description">Changes the EPG offset for watching TV Catchup content</string>
     <string name="error_text">Error</string>
+    <string name="external_player_description">Uses an installed external player instead of the internal one from the application.</string>
+    <string name="external_player_title">Use an external player for VOD playback?</string>
+    <string name="external_player_title_short">External player</string>
     <string name="file_saved_storage">File saved at %1$s</string>
     <string name="file_saving_error">An problem occurred while saving the file</string>
     <string name="force_epg_sync_title">Force EPG sync?</string>
