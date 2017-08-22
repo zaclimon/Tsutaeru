@@ -30,6 +30,7 @@ public class Constants {
     public static final String UK_REGION_PREFERENCE = "uk_region";
     public static final String NA_REGION_PREFERENCE = "na_region";
     public static final String INTERNATIONAL_REGION_PREFERENCE = "int_region";
+    public static final String EPG_OFFSET_PREFERENCE = "epg_offset";
 
     // App update stuff
     public static final String ACE_BASE_URL = "https://quantaworks.io/public/acetv/";

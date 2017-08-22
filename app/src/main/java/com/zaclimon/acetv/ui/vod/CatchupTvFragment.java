@@ -20,7 +20,13 @@ public class CatchupTvFragment extends AceVodTvSectionFragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.ACE_TV_PREFERENCES, Context.MODE_PRIVATE);
         String username = sharedPreferences.getString(Constants.USERNAME_PREFERENCE, "");
         String password = sharedPreferences.getString(Constants.PASSWORD_PREFERENCE, "");
-        return (getString(R.string.ace_catchup_url, username, password));
+        int offset = sharedPreferences.getInt(Constants.EPG_OFFSET_PREFERENCE, 0);
+
+        if (offset != 0) {
+            return (getString(R.string.ace_catchup_offset_url, offset, username, password));
+        } else {
+            return (getString(R.string.ace_catchup_url, username, password));
+        }
     }
 
 }

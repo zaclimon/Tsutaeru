@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="ace_catchup_url">http://mikkm.xyz/android/androidApi.php?url=http://ace-tv.xyz:25461/&#38;mode=timeshift&#38;username=%1$s&#38;password=%2$s</string>
+    <string name="ace_catchup_offset_url">http://mikkm.xyz/android/androidApi.php?url=http://ace-tv.xyz:25461/&#38;mode=timeshift&#38;epg_shift=%1$d&#38;username=%2$s&#38;password=%3$s</string>
     <string name="ace_epg_url">http://ace-tv.xyz:25461/xmltv.php?username=%1$s&#38;password=%2$s</string>
     <string name="ace_playlist_url">http://ace-tv.xyz:25461/get.php?username=%1$s&#38;password=%2$s&#38;type=m3u_plus&#38;output=%3$s</string>
     <string name="ace_series_url">http://mikkm.xyz/android/androidApi.php?url=http://ace-tv.xyz:25461/&#38;mode=series&#38;username=%1$s&#38;password=%2$s</string>

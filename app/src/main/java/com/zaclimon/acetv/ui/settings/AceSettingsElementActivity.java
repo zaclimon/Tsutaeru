@@ -52,6 +52,10 @@ public class AceSettingsElementActivity extends Activity {
                 case R.string.channel_region_title:
                     GuidedStepFragment.addAsRoot(this, new ChannelRegionGuidedFragment(), android.R.id.content);
                     break;
+                case R.string.epg_offset_title:
+                case R.string.epg_offset_title_short:
+                    GuidedStepFragment.addAsRoot(this, new TvCatchupEpgOffsetGuidedFragment(), android.R.id.content);
+                    break;
                 case R.string.change_user_title:
                     Intent intent = new Intent(this, AuthActivityTv.class);
                     startActivity(intent);

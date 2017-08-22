@@ -20,6 +20,7 @@
     <string name="clear_cache_title">Clear database cache?</string>
     <string name="clear_cache_title_short">Clear cache</string>
     <string name="clear_cache_description">Clears the data inside the application\'s internal database.</string>
+    <string name="clear_cache_toast">Please clear your cache to update your listings.</string>
     <string name="connected_description_live_channels">The channels will now sync into the Live Channels. Happy watching!</string>
     <string name="connected_description_standalone">You can now download the Live Channels app to benefit from live TV or you can watch VOD\'s/Catchup here.</string>
     <string name="connection_description_account_change">Enjoy using your new account</string>
@@ -36,6 +37,9 @@
     <string name="download_update_text">Download update</string>
     <string name="enter_password_title">Please enter your password</string>
     <string name="enter_username_title">Please enter your Ace TV account username</string>
+    <string name="epg_offset_title">TV Catchup EPG offset</string>
+    <string name="epg_offset_title_short">EPG offset</string>
+    <string name="epg_offset_description">Changes the EPG offset for watching TV Catchup content</string>
     <string name="error_text">Error</string>
     <string name="file_saved_storage">File saved at %1$s</string>
     <string name="file_saving_error">An problem occurred while saving the file</string>
@@ -46,6 +50,7 @@
     <string name="force_video_fit_title_short">Force strech</string>
     <string name="force_video_fit_description">Forces a video to fit into full screen</string>
     <string name="hls_text">HLS</string>
+    <string name="hours_text">%1$d hours</string>
     <string name="internet_not_available">Please verify your internet connection</string>
     <string name="lets_go_text">Let\'s go</string>
     <string name="mpeg_ts_text">MPEG-TS</string>
@@ -55,6 +60,8 @@
     <string name="no_text">No</string>
     <string name="no_update_available">You are running the latest version!</string>
     <string name="not_yet_text">Not yet</string>
+    <string name="offset_empty">Please enter an offset</string>
+    <string name="offset_text">Offset</string>
     <string name="ok_text">Ok</string>
     <string name="password_text">Password</string>
     <string name="tv_input_label">Ace TV</string>
