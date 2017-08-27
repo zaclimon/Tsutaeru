@@ -96,7 +96,11 @@ public class AppUpdateDownloadGuidedFragment extends GuidedStepFragment implemen
         installIntent.setAction(Intent.ACTION_INSTALL_PACKAGE);
         installIntent.setData(uri);
         installIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        getFragmentManager().popBackStack();
+
+        if (getFragmentManager() != null) {
+            getFragmentManager().popBackStack();
+        }
+
         startActivity(installIntent);
 
     }
