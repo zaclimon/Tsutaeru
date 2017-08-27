@@ -54,6 +54,7 @@ public class AsyncDownloadChangelog extends AsyncTask<Void, Void, Integer> {
 
             StringBuilder stringBuilder = new StringBuilder();
             JSONArray changelogs;
+            JSONObject latestChangelogObject;
             String tempLine;
 
             while ((tempLine = bufferedReader.readLine()) != null) {
@@ -62,19 +63,16 @@ public class AsyncDownloadChangelog extends AsyncTask<Void, Void, Integer> {
 
             // The changelog elements are in a separate JSON array.
             changelogs = new JSONArray(stringBuilder.toString());
+            latestChangelogObject = changelogs.getJSONObject(0);
 
-            for (int i = 0; i < changelogs.length(); i++) {
-                JSONObject jsonObject = changelogs.getJSONObject(i);
+            // We should only need to check for the latest version.
+            if (latestChangelogObject.getInt(UPDATE_JSON_VERSION_CODE_TAG) > BuildConfig.VERSION_CODE) {
+                JSONArray changelogElements = latestChangelogObject.getJSONArray(UPDATE_JSON_CHANGELOG_TAG);
+                mVersionName = latestChangelogObject.getString(UPDATE_JSON_VERSION_NAME_TAG);
+                mChangelog = new String[changelogElements.length()];
 
-                // If the changelog element is the right one
-                if (jsonObject.getInt(UPDATE_JSON_VERSION_CODE_TAG) > BuildConfig.VERSION_CODE) {
-                    JSONArray changelogElements = jsonObject.getJSONArray(UPDATE_JSON_CHANGELOG_TAG);
-                    mVersionName = jsonObject.getString(UPDATE_JSON_VERSION_NAME_TAG);
-                    mChangelog = new String[changelogElements.length()];
-
-                    for (int j = 0; j < changelogElements.length(); j++) {
-                        mChangelog[j] = (String) changelogElements.get(j);
-                    }
+                for (int j = 0; j < changelogElements.length(); j++) {
+                    mChangelog[j] = (String) changelogElements.get(j);
                 }
             }
 
