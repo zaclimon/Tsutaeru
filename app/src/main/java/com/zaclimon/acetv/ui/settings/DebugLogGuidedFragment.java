@@ -98,7 +98,7 @@ public class DebugLogGuidedFragment extends GuidedStepFragment {
      */
     private class AsyncLoadLogcat extends AsyncTask<Void, Void, Boolean> {
 
-        private final String LOG_PATH = Environment.getExternalStorageDirectory() + "/Ace-log-" + new SimpleDateFormat("dd-MM-YYYY-HH:mm:ss", Locale.CANADA).format(new Date()) + ".txt";
+        private final String LOG_PATH = Environment.getExternalStorageDirectory() + "/Ace-log-" + new SimpleDateFormat("dd-MM-YYYY-HH:mm:ss", Locale.ENGLISH).format(new Date()) + ".txt";
         private final String LOGCAT_COMMAND = "logcat -d";
         private final int OUTPUT_STREAM_BUFFER = 4096;
 
