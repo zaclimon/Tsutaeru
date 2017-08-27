@@ -1,13 +1,18 @@
 package com.zaclimon.acetv.ui.settings;
 
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.media.tv.TvContract;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v17.leanback.app.GuidedStepFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
 
 import com.google.android.media.tv.companionlibrary.EpgSyncJobService;
+import com.google.android.media.tv.companionlibrary.model.Channel;
+import com.google.android.media.tv.companionlibrary.utils.TvContractUtils;
 import com.zaclimon.acetv.R;
 import com.zaclimon.acetv.service.AceJobService;
 import com.zaclimon.acetv.util.Constants;
@@ -45,11 +50,40 @@ public class EpgForceSyncGuidedFragment extends GuidedStepFragment {
     @Override
     public void onGuidedActionClicked(GuidedAction guidedAction) {
         if (guidedAction.getId() == GuidedAction.ACTION_ID_YES) {
-            String inputId = TvContract.buildInputId(Constants.TV_INPUT_SERVICE_COMPONENT);
-            EpgSyncJobService.requestImmediateSync(getActivity(), inputId, TimeUnit.HOURS.toMillis(48), new ComponentName(getActivity(), AceJobService.class));
+            new AsyncResyncPrograms().execute();
             add(getFragmentManager(), new EpgSyncLoadingGuidedFragment());
         } else {
             getActivity().finish();
+        }
+    }
+
+    /**
+     * Private class that removes all programs and then syncs them back up
+     *
+     * @author zaclimon
+     * Creation date: 27/08/17
+     */
+    private class AsyncResyncPrograms extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        public Void doInBackground(Void... params) {
+
+            if (isAdded()) {
+                ContentResolver contentResolver = getActivity().getContentResolver();
+                List<Channel> channels = TvContractUtils.getChannels(contentResolver);
+
+                for (Channel channel : channels) {
+                    Uri channelProgramsUri = TvContract.buildProgramsUriForChannel(channel.getId());
+                    contentResolver.delete(channelProgramsUri, null, null);
+                }
+            }
+            return (null);
+        }
+
+        @Override
+        public void onPostExecute(Void result) {
+            String inputId = TvContract.buildInputId(Constants.TV_INPUT_SERVICE_COMPONENT);
+            EpgSyncJobService.requestImmediateSync(getActivity(), inputId, TimeUnit.HOURS.toMillis(48), new ComponentName(getActivity(), AceJobService.class));
         }
     }
 
