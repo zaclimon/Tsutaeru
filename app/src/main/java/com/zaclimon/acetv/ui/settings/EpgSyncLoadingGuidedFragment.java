@@ -58,7 +58,7 @@ public class EpgSyncLoadingGuidedFragment extends GuidedStepFragment {
             String inputIdExtra = intent.getStringExtra(EpgSyncJobService.BUNDLE_KEY_INPUT_ID);
             String aceInputId = TvContract.buildInputId(Constants.TV_INPUT_SERVICE_COMPONENT);
 
-            if (inputIdExtra.equals(aceInputId)) {
+            if (inputIdExtra != null && inputIdExtra.equals(aceInputId)) {
                 String syncStatus = intent.getStringExtra(EpgSyncJobService.SYNC_STATUS);
 
                 if (syncStatus.equals(EpgSyncJobService.SYNC_FINISHED)) {
