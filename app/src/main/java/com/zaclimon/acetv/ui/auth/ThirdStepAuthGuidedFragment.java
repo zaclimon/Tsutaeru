@@ -63,7 +63,7 @@ public class ThirdStepAuthGuidedFragment extends GuidedStepFragment {
                 GuidedStepFragment loadingFragment = new FourthAuthGuidedFragment();
                 Bundle arguments = new Bundle();
                 arguments.putString(SecondStepAuthGuidedFragment.USERNAME_ARGUMENT, getArguments().getString(SecondStepAuthGuidedFragment.USERNAME_ARGUMENT));
-                arguments.putString(PASSWORD_ARGUMENT, password);
+                arguments.putString(PASSWORD_ARGUMENT, password.trim());
                 loadingFragment.setArguments(arguments);
                 add(getFragmentManager(), loadingFragment);
             } else {
