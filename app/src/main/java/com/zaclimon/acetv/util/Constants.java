@@ -34,7 +34,7 @@ public class Constants {
     public static final String EXTERNAL_PLAYER_PREFERENCE = "external_player";
 
     // App update stuff
-    public static final String ACE_BASE_URL = "https://quantaworks.io/public/acetv/";
+    public static final String ACE_BASE_URL = "https://storage.googleapis.com/ace-tv/";
     public static final String ACE_CHANGELOG_URL = ACE_BASE_URL + "updater/changelog.json";
     public static final String ACE_RELEASES_URL = ACE_BASE_URL + "releases/";
 }
