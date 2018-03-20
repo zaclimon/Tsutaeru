@@ -65,7 +65,7 @@ public class RealmContentPersistence implements ContentPersistence {
     }
 
     @Override
-    public void deleteAllItems() {
+    public void deleteAll() {
         Realm realm = Realm.getDefaultInstance();
         realm.executeTransaction(new Realm.Transaction() {
             @Override
@@ -77,7 +77,7 @@ public class RealmContentPersistence implements ContentPersistence {
     }
 
     @Override
-    public List<AvContent> listAllItems() {
+    public List<AvContent> listAll() {
         Realm realm = Realm.getDefaultInstance();
         List<AvContent> tempList = convertFromRealm(realm.where(RealmAvContent.class).findAll());
         realm.close();
@@ -85,7 +85,7 @@ public class RealmContentPersistence implements ContentPersistence {
     }
 
     @Override
-    public List<AvContent> searchCategory(String category, boolean isAlphabeticallySorted) {
+    public List<AvContent> getFromCategory(String category, boolean isAlphabeticallySorted) {
         Realm realm = Realm.getDefaultInstance();
         List<AvContent> tempList;
 
@@ -101,7 +101,7 @@ public class RealmContentPersistence implements ContentPersistence {
     }
 
     @Override
-    public List<AvContent> searchTitle(String title, boolean isAlphabeticallySorted) {
+    public List<AvContent> getFromTitle(String title, boolean isAlphabeticallySorted) {
         Realm realm = Realm.getDefaultInstance();
         List<AvContent> tempList;
 
