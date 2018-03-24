@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.tv.TvContract;
-import android.support.v17.leanback.app.GuidedStepFragment;
+import android.support.v17.leanback.app.GuidedStepSupportFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v4.content.LocalBroadcastManager;
 import android.widget.TextView;
@@ -23,7 +23,7 @@ import com.zaclimon.acetv.util.Constants;
  * Creation date: 06/08/17
  */
 
-public class EpgSyncLoadingGuidedFragment extends GuidedStepFragment {
+public class EpgSyncLoadingGuidedFragment extends GuidedStepSupportFragment {
 
     @Override
     public void onStart() {

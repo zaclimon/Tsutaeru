@@ -1,7 +1,7 @@
 package com.zaclimon.acetv.ui.auth;
 
 import android.os.Bundle;
-import android.support.v17.leanback.app.GuidedStepFragment;
+import android.support.v17.leanback.app.GuidedStepSupportFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
 import android.text.InputType;
@@ -21,7 +21,7 @@ import java.util.List;
  * Creation date: 23/06/17
  */
 
-public class ThirdStepAuthGuidedFragment extends GuidedStepFragment {
+public class ThirdStepAuthGuidedFragment extends GuidedStepSupportFragment {
 
     protected static final String PASSWORD_ARGUMENT = "password";
 
@@ -60,7 +60,7 @@ public class ThirdStepAuthGuidedFragment extends GuidedStepFragment {
             String password = action.getEditTitle().toString();
 
             if (!TextUtils.isEmpty(password)) {
-                GuidedStepFragment loadingFragment = new FourthAuthGuidedFragment();
+                GuidedStepSupportFragment loadingFragment = new FourthAuthGuidedFragment();
                 Bundle arguments = new Bundle();
                 arguments.putString(SecondStepAuthGuidedFragment.USERNAME_ARGUMENT, getArguments().getString(SecondStepAuthGuidedFragment.USERNAME_ARGUMENT));
                 arguments.putString(PASSWORD_ARGUMENT, password.trim());

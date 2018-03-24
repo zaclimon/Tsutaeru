@@ -3,7 +3,7 @@ package com.zaclimon.acetv.ui.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v17.leanback.app.GuidedStepFragment;
+import android.support.v17.leanback.app.GuidedStepSupportFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
 import android.text.InputType;
@@ -11,8 +11,6 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.zaclimon.acetv.R;
-import com.zaclimon.acetv.ui.auth.FourthAuthGuidedFragment;
-import com.zaclimon.acetv.ui.auth.SecondStepAuthGuidedFragment;
 import com.zaclimon.acetv.util.Constants;
 
 import java.util.List;
@@ -24,7 +22,7 @@ import java.util.List;
  * Creation date: 22/08/17
  */
 
-public class TvCatchupEpgOffsetGuidedFragment extends GuidedStepFragment {
+public class TvCatchupEpgOffsetGuidedFragment extends GuidedStepSupportFragment {
 
     private final int ACTION_OFFSET = 0;
 

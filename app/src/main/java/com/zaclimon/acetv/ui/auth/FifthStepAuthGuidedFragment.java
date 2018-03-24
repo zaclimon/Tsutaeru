@@ -3,7 +3,7 @@ package com.zaclimon.acetv.ui.auth;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.os.Bundle;
-import android.support.v17.leanback.app.GuidedStepFragment;
+import android.support.v17.leanback.app.GuidedStepSupportFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
 
@@ -22,7 +22,7 @@ import java.util.List;
  * Creation date: 24/06/17
  */
 
-public class FifthStepAuthGuidedFragment extends GuidedStepFragment {
+public class FifthStepAuthGuidedFragment extends GuidedStepSupportFragment {
 
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
@@ -51,6 +51,6 @@ public class FifthStepAuthGuidedFragment extends GuidedStepFragment {
     @Override
     public void onGuidedActionClicked(GuidedAction guidedAction) {
         getActivity().setResult(Activity.RESULT_OK);
-        finishGuidedStepFragments();
+        finishGuidedStepSupportFragments();
     }
 }

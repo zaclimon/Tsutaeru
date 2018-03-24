@@ -3,7 +3,7 @@ package com.zaclimon.acetv.ui.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v17.leanback.app.GuidedStepFragment;
+import android.support.v17.leanback.app.GuidedStepSupportFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
 
@@ -20,7 +20,7 @@ import java.util.List;
  * Creation date: 31/07/17
  */
 
-public class ForceFitScreenGuidedFragment extends GuidedStepFragment {
+public class ForceFitScreenGuidedFragment extends GuidedStepSupportFragment {
 
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {

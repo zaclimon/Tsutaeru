@@ -1,7 +1,7 @@
 package com.zaclimon.acetv.ui.tvinputsetup;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
 import com.zaclimon.acetv.R;
 
@@ -13,7 +13,7 @@ import com.zaclimon.acetv.R;
  * Creation date: 11/06/17
  */
 
-public class AceTvInputSetupActivity extends Activity {
+public class AceTvInputSetupActivity extends FragmentActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

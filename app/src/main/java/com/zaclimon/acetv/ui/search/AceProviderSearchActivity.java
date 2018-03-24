@@ -1,6 +1,6 @@
 package com.zaclimon.acetv.ui.search;
 
-import android.support.v17.leanback.app.SearchFragment;
+import android.support.v17.leanback.app.SearchSupportFragment;
 
 import com.zaclimon.acetv.R;
 import com.zaclimon.xipl.ui.search.ProviderSearchActivity;
@@ -16,7 +16,7 @@ import com.zaclimon.xipl.ui.search.ProviderSearchActivity;
 public class AceProviderSearchActivity extends ProviderSearchActivity {
 
     @Override
-    protected SearchFragment getSearchFragment() {
+    protected SearchSupportFragment getSearchFragment() {
         return (new AceProviderSearchFragment());
     }
 

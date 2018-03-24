@@ -1,7 +1,7 @@
 package com.zaclimon.acetv.ui.settings;
 
 import android.os.Bundle;
-import android.support.v17.leanback.app.GuidedStepFragment;
+import android.support.v17.leanback.app.GuidedStepSupportFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
 
@@ -19,7 +19,7 @@ import java.util.List;
  * Creation date: 03/07/17
  */
 
-public class AboutGuidedFragment extends GuidedStepFragment {
+public class AboutGuidedFragment extends GuidedStepSupportFragment {
 
     private final int USER_INFO_ACTION = 0;
     private final int APP_UPDATE_ACTION = 1;

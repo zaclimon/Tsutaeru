@@ -1,7 +1,7 @@
 package com.zaclimon.acetv.ui.main;
 
 import android.os.Bundle;
-import android.support.v17.leanback.app.RowsFragment;
+import android.support.v17.leanback.app.RowsSupportFragment;
 import android.widget.Toast;
 
 import com.zaclimon.acetv.R;
@@ -40,9 +40,9 @@ public class MainTvFragment extends ProviderTvFragment implements AppUpdateView 
     }
 
     @Override
-    protected Map<String, RowsFragment> getFragmentMap() {
+    protected Map<String, RowsSupportFragment> getFragmentMap() {
         // A LinkedHashMap is used in this case since it retains the position of each inserted object.
-        Map<String, RowsFragment> aceFragments = new LinkedHashMap<>();
+        Map<String, RowsSupportFragment> aceFragments = new LinkedHashMap<>();
 
         aceFragments.put(getString(R.string.vod_text), new VodTvFragment());
         aceFragments.put(getString(R.string.series_title), new SeriesTvFragment());

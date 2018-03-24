@@ -1,11 +1,12 @@
 package com.zaclimon.acetv.ui.main;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.media.tv.TvContract;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -27,7 +28,7 @@ import io.realm.RealmConfiguration;
  * Creation date: 20/06/17
  */
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
 
     private final int AUTH_REQUEST = 0;
 
@@ -58,7 +59,7 @@ public class MainActivity extends Activity {
      * Adds the correct layout based on the display type
      */
     private void configureLayout() {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
         if (ActivityUtil.isTvMode(this)) {
             fragmentTransaction.add(R.id.activity_fragment_holder, new MainTvFragment());

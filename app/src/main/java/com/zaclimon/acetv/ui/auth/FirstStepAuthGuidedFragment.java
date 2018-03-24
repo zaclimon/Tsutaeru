@@ -1,7 +1,7 @@
 package com.zaclimon.acetv.ui.auth;
 
 import android.os.Bundle;
-import android.support.v17.leanback.app.GuidedStepFragment;
+import android.support.v17.leanback.app.GuidedStepSupportFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
 
@@ -19,7 +19,7 @@ import java.util.List;
  * Creation date: 23/06/17
  */
 
-public class FirstStepAuthGuidedFragment extends GuidedStepFragment {
+public class FirstStepAuthGuidedFragment extends GuidedStepSupportFragment {
 
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class FirstStepAuthGuidedFragment extends GuidedStepFragment {
         long id = guidedAction.getId();
 
         if (id == GuidedAction.ACTION_ID_OK) {
-            add(getActivity().getFragmentManager(), new SecondStepAuthGuidedFragment());
+            add(getActivity().getSupportFragmentManager(), new SecondStepAuthGuidedFragment());
         } else if (id == GuidedAction.ACTION_ID_CANCEL) {
             getActivity().finish();
         }

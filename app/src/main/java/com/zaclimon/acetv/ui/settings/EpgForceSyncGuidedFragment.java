@@ -6,7 +6,7 @@ import android.media.tv.TvContract;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v17.leanback.app.GuidedStepFragment;
+import android.support.v17.leanback.app.GuidedStepSupportFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
 
@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
  * Creation date: 22/06/17
  */
 
-public class EpgForceSyncGuidedFragment extends GuidedStepFragment {
+public class EpgForceSyncGuidedFragment extends GuidedStepSupportFragment {
 
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {

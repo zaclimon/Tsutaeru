@@ -1,10 +1,10 @@
 package com.zaclimon.acetv.ui.settings.appupdate;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.v17.leanback.app.GuidedStepFragment;
+import android.support.v17.leanback.app.GuidedStepSupportFragment;
 import android.support.v17.leanback.app.ProgressBarManager;
 import android.support.v17.leanback.widget.GuidedAction;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -20,7 +20,7 @@ import java.util.List;
  * Creation date: 04/08/17
  */
 
-public class AppUpdateGuidedFragment extends GuidedStepFragment implements AppUpdateView {
+public class AppUpdateGuidedFragment extends GuidedStepSupportFragment implements AppUpdateView {
 
     private ProgressBarManager mProgressBarManager;
     private String mNewVersionName;
@@ -65,7 +65,7 @@ public class AppUpdateGuidedFragment extends GuidedStepFragment implements AppUp
         int id = (int) guidedAction.getId();
 
         if (id == DOWNLOAD_ID) {
-            GuidedStepFragment downloadFragment = new AppUpdateDownloadGuidedFragment();
+            GuidedStepSupportFragment downloadFragment = new AppUpdateDownloadGuidedFragment();
             Bundle bundle = new Bundle();
             bundle.putString(AppUpdateDownloadGuidedFragment.APP_VERSION_BUNDLE, mNewVersionName);
             downloadFragment.setArguments(bundle);

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.tv.TvContract;
 import android.os.Bundle;
-import android.support.v17.leanback.app.GuidedStepFragment;
+import android.support.v17.leanback.app.GuidedStepSupportFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
 
@@ -25,7 +25,7 @@ import java.util.List;
  * Creation date: 21/06/17
  */
 
-public class StreamTypeGuidedFragment extends GuidedStepFragment {
+public class StreamTypeGuidedFragment extends GuidedStepSupportFragment {
 
     private final int ACTION_MPEG_TS = 0;
     private final int ACTION_HLS = 1;

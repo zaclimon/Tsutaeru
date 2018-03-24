@@ -3,7 +3,7 @@ package com.zaclimon.acetv.ui.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v17.leanback.app.GuidedStepFragment;
+import android.support.v17.leanback.app.GuidedStepSupportFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
 
@@ -20,7 +20,7 @@ import java.util.List;
  * Creation date: 22/08/17.
  */
 
-public class VodExternalPlayerGuidedFragment extends GuidedStepFragment {
+public class VodExternalPlayerGuidedFragment extends GuidedStepSupportFragment {
 
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {

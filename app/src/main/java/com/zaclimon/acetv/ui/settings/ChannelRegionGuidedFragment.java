@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.media.tv.TvContract;
 import android.os.Bundle;
 import android.support.v17.leanback.app.GuidedStepFragment;
+import android.support.v17.leanback.app.GuidedStepSupportFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
 
@@ -25,7 +26,7 @@ import java.util.concurrent.TimeUnit;
  * Creation date: 06/08/17
  */
 
-public class ChannelRegionGuidedFragment extends GuidedStepFragment {
+public class ChannelRegionGuidedFragment extends GuidedStepSupportFragment {
 
     private final int ACTION_UK_REGION_ID = 0;
     private final int ACTION_NA_REGION_ID = 1;

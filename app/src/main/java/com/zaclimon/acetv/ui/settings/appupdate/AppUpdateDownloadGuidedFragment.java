@@ -6,8 +6,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v13.app.FragmentCompat;
-import android.support.v17.leanback.app.GuidedStepFragment;
+import android.support.v17.leanback.app.GuidedStepSupportFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -29,7 +28,7 @@ import java.io.File;
  * Creation date: 04/08/17
  */
 
-public class AppUpdateDownloadGuidedFragment extends GuidedStepFragment implements FileDownloadView {
+public class AppUpdateDownloadGuidedFragment extends GuidedStepSupportFragment implements FileDownloadView {
 
     protected static final String APP_VERSION_BUNDLE = "app_version";
 
@@ -77,7 +76,7 @@ public class AppUpdateDownloadGuidedFragment extends GuidedStepFragment implemen
 
     @Override
     public void askPermissions() {
-        FragmentCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_REQUEST);
+        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_REQUEST);
     }
 
     @Override

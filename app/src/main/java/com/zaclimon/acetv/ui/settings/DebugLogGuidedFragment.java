@@ -5,8 +5,7 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v13.app.FragmentCompat;
-import android.support.v17.leanback.app.GuidedStepFragment;
+import android.support.v17.leanback.app.GuidedStepSupportFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
 import android.support.v4.content.ContextCompat;
@@ -36,7 +35,7 @@ import java.util.Locale;
  * Creation date: 28/06/17
  */
 
-public class DebugLogGuidedFragment extends GuidedStepFragment {
+public class DebugLogGuidedFragment extends GuidedStepSupportFragment {
 
     private final int WRITE_PERMISSION_REQUEST = 0;
 
@@ -65,7 +64,7 @@ public class DebugLogGuidedFragment extends GuidedStepFragment {
             if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 new AsyncLoadLogcat().execute();
             } else {
-                FragmentCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_PERMISSION_REQUEST);
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_PERMISSION_REQUEST);
             }
         } else {
             getActivity().finish();

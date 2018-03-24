@@ -1,7 +1,7 @@
 package com.zaclimon.acetv.ui.auth;
 
 import android.os.Bundle;
-import android.support.v17.leanback.app.GuidedStepFragment;
+import android.support.v17.leanback.app.GuidedStepSupportFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +21,7 @@ import com.zaclimon.acetv.util.Constants;
  * Creation date: 24/06/17
  */
 
-public class FourthAuthGuidedFragment extends GuidedStepFragment implements AuthView {
+public class FourthAuthGuidedFragment extends GuidedStepSupportFragment implements AuthView {
 
     @Override
     public void onStart() {
@@ -50,7 +50,7 @@ public class FourthAuthGuidedFragment extends GuidedStepFragment implements Auth
 
     @Override
     public void onConnectionSuccess() {
-        GuidedStepFragment connectedFragment = new FifthStepAuthGuidedFragment();
+        GuidedStepSupportFragment connectedFragment = new FifthStepAuthGuidedFragment();
         Bundle bundle = new Bundle();
 
         bundle.putString(SecondStepAuthGuidedFragment.USERNAME_ARGUMENT, getArguments().getString(SecondStepAuthGuidedFragment.USERNAME_ARGUMENT));
@@ -61,7 +61,7 @@ public class FourthAuthGuidedFragment extends GuidedStepFragment implements Auth
     @Override
     public void onWrongCredentialsReceived() {
         Toast.makeText(getActivity(), R.string.wrong_credentials_toast, Toast.LENGTH_LONG).show();
-        popBackStackToGuidedStepFragment(ThirdStepAuthGuidedFragment.class, 0);
+        popBackStackToGuidedStepSupportFragment(ThirdStepAuthGuidedFragment.class, 0);
     }
 
     @Override
@@ -73,6 +73,6 @@ public class FourthAuthGuidedFragment extends GuidedStepFragment implements Auth
     @Override
     public void onTimeoutReceived() {
         Toast.makeText(getActivity(), R.string.connection_timeout_toast, Toast.LENGTH_SHORT).show();
-        popBackStackToGuidedStepFragment(ThirdStepAuthGuidedFragment.class, 0);
+        popBackStackToGuidedStepSupportFragment(ThirdStepAuthGuidedFragment.class, 0);
     }
 }

@@ -1,14 +1,14 @@
 package com.zaclimon.acetv.ui.settings.userinfo;
 
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v17.leanback.app.ErrorFragment;
-import android.support.v17.leanback.app.GuidedStepFragment;
+import android.support.v17.leanback.app.ErrorSupportFragment;
+import android.support.v17.leanback.app.GuidedStepSupportFragment;
 import android.support.v17.leanback.app.ProgressBarManager;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -26,7 +26,7 @@ import java.util.List;
  * Creation date: 03/07/17
  */
 
-public class UserInfoGuidedFragment extends GuidedStepFragment implements UserInfoView {
+public class UserInfoGuidedFragment extends GuidedStepSupportFragment implements UserInfoView {
 
     private ProgressBarManager mProgressBarManager;
 
@@ -98,7 +98,7 @@ public class UserInfoGuidedFragment extends GuidedStepFragment implements UserIn
     public void onConnectionFailed() {
         if (isAdded()) {
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            ErrorFragment errorFragment = new ErrorFragment();
+            ErrorSupportFragment errorFragment = new ErrorSupportFragment();
             errorFragment.setImageDrawable(getActivity().getDrawable(R.drawable.lb_ic_sad_cloud));
             errorFragment.setMessage(getString(R.string.user_info_not_accessible));
             errorFragment.setDefaultBackground(true);
