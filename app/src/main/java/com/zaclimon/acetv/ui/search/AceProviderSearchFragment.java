@@ -2,7 +2,7 @@ package com.zaclimon.acetv.ui.search;
 
 import android.os.Bundle;
 
-import com.zaclimon.acetv.data.RealmContentPersistence;
+import com.zaclimon.acetv.data.RoomContentPersistence;
 import com.zaclimon.acetv.ui.components.cardview.PicassoCardViewImageProcessor;
 import com.zaclimon.acetv.ui.playback.AcePlaybackActivity;
 import com.zaclimon.xipl.persistence.ContentPersistence;
@@ -24,7 +24,7 @@ public class AceProviderSearchFragment extends ProviderSearchFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        mContentPersistence = new RealmContentPersistence();
+        mContentPersistence = new RoomContentPersistence(getActivity());
         mCardViewImageProcessor = new PicassoCardViewImageProcessor();
         super.onCreate(savedInstanceState);
     }

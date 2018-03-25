@@ -53,7 +53,8 @@ public abstract class AceTvDatabase extends RoomDatabase {
         if (sInstance == null) {
             synchronized (LOCK) {
                 if (sInstance == null) {
-                    sInstance = Room.databaseBuilder(context.getApplicationContext(), AceTvDatabase.class, DATABASE_NAME).build();
+                    // Allow queries on the main thread since xipl is executing some of them on it.
+                    sInstance = Room.databaseBuilder(context.getApplicationContext(), AceTvDatabase.class, DATABASE_NAME).allowMainThreadQueries().build();
                 }
             }
         }
