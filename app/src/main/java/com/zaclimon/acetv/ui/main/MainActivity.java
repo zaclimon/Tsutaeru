@@ -16,8 +16,6 @@ import com.zaclimon.acetv.util.ActivityUtil;
 import com.zaclimon.acetv.util.Constants;
 
 import io.fabric.sdk.android.Fabric;
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
 
 
 /**
@@ -36,8 +34,6 @@ public class MainActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
-        Realm.init(this);
-        Realm.setDefaultConfiguration(getDefaultConfiguration());
 
         setContentView(R.layout.activity_main);
 
@@ -82,15 +78,4 @@ public class MainActivity extends FragmentActivity {
 
     }
 
-    /**
-     * Gets the default configuration for the database for the application.
-     *
-     * @return the {@link RealmConfiguration} for the app.
-     */
-    private RealmConfiguration getDefaultConfiguration() {
-        RealmConfiguration.Builder builder = new RealmConfiguration.Builder();
-        builder.compactOnLaunch();
-        builder.deleteRealmIfMigrationNeeded();
-        return (builder.build());
-    }
 }

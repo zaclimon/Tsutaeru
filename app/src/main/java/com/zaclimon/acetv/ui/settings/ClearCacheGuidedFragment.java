@@ -7,11 +7,10 @@ import android.support.v17.leanback.widget.GuidedAction;
 import android.widget.Toast;
 
 import com.zaclimon.acetv.R;
-import com.zaclimon.acetv.data.RealmAvContent;
+import com.zaclimon.acetv.data.AceTvDatabase;
+import com.zaclimon.acetv.data.AvContentDao;
 
 import java.util.List;
-
-import io.realm.Realm;
 
 /**
  * Guided Fragment responsible for clearing all cache inside the application.
@@ -43,14 +42,8 @@ public class ClearCacheGuidedFragment extends GuidedStepSupportFragment {
     @Override
     public void onGuidedActionClicked(GuidedAction guidedAction) {
         if (guidedAction.getId() == GuidedAction.ACTION_ID_YES) {
-            Realm realm = Realm.getDefaultInstance();
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    realm.where(RealmAvContent.class).findAll().deleteAllFromRealm();
-                }
-            });
-            realm.close();
+            AvContentDao contentDao = AceTvDatabase.getInstance(getActivity()).avContentDao();
+            contentDao.deleteAll();
             Toast.makeText(getActivity(), R.string.database_cleared_text, Toast.LENGTH_SHORT).show();
         }
         getActivity().finish();
