@@ -77,7 +77,7 @@ public class RealmContentPersistence implements ContentPersistence {
     }
 
     @Override
-    public List<AvContent> listAll() {
+    public List<AvContent> getAll() {
         Realm realm = Realm.getDefaultInstance();
         List<AvContent> tempList = convertFromRealm(realm.where(RealmAvContent.class).findAll());
         realm.close();
