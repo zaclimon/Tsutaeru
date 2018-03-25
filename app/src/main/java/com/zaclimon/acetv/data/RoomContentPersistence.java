@@ -61,7 +61,11 @@ public class RoomContentPersistence implements ContentPersistence {
 
     @Override
     public List<AvContent> getFromTitle(String title, boolean isAlphabeticallySorted) {
-        List<RoomAvContent> tempContents = mContentDao.getFromTitle(title);
+        // For Room search queries, looks like the "%" symbols are required before the query.
+        StringBuilder builder = new StringBuilder(title);
+        builder.insert(0, "%");
+        builder.append("%");
+        List<RoomAvContent> tempContents = mContentDao.getFromTitle(builder.toString());
         return (convertFromRoom(tempContents));
     }
 

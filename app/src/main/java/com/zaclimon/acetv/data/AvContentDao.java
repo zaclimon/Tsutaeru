@@ -52,7 +52,7 @@ public interface AvContentDao {
      * @param title the title of a given content
      * @return the list of contents.
      */
-    @Query("SELECT * FROM contents WHERE LOWER(mTitle) LIKE LOWER(:title) ORDER BY mTitle")
+    @Query("SELECT * FROM contents WHERE mTitle LIKE :title")
     List<RoomAvContent> getFromTitle(String title);
 
     /**
