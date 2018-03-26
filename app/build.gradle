@@ -42,8 +42,6 @@ dependencies {
 
     // Android TV stuff
     implementation 'com.android.support:leanback-v17:28.0.0-alpha1'
-    implementation 'com.google.android.exoplayer:exoplayer-core:r2.5.1'
-    implementation 'com.google.android.exoplayer:exoplayer-hls:r2.5.1'
     implementation project(':xipl')
 
     // JUnit stuff
