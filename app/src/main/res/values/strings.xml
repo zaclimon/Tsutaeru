@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Ace TV</string>
+    <string name="app_name">Tsutaeru</string>
     <string name="about_text">About</string>
     <string name="app_update_title">Check for updates</string>
     <string name="app_update_download_failure">Could not download the update!</string>

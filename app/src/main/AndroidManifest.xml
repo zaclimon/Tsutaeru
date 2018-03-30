@@ -1,4 +1,4 @@
-<manifest package="com.zaclimon.acetv"
+<manifest package="com.zaclimon.tsutaeru"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -27,7 +27,7 @@
         android:banner="@drawable/ace_banner">
 
         <activity
-            android:name="com.zaclimon.acetv.ui.main.MainActivity"
+            android:name="com.zaclimon.tsutaeru.ui.main.MainActivity"
             android:theme="@style/TvTheme">
 
             <intent-filter>
@@ -36,12 +36,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.zaclimon.acetv.ui.tvinputsetup.AceTvInputSetupActivity" android:theme="@style/TvTheme" android:exported="true"/>
-        <activity android:name="com.zaclimon.acetv.ui.auth.AuthActivityTv"/>
-        <activity android:name="com.zaclimon.acetv.ui.settings.AceSettingsElementActivity"/>
-        <activity android:name=".ui.search.AceProviderSearchActivity"/>
+        <activity android:name="com.zaclimon.tsutaeru.ui.tvinputsetup.TsutaeruTvInputSetupActivity" android:theme="@style/TvTheme" android:exported="true"/>
+        <activity android:name="com.zaclimon.tsutaeru.ui.auth.AuthActivityTv"/>
+        <activity android:name="com.zaclimon.tsutaeru.ui.settings.TsutaeruSettingsElementActivity"/>
+        <activity android:name=".ui.search.TsutaeruProviderSearchActivity"/>
 
-        <activity android:name="com.zaclimon.acetv.ui.playback.AcePlaybackActivity" android:resizeableActivity="true"
+        <activity android:name="com.zaclimon.tsutaeru.ui.playback.TsutaeruPlaybackActivity" android:resizeableActivity="true"
                   android:supportsPictureInPicture="true"
                   android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"/>
 
@@ -53,16 +53,16 @@
             </intent-filter>
             <meta-data
                 android:name="android.media.tv.input"
-                android:resource="@xml/ace_tv_input_service" />
+                android:resource="@xml/tsutaeru_input_service" />
         </service>
 
         <service
-            android:name="com.zaclimon.acetv.service.AceJobService"
+            android:name="com.zaclimon.tsutaeru.service.TsutaeruJobService"
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="true" />
 
         <receiver
-            android:name="com.zaclimon.acetv.receiver.AceTvEpgReceiver">
+            android:name="com.zaclimon.tsutaeru.receiver.TsutaeruTvEpgReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
