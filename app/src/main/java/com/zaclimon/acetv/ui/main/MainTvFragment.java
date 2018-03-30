@@ -7,8 +7,6 @@ import android.widget.Toast;
 import com.zaclimon.acetv.R;
 import com.zaclimon.acetv.ui.search.AceProviderSearchActivity;
 import com.zaclimon.acetv.ui.settings.AceSettingsFragment;
-import com.zaclimon.acetv.ui.settings.appupdate.AppUpdatePresenterImpl;
-import com.zaclimon.acetv.ui.settings.appupdate.AppUpdateView;
 import com.zaclimon.acetv.ui.vod.CatchupTvFragment;
 import com.zaclimon.acetv.ui.vod.SeriesTvFragment;
 import com.zaclimon.acetv.ui.vod.VodTvFragment;
@@ -25,13 +23,12 @@ import java.util.Map;
  * Creation date: 20/06/17
  */
 
-public class MainTvFragment extends ProviderTvFragment implements AppUpdateView {
+public class MainTvFragment extends ProviderTvFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setBadgeDrawable(getActivity().getDrawable(R.drawable.ace_badge_white));
-        new AppUpdatePresenterImpl(this).fetchUpdate();
     }
 
     @Override
@@ -54,20 +51,6 @@ public class MainTvFragment extends ProviderTvFragment implements AppUpdateView 
     @Override
     protected Class<? extends ProviderSearchActivity> getSearchActivity() {
         return (AceProviderSearchActivity.class);
-    }
-
-    @Override
-    public void onNewVersionDetected(String versionName, String[] changelog) {
-        Toast.makeText(getActivity(), getString(R.string.new_version_available_toast, versionName), Toast.LENGTH_SHORT).show();
-    }
-
-    // No need to implement these methods
-    @Override
-    public void onSameVersionDetected() {
-    }
-
-    @Override
-    public void onFetchFailed() {
     }
 
 }

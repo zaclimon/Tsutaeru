@@ -7,7 +7,6 @@ import android.support.v17.leanback.widget.GuidedAction;
 
 import com.zaclimon.acetv.BuildConfig;
 import com.zaclimon.acetv.R;
-import com.zaclimon.acetv.ui.settings.appupdate.AppUpdateGuidedFragment;
 import com.zaclimon.acetv.ui.settings.userinfo.UserInfoGuidedFragment;
 
 import java.util.List;
@@ -22,7 +21,6 @@ import java.util.List;
 public class AboutGuidedFragment extends GuidedStepSupportFragment {
 
     private final int USER_INFO_ACTION = 0;
-    private final int APP_UPDATE_ACTION = 1;
 
     @Override
     public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
@@ -36,17 +34,13 @@ public class AboutGuidedFragment extends GuidedStepSupportFragment {
     @Override
     public void onCreateActions(List<GuidedAction> actions, Bundle savedInstanceState) {
         GuidedAction.Builder userInfoAction = new GuidedAction.Builder(getActivity());
-        GuidedAction.Builder appUpdateAction = new GuidedAction.Builder(getActivity());
         GuidedAction.Builder okAction = new GuidedAction.Builder(getActivity());
 
         userInfoAction.title(R.string.user_info_text);
         userInfoAction.id(USER_INFO_ACTION);
-        appUpdateAction.title(R.string.app_update_title);
-        appUpdateAction.id(APP_UPDATE_ACTION);
         okAction.clickAction(GuidedAction.ACTION_ID_OK);
 
         actions.add(userInfoAction.build());
-        actions.add(appUpdateAction.build());
         actions.add(okAction.build());
     }
 
@@ -57,8 +51,6 @@ public class AboutGuidedFragment extends GuidedStepSupportFragment {
 
         if (id == USER_INFO_ACTION) {
             add(getFragmentManager(), new UserInfoGuidedFragment());
-        } else if (id == APP_UPDATE_ACTION) {
-            add(getFragmentManager(), new AppUpdateGuidedFragment());
         } else {
             getActivity().finish();
         }
