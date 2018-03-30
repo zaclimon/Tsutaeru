@@ -52,6 +52,9 @@ public class AceSettingsElementActivity extends FragmentActivity {
                 case R.string.channel_region_title:
                     GuidedStepSupportFragment.addAsRoot(this, new ChannelRegionGuidedFragment(), android.R.id.content);
                     break;
+                case R.string.channel_genre_title:
+                    GuidedStepSupportFragment.addAsRoot(this, new ChannelGenreGuidedFragment(), android.R.id.content);
+                    break;
                 case R.string.epg_offset_title:
                 case R.string.epg_offset_title_short:
                     GuidedStepSupportFragment.addAsRoot(this, new TvCatchupEpgOffsetGuidedFragment(), android.R.id.content);

@@ -9,6 +9,8 @@
     <string name="authentication_required">In order to use Ace TV services, you must sign-in.</string>
     <string name="catchup_title">TV Catchup</string>
     <string name="change_user_title">Change user</string>
+    <string name="channel_genre_title">Channel genre</string>
+    <string name="channel_genre_description">Filters the channels based on it\'s genre as defined for Live Channels.</string>
     <string name="channel_logo_title">Display channel logo?</string>
     <string name="channel_logo_title_short">Channel logo</string>
     <string name="channel_logo_description">Displays the channel\'s logo on the EPG interactive guide when using the Live Channels application. (Might take a bit of time for a full sync)</string>

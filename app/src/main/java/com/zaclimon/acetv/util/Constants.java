@@ -32,9 +32,14 @@ public class Constants {
     public static final String INTERNATIONAL_REGION_PREFERENCE = "int_region";
     public static final String EPG_OFFSET_PREFERENCE = "epg_offset";
     public static final String EXTERNAL_PLAYER_PREFERENCE = "external_player";
+    public static final String CHANNEL_GENRE_PREFERENCE = "genre_";
 
     // App update stuff
     public static final String ACE_BASE_URL = "https://storage.googleapis.com/ace-tv/";
     public static final String ACE_CHANGELOG_URL = ACE_BASE_URL + "updater/changelog.json";
     public static final String ACE_RELEASES_URL = ACE_BASE_URL + "releases/";
+
+    // xipl stuff
+    public static final String[] CHANNEL_GENRES = com.zaclimon.xipl.Constants.CHANNEL_GENRES;
+    public static final String CHANNEL_GENRES_PROVIDER = com.zaclimon.xipl.Constants.CHANNEL_GENRES_PROVIDER;
 }
