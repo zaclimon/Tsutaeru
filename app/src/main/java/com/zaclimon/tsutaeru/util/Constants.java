@@ -20,6 +20,7 @@ public class Constants {
 
     // Preferences stuff
     public static final String TSUTAERU_PREFERENCES = "TsutaeruSharedPreferences";
+    public static final String PROVIDER_URL_PREFERENCE = "provider_url";
     public static final String USERNAME_PREFERENCE = "username";
     public static final String PASSWORD_PREFERENCE = "password";
     public static final String STREAM_TYPE_PREFERENCE = "stream_type";
