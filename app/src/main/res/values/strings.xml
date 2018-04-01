@@ -38,9 +38,9 @@
     <string name="download_text">Downloading&#8230;</string>
     <string name="download_update_text">Download update</string>
     <string name="enter_password_title">Please enter your password</string>
-    <string name="enter_provider_url_title">Please enter your provider URL</string>
-    <string name="enter_provider_url_description">Example: http://test.com:8080/get.php?username=X&#38;;password=X&#38;;output=ts&#38;type=m3u_plus</string>
-    <string name="enter_username_title">Please enter your Ace TV account username</string>
+    <string name="enter_provider_url_title">Please enter your provider\'s URL</string>
+    <string name="enter_provider_url_description">Example: http://test.com:8080/</string>
+    <string name="enter_username_title">Please enter your username</string>
     <string name="epg_offset_title">TV Catchup EPG offset</string>
     <string name="epg_offset_title_short">EPG offset</string>
     <string name="epg_offset_description">Changes the EPG offset for watching TV Catchup content</string>
