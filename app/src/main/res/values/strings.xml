@@ -39,7 +39,7 @@
     <string name="download_update_text">Download update</string>
     <string name="enter_password_title">Please enter your password</string>
     <string name="enter_provider_url_title">Please enter your provider\'s URL</string>
-    <string name="enter_provider_url_description">Example: http://test.com:8080/</string>
+    <string name="enter_provider_url_description">Example: http://test.com:8080</string>
     <string name="enter_username_title">Please enter your username</string>
     <string name="epg_offset_title">TV Catchup EPG offset</string>
     <string name="epg_offset_title_short">EPG offset</string>
@@ -90,6 +90,7 @@
     <string name="user_info_not_accessible">The user info could not be accessed.</string>
     <string name="username_empty">Please enter a username</string>
     <string name="username_text">Username</string>
+    <string name="username_parameter_text">Username: %1$s</string>
     <string name="version_text">Version: %1$s</string>
     <string name="video_not_playable">The video cannot be played! Please contact Ace TV</string>
     <string name="vod_text">VOD</string>

@@ -12,11 +12,11 @@ import com.zaclimon.tsutaeru.R
  *
  * @author zaclimon
  */
-class ProviderSetupGuidedFragment : GuidedStepSupportFragment() {
+class UrlInputGuidedFragment : GuidedStepSupportFragment() {
 
     companion object {
-        internal const val ACTION_PROVIDER_URL : Long = 0
-        internal const val URL_ARGUMENT = "url"
+        internal const val ACTION_URL_PROVIDER : Long = 0
+        internal const val ARGUMENT_URL = "url"
     }
 
     override fun onCreateGuidance(savedInstanceState: Bundle?): GuidanceStylist.Guidance {
@@ -32,19 +32,19 @@ class ProviderSetupGuidedFragment : GuidedStepSupportFragment() {
         urlAction.editTitle("")
         urlAction.editable(true)
         urlAction.inputType(InputType.TYPE_CLASS_TEXT)
-        urlAction.id(ACTION_PROVIDER_URL)
+        urlAction.id(ACTION_URL_PROVIDER)
         actions.add(urlAction.build())
     }
 
     override fun onGuidedActionEditedAndProceed(action: GuidedAction?): Long {
         val actionId = action?.id
 
-        if (actionId == ACTION_PROVIDER_URL) {
+        if (actionId == ACTION_URL_PROVIDER) {
             val url = action.editTitle.toString()
             if (url.isNotEmpty()) {
-                val fragment = VerificationGuidedFragment()
+                val fragment = UsernameInputGuidedFragment()
                 val arguments = Bundle()
-                arguments.putString(URL_ARGUMENT, url)
+                arguments.putString(ARGUMENT_URL, url)
                 fragment.arguments = arguments
                 add(fragmentManager, fragment)
             }

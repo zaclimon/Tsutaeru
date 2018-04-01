@@ -1,7 +1,6 @@
 package com.zaclimon.tsutaeru.ui.auth
 
 import android.os.AsyncTask
-import android.util.Log
 import com.zaclimon.tsutaeru.repository.SharedPreferencesRepository
 import com.zaclimon.tsutaeru.util.Constants
 import com.zaclimon.tsutaeru.util.NetworkUtils

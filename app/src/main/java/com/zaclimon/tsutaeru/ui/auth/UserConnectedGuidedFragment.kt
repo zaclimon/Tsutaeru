@@ -19,13 +19,15 @@ class UserConnectedGuidedFragment : GuidedStepSupportFragment() {
     override fun onCreateGuidance(savedInstanceState: Bundle?): GuidanceStylist.Guidance {
         val title = getString(R.string.connection_successful_text)
         val componentName = activity?.callingActivity
+        val username = arguments?.getString(UsernameInputGuidedFragment.ARGUMENT_USERNAME)
+        val breadcrumb = getString(R.string.username_parameter_text, username)
         val description = if (componentName?.className == TsutaeruTvInputSetupActivity::class.java.name) {
             getString(R.string.connected_description_live_channels)
         } else {
             getString(R.string.connected_description_standalone)
         }
 
-        return (GuidanceStylist.Guidance(title, description, null, null))
+        return (GuidanceStylist.Guidance(title, description, breadcrumb, null))
     }
 
     override fun onCreateActions(actions: MutableList<GuidedAction>, savedInstanceState: Bundle?) {

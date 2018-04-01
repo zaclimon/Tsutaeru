@@ -31,7 +31,7 @@ class WelcomeGuidedFragment : GuidedStepSupportFragment() {
 
         if (id == GuidedAction.ACTION_ID_YES) {
             // Switch to url Fragment
-            add(fragmentManager, ProviderSetupGuidedFragment())
+            add(fragmentManager, UrlInputGuidedFragment())
         } else {
             activity?.finish()
         }
