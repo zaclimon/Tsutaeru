@@ -32,7 +32,14 @@ class AsyncAuthValidateInfo(url: String?,
     override fun doInBackground(vararg p0: Void?): Boolean {
 
         try {
-            NetworkUtils.getNetworkInputStream(taskUrl)
+            val reader = NetworkUtils.getNetworkInputStream(taskUrl).bufferedReader()
+            val playlistFirstLine = reader.readLine()
+
+            if (playlistFirstLine != "#EXTM3U") {
+                return (false)
+            }
+
+            reader.close()
         } catch (io: IOException) {
             ioException = io
             return (false)
@@ -50,6 +57,9 @@ class AsyncAuthValidateInfo(url: String?,
             taskAuthView.onConnectionFailed()
         } else if (result != null && ioException is SocketTimeoutException) {
             taskAuthView.onTimeoutReceived()
+        } else if (result != null) {
+            // If anything else received is not a valid M3U playlist
+            taskAuthView.onConnectionFailed()
         }
     }
 }
