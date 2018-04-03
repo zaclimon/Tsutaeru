@@ -9,6 +9,11 @@ import com.zaclimon.tsutaeru.R
 import com.zaclimon.tsutaeru.repository.SharedPreferencesRepositoryImpl
 import com.zaclimon.tsutaeru.util.Constants
 
+/**
+ * [GuidedStepSupportFragment] verifying whether the user can use it's provider services.
+ *
+ * @author zaclimon
+ */
 class VerificationGuidedFragment : GuidedStepSupportFragment(), AuthView {
 
     override fun onStart() {

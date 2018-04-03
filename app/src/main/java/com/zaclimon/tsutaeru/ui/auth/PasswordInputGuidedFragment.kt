@@ -7,6 +7,11 @@ import android.support.v17.leanback.widget.GuidedAction
 import android.text.InputType
 import com.zaclimon.tsutaeru.R
 
+/**
+ * [GuidedStepSupportFragment] asking for the user it's provider password.
+ *
+ * @author zaclimon
+ */
 class PasswordInputGuidedFragment : GuidedStepSupportFragment() {
 
     companion object {

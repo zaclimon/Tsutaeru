@@ -6,6 +6,12 @@ import android.support.v17.leanback.widget.GuidanceStylist
 import android.support.v17.leanback.widget.GuidedAction
 import com.zaclimon.tsutaeru.R
 
+/**
+ * [GuidedStepSupportFragment] that is an initial setup screen for the user to be able to get access
+ * to it's IPTV provider services.
+ *
+ * @author zaclimon
+ */
 class WelcomeGuidedFragment : GuidedStepSupportFragment() {
 
     override fun onCreateGuidance(savedInstanceState: Bundle?): GuidanceStylist.Guidance {
