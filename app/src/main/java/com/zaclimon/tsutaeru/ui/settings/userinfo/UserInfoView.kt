@@ -1,22 +1,20 @@
-package com.zaclimon.tsutaeru.ui.settings.userinfo;
+package com.zaclimon.tsutaeru.ui.settings.userinfo
 
-import java.util.Date;
+import java.util.*
 
 /**
- * Interface used to react to actions after retrieving a view.
+ * Interface used to react to actions after retrieving a user's account information.
  *
  * @author zaclimon
- * Creation date: 03/07/17
  */
-
-public interface UserInfoView {
+interface UserInfoView {
 
     /**
      * Gets the required API endpoint in order to fetch a user's information
      *
      * @return the URL pointing to the user information
      */
-    String getUserInfoApiEndpoint();
+    fun getUserInfoApiEndpoint(): String
 
     /**
      * Called upon successful connection and information retrieved
@@ -26,10 +24,10 @@ public interface UserInfoView {
      * @param isTrial        whether the user's account type is a trial one
      * @param maxConnections the maximum number of connections possible on the user's account
      */
-    void onConnectionSuccess(String status, Date expirationDate, boolean isTrial, int maxConnections);
+    fun onConnectionSuccess(status: String, expirationDate: Date, isTrial: Boolean, maxConnections: Int)
 
     /**
      * Called upon connection failure when retrieving the user's account information
      */
-    void onConnectionFailed();
+    fun onConnectionFailed()
 }
