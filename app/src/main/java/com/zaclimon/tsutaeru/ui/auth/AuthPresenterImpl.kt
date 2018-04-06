@@ -20,7 +20,7 @@ class AuthPresenterImpl(view: AuthView) : AuthPresenter {
 
     private val authView = view
 
-    override fun validateInfo(url: String?, sharedPreferencesRepository: SharedPreferencesRepository) {
+    override fun validateInfo(url: String, sharedPreferencesRepository: SharedPreferencesRepository) {
         val asyncAuthValidateInfo = AsyncAuthValidateInfo(url, authView, sharedPreferencesRepository)
         asyncAuthValidateInfo.execute()
     }

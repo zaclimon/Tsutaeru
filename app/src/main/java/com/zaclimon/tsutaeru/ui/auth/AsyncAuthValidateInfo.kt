@@ -20,11 +20,13 @@ import java.net.SocketTimeoutException
  *
  * @author zaclimon
  */
-class AsyncAuthValidateInfo(url: String?,
+class AsyncAuthValidateInfo(url: String,
                             authView: AuthView,
                             sharedPreferencesRepository: SharedPreferencesRepository) : AsyncTask<Void, Void, Boolean>() {
 
-    private val taskUrl = url
+    private var taskUrl = url
+    private lateinit var taskUsername: String
+    private lateinit var taskPassword: String
     private val taskAuthView = authView
     private val taskSharedPreferencesRepository = sharedPreferencesRepository
     private var ioException: IOException? = null
@@ -39,6 +41,9 @@ class AsyncAuthValidateInfo(url: String?,
                 return (false)
             }
 
+            taskUsername = taskUrl.split("username=.+?(?=\\&)")[0].removePrefix("username=")
+            taskPassword = taskUrl.split("password=.+?(?=\\&)")[0].removePrefix("password=")
+            taskUrl = taskUrl.split("url=.+?(?=\\&)")[0].removePrefix("url=")
             reader.close()
         } catch (io: IOException) {
             ioException = io
@@ -52,6 +57,8 @@ class AsyncAuthValidateInfo(url: String?,
 
         if (result != null && result) {
             taskSharedPreferencesRepository.putString(Constants.PROVIDER_URL_PREFERENCE, taskUrl)
+            taskSharedPreferencesRepository.putString(Constants.USERNAME_PREFERENCE, taskUsername)
+            taskSharedPreferencesRepository.putString(Constants.PASSWORD_PREFERENCE, taskPassword)
             taskAuthView.onConnectionSuccess()
         } else if (result != null && ioException is FileNotFoundException) {
             taskAuthView.onConnectionFailed()

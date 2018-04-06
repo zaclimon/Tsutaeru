@@ -15,6 +15,6 @@ interface AuthPresenter {
      * @param url                         the user's provider url
      * @param sharedPreferencesRepository the repository of SharedPreferences.
      */
-    fun validateInfo(url: String?, sharedPreferencesRepository: SharedPreferencesRepository)
+    fun validateInfo(url: String, sharedPreferencesRepository: SharedPreferencesRepository)
 
 }
