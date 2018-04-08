@@ -18,7 +18,7 @@ import com.zaclimon.xipl.util.ActivityUtil
  */
 class TsutaeruSettingsElementActivity : FragmentActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         if (ActivityUtil.isTvMode(this)) {
