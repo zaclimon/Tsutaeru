@@ -13,6 +13,11 @@ import com.zaclimon.tsutaeru.R
 import com.zaclimon.tsutaeru.service.TsutaeruJobService
 import com.zaclimon.tsutaeru.util.Constants
 
+/**
+ * Setting option that forces an EPG sync for the next hour.
+ *
+ * @author zaclimon
+ */
 class EpgForceSyncGuidedFragment : GuidedStepSupportFragment() {
 
     override fun onCreateGuidance(savedInstanceState: Bundle?): GuidanceStylist.Guidance {

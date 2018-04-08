@@ -8,6 +8,12 @@ import android.support.v17.leanback.widget.GuidedAction
 import com.zaclimon.tsutaeru.R
 import com.zaclimon.tsutaeru.util.Constants
 
+/**
+ * [GuidedStepSupportFragment] used to force an audio-visual content to stretch in order to fit the total
+ * resolution of a display.
+ *
+ * @author zaclimon
+ */
 class ForceFitScreenGuidedFragment : GuidedStepSupportFragment() {
 
     override fun onCreateGuidance(savedInstanceState: Bundle?): GuidanceStylist.Guidance {

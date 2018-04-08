@@ -12,6 +12,12 @@ import com.zaclimon.tsutaeru.R
 import com.zaclimon.tsutaeru.service.TsutaeruJobService
 import com.zaclimon.tsutaeru.util.Constants
 
+/**
+ * Setting option that lets the user choose between either the MPEG-TS or the HLS
+ * streaming format.
+ *
+ * @author zaclimon
+ */
 class StreamTypeGuidedFragment : GuidedStepSupportFragment() {
 
     companion object {

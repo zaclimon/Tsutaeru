@@ -13,6 +13,12 @@ import com.google.android.media.tv.companionlibrary.EpgSyncJobService
 import com.zaclimon.tsutaeru.R
 import com.zaclimon.tsutaeru.util.Constants
 
+/**
+ * GuidedStepFragment that sync itself with the broadcast intent sent by
+ * [com.google.android.media.tv.companionlibrary.EpgSyncJobService]
+ *
+ * @author zaclimon
+ */
 class EpgSyncLoadingGuidedFragment : GuidedStepSupportFragment() {
 
     override fun onStart() {
