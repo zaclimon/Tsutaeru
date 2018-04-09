@@ -39,6 +39,7 @@ abstract class TsutaeruDatabase : RoomDatabase() {
         private fun buildDatabase(context: Context) =
                 Room.databaseBuilder(context.applicationContext,
                         TsutaeruDatabase::class.java, DATABASE_NAME)
+                        .allowMainThreadQueries()
                         .build()
     }
 }
