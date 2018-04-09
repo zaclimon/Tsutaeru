@@ -41,12 +41,22 @@ class AsyncAuthValidateInfo(url: String,
                 return (false)
             }
 
-            taskUsername = taskUrl.split("username=.+?(?=\\&)")[0].removePrefix("username=")
-            taskPassword = taskUrl.split("password=.+?(?=\\&)")[0].removePrefix("password=")
-            taskUrl = taskUrl.split("url=.+?(?=\\&)")[0].removePrefix("url=")
-            reader.close()
+            val usernameMatcher = Regex("username=.+?(?=&)").find(taskUrl)
+            val passwordMatcher = Regex("password=.+?(?=&)").find(taskUrl)
+            val urlMatcher = Regex("http://[^/]*").find(taskUrl)
+
+            if (usernameMatcher != null && passwordMatcher != null && urlMatcher != null) {
+                taskUsername = usernameMatcher.value.removePrefix("username=")
+                taskPassword = passwordMatcher.value.removePrefix("password=")
+                taskUrl = urlMatcher.value
+                reader.close()
+            } else {
+                return false
+            }
+
         } catch (io: IOException) {
             ioException = io
+            io.printStackTrace()
             return (false)
         }
         return (true)
