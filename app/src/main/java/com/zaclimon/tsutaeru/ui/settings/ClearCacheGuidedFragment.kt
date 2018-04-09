@@ -39,7 +39,7 @@ class ClearCacheGuidedFragment : GuidedStepSupportFragment() {
         val id = action?.id
 
         if (id == GuidedAction.ACTION_ID_YES) {
-            val contentDao = TsutaeruDatabase.getInstance(context).avContentDao()
+            val contentDao = TsutaeruDatabase.getInstance(context!!).avContentDao()
             contentDao.deleteAll()
             Toast.makeText(context, R.string.clear_cache_toast, Toast.LENGTH_SHORT).show()
         }

@@ -20,7 +20,7 @@ abstract class TsutaeruVodTvSectionFragment : VodTvSectionFragment() {
     private lateinit var fragmentContentPersistence: ContentPersistence
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        fragmentContentPersistence = RoomContentPersistence(context)
+        fragmentContentPersistence = RoomContentPersistence(context!!)
         super.onCreate(savedInstanceState)
     }
 
