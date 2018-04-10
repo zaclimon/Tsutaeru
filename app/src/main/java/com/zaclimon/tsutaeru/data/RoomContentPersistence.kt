@@ -1,10 +1,8 @@
 package com.zaclimon.tsutaeru.data
 
-import android.arch.persistence.room.Dao
 import android.content.Context
 import com.zaclimon.xipl.model.AvContent
 import com.zaclimon.xipl.persistence.ContentPersistence
-import io.fabric.sdk.android.services.concurrency.AsyncTask.init
 
 /**
  * Concrete implementation of [ContentPersistence] applicable for the Room persistence library.

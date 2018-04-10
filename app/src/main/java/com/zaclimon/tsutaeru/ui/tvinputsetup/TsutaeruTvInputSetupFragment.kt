@@ -13,8 +13,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
-import com.google.android.media.tv.companionlibrary.ChannelSetupFragment
-import com.google.android.media.tv.companionlibrary.EpgSyncJobService
+import com.google.android.media.tv.companionlibrary.setup.ChannelSetupFragment
+import com.google.android.media.tv.companionlibrary.sync.EpgSyncJobService
 import com.zaclimon.tsutaeru.R
 import com.zaclimon.tsutaeru.service.TsutaeruJobService
 import com.zaclimon.tsutaeru.ui.auth.AuthActivityTv
@@ -42,6 +42,7 @@ class TsutaeruTvInputSetupFragment : ChannelSetupFragment() {
         setTitle(R.string.app_name)
         setBadge(context?.getDrawable(R.drawable.ace_badge))
         setBackgroundColor(ContextCompat.getColor(inflater.context, R.color.colorPrimaryTv))
+        fragmentInputId = activity?.intent?.getStringExtra(TvInputInfo.EXTRA_INPUT_ID) ?: TvContract.buildInputId(Constants.TV_INPUT_SERVICE_COMPONENT)
         return fragmentView
     }
 

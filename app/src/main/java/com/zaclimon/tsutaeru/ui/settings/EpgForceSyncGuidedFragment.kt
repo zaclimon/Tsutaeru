@@ -7,7 +7,8 @@ import android.os.Bundle
 import android.support.v17.leanback.app.GuidedStepSupportFragment
 import android.support.v17.leanback.widget.GuidanceStylist
 import android.support.v17.leanback.widget.GuidedAction
-import com.google.android.media.tv.companionlibrary.EpgSyncJobService
+import com.google.android.media.tv.companionlibrary.model.ModelUtils
+import com.google.android.media.tv.companionlibrary.sync.EpgSyncJobService
 import com.google.android.media.tv.companionlibrary.utils.TvContractUtils
 import com.zaclimon.tsutaeru.R
 import com.zaclimon.tsutaeru.service.TsutaeruJobService
@@ -52,7 +53,7 @@ class EpgForceSyncGuidedFragment : GuidedStepSupportFragment() {
     inner class AsyncResyncPrograms : AsyncTask<Void, Void, Void?>() {
         override fun doInBackground(vararg p0: Void?): Void? {
             val contentResolver = activity?.contentResolver
-            val channels = TvContractUtils.getChannels(contentResolver)
+            val channels = ModelUtils.getChannels(contentResolver)
 
             for (channel in channels) {
                 val programsUri = TvContract.buildProgramsUriForChannel(channel.id)

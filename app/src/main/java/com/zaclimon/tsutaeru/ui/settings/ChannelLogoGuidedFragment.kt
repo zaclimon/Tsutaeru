@@ -8,12 +8,11 @@ import android.os.Bundle
 import android.support.v17.leanback.app.GuidedStepSupportFragment
 import android.support.v17.leanback.widget.GuidanceStylist
 import android.support.v17.leanback.widget.GuidedAction
-import com.google.android.media.tv.companionlibrary.EpgSyncJobService
+import com.google.android.media.tv.companionlibrary.model.ModelUtils
+import com.google.android.media.tv.companionlibrary.sync.EpgSyncJobService
 import com.google.android.media.tv.companionlibrary.utils.TvContractUtils
-import com.zaclimon.tsutaeru.BuildConfig
 import com.zaclimon.tsutaeru.R
 import com.zaclimon.tsutaeru.service.TsutaeruJobService
-import com.zaclimon.tsutaeru.ui.settings.userinfo.UserInfoGuidedFragment
 import com.zaclimon.tsutaeru.util.Constants
 
 /**
@@ -92,7 +91,7 @@ class ChannelLogoGuidedFragment : GuidedStepSupportFragment() {
         override fun doInBackground(vararg p0: Void?): Void? {
             if (isAdded) {
                 val contentResolver = activity?.contentResolver
-                val channels = TvContractUtils.getChannels(contentResolver)
+                val channels = ModelUtils.getChannels(contentResolver)
                 for (channel in channels) {
                     val logoUri = TvContract.buildChannelLogoUri(channel.id)
                     contentResolver?.delete(logoUri, null, null)

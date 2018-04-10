@@ -9,7 +9,7 @@ import android.support.v17.leanback.widget.GuidanceStylist
 import android.support.v4.content.LocalBroadcastManager
 import android.widget.TextView
 import android.widget.Toast
-import com.google.android.media.tv.companionlibrary.EpgSyncJobService
+import com.google.android.media.tv.companionlibrary.sync.EpgSyncJobService
 import com.zaclimon.tsutaeru.R
 import com.zaclimon.tsutaeru.util.Constants
 

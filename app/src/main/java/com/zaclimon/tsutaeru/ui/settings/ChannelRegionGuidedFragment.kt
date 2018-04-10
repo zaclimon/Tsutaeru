@@ -7,11 +7,9 @@ import android.os.Bundle
 import android.support.v17.leanback.app.GuidedStepSupportFragment
 import android.support.v17.leanback.widget.GuidanceStylist
 import android.support.v17.leanback.widget.GuidedAction
-import com.google.android.media.tv.companionlibrary.EpgSyncJobService
-import com.zaclimon.tsutaeru.BuildConfig
+import com.google.android.media.tv.companionlibrary.sync.EpgSyncJobService
 import com.zaclimon.tsutaeru.R
 import com.zaclimon.tsutaeru.service.TsutaeruJobService
-import com.zaclimon.tsutaeru.ui.settings.userinfo.UserInfoGuidedFragment
 import com.zaclimon.tsutaeru.util.Constants
 import java.util.concurrent.TimeUnit
 
