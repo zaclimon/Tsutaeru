@@ -29,7 +29,7 @@ class PasswordInputGuidedFragment : GuidedStepSupportFragment() {
         passwordAction.title(R.string.username_text)
         passwordAction.editTitle("")
         passwordAction.editable(true)
-        passwordAction.inputType(InputType.TYPE_CLASS_TEXT and InputType.TYPE_TEXT_VARIATION_PASSWORD)
+        passwordAction.editInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD)
         passwordAction.id(ACTION_PASSWORD)
         actions.add(passwordAction.build())
     }

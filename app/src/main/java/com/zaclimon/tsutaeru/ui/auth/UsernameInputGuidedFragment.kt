@@ -29,7 +29,7 @@ class UsernameInputGuidedFragment : GuidedStepSupportFragment() {
         usernameAction.title(R.string.username_text)
         usernameAction.editTitle("")
         usernameAction.editable(true)
-        usernameAction.inputType(InputType.TYPE_CLASS_TEXT)
+        usernameAction.inputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
         usernameAction.id(ACTION_USERNAME)
         actions.add(usernameAction.build())
     }
