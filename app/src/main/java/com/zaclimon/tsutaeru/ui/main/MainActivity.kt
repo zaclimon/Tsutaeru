@@ -50,7 +50,7 @@ class MainActivity : FragmentActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == authRequest && resultCode == FragmentActivity.RESULT_OK) {
-            
+            configureLayout()
         }
     }
 
