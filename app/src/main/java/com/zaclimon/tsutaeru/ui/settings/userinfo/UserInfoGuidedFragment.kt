@@ -90,8 +90,9 @@ class UserInfoGuidedFragment : GuidedStepSupportFragment(), UserInfoView {
 
     override fun getUserInfoApiEndpoint(): String {
         val sharedPreferences = activity?.getSharedPreferences(Constants.TSUTAERU_PREFERENCES, Context.MODE_PRIVATE)
+        val url = sharedPreferences?.getString(Constants.PROVIDER_URL_PREFERENCE, "")
         val username = sharedPreferences?.getString(Constants.USERNAME_PREFERENCE, "")
         val password = sharedPreferences?.getString(Constants.PASSWORD_PREFERENCE, "")
-        return getString(R.string.ace_user_info_url, username, password)
+        return getString(R.string.provider_user_info_url, url, username, password)
     }
 }
