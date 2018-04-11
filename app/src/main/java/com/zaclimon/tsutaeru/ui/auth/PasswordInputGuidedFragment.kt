@@ -26,7 +26,7 @@ class PasswordInputGuidedFragment : GuidedStepSupportFragment() {
 
     override fun onCreateActions(actions: MutableList<GuidedAction>, savedInstanceState: Bundle?) {
         val passwordAction = GuidedAction.Builder(context)
-        passwordAction.title(R.string.username_text)
+        passwordAction.title(R.string.password_text)
         passwordAction.editTitle("")
         passwordAction.editable(true)
         passwordAction.editInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD)
