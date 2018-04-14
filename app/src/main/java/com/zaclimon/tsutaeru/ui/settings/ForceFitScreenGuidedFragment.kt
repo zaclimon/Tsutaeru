@@ -18,10 +18,14 @@ class ForceFitScreenGuidedFragment : GuidedStepSupportFragment() {
 
     override fun onCreateGuidance(savedInstanceState: Bundle?): GuidanceStylist.Guidance {
         val sharedPreferences = context?.getSharedPreferences(Constants.TSUTAERU_PREFERENCES, Context.MODE_PRIVATE)
-        val title = getString(R.string.force_epg_sync_title)
-        val description = getString(R.string.force_epg_sync_description)
+        val title = getString(R.string.force_video_fit_title)
+        val description = getString(R.string.force_video_fit_description)
         val isForceFit = sharedPreferences?.getBoolean(Constants.VIDEO_FIT_SCREEN_PREFERENCE, false) ?: false
-        val breadcrumb = if (isForceFit) { getString(R.string.activated_text) } else { getString(R.string.deactivated_text) }
+        val breadcrumb = if (isForceFit) {
+            getString(R.string.current_status_text, getString(R.string.activated_text))
+        } else {
+            getString(R.string.current_status_text, getString(R.string.deactivated_text))
+        }
 
         return GuidanceStylist.Guidance(title, description, breadcrumb, null)
     }
