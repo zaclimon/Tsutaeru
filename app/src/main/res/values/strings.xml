@@ -32,9 +32,6 @@
     <string name="current_status_text">Current status: %1$s</string>
     <string name="database_cleared_text">The database has been cleared.</string>
     <string name="deactivated_text">Deactivated</string>
-    <string name="debug_log_title">Create debug log?</string>
-    <string name="debug_log_title_short">Debug log</string>
-    <string name="debug_log_description">Creates a text file usable for debugging purposes to your internal storage.</string>
     <string name="download_text">Downloading&#8230;</string>
     <string name="download_update_text">Download update</string>
     <string name="enter_password_title">Please enter your password</string>

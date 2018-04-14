@@ -40,7 +40,6 @@ class TsutaeruSettingsElementActivity : FragmentActivity() {
                 R.string.epg_offset_title, R.string.epg_offset_title_short -> fragment = TvCatchupEpgOffsetGuidedFragment()
                 R.string.external_player_title, R.string.external_player_title_short -> fragment = VodExternalPlayerGuidedFragment()
                 R.string.clear_cache_title, R.string.clear_cache_title_short -> fragment = ClearCacheGuidedFragment()
-                R.string.debug_log_title, R.string.debug_log_title_short -> fragment = DebugLogGuidedFragment()
                 R.string.about_text -> fragment = AboutGuidedFragment()
             }
 

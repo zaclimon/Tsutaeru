@@ -21,7 +21,6 @@ class TsutaeruSettingsObjectAdapter : ProviderSettingsObjectAdapter() {
         addSection(R.string.external_player_title_short, R.drawable.ic_external_player)
         addSection(R.string.change_user_title, R.drawable.ic_change_user)
         addSection(R.string.clear_cache_title_short, R.drawable.ic_clear_cache)
-        addSection(R.string.debug_log_title_short, R.drawable.ic_debug)
         addSection(R.string.about_text, R.drawable.ic_about)
     }
 }
