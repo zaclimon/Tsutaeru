@@ -3,6 +3,7 @@ package com.zaclimon.tsutaeru.ui.settings
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.media.tv.TvContract
 import android.support.v17.leanback.app.GuidedStepSupportFragment
 import android.support.v17.leanback.widget.GuidanceStylist
@@ -23,7 +24,7 @@ class EpgSyncLoadingGuidedFragment : GuidedStepSupportFragment() {
 
     override fun onStart() {
         super.onStart()
-        LocalBroadcastManager.getInstance(context!!)
+        LocalBroadcastManager.getInstance(context!!).registerReceiver(LoadingBroadcastReceiver(), IntentFilter(EpgSyncJobService.ACTION_SYNC_STATUS_CHANGED))
         val loadingTitle = activity?.findViewById<TextView>(R.id.loading_title)
         loadingTitle?.text = getText(R.string.channel_update)
     }
