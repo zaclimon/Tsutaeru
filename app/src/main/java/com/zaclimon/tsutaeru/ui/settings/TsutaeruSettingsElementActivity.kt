@@ -25,7 +25,7 @@ class TsutaeruSettingsElementActivity : FragmentActivity() {
 
         val extras = intent.extras
 
-        if (savedInstanceState != null && extras != null) {
+        if (savedInstanceState == null && extras != null) {
             // Since the extras contain the id's, we shouldn't have any problems comparing them.
             val stringId = extras.getInt(ProviderSettingsObjectAdapter.BUNDLE_SETTINGS_NAME_ID)
             var fragment: GuidedStepSupportFragment? = null
