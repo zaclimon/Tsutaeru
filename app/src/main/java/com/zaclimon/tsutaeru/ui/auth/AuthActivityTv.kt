@@ -28,8 +28,12 @@ class AuthActivityTv : FragmentActivity() {
         val guidedStepSupportFragment = GuidedStepSupportFragment.getCurrentGuidedStepSupportFragment(supportFragmentManager)
 
         if (guidedStepSupportFragment != null && guidedStepSupportFragment is UserConnectedGuidedFragment) {
+            setResult(FragmentActivity.RESULT_OK)
             finish()
         } else {
+            if (guidedStepSupportFragment != null && guidedStepSupportFragment is WelcomeGuidedFragment) {
+                setResult(FragmentActivity.RESULT_CANCELED)
+            }
             super.onBackPressed()
         }
     }
