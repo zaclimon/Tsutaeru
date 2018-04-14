@@ -1,6 +1,7 @@
 package com.zaclimon.tsutaeru.ui.auth
 
 import android.os.AsyncTask
+import android.util.Patterns
 import com.zaclimon.tsutaeru.repository.SharedPreferencesRepository
 import com.zaclimon.tsutaeru.util.Constants
 import com.zaclimon.tsutaeru.util.NetworkUtils
@@ -33,33 +34,42 @@ class AsyncAuthValidateInfo(url: String,
 
     override fun doInBackground(vararg p0: Void?): Boolean {
 
-        try {
-            val reader = NetworkUtils.getNetworkInputStream(taskUrl).bufferedReader()
-            val playlistFirstLine = reader.readLine()
+        if (!taskUrl.startsWith("http://")) {
+            taskUrl = "http://$taskUrl"
+        }
 
-            if (playlistFirstLine != "#EXTM3U") {
-                return (false)
-            }
+        taskUrl = taskUrl.removeSuffix("/")
 
-            val usernameMatcher = Regex("username=.+?(?=&)").find(taskUrl)
-            val passwordMatcher = Regex("password=.+?(?=&)").find(taskUrl)
-            val urlMatcher = Regex("http://[^/]*").find(taskUrl)
+        if (isValidURL(taskUrl)) {
+            try {
+                val reader = NetworkUtils.getNetworkInputStream(taskUrl).bufferedReader()
+                val playlistFirstLine = reader.readLine()
 
-            if (usernameMatcher != null && passwordMatcher != null && urlMatcher != null) {
-                taskUsername = usernameMatcher.value.removePrefix("username=")
-                taskPassword = passwordMatcher.value.removePrefix("password=")
-                taskUrl = urlMatcher.value
-                reader.close()
-            } else {
+                if (playlistFirstLine != "#EXTM3U") {
+                    return false
+                }
+
+                val usernameMatcher = Regex("username=.+?(?=&)").find(taskUrl)
+                val passwordMatcher = Regex("password=.+?(?=&)").find(taskUrl)
+                val urlMatcher = Regex("http://[^/]*").find(taskUrl)
+
+                if (usernameMatcher != null && passwordMatcher != null && urlMatcher != null) {
+                    taskUsername = usernameMatcher.value.removePrefix("username=")
+                    taskPassword = passwordMatcher.value.removePrefix("password=")
+                    taskUrl = urlMatcher.value
+                    reader.close()
+                } else {
+                    return false
+                }
+
+            } catch (io: IOException) {
+                ioException = io
+                io.printStackTrace()
                 return false
             }
-
-        } catch (io: IOException) {
-            ioException = io
-            io.printStackTrace()
-            return (false)
+            return true
         }
-        return (true)
+        return false
     }
 
     override fun onPostExecute(result: Boolean?) {
@@ -80,4 +90,9 @@ class AsyncAuthValidateInfo(url: String,
             taskAuthView.onConnectionFailed()
         }
     }
+
+    private fun isValidURL(url: String): Boolean {
+        return Patterns.WEB_URL.matcher(url).matches()
+    }
+
 }
