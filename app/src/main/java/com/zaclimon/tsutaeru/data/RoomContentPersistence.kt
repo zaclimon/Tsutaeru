@@ -82,7 +82,7 @@ class RoomContentPersistence(context: Context) : ContentPersistence {
             val group = content.contentGroup
             val link = content.contentLink
             val category = content.contentCategory
-            tempList.add(AvContent(title, logo, group, link, category, id))
+            tempList.add(AvContent(title, logo, group, category, link, id))
         }
         return tempList
     }

@@ -17,8 +17,8 @@ data class RoomAvContent constructor(
         val contentTitle: String,
         val contentLogo: String,
         val contentGroup: String,
-        val contentLink: String,
-        val contentCategory: String
+        val contentCategory: String,
+        val contentLink: String
 ) {
     /**
      * Constructor used for most cases in which the information from a given [AvContent]
@@ -27,6 +27,6 @@ data class RoomAvContent constructor(
      * @param content the content that will be copied over.
      */
     @Ignore
-    constructor(content: AvContent) : this(content.id, content.title, content.logo, content.group, content.contentLink, content.contentCategory)
+    constructor(content: AvContent) : this(content.id, content.title, content.logo, content.group, content.contentCategory, content.contentLink)
 
 }
