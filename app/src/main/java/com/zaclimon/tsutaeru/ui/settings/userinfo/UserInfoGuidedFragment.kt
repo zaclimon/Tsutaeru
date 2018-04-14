@@ -36,7 +36,10 @@ class UserInfoGuidedFragment : GuidedStepSupportFragment(), UserInfoView {
         userProgressBarManager.show()
 
         val sharedPreferences = activity?.getSharedPreferences(Constants.TSUTAERU_PREFERENCES, Context.MODE_PRIVATE)
-        val endpoint = sharedPreferences?.getString(Constants.PROVIDER_URL_PREFERENCE, "")
+        val url = sharedPreferences?.getString(Constants.PROVIDER_URL_PREFERENCE, "")
+        val username = sharedPreferences?.getString(Constants.USERNAME_PREFERENCE, "")
+        val password = sharedPreferences?.getString(Constants.PASSWORD_PREFERENCE, "")
+        val endpoint = getString(R.string.provider_user_info_url, url, username, password)
         val userInfoPresenter = UserInfoPresenterImpl(endpoint, this)
         userInfoPresenter.retrieveUserInfo()
     }
