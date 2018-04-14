@@ -12,7 +12,7 @@ android {
     compileSdkVersion "android-P"
     buildToolsVersion "28-rc1"
     defaultConfig {
-        applicationId "com.zaclimon.acetv"
+        applicationId "com.zaclimon.tsutaeru"
         minSdkVersion 21
         targetSdkVersion "P"
         versionCode 10

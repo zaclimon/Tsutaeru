@@ -20,7 +20,7 @@ class MainTvFragment : ProviderTvFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        badgeDrawable = activity!!.getDrawable(R.drawable.ace_badge_white)
+        badgeDrawable = activity!!.getDrawable(R.drawable.tsutaeru_badge_white)
     }
 
     override fun getAppName(): String {
