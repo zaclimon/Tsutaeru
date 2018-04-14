@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.support.v17.leanback.app.GuidedStepSupportFragment
 import android.support.v17.leanback.widget.GuidanceStylist
 import android.support.v17.leanback.widget.GuidedAction
+import android.support.v17.leanback.widget.GuidedActionsStylist
 import android.text.InputType
 import android.widget.Toast
 import com.zaclimon.tsutaeru.R
+import com.zaclimon.tsutaeru.ui.components.guidedactionstylist.TsutaeruGuidedActionStylist
 import com.zaclimon.tsutaeru.util.Constants
 
 /**
@@ -30,6 +32,10 @@ class TvCatchupEpgOffsetGuidedFragment : GuidedStepSupportFragment() {
         val breadcrumb = getString(R.string.current_status_text, getString(R.string.hours_text, epgOffset))
 
         return GuidanceStylist.Guidance(title, description, breadcrumb, null)
+    }
+
+    override fun onCreateActionsStylist(): GuidedActionsStylist {
+        return TsutaeruGuidedActionStylist()
     }
 
     override fun onCreateActions(actions: MutableList<GuidedAction>, savedInstanceState: Bundle?) {
