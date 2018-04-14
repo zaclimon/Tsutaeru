@@ -56,14 +56,13 @@ class ChannelGenreGuidedFragment : GuidedStepSupportFragment() {
         if (action?.id == GuidedAction.ACTION_ID_OK) {
             val sharedPreferences = context?.getSharedPreferences(Constants.TSUTAERU_PREFERENCES, Context.MODE_PRIVATE)
             val editor = sharedPreferences?.edit()
-            val actions = actions
             val channelGenres = Constants.CHANNEL_GENRES
             var hasAnyPreferenceChanged = false
 
             // Size of all the actions without "ok" and "cancel"
-            val checkboxActionsIndices = actions.indices - 2
+            val checkboxActionsSize = actions.size - 2
 
-            for (i in checkboxActionsIndices) {
+            for (i in 0 until checkboxActionsSize) {
                 val currentPreference = sharedPreferences?.getBoolean(Constants.CHANNEL_GENRE_PREFERENCE + channelGenres[i], true)
                 if (currentPreference != actions[i].isChecked) {
                     hasAnyPreferenceChanged = true
