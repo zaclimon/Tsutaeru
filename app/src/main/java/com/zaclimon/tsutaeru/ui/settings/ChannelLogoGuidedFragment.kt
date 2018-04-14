@@ -29,9 +29,9 @@ class ChannelLogoGuidedFragment : GuidedStepSupportFragment() {
         val title = getString(R.string.channel_logo_title)
         val description = getString(R.string.channel_logo_description)
         val breadcrumb = if (hasChannelLogo) {
-            getString(R.string.activated_text)
+            getString(R.string.current_status_text, getString(R.string.activated_text))
         } else {
-            getString(R.string.deactivated_text)
+            getString(R.string.current_status_text, getString(R.string.deactivated_text))
         }
 
         return GuidanceStylist.Guidance(title, description, breadcrumb, null)

@@ -31,9 +31,9 @@ class StreamTypeGuidedFragment : GuidedStepSupportFragment() {
         val title = getString(R.string.stream_type)
         val description = getString(R.string.stream_type_description)
         val breadcrumb = if (streamType == Constants.STREAM_TYPE_MPEG_TS) {
-            getString(R.string.mpeg_ts_text)
+            getString(R.string.current_status_text, getString(R.string.mpeg_ts_text))
         } else {
-            getString(R.string.hls_text)
+            getString(R.string.current_status_text, getString(R.string.hls_text))
         }
 
         return GuidanceStylist.Guidance(title, description, breadcrumb, null)
