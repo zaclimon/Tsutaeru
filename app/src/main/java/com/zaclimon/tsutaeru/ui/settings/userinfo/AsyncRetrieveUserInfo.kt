@@ -65,10 +65,9 @@ class AsyncRetrieveUserInfo(userEndpoint: String, view: UserInfoView) : AsyncTas
     }
 
     override fun onPostExecute(result: Boolean?) {
-        if (result != null && result) {
-            userInfoView.onConnectionSuccess(status!!, expirationDate!!, isTrial, maxConnections)
-        } else if (result != null) {
-            userInfoView.onConnectionFailed()
+        when (result) {
+            true -> userInfoView.onConnectionSuccess(status!!, expirationDate!!, isTrial, maxConnections)
+            false -> userInfoView.onConnectionFailed()
         }
     }
 }

@@ -75,9 +75,9 @@ class ChannelGenreGuidedFragment : GuidedStepSupportFragment() {
             }
 
             if (hasAnyPreferenceChanged) {
-                editor?.apply()
                 val inputId = TvContract.buildInputId(Constants.TV_INPUT_SERVICE_COMPONENT)
                 EpgSyncJobService.requestImmediateSync(context, inputId, ComponentName(context, TsutaeruJobService::class.java))
+                editor?.apply()
                 add(fragmentManager, EpgSyncLoadingGuidedFragment())
             } else {
                 activity?.finish()

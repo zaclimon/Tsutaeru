@@ -31,7 +31,6 @@ class MainTvFragment : ProviderTvFragment() {
         // A LinkedHashMap is used in this case since it retains the position of each inserted object.
         val sections = LinkedHashMap<String, RowsSupportFragment>()
 
-
         sections[getString(R.string.vod_text)] = VodTvFragment()
         sections[getString(R.string.series_title)] = SeriesTvFragment()
         sections[getString(R.string.catchup_title)] = CatchupTvFragment()

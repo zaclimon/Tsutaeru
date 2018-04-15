@@ -21,9 +21,12 @@ class TsutaeruProviderSearchFragment : ProviderSearchFragment() {
     private lateinit var searchCardViewImageProcessor: CardViewImageProcessor
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        searchContentPersistence = RoomContentPersistence(context!!)
-        searchCardViewImageProcessor = PicassoCardViewImageProcessor()
-        super.onCreate(savedInstanceState)
+        val fragmentContext = context
+        fragmentContext?.let {
+            searchContentPersistence = RoomContentPersistence(fragmentContext)
+            searchCardViewImageProcessor = PicassoCardViewImageProcessor()
+            super.onCreate(savedInstanceState)
+        }
     }
 
     override fun getCardViewImageProcessor(): CardViewImageProcessor {

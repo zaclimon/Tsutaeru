@@ -39,12 +39,9 @@ class AboutGuidedFragment : GuidedStepSupportFragment() {
     }
 
     override fun onGuidedActionClicked(action: GuidedAction?) {
-        val id = action?.id
-
-        if (id == ACTION_USER_INFO) {
-            add(fragmentManager, UserInfoGuidedFragment())
-        } else {
-            activity?.finish()
+        when (action?.id) {
+            ACTION_USER_INFO -> add(fragmentManager, UserInfoGuidedFragment())
+            else -> activity?.finish()
         }
     }
 }

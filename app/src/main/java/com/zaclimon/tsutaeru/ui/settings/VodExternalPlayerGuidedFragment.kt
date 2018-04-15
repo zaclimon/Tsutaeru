@@ -46,7 +46,11 @@ class VodExternalPlayerGuidedFragment : GuidedStepSupportFragment() {
         val editor = context?.getSharedPreferences(Constants.TSUTAERU_PREFERENCES, Context.MODE_PRIVATE)?.edit()
         val id = action?.id
 
-        editor?.putBoolean(Constants.EXTERNAL_PLAYER_PREFERENCE, (id == GuidedAction.ACTION_ID_YES))
+        when (id) {
+            GuidedAction.ACTION_ID_YES -> editor?.putBoolean(Constants.EXTERNAL_PLAYER_PREFERENCE, true)
+            else -> editor?.putBoolean(Constants.EXTERNAL_PLAYER_PREFERENCE, false)
+        }
+
         editor?.apply()
         activity?.finish()
     }

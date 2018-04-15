@@ -25,15 +25,18 @@ class UserInfoGuidedFragment : GuidedStepSupportFragment(), UserInfoView {
     override fun onStart() {
         super.onStart()
 
-        // Don't show the guidance stuff for the moment and show the progress bar
-        guidanceStylist.titleView.visibility = View.INVISIBLE
-        guidanceStylist.descriptionView.visibility = View.INVISIBLE
-        guidanceStylist.breadcrumbView.visibility = View.INVISIBLE
+        guidanceStylist.apply {
+            // Don't show the guidance stuff for the moment and show the progress bar
+            titleView.visibility = View.INVISIBLE
+            descriptionView.visibility = View.INVISIBLE
+            breadcrumbView.visibility = View.INVISIBLE
+        }
 
-        userProgressBarManager = ProgressBarManager()
-        userProgressBarManager.setRootView(activity?.findViewById(android.R.id.content) as ViewGroup)
-        userProgressBarManager.initialDelay = 250
-        userProgressBarManager.show()
+        userProgressBarManager = ProgressBarManager().apply {
+            setRootView(activity?.findViewById(android.R.id.content) as ViewGroup)
+            initialDelay = 250
+            show()
+        }
 
         val sharedPreferences = activity?.getSharedPreferences(Constants.TSUTAERU_PREFERENCES, Context.MODE_PRIVATE)
         val url = sharedPreferences?.getString(Constants.PROVIDER_URL_PREFERENCE, "")
@@ -53,8 +56,9 @@ class UserInfoGuidedFragment : GuidedStepSupportFragment(), UserInfoView {
     }
 
     override fun onCreateActions(actions: MutableList<GuidedAction>, savedInstanceState: Bundle?) {
-        val builder = GuidedAction.Builder(context)
-        builder.clickAction(GuidedAction.ACTION_ID_OK)
+        val builder = GuidedAction.Builder(context).apply {
+            clickAction(GuidedAction.ACTION_ID_OK)
+        }
         actions.add(builder.build())
     }
 
@@ -71,7 +75,7 @@ class UserInfoGuidedFragment : GuidedStepSupportFragment(), UserInfoView {
     override fun onConnectionFailed() {
         val transaction = fragmentManager?.beginTransaction()
         val errorFragment = ErrorSupportFragment()
-        errorFragment.imageDrawable = activity?.getDrawable(R.drawable.lb_ic_sad_cloud)
+        errorFragment.imageDrawable = context?.getDrawable(R.drawable.lb_ic_sad_cloud)
         errorFragment.message = getString(R.string.user_info_not_accessible)
         errorFragment.setDefaultBackground(true)
         userProgressBarManager.hide()
@@ -82,11 +86,12 @@ class UserInfoGuidedFragment : GuidedStepSupportFragment(), UserInfoView {
     override fun onConnectionSuccess(status: String, expirationDate: Date, isTrial: Boolean, maxConnections: Int) {
         val trial = if (isTrial) getString(R.string.yes_text) else getString(R.string.no_text)
 
-        guidanceStylist.descriptionView.text = getString(R.string.user_info_description, status, expirationDate, trial, maxConnections.toString())
-
-        guidanceStylist.titleView.visibility = View.VISIBLE
-        guidanceStylist.descriptionView.visibility = View.VISIBLE
-        guidanceStylist.breadcrumbView.visibility = View.VISIBLE
+        guidanceStylist.apply {
+            descriptionView.text = getString(R.string.user_info_description, status, expirationDate, trial, maxConnections.toString())
+            titleView.visibility = View.VISIBLE
+            descriptionView.visibility = View.VISIBLE
+            breadcrumbView.visibility = View.VISIBLE
+        }
 
         userProgressBarManager.hide()
     }

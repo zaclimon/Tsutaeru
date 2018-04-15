@@ -27,15 +27,14 @@ class AuthActivityTv : FragmentActivity() {
         // Similar to the Leanback showcase, exit the Activity if we're connected.
         val guidedStepSupportFragment = GuidedStepSupportFragment.getCurrentGuidedStepSupportFragment(supportFragmentManager)
 
-        if (guidedStepSupportFragment != null && guidedStepSupportFragment is UserConnectedGuidedFragment) {
-            setResult(FragmentActivity.RESULT_OK)
-            finish()
-        } else {
-            if (guidedStepSupportFragment != null && guidedStepSupportFragment is WelcomeGuidedFragment) {
+        guidedStepSupportFragment?.let {
+            if (it is UserConnectedGuidedFragment) {
+                setResult(FragmentActivity.RESULT_OK)
+                finish()
+            } else if (it is WelcomeGuidedFragment) {
                 setResult(FragmentActivity.RESULT_CANCELED)
             }
             super.onBackPressed()
         }
     }
-
 }

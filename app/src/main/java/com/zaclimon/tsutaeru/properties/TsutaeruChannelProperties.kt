@@ -20,8 +20,8 @@ class TsutaeruChannelProperties(sharedPreferences: SharedPreferences) : ChannelP
         return propertiesPreferences.getBoolean(Constants.CHANNEL_LOGO_PREFERENCE, true)
     }
 
-    override fun isLiveChannel(channel: Channel?): Boolean {
-        val internalProviderData = channel?.internalProviderData
+    override fun isLiveChannel(channel: Channel): Boolean {
+        val internalProviderData = channel.internalProviderData
         return internalProviderData !=  null && internalProviderData.videoUrl.contains("/live/")
     }
 
@@ -38,10 +38,10 @@ class TsutaeruChannelProperties(sharedPreferences: SharedPreferences) : ChannelP
     }
 
     override fun isChannelRegionValid(channel: Channel): Boolean {
-        try {
-            val providerData = channel.internalProviderData
+        val providerData = channel.internalProviderData
 
-            val genres = providerData?.get(Constants.CHANNEL_GENRES_PROVIDER) as String
+        providerData?.let {
+            val genres = it.get(Constants.CHANNEL_GENRES_PROVIDER) as String
             val genresArray = ProviderChannelUtil.getGenresArrayFromJson(genres)
 
             for (channelGenre in genresArray) {
@@ -49,8 +49,6 @@ class TsutaeruChannelProperties(sharedPreferences: SharedPreferences) : ChannelP
                     return false
                 }
             }
-        } catch (px: InternalProviderData.ParseException) {
-            px.printStackTrace()
         }
         return true
     }

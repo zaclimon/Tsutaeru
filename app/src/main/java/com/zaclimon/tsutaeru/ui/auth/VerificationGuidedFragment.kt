@@ -17,17 +17,21 @@ import com.zaclimon.tsutaeru.util.Constants
 class VerificationGuidedFragment : GuidedStepSupportFragment(), AuthView {
 
     override fun onStart() {
-        super.onStart()
+        val fragmentContext = context
 
-        val url = arguments?.getString(UrlInputGuidedFragment.ARGUMENT_URL)
-        val username = arguments?.getString(UsernameInputGuidedFragment.ARGUMENT_USERNAME)?.trim()
-        val password = arguments?.getString(PasswordInputGuidedFragment.ARGUMENT_PASSWORD)?.trim()
-        val loadingTextView = activity?.findViewById<TextView>(R.id.loading_title)
-        val authPresenter = AuthPresenterImpl(this)
-        val serviceUrl = getString(R.string.provider_playlist_url, url, username, password, Constants.STREAM_TYPE_HLS)
+        fragmentContext?.let {
+            super.onStart()
 
-        loadingTextView?.text = getString(R.string.wont_be_long_text)
-        authPresenter.validateInfo(serviceUrl, SharedPreferencesRepositoryImpl(context))
+            val url = arguments?.getString(UrlInputGuidedFragment.ARGUMENT_URL)
+            val username = arguments?.getString(UsernameInputGuidedFragment.ARGUMENT_USERNAME)?.trim()
+            val password = arguments?.getString(PasswordInputGuidedFragment.ARGUMENT_PASSWORD)?.trim()
+            val loadingTextView = activity?.findViewById<TextView>(R.id.loading_title)
+            val authPresenter = AuthPresenterImpl(this)
+            val serviceUrl = getString(R.string.provider_playlist_url, url, username, password, Constants.STREAM_TYPE_HLS)
+
+            loadingTextView?.text = getString(R.string.wont_be_long_text)
+            authPresenter.validateInfo(serviceUrl, SharedPreferencesRepositoryImpl(fragmentContext))
+        }
     }
 
     override fun onCreateGuidanceStylist(): GuidanceStylist {
