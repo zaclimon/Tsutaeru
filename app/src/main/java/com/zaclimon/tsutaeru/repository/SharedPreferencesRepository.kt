@@ -1,28 +1,14 @@
-package com.zaclimon.tsutaeru.repository;
+package com.zaclimon.tsutaeru.repository
 
-/**
- * Base interface for interacting with SharedPreferences in a Pure MVP fashion.
- * <p>
- * In a pure MVP environment, in order to ensure simplicity in testing, a presenter should not have
- * any direct dependency to Android related packages. Because of this, coupling is reduced in
- * order the environment is modular as well.
- * <p>
- * Please note that the put() methods are only there to set the value and an apply() call is needed
- * to correctly persist the data to the storage. (As defined in {@link android.content.SharedPreferences})
- *
- * @author zaclimon
- * Creation date: 25/06/17
- */
-
-public interface SharedPreferencesRepository {
+interface SharedPreferencesRepository {
 
     /**
      * Retrieves a String from the SharedPreferences based on it's key
      *
      * @param key the key of the preference
-     * @return the preference string if it exists
+     * @return the preference string if it exists and an empty string if it doesn't
      */
-    String getString(String key);
+    fun getString(key: String): String
 
     /**
      * Retrieves a String from the SharedPreferences based on it's key
@@ -31,7 +17,7 @@ public interface SharedPreferencesRepository {
      * @param defaultValue the value if a string isn't found
      * @return the preference string if it exists, otherwise the default value.
      */
-    String getString(String key, String defaultValue);
+    fun getString(key: String, defaultValue: String): String
 
     /**
      * Retrieves a boolean from the SharedPreferences based on it's key
@@ -40,15 +26,15 @@ public interface SharedPreferencesRepository {
      * @param defaultValue the value if the boolean isn't found
      * @return the preference boolean if it exists, otherwise the default value.
      */
-    boolean getBoolean(String key, boolean defaultValue);
+    fun getBoolean(key: String, defaultValue: Boolean): Boolean
 
     /**
      * Retrieves a integer from the SharedPreferences based on it's key
      *
      * @param key the key of the preference
-     * @return the preference integer if it exists
+     * @return the preference integer if it exists and 0 if it doesn't
      */
-    int getInt(String key);
+    fun getInt(key: String): Int
 
     /**
      * Retrieves a integer from the SharedPreferences based on it's key
@@ -57,7 +43,7 @@ public interface SharedPreferencesRepository {
      * @param defaultValue the value if a integer isn't found
      * @return the preference integer if it exists, otherwise the default value.
      */
-    int getInt(String key, int defaultValue);
+    fun getInt(key: String, defaultValue: Int): Int
 
     /**
      * Sets a String from the SharedPreferences to the given key
@@ -65,7 +51,7 @@ public interface SharedPreferencesRepository {
      * @param key   the key of the preference
      * @param value the string to be saved
      */
-    void putString(String key, String value);
+    fun putString(key: String, value: String)
 
     /**
      * Sets a String from the SharedPreferences to the given key
@@ -73,7 +59,7 @@ public interface SharedPreferencesRepository {
      * @param key   the key of the preference
      * @param value the integer to be saved
      */
-    void putInt(String key, int value);
+    fun putBoolean(key: String, value: Boolean)
 
     /**
      * Sets a boolean from the SharedPreferences to the given key
@@ -81,11 +67,11 @@ public interface SharedPreferencesRepository {
      * @param key   the key of the preference
      * @param value the boolean to be saved
      */
-    void putBoolean(String key, boolean value);
+    fun putInt(key: String, value: Int)
 
     /**
      * Persists all the modifications done by put() methods into the storage
      */
-    void apply();
+    fun apply()
 
 }
