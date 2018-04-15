@@ -19,8 +19,6 @@
 
     <style name="GuidedStepTitleTheme" parent="Widget.Leanback.GuidedActionItemTitleStyle">
         <item name="android:textColor">@color/colorTextAccentPrimary</item>
-        <item name="android:editTextStyle">@style/GuidedStepEditTextTheme</item>
-        <item name="editTextStyle">@style/GuidedStepEditTextTheme</item>
     </style>
 
     <style name="GuidedStepEditTextTheme" parent="Widget.AppCompat.EditText">
