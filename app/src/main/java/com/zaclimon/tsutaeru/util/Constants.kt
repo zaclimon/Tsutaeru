@@ -15,7 +15,7 @@ object Constants {
     /**
      * [ComponentName] used for defining easily an input id for the application
      */
-    val TV_INPUT_SERVICE_COMPONENT = ComponentName("com.zaclimon.tsutaeru", ProviderTvInputService::class.java.simpleName)
+    val TV_INPUT_SERVICE_COMPONENT = ComponentName("com.zaclimon.tsutaeru", ProviderTvInputService::class.java.canonicalName)
 
     // Preferences stuff
     const val TSUTAERU_PREFERENCES = "TsutaeruSharedPreferences"
