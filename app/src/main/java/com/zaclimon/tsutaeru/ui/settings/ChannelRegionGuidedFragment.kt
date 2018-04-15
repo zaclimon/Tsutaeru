@@ -97,6 +97,8 @@ class ChannelRegionGuidedFragment : GuidedStepSupportFragment() {
                 editor?.putBoolean(Constants.INTERNATIONAL_REGION_PREFERENCE, actions[2].isChecked)
                 editor?.apply()
                 add(fragmentManager, EpgSyncLoadingGuidedFragment())
+            } else {
+                activity?.finish()
             }
         }
     }
