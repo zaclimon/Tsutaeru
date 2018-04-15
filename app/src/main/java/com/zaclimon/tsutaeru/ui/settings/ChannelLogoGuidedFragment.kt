@@ -8,12 +8,14 @@ import android.os.Bundle
 import android.support.v17.leanback.app.GuidedStepSupportFragment
 import android.support.v17.leanback.widget.GuidanceStylist
 import android.support.v17.leanback.widget.GuidedAction
+import android.util.Log
+import android.widget.Toast
 import com.google.android.media.tv.companionlibrary.model.ModelUtils
 import com.google.android.media.tv.companionlibrary.sync.EpgSyncJobService
-import com.google.android.media.tv.companionlibrary.utils.TvContractUtils
 import com.zaclimon.tsutaeru.R
 import com.zaclimon.tsutaeru.service.TsutaeruJobService
 import com.zaclimon.tsutaeru.util.Constants
+import java.lang.ref.WeakReference
 
 /**
  * Setting fragment which will either enable or disable the channel logos as seen on
@@ -77,7 +79,11 @@ class ChannelLogoGuidedFragment : GuidedStepSupportFragment() {
 
         if (initialAction != modifiedAction) {
             if (!modifiedAction) {
-                AsyncRemoveLogos().execute()
+                context?.let {
+                    AsyncRemoveLogos(it).execute()
+                    Toast.makeText(it, R.string.restart_live_channels, Toast.LENGTH_SHORT).show()
+                    activity?.finish()
+                }
             }
 
             val inputId = TvContract.buildInputId(Constants.TV_INPUT_SERVICE_COMPONENT)
@@ -88,19 +94,21 @@ class ChannelLogoGuidedFragment : GuidedStepSupportFragment() {
         }
     }
 
-     inner class AsyncRemoveLogos : AsyncTask<Void?, Void?, Void?>() {
+     private class AsyncRemoveLogos(context: Context) : AsyncTask<Void?, Void?, Void?>() {
 
-        override fun doInBackground(vararg p0: Void?): Void? {
-            if (isAdded) {
-                val contentResolver = activity?.contentResolver
+         private val asyncReference = WeakReference<Context>(context)
+
+         override fun doInBackground(vararg p0: Void?): Void? {
+            val context = asyncReference.get()
+            context?.let {
+                val contentResolver = it.contentResolver
                 val channels = ModelUtils.getChannels(contentResolver)
                 for (channel in channels) {
                     val logoUri = TvContract.buildChannelLogoUri(channel.id)
-                    contentResolver?.delete(logoUri, null, null)
+                    contentResolver.delete(logoUri, null, null)
                 }
             }
             return (null)
-        }
-
+         }
     }
 }

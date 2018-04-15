@@ -1,6 +1,7 @@
 package com.zaclimon.tsutaeru.ui.settings
 
 import android.content.ComponentName
+import android.content.Context
 import android.media.tv.TvContract
 import android.os.AsyncTask
 import android.os.Bundle
@@ -13,6 +14,7 @@ import com.google.android.media.tv.companionlibrary.utils.TvContractUtils
 import com.zaclimon.tsutaeru.R
 import com.zaclimon.tsutaeru.service.TsutaeruJobService
 import com.zaclimon.tsutaeru.util.Constants
+import java.lang.ref.WeakReference
 
 /**
  * Setting option that forces an EPG sync for the next hour.
@@ -45,16 +47,22 @@ class EpgForceSyncGuidedFragment : GuidedStepSupportFragment() {
         val id = action?.id
 
         if (id == GuidedAction.ACTION_ID_YES) {
-            AsyncResyncPrograms().execute()
-            add(fragmentManager, EpgSyncLoadingGuidedFragment())
+            context?.let {
+                AsyncResyncPrograms(it).execute()
+                add(fragmentManager, EpgSyncLoadingGuidedFragment())
+            }
         } else {
             activity?.finish()
         }
     }
 
-    inner class AsyncResyncPrograms : AsyncTask<Void, Void, Void?>() {
+    private class AsyncResyncPrograms(context: Context) : AsyncTask<Void, Void, Void?>() {
+
+        private val asyncReference = WeakReference<Context>(context)
+
         override fun doInBackground(vararg p0: Void?): Void? {
-            val contentResolver = activity?.contentResolver
+            val context = asyncReference.get()
+            val contentResolver = context?.contentResolver
             val channels = ModelUtils.getChannels(contentResolver)
 
             for (channel in channels) {
@@ -65,6 +73,7 @@ class EpgForceSyncGuidedFragment : GuidedStepSupportFragment() {
         }
 
         override fun onPostExecute(result: Void?) {
+            val context = asyncReference.get()
             val inputId = TvContract.buildInputId(Constants.TV_INPUT_SERVICE_COMPONENT)
             EpgSyncJobService.requestImmediateSync(context, inputId, ComponentName(context, TsutaeruJobService::class.java))
         }
