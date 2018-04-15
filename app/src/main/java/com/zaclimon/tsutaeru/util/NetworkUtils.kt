@@ -12,10 +12,10 @@ class NetworkUtils {
         private const val URLCONNECTION_READ_TIMEOUT_MS = 10000
 
         fun getNetworkInputStream(url: String): InputStream {
-
-            val urlConnection = URL(url).openConnection()
-            urlConnection.connectTimeout = URLCONNECTION_CONNECTION_TIMEOUT_MS
-            urlConnection.readTimeout = URLCONNECTION_READ_TIMEOUT_MS
+            val urlConnection = URL(url).openConnection().apply {
+                connectTimeout = URLCONNECTION_CONNECTION_TIMEOUT_MS
+                readTimeout = URLCONNECTION_READ_TIMEOUT_MS
+            }
             val inputStream = urlConnection.getInputStream()
             return inputStream.buffered()
         }

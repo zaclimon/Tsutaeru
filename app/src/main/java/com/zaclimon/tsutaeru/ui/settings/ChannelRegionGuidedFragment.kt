@@ -37,40 +37,41 @@ class ChannelRegionGuidedFragment : GuidedStepSupportFragment() {
 
     override fun onCreateActions(actions: MutableList<GuidedAction>, savedInstanceState: Bundle?) {
         val sharedPreferences = context?.getSharedPreferences(Constants.TSUTAERU_PREFERENCES, Context.MODE_PRIVATE)
-        val ukAction = GuidedAction.Builder(context)
-        val naAction = GuidedAction.Builder(context)
-        val intAction = GuidedAction.Builder(context)
-        val okAction = GuidedAction.Builder(context)
-
-        // Set the titles
-        ukAction.title(R.string.region_uk)
-        naAction.title(R.string.region_na)
-        intAction.title(R.string.region_international)
-
-        // Set the id's
-        ukAction.id(ACTION_UK_REGION_ID)
-        naAction.id(ACTION_NA_REGION_ID)
-        intAction.id(ACTION_INT_REGION_ID)
-
-        // Set the actions to have checkboxes
-        ukAction.checkSetId(GuidedAction.CHECKBOX_CHECK_SET_ID)
-        naAction.checkSetId(GuidedAction.CHECKBOX_CHECK_SET_ID)
-        intAction.checkSetId(GuidedAction.CHECKBOX_CHECK_SET_ID)
 
         // Set if the value is checked, all of them are enabled by default
         val isUkChecked = sharedPreferences?.getBoolean(Constants.UK_REGION_PREFERENCE, true) ?: true
         val isNaChecked = sharedPreferences?.getBoolean(Constants.NA_REGION_PREFERENCE, true) ?: true
         val isIntChecked = sharedPreferences?.getBoolean(Constants.INTERNATIONAL_REGION_PREFERENCE, true) ?: true
-        ukAction.checked(isUkChecked)
-        naAction.checked(isNaChecked)
-        intAction.checked(isIntChecked)
 
-        okAction.clickAction(GuidedAction.ACTION_ID_OK)
+        val ukAction = GuidedAction.Builder(context).apply {
+            title(R.string.region_uk)
+            id(ACTION_UK_REGION_ID)
+            checkSetId(GuidedAction.CHECKBOX_CHECK_SET_ID)
+            checked(isUkChecked)
+        }.build()
 
-        actions.add(ukAction.build())
-        actions.add(naAction.build())
-        actions.add(intAction.build())
-        actions.add(okAction.build())
+        val naAction = GuidedAction.Builder(context).apply {
+            title(R.string.region_na)
+            id(ACTION_NA_REGION_ID)
+            checkSetId(GuidedAction.CHECKBOX_CHECK_SET_ID)
+            checked(isNaChecked)
+        }.build()
+
+        val intAction = GuidedAction.Builder(context).apply {
+            title(R.string.region_international)
+            id(ACTION_INT_REGION_ID)
+            checkSetId(GuidedAction.CHECKBOX_CHECK_SET_ID)
+            checked(isIntChecked)
+        }.build()
+
+        val okAction = GuidedAction.Builder(context).apply {
+            clickAction(GuidedAction.ACTION_ID_OK)
+        }.build()
+
+        actions.add(ukAction)
+        actions.add(naAction)
+        actions.add(intAction)
+        actions.add(okAction)
     }
 
     override fun onGuidedActionClicked(action: GuidedAction?) {

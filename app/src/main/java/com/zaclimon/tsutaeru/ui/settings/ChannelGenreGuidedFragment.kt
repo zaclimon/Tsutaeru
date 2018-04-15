@@ -33,27 +33,34 @@ class ChannelGenreGuidedFragment : GuidedStepSupportFragment() {
         val channelGenres = Constants.CHANNEL_GENRES
 
         for (i in channelGenres.indices) {
-            val action = GuidedAction.Builder(context)
             val actionTitles = channelGenres[i].split("_")
-            val actionTitle: String = if (actionTitles.size == 1) {
+            val actionTitle = if (actionTitles.size == 1) {
                 actionTitles[0].toLowerCase().capitalize()
             } else {
                 // So far there are only two parts in each section titles so let's define them statically.
                 actionTitles[0].toLowerCase().capitalize() + "/" + actionTitles[1].toLowerCase().capitalize()
             }
-            action.id(i.toLong())
-            action.checkSetId(GuidedAction.CHECKBOX_CHECK_SET_ID)
-            action.title(actionTitle)
-            action.checked(sharedPreferences!!.getBoolean(Constants.CHANNEL_GENRE_PREFERENCE + channelGenres[i], true))
-            actions.add(action.build())
+
+            val action = GuidedAction.Builder(context).apply {
+                id(i.toLong())
+                checkSetId(GuidedAction.CHECKBOX_CHECK_SET_ID)
+                title(actionTitle)
+                checked(sharedPreferences!!.getBoolean(Constants.CHANNEL_GENRE_PREFERENCE + channelGenres[i], true))
+            }.build()
+
+            actions.add(action)
         }
 
-        val okAction = GuidedAction.Builder(context)
-        val cancelAction = GuidedAction.Builder(context)
-        okAction.clickAction(GuidedAction.ACTION_ID_OK)
-        cancelAction.clickAction(GuidedAction.ACTION_ID_CANCEL)
-        actions.add(okAction.build())
-        actions.add(cancelAction.build())
+        val okAction = GuidedAction.Builder(context).apply {
+            clickAction(GuidedAction.ACTION_ID_OK)
+        }.build()
+
+        val cancelAction = GuidedAction.Builder(context).apply {
+            clickAction(GuidedAction.ACTION_ID_CANCEL)
+        }.build()
+
+        actions.add(okAction)
+        actions.add(cancelAction)
     }
 
     override fun onGuidedActionClicked(action: GuidedAction?) {

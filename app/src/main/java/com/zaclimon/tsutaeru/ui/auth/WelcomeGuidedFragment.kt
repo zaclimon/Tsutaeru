@@ -22,24 +22,25 @@ class WelcomeGuidedFragment : GuidedStepSupportFragment() {
     }
 
     override fun onCreateActions(actions: MutableList<GuidedAction>, savedInstanceState: Bundle?) {
-        val yesAction = GuidedAction.Builder(context)
-        val noAction = GuidedAction.Builder(context)
-        yesAction.title(R.string.lets_go_text)
-        noAction.title(R.string.not_yet_text)
-        yesAction.id(GuidedAction.ACTION_ID_YES)
-        noAction.id(GuidedAction.ACTION_ID_NO)
-        actions.add(yesAction.build())
-        actions.add(noAction.build())
+        val yesAction = GuidedAction.Builder(context).apply {
+            title(R.string.lets_go_text)
+            id(GuidedAction.ACTION_ID_YES)
+        }.build()
+
+        val noAction = GuidedAction.Builder(context).apply {
+            title(R.string.not_yet_text)
+            id(GuidedAction.ACTION_ID_NO)
+        }.build()
+
+        actions.add(yesAction)
+        actions.add(noAction)
     }
 
     override fun onGuidedActionClicked(action: GuidedAction?) {
         val id = action?.id
-
-        if (id == GuidedAction.ACTION_ID_YES) {
-            // Switch to url Fragment
-            add(fragmentManager, UrlInputGuidedFragment())
-        } else {
-            activity?.finish()
+        when (id) {
+            GuidedAction.ACTION_ID_YES -> add(fragmentManager, UrlInputGuidedFragment())
+            else -> activity?.finish()
         }
     }
 

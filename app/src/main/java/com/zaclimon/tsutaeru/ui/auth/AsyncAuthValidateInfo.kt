@@ -72,22 +72,20 @@ class AsyncAuthValidateInfo(url: String,
         return false
     }
 
-    override fun onPostExecute(result: Boolean?) {
+    override fun onPostExecute(result: Boolean) {
         super.onPostExecute(result)
-
-        if (result != null && result) {
-            taskSharedPreferencesRepository.putString(Constants.PROVIDER_URL_PREFERENCE, taskUrl)
-            taskSharedPreferencesRepository.putString(Constants.USERNAME_PREFERENCE, taskUsername)
-            taskSharedPreferencesRepository.putString(Constants.PASSWORD_PREFERENCE, taskPassword)
-            taskSharedPreferencesRepository.apply()
-            taskAuthView.onConnectionSuccess()
-        } else if (result != null && ioException is FileNotFoundException) {
-            taskAuthView.onConnectionFailed()
-        } else if (result != null && ioException is SocketTimeoutException) {
-            taskAuthView.onTimeoutReceived()
-        } else if (result != null) {
-            // If anything else received is not a valid M3U playlist
-            taskAuthView.onConnectionFailed()
+        when {
+            result -> {
+                taskSharedPreferencesRepository.putString(Constants.PROVIDER_URL_PREFERENCE, taskUrl)
+                taskSharedPreferencesRepository.putString(Constants.USERNAME_PREFERENCE, taskUsername)
+                taskSharedPreferencesRepository.putString(Constants.PASSWORD_PREFERENCE, taskPassword)
+                taskSharedPreferencesRepository.apply()
+                taskAuthView.onConnectionSuccess()
+            }
+            ioException is FileNotFoundException -> taskAuthView.onConnectionFailed()
+            ioException is SocketTimeoutException -> taskAuthView.onTimeoutReceived()
+            // Anything else received is not a valid M3U playlist
+            else -> taskAuthView.onConnectionFailed()
         }
     }
 

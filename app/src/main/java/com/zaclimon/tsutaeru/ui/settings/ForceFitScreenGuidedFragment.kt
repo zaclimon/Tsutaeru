@@ -31,14 +31,18 @@ class ForceFitScreenGuidedFragment : GuidedStepSupportFragment() {
     }
 
     override fun onCreateActions(actions: MutableList<GuidedAction>, savedInstanceState: Bundle?) {
-        val yesAction = GuidedAction.Builder(context)
-        val noAction = GuidedAction.Builder(context)
-        yesAction.title(R.string.yes_text)
-        noAction.title(R.string.no_text)
-        yesAction.id(GuidedAction.ACTION_ID_YES)
-        noAction.id(GuidedAction.ACTION_ID_NO)
-        actions.add(yesAction.build())
-        actions.add(noAction.build())
+        val yesAction = GuidedAction.Builder(context).apply {
+            title(R.string.yes_text)
+            id(GuidedAction.ACTION_ID_YES)
+        }.build()
+
+        val noAction = GuidedAction.Builder(context).apply {
+            title(R.string.no_text)
+            id(GuidedAction.ACTION_ID_NO)
+        }.build()
+
+        actions.add(yesAction)
+        actions.add(noAction)
     }
 
     override fun onGuidedActionClicked(action: GuidedAction?) {

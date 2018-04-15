@@ -48,13 +48,15 @@ class EpgSyncLoadingGuidedFragment : GuidedStepSupportFragment() {
             val inputIdExtra = p1?.getStringExtra(EpgSyncJobService.BUNDLE_KEY_INPUT_ID)
             val tsutaeruInputId = TvContract.buildInputId(Constants.TV_INPUT_SERVICE_COMPONENT)
 
-            if (inputIdExtra != null && inputIdExtra == tsutaeruInputId) {
-                val syncStatus = p1.getStringExtra(EpgSyncJobService.SYNC_STATUS)
+            inputIdExtra?.let {
+                if (it == tsutaeruInputId) {
+                    val syncStatus = p1.getStringExtra(EpgSyncJobService.SYNC_STATUS)
 
-                if (syncStatus == EpgSyncJobService.SYNC_FINISHED) {
-                    Toast.makeText(p0, p0?.getString(R.string.restart_live_channels), Toast.LENGTH_SHORT).show()
-                    LocalBroadcastManager.getInstance(p0!!).unregisterReceiver(this)
-                    activity?.finish()
+                    if (syncStatus == EpgSyncJobService.SYNC_FINISHED) {
+                        Toast.makeText(p0, p0?.getString(R.string.restart_live_channels), Toast.LENGTH_SHORT).show()
+                        LocalBroadcastManager.getInstance(p0!!).unregisterReceiver(this)
+                        activity?.finish()
+                    }
                 }
             }
         }

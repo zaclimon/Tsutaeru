@@ -58,8 +58,8 @@ class UserInfoGuidedFragment : GuidedStepSupportFragment(), UserInfoView {
     override fun onCreateActions(actions: MutableList<GuidedAction>, savedInstanceState: Bundle?) {
         val builder = GuidedAction.Builder(context).apply {
             clickAction(GuidedAction.ACTION_ID_OK)
-        }
-        actions.add(builder.build())
+        }.build()
+        actions.add(builder)
     }
 
     override fun onGuidedActionClicked(action: GuidedAction?) {

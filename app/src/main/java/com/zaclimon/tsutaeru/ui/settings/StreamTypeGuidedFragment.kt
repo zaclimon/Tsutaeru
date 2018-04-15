@@ -40,14 +40,18 @@ class StreamTypeGuidedFragment : GuidedStepSupportFragment() {
     }
 
     override fun onCreateActions(actions: MutableList<GuidedAction>, savedInstanceState: Bundle?) {
-        val hlsAction = GuidedAction.Builder(context)
-        val tsAction = GuidedAction.Builder(context)
-        hlsAction.title(R.string.hls_text)
-        tsAction.title(R.string.mpeg_ts_text)
-        hlsAction.id(ACTION_HLS)
-        tsAction.id(ACTION_MPEG_TS)
-        actions.add(hlsAction.build())
-        actions.add(tsAction.build())
+        val hlsAction = GuidedAction.Builder(context).apply {
+            title(R.string.hls_text)
+            id(ACTION_HLS)
+        }.build()
+
+        val tsAction = GuidedAction.Builder(context).apply {
+            title(R.string.mpeg_ts_text)
+            id(ACTION_MPEG_TS)
+        }.build()
+
+        actions.add(hlsAction)
+        actions.add(tsAction)
     }
 
     override fun onGuidedActionClicked(action: GuidedAction?) {
@@ -61,6 +65,7 @@ class StreamTypeGuidedFragment : GuidedStepSupportFragment() {
             ACTION_MPEG_TS -> editor?.putString(Constants.STREAM_TYPE_PREFERENCE, Constants.STREAM_TYPE_MPEG_TS)
             else -> editor?.putString(Constants.STREAM_TYPE_PREFERENCE, Constants.STREAM_TYPE_HLS)
         }
+
         editor?.apply()
 
         val modifiedAction = sharedPreferences?.getString(Constants.STREAM_TYPE_PREFERENCE, Constants.STREAM_TYPE_HLS)

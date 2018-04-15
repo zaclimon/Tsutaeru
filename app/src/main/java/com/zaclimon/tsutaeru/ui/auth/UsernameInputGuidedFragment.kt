@@ -31,13 +31,15 @@ class UsernameInputGuidedFragment : GuidedStepSupportFragment() {
     }
 
     override fun onCreateActions(actions: MutableList<GuidedAction>, savedInstanceState: Bundle?) {
-        val usernameAction = GuidedAction.Builder(context)
-        usernameAction.title(R.string.username_text)
-        usernameAction.editTitle("")
-        usernameAction.editable(true)
-        usernameAction.inputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
-        usernameAction.id(ACTION_USERNAME)
-        actions.add(usernameAction.build())
+        val usernameAction = GuidedAction.Builder(context).apply {
+            title(R.string.username_text)
+            editTitle("")
+            editable(true)
+            inputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
+            id(ACTION_USERNAME)
+        }.build()
+
+        actions.add(usernameAction)
     }
 
     override fun onGuidedActionEditedAndProceed(action: GuidedAction?): Long {

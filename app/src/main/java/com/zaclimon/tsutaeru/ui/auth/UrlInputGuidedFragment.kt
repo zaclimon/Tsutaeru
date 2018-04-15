@@ -33,13 +33,15 @@ class UrlInputGuidedFragment : GuidedStepSupportFragment() {
     }
 
     override fun onCreateActions(actions: MutableList<GuidedAction>, savedInstanceState: Bundle?) {
-        val urlAction = GuidedAction.Builder(context)
-        urlAction.title(R.string.provider_url_text)
-        urlAction.editTitle("")
-        urlAction.editable(true)
-        urlAction.inputType(InputType.TYPE_CLASS_TEXT)
-        urlAction.id(ACTION_URL_PROVIDER)
-        actions.add(urlAction.build())
+        val urlAction = GuidedAction.Builder(context).apply {
+            title(R.string.provider_url_text)
+            editTitle("")
+            editable(true)
+            inputType(InputType.TYPE_CLASS_TEXT)
+            id(ACTION_URL_PROVIDER)
+        }.build()
+
+        actions.add(urlAction)
     }
 
     override fun onGuidedActionEditedAndProceed(action: GuidedAction?): Long {

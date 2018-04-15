@@ -31,13 +31,15 @@ class PasswordInputGuidedFragment : GuidedStepSupportFragment() {
     }
 
     override fun onCreateActions(actions: MutableList<GuidedAction>, savedInstanceState: Bundle?) {
-        val passwordAction = GuidedAction.Builder(context)
-        passwordAction.title(R.string.password_text)
-        passwordAction.editTitle("")
-        passwordAction.editable(true)
-        passwordAction.editInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD)
-        passwordAction.id(ACTION_PASSWORD)
-        actions.add(passwordAction.build())
+        val passwordAction = GuidedAction.Builder(context).apply {
+            title(R.string.password_text)
+            editTitle("")
+            editable(true)
+            editInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD)
+            id(ACTION_PASSWORD)
+        }.build()
+
+        actions.add(passwordAction)
     }
 
     override fun onGuidedActionEditedAndProceed(action: GuidedAction?): Long {
@@ -47,10 +49,11 @@ class PasswordInputGuidedFragment : GuidedStepSupportFragment() {
             val password = action.editTitle.toString()
             if (password.isNotEmpty()) {
                 val fragment = VerificationGuidedFragment()
-                val currentArguments = Bundle()
-                currentArguments.putString(UrlInputGuidedFragment.ARGUMENT_URL, arguments?.getString(UrlInputGuidedFragment.ARGUMENT_URL))
-                currentArguments.putString(UsernameInputGuidedFragment.ARGUMENT_USERNAME, arguments?.getString(UsernameInputGuidedFragment.ARGUMENT_USERNAME))
-                currentArguments.putString(ARGUMENT_PASSWORD, password)
+                val currentArguments = Bundle().apply {
+                    putString(UrlInputGuidedFragment.ARGUMENT_URL, arguments?.getString(UrlInputGuidedFragment.ARGUMENT_URL))
+                    putString(UsernameInputGuidedFragment.ARGUMENT_USERNAME, arguments?.getString(UsernameInputGuidedFragment.ARGUMENT_USERNAME))
+                    putString(ARGUMENT_PASSWORD, password)
+                }
                 fragment.arguments = currentArguments
                 add(fragmentManager, fragment)
             }

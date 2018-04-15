@@ -39,13 +39,15 @@ class TvCatchupEpgOffsetGuidedFragment : GuidedStepSupportFragment() {
     }
 
     override fun onCreateActions(actions: MutableList<GuidedAction>, savedInstanceState: Bundle?) {
-        val offsetAction = GuidedAction.Builder(context)
-        offsetAction.title(R.string.offset_text)
-        offsetAction.editTitle("")
-        offsetAction.editable(true)
-        offsetAction.editInputType(InputType.TYPE_CLASS_NUMBER and InputType.TYPE_NUMBER_FLAG_DECIMAL and InputType.TYPE_NUMBER_FLAG_SIGNED)
-        offsetAction.id(ACTION_OFFSET)
-        actions.add(offsetAction.build())
+        val offsetAction = GuidedAction.Builder(context).apply {
+            title(R.string.offset_text)
+            editTitle("")
+            editable(true)
+            editInputType(InputType.TYPE_CLASS_NUMBER and InputType.TYPE_NUMBER_FLAG_DECIMAL and InputType.TYPE_NUMBER_FLAG_SIGNED)
+            id(ACTION_OFFSET)
+        }.build()
+
+        actions.add(offsetAction)
     }
 
     override fun onGuidedActionEditedAndProceed(action: GuidedAction?): Long {

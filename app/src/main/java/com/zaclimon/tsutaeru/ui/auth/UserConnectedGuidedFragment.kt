@@ -31,10 +31,12 @@ class UserConnectedGuidedFragment : GuidedStepSupportFragment() {
     }
 
     override fun onCreateActions(actions: MutableList<GuidedAction>, savedInstanceState: Bundle?) {
-        val exitAction = GuidedAction.Builder(context)
-        exitAction.title(R.string.lets_go_text)
-        exitAction.id(GuidedAction.ACTION_ID_OK)
-        actions.add(exitAction.build())
+        val exitAction = GuidedAction.Builder(context).apply {
+            title(R.string.lets_go_text)
+            id(GuidedAction.ACTION_ID_OK)
+        }.build()
+
+        actions.add(exitAction)
     }
 
     override fun onGuidedActionClicked(action: GuidedAction?) {

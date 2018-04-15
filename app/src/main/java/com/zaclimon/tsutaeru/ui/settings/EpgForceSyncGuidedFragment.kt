@@ -29,14 +29,16 @@ class EpgForceSyncGuidedFragment : GuidedStepSupportFragment() {
     }
 
     override fun onCreateActions(actions: MutableList<GuidedAction>, savedInstanceState: Bundle?) {
-        val yesAction = GuidedAction.Builder(context)
-        val noAction = GuidedAction.Builder(context)
+        val yesAction = GuidedAction.Builder(context).apply {
+            clickAction(GuidedAction.ACTION_ID_YES)
+        }.build()
 
-        yesAction.clickAction(GuidedAction.ACTION_ID_YES)
-        noAction.clickAction(GuidedAction.ACTION_ID_NO)
+        val noAction = GuidedAction.Builder(context).apply {
+            clickAction(GuidedAction.ACTION_ID_NO)
+        }.build()
 
-        actions.add(yesAction.build())
-        actions.add(noAction.build())
+        actions.add(yesAction)
+        actions.add(noAction)
     }
 
     override fun onGuidedActionClicked(action: GuidedAction?) {

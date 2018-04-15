@@ -27,15 +27,17 @@ class AboutGuidedFragment : GuidedStepSupportFragment() {
     }
 
     override fun onCreateActions(actions: MutableList<GuidedAction>, savedInstanceState: Bundle?) {
-        val userInfoAction = GuidedAction.Builder(context)
-        val okAction = GuidedAction.Builder(context)
+        val userInfoAction = GuidedAction.Builder(context).apply {
+            title(R.string.user_info_text)
+            id(ACTION_USER_INFO)
+        }.build()
 
-        userInfoAction.title(R.string.user_info_text)
-        userInfoAction.id(ACTION_USER_INFO)
-        okAction.clickAction(GuidedAction.ACTION_ID_OK)
+        val okAction = GuidedAction.Builder(context).apply {
+            clickAction(GuidedAction.ACTION_ID_OK)
+        }.build()
 
-        actions.add(userInfoAction.build())
-        actions.add(okAction.build())
+        actions.add(userInfoAction)
+        actions.add(okAction)
     }
 
     override fun onGuidedActionClicked(action: GuidedAction?) {
