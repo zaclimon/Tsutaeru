@@ -31,7 +31,7 @@ class TsutaeruTvInputSetupGuidedFragment : ChannelSetupStepSupportFragment<Tsuta
     override fun onCreateGuidance(savedInstanceState: Bundle?): GuidanceStylist.Guidance {
         val title = getString(R.string.tif_channel_setup_title)
         val description = getString(R.string.tif_channel_setup_description)
-        val icon = activity?.getDrawable(R.drawable.ace_badge)
+        val icon = activity?.getDrawable(R.drawable.tsutaeru_badge)
 
         return GuidanceStylist.Guidance(title, description, null, icon)
     }
