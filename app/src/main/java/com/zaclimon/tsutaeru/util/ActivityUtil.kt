@@ -24,7 +24,7 @@ class ActivityUtil {
             val url = sharedPreferences.getString(Constants.PROVIDER_URL_PREFERENCE, "")
             val username = sharedPreferences.getString(Constants.USERNAME_PREFERENCE, "")
             val password = sharedPreferences.getString(Constants.PASSWORD_PREFERENCE, "")
-            return (url.isNotEmpty() && username.isNotEmpty() && password.isNotEmpty())
+            return (url.isEmpty() || username.isEmpty() || password.isEmpty())
         }
 
         /**
