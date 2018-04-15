@@ -8,6 +8,14 @@ import com.zaclimon.tsutaeru.util.Constants
 import com.zaclimon.xipl.properties.ChannelProperties
 import com.zaclimon.xipl.service.ProviderEpgService
 
+/**
+ * Custom [ProviderEpgService] adapted for syncing a Tsutaeru provider content.
+ * <p>
+ * It downloads and parses the content from a user's M3U playlist + EPG XMLTV to add it to the
+ * Android TV's system database in order to be used by the Live Channels application.
+ *
+ * @author zaclimon
+ */
 class TsutaeruJobService : ProviderEpgService() {
 
     private lateinit var serviceProperties: ChannelProperties

@@ -13,6 +13,15 @@ import com.zaclimon.tsutaeru.service.TsutaeruJobService
 import com.zaclimon.tsutaeru.ui.auth.AuthActivityTv
 import com.zaclimon.tsutaeru.util.ActivityUtil
 
+/**
+ * Fragment used to configure channels for a provider whether it be on the first
+ * run of the Live Channel application or successive runs. It is created. every time
+ * a user wants to configure his/her channels.
+ *
+ * Concrete implementation of [ChannelSetupStepSupportFragment] for Tsutaeru.
+ *
+ * @author zaclimon
+ */
 class TsutaeruTvInputSetupGuidedFragment : ChannelSetupStepSupportFragment<TsutaeruJobService>() {
 
     companion object {

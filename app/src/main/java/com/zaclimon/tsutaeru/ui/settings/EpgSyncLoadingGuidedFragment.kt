@@ -16,7 +16,7 @@ import com.zaclimon.tsutaeru.util.Constants
 
 /**
  * GuidedStepFragment that sync itself with the broadcast intent sent by
- * [com.google.android.media.tv.companionlibrary.EpgSyncJobService]
+ * [com.google.android.media.tv.companionlibrary.sync.EpgSyncJobService]
  *
  * @author zaclimon
  */
@@ -39,7 +39,7 @@ class EpgSyncLoadingGuidedFragment : GuidedStepSupportFragment() {
 
     /**
      * BroadcastReceiver responsible for reacting to the broadcast sent by
-     * [com.google.android.media.tv.companionlibrary.EpgSyncJobService]
+     * [com.google.android.media.tv.companionlibrary.sync.EpgSyncJobService]
      *
      * @author zaclimon
      */
