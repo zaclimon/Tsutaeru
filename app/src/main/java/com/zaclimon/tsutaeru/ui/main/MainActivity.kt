@@ -24,7 +24,7 @@ class MainActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (ActivityUtil.isUsernamePasswordEmpty(this) && ActivityUtil.isTvMode(this)) {
+        if (ActivityUtil.areCredentialsEmpty(this) && ActivityUtil.isTvMode(this)) {
             val intent = Intent(this, AuthActivityTv::class.java)
             val inputId = TvContract.buildInputId(Constants.TV_INPUT_SERVICE_COMPONENT)
 

@@ -10,7 +10,7 @@ import java.util.*
  *
  * @author zaclimon
  */
-class AsyncRetrieveUserInfo(userEndpoint: String?, view: UserInfoView) : AsyncTask<Void, Void, Boolean>() {
+class AsyncRetrieveUserInfo(userEndpoint: String, view: UserInfoView) : AsyncTask<Void, Void, Boolean>() {
 
     companion object {
         private const val USER_INFO_JSON_OBJECT = "user_info"

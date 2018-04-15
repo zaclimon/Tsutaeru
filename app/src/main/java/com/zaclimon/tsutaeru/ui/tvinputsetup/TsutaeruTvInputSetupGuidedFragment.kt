@@ -37,15 +37,20 @@ class TsutaeruTvInputSetupGuidedFragment : ChannelSetupStepSupportFragment<Tsuta
     }
 
     override fun onStart() {
-        if (ActivityUtil.isUsernamePasswordEmpty(context)) {
-            // Remove all channels if there were any and authenticate the user.
-            val contentResolver = context?.contentResolver
-            val authIntent = Intent(context, AuthActivityTv::class.java)
-            val fragmentInputId = activity?.intent?.getStringExtra(TvInputInfo.EXTRA_INPUT_ID)
-            contentResolver?.delete(TvContract.buildChannelsUriForInput(fragmentInputId), null, null)
-            startActivityForResult(authIntent, REQUEST_AUTHENTICATION)
-        } else {
-            super.onStart()
+
+        val activityContext = context
+
+        if (activityContext != null) {
+            if (ActivityUtil.areCredentialsEmpty(activityContext)) {
+                // Remove all channels if there were any and authenticate the user.
+                val contentResolver = context?.contentResolver
+                val authIntent = Intent(context, AuthActivityTv::class.java)
+                val fragmentInputId = activity?.intent?.getStringExtra(TvInputInfo.EXTRA_INPUT_ID)
+                contentResolver?.delete(TvContract.buildChannelsUriForInput(fragmentInputId), null, null)
+                startActivityForResult(authIntent, REQUEST_AUTHENTICATION)
+            } else {
+                super.onStart()
+            }
         }
     }
 

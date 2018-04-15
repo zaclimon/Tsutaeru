@@ -7,7 +7,7 @@ package com.zaclimon.tsutaeru.ui.settings.userinfo
  *
  * @author zaclimon
  */
-class UserInfoPresenterImpl(endpoint: String?, view: UserInfoView) : UserInfoPresenter {
+class UserInfoPresenterImpl(endpoint: String, view: UserInfoView) : UserInfoPresenter {
 
     private val userEndpoint = endpoint
     private val userInfoView = view
