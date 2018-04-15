@@ -34,9 +34,13 @@ class ChannelGenreGuidedFragment : GuidedStepSupportFragment() {
 
         for (i in channelGenres.indices) {
             val action = GuidedAction.Builder(context)
-            // Create a title with a first capital letter. Also replace the "_" by a space
-            var actionTitle = channelGenres[i].substring(0, 1).toUpperCase() + channelGenres[i].substring(1).toLowerCase()
-            actionTitle = actionTitle.replace("_", "")
+            val actionTitles = channelGenres[i].split("_")
+            val actionTitle: String = if (actionTitles.size == 1) {
+                actionTitles[0].toLowerCase().capitalize()
+            } else {
+                // So far there are only two parts in each section titles so let's define them statically.
+                actionTitles[0].toLowerCase().capitalize() + "/" + actionTitles[1].toLowerCase().capitalize()
+            }
             action.id(i.toLong())
             action.checkSetId(GuidedAction.CHECKBOX_CHECK_SET_ID)
             action.title(actionTitle)
