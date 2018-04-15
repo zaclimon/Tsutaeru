@@ -14,6 +14,7 @@
         <item name="guidedActionsBackground">@color/colorAccentTv</item>
         <item name="guidedActionsBackgroundDark">@color/colorAccentDarkTv</item>
         <item name="guidedActionItemTitleStyle">@style/GuidedStepTitleTheme</item>
+        <item name="guidedActionItemCheckmarkStyle">@style/GuidedStepCheckmarkTheme</item>
     </style>
 
     <style name="GuidedStepTitleTheme" parent="Widget.Leanback.GuidedActionItemTitleStyle">
@@ -26,6 +27,10 @@
         <item name="android:colorControlNormal">@color/colorTextAccentPrimary</item>
         <item name="android:colorControlActivated">@color/colorTextAccentPrimary</item>
         <item name="android:colorControlHighlight">@color/colorTextAccentPrimary</item>
+    </style>
+
+    <style name="GuidedStepCheckmarkTheme" parent="Widget.Leanback.GuidedActionItemCheckmarkStyle">
+        <item name="android:tint">@color/colorTextAccentPrimary</item>
     </style>
 
     <style name="ImageCardViewTheme" parent="Widget.Leanback.ImageCardViewStyle">
