@@ -18,7 +18,9 @@ import com.zaclimon.tsutaeru.util.Constants
  */
 class MainActivity : FragmentActivity() {
 
-    private val authRequest = 0
+    companion object {
+        private const val REQUEST_AUTH: Int = 0
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +32,7 @@ class MainActivity : FragmentActivity() {
 
             // Delete all channels in case of where the user data has been cleared.
             contentResolver.delete(TvContract.buildChannelsUriForInput(inputId), null, null)
-            startActivityForResult(intent, authRequest)
+            startActivityForResult(intent, REQUEST_AUTH)
         } else {
             configureLayout()
         }
@@ -49,7 +51,7 @@ class MainActivity : FragmentActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == authRequest && resultCode == FragmentActivity.RESULT_OK) {
+        if (requestCode == REQUEST_AUTH && resultCode == FragmentActivity.RESULT_OK) {
             configureLayout()
         } else {
             finish()
