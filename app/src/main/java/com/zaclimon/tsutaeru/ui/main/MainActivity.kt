@@ -52,7 +52,8 @@ class MainActivity : FragmentActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_AUTH && resultCode == FragmentActivity.RESULT_OK) {
-            configureLayout()
+            // Recreate the activity so we won't get a state loss after onSaveInstanceState is called.
+            recreate()
         } else {
             finish()
         }
