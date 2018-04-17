@@ -8,7 +8,7 @@
     <string name="authentication_not_possible">Can\'t authenticate</string>
     <string name="authentication_required">In order to use Tsutaeru, you must sign-in to your provider.</string>
     <string name="catchup_title">TV Catchup</string>
-    <string name="change_user_title">Change user</string>
+    <string name="change_account_title">Change account</string>
     <string name="channel_genre_title">Channel genre</string>
     <string name="channel_genre_description">Filters the channels based on it\'s genre as defined for Live Channels.</string>
     <string name="channel_logo_title">Display channel logo?</string>

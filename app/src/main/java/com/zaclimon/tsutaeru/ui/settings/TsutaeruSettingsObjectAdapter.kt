@@ -19,7 +19,7 @@ class TsutaeruSettingsObjectAdapter : ProviderSettingsObjectAdapter() {
         addSection(R.string.channel_genre_title, R.drawable.ic_channel_genre)
         addSection(R.string.epg_offset_title_short, R.drawable.ic_epg_offset)
         addSection(R.string.external_player_title_short, R.drawable.ic_external_player)
-        addSection(R.string.change_user_title, R.drawable.ic_change_user)
+        addSection(R.string.change_account_title, R.drawable.ic_change_user)
         addSection(R.string.clear_cache_title_short, R.drawable.ic_clear_cache)
         addSection(R.string.about_text, R.drawable.ic_about)
     }
