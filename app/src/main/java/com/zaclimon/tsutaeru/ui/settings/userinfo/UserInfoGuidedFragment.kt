@@ -73,14 +73,17 @@ class UserInfoGuidedFragment : GuidedStepSupportFragment(), UserInfoView {
     }
 
     override fun onConnectionFailed() {
-        val transaction = fragmentManager?.beginTransaction()
-        val errorFragment = ErrorSupportFragment()
-        errorFragment.imageDrawable = context?.getDrawable(R.drawable.lb_ic_sad_cloud)
-        errorFragment.message = getString(R.string.user_info_not_accessible)
-        errorFragment.setDefaultBackground(true)
+        guidanceStylist.apply {
+            titleView.visibility = View.VISIBLE
+            descriptionView.visibility = View.VISIBLE
+            breadcrumbView.visibility = View.VISIBLE
+            iconView.visibility = View.VISIBLE
+            titleView.text = getString(R.string.error_text)
+            descriptionView.text = getString(R.string.user_info_not_accessible)
+            iconView.setImageDrawable(context?.getDrawable(R.drawable.lb_ic_sad_cloud))
+        }
+
         userProgressBarManager.hide()
-        transaction?.add(android.R.id.content, errorFragment)
-        transaction?.commit()
     }
 
     override fun onConnectionSuccess(status: String, expirationDate: Date, isTrial: Boolean, maxConnections: Int) {
