@@ -36,7 +36,8 @@ class RoomContentPersistence(context: Context) : ContentPersistence {
     }
 
     override fun getFromTitle(title: String, isAlphabeticallySorted: Boolean): MutableList<AvContent> {
-        return convertFromRoom(contentDao.getFromTitle(title)).toMutableList()
+        val queryTitle = "%$title%"
+        return convertFromRoom(contentDao.getFromTitle(queryTitle)).toMutableList()
     }
 
     override fun getFromCategory(category: String, isAlphabeticallySorted: Boolean): MutableList<AvContent> {
