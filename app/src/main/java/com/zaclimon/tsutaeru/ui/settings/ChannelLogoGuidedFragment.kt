@@ -1,5 +1,6 @@
 package com.zaclimon.tsutaeru.ui.settings
 
+import android.app.Activity
 import android.content.ComponentName
 import android.content.Context
 import android.media.tv.TvContract
@@ -79,28 +80,24 @@ class ChannelLogoGuidedFragment : GuidedStepSupportFragment() {
 
         if (initialAction != modifiedAction) {
             if (!modifiedAction) {
-                context?.let {
-                    AsyncRemoveLogos(it).execute()
-                    Toast.makeText(it, R.string.restart_live_channels, Toast.LENGTH_SHORT).show()
-                    activity?.finish()
-                }
+                activity?.let { AsyncRemoveLogos(it).execute() }
+            } else {
+                val inputId = TvContract.buildInputId(Constants.TV_INPUT_SERVICE_COMPONENT)
+                EpgSyncJobService.requestImmediateSync(context, inputId, ComponentName(context, TsutaeruJobService::class.java))
             }
-
-            val inputId = TvContract.buildInputId(Constants.TV_INPUT_SERVICE_COMPONENT)
-            EpgSyncJobService.requestImmediateSync(context, inputId, ComponentName(context, TsutaeruJobService::class.java))
             add(fragmentManager, EpgSyncLoadingGuidedFragment())
         } else {
             activity?.finish()
         }
     }
 
-     private class AsyncRemoveLogos(context: Context) : AsyncTask<Void?, Void?, Void?>() {
+     private class AsyncRemoveLogos(activity: Activity) : AsyncTask<Void?, Void?, Void?>() {
 
-         private val asyncReference = WeakReference<Context>(context)
-
+         private val asyncReference = WeakReference<Activity>(activity)
+         
          override fun doInBackground(vararg p0: Void?): Void? {
-            val context = asyncReference.get()
-            context?.let {
+            val activity = asyncReference.get()
+            activity?.let {
                 val contentResolver = it.contentResolver
                 val channels = ModelUtils.getChannels(contentResolver)
                 for (channel in channels) {
@@ -109,6 +106,14 @@ class ChannelLogoGuidedFragment : GuidedStepSupportFragment() {
                 }
             }
             return (null)
+         }
+
+         override fun onPostExecute(result: Void?) {
+             val activity = asyncReference.get()
+             activity?.let {
+                 Toast.makeText(it, R.string.restart_live_channels, Toast.LENGTH_SHORT).show()
+                 it.finish()
+             }
          }
     }
 }
