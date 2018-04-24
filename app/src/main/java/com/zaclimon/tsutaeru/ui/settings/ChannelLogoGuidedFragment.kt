@@ -94,7 +94,7 @@ class ChannelLogoGuidedFragment : GuidedStepSupportFragment() {
      private class AsyncRemoveLogos(activity: Activity) : AsyncTask<Void?, Void?, Void?>() {
 
          private val asyncReference = WeakReference<Activity>(activity)
-         
+
          override fun doInBackground(vararg p0: Void?): Void? {
             val activity = asyncReference.get()
             activity?.let {
