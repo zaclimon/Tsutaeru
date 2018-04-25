@@ -13,6 +13,9 @@
     <uses-feature
         android:name="android.hardware.microphone"
         android:required="false"/>
+    <uses-feature
+        android:name="android.software.live_tv"
+        android:required="true" />
 
     <application
         android:allowBackup="false"
