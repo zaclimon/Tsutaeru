@@ -11,7 +11,7 @@ android {
     buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "com.zaclimon.tsutaeru"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 27
         versionCode 10
         versionName "1.1.6"
