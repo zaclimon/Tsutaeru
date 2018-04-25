@@ -1,6 +1,6 @@
 # Tsutaeru
 
-Tsutaeru simplifies IPTV watching experience for Xtream Codes based providers only on Android TV. All of this in one's home sweet home.
+Based on the Japanese word "伝える", (to transmit) Tsutaeru simplifies IPTV watching experience for Xtream Codes based providers only on Android TV. All of this in one's home sweet home.
 
 ## Getting started for development
 
