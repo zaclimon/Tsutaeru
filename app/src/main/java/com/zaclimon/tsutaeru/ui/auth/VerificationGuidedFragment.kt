@@ -1,13 +1,19 @@
 package com.zaclimon.tsutaeru.ui.auth
 
+import android.content.Context
+import android.media.tv.TvContract
+import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v17.leanback.app.GuidedStepSupportFragment
 import android.support.v17.leanback.widget.GuidanceStylist
 import android.widget.TextView
 import android.widget.Toast
+import com.google.android.media.tv.companionlibrary.model.ModelUtils
 import com.zaclimon.tsutaeru.R
+import com.zaclimon.tsutaeru.data.TsutaeruDatabase
 import com.zaclimon.tsutaeru.repository.SharedPreferencesRepositoryImpl
 import com.zaclimon.tsutaeru.util.Constants
+import java.lang.ref.WeakReference
 
 /**
  * [GuidedStepSupportFragment] verifying whether the user can use it's provider services.
@@ -47,7 +53,17 @@ class VerificationGuidedFragment : GuidedStepSupportFragment(), AuthView {
         popBackStackToGuidedStepSupportFragment(UrlInputGuidedFragment::class.java, 0)
     }
 
-    override fun onConnectionSuccess() {
+    override fun onConnectionSuccess(isAccountChanged: Boolean) {
+
+        if (isAccountChanged) {
+            activity?.callingActivity?.let {
+                // Since the calling activity may be the settings, let's erase everything.
+                AsyncDeleteChannels(context!!).execute()
+                val contentDao = TsutaeruDatabase.getInstance(context!!).avContentDao()
+                contentDao.deleteAll()
+            }
+        }
+
         val fragment = UserConnectedGuidedFragment()
         val fragmentArguments = Bundle()
         fragmentArguments.putString(UsernameInputGuidedFragment.ARGUMENT_USERNAME, arguments?.getString(UsernameInputGuidedFragment.ARGUMENT_USERNAME))
@@ -58,5 +74,24 @@ class VerificationGuidedFragment : GuidedStepSupportFragment(), AuthView {
     override fun onTimeoutReceived() {
         Toast.makeText(context, R.string.connection_timeout_toast, Toast.LENGTH_SHORT).show()
         popBackStackToGuidedStepSupportFragment(UrlInputGuidedFragment::class.java, 0)
+    }
+
+    private class AsyncDeleteChannels(context: Context) : AsyncTask<Void, Void, Void?>() {
+
+        private val asyncReference = WeakReference(context)
+
+        override fun doInBackground(vararg params: Void?): Void? {
+            val context = asyncReference.get()
+
+            context?.let {
+                val contentResolver = it.contentResolver
+                val channels = ModelUtils.getChannels(contentResolver)
+                for (channel in channels) {
+                    val channelUri = TvContract.buildChannelUri(channel.id)
+                    contentResolver.delete(channelUri, null, null)
+                }
+            }
+            return null
+        }
     }
 }

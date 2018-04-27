@@ -10,8 +10,10 @@ interface AuthView {
 
     /**
      * Callback method used to let the view know when the authentication is successful.
+     *
+     * @param isAccountChanged is true if the account used to connect has changed from a previous one
      */
-    fun onConnectionSuccess()
+    fun onConnectionSuccess(isAccountChanged: Boolean)
 
     /**
      * Callback method used to let the view know when an error related to the user's credentials

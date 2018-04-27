@@ -80,7 +80,7 @@ class AsyncAuthValidateInfo(url: String,
                 taskSharedPreferencesRepository.putString(Constants.USERNAME_PREFERENCE, taskUsername)
                 taskSharedPreferencesRepository.putString(Constants.PASSWORD_PREFERENCE, taskPassword)
                 taskSharedPreferencesRepository.apply()
-                taskAuthView.onConnectionSuccess()
+                taskAuthView.onConnectionSuccess(areCredentialsDifferent(taskUrl, taskUsername, taskPassword))
             }
             ioException is FileNotFoundException -> taskAuthView.onConnectionFailed()
             ioException is SocketTimeoutException -> taskAuthView.onTimeoutReceived()
@@ -89,8 +89,29 @@ class AsyncAuthValidateInfo(url: String,
         }
     }
 
+    /**
+     * Validates if a URL is valid for further use.
+     *
+     * @param url the URL that is getting verified
+     * @return true if the URL is a valid one
+     */
     private fun isValidURL(url: String): Boolean {
         return Patterns.WEB_URL.matcher(url).matches()
+    }
+
+    /**
+     * Verifies if the credentials of an account are different compared to another one.
+     *
+     * @param providerUrl the url of the provider for the account
+     * @param username the username of the account
+     * @param password the password of the account
+     * @return true if the url, username, and password are different from the registered ones.
+     */
+    private fun areCredentialsDifferent(providerUrl: String, username: String, password: String): Boolean {
+        val initialProvider = taskSharedPreferencesRepository.getString(Constants.PROVIDER_URL_PREFERENCE)
+        val initialUserName = taskSharedPreferencesRepository.getString(Constants.USERNAME_PREFERENCE)
+        val initialPassword = taskSharedPreferencesRepository.getString(Constants.PASSWORD_PREFERENCE)
+        return (initialProvider != providerUrl || initialUserName != username || initialPassword != password)
     }
 
 }
