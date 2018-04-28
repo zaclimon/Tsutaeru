@@ -79,8 +79,8 @@ class AsyncAuthValidateInfo(url: String,
                 taskSharedPreferencesRepository.putString(Constants.PROVIDER_URL_PREFERENCE, taskUrl)
                 taskSharedPreferencesRepository.putString(Constants.USERNAME_PREFERENCE, taskUsername)
                 taskSharedPreferencesRepository.putString(Constants.PASSWORD_PREFERENCE, taskPassword)
-                taskSharedPreferencesRepository.apply()
                 taskAuthView.onConnectionSuccess(areCredentialsDifferent(taskUrl, taskUsername, taskPassword))
+                taskSharedPreferencesRepository.apply()
             }
             ioException is FileNotFoundException -> taskAuthView.onConnectionFailed()
             ioException is SocketTimeoutException -> taskAuthView.onTimeoutReceived()
