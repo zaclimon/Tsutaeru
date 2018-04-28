@@ -4,6 +4,7 @@ import android.app.job.JobParameters
 import android.content.Context
 import com.zaclimon.tsutaeru.R
 import com.zaclimon.tsutaeru.properties.TsutaeruChannelProperties
+import com.zaclimon.tsutaeru.util.ActivityUtil
 import com.zaclimon.tsutaeru.util.Constants
 import com.zaclimon.xipl.properties.ChannelProperties
 import com.zaclimon.xipl.service.ProviderEpgService
@@ -21,8 +22,12 @@ class TsutaeruJobService : ProviderEpgService() {
     private lateinit var serviceProperties: ChannelProperties
 
     override fun onStartJob(params: JobParameters?): Boolean {
-        serviceProperties = TsutaeruChannelProperties(getSharedPreferences(Constants.TSUTAERU_PREFERENCES, Context.MODE_PRIVATE))
-        return super.onStartJob(params)
+        // Don't really start the job until we have all credentials
+        if (!ActivityUtil.areCredentialsEmpty(this)) {
+            serviceProperties = TsutaeruChannelProperties(getSharedPreferences(Constants.TSUTAERU_PREFERENCES, Context.MODE_PRIVATE))
+            return super.onStartJob(params)
+        }
+        return false
     }
 
     override fun getPlaylistUrl(): String {

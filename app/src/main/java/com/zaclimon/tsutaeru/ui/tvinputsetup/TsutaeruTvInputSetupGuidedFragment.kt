@@ -38,6 +38,7 @@ class TsutaeruTvInputSetupGuidedFragment : ChannelSetupStepSupportFragment<Tsuta
 
     override fun onStart() {
 
+        super.onStart()
         val activityContext = context
 
         if (activityContext != null) {
@@ -48,8 +49,6 @@ class TsutaeruTvInputSetupGuidedFragment : ChannelSetupStepSupportFragment<Tsuta
                 val fragmentInputId = activity?.intent?.getStringExtra(TvInputInfo.EXTRA_INPUT_ID)
                 contentResolver?.delete(TvContract.buildChannelsUriForInput(fragmentInputId), null, null)
                 startActivityForResult(authIntent, REQUEST_AUTHENTICATION)
-            } else {
-                super.onStart()
             }
         }
     }
