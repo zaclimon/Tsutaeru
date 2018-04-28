@@ -46,9 +46,9 @@ class TsutaeruSettingsElementActivity : FragmentActivity() {
             if (fragment != null) {
                 GuidedStepSupportFragment.addAsRoot(this, fragment, android.R.id.content)
             } else {
-                // We're in the change user fragment situation
+                // We're in the change account fragment situation
                 val intent = Intent(this, AuthActivityTv::class.java)
-                startActivity(intent)
+                startActivityForResult(intent, 0)
                 finish()
             }
         }
