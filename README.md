@@ -1,5 +1,7 @@
 # Tsutaeru
 
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://github.com/zaclimon/Tsutaeru/blob/master/LICENSE)
+
 Based on the Japanese word "伝える", (to transmit) Tsutaeru simplifies IPTV watching experience for Xtream Codes based providers only on Android TV. All of this in one's home sweet home.
 
 ## Download
