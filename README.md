@@ -2,6 +2,10 @@
 
 Based on the Japanese word "伝える", (to transmit) Tsutaeru simplifies IPTV watching experience for Xtream Codes based providers only on Android TV. All of this in one's home sweet home.
 
+## Download
+
+[<img alt="Get it on Google Play" height="80" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png">](https://play.google.com/store/apps/details?id=com.zaclimon.tsutaeru)
+
 ## Screenshots
 
 ![First screenshot](./art/screenshots/1.png)
