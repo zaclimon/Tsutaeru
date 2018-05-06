@@ -29,9 +29,12 @@ class MainActivity : FragmentActivity() {
         if (ActivityUtil.areCredentialsEmpty(this) && ActivityUtil.isTvMode(this)) {
             val intent = Intent(this, AuthActivityTv::class.java)
             val inputId = TvContract.buildInputId(Constants.TV_INPUT_SERVICE_COMPONENT)
-
+            val channelUri = TvContract.buildChannelsUriForInput(inputId)
             // Delete all channels in case of where the user data has been cleared.
-            contentResolver.delete(TvContract.buildChannelsUriForInput(inputId), null, null)
+            channelUri?.let {
+                contentResolver.delete(it, null, null)
+            }
+
             startActivityForResult(intent, REQUEST_AUTH)
         } else {
             configureLayout()
