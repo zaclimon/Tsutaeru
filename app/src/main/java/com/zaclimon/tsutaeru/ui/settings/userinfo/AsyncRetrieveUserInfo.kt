@@ -2,6 +2,7 @@ package com.zaclimon.tsutaeru.ui.settings.userinfo
 
 import android.os.AsyncTask
 import com.zaclimon.tsutaeru.util.NetworkUtils
+import org.json.JSONException
 import org.json.JSONObject
 import java.util.*
 
@@ -48,14 +49,18 @@ class AsyncRetrieveUserInfo(userEndpoint: String, view: UserInfoView) : AsyncTas
              actual time zone.
              */
 
-            val expirationDateSeconds = realJsonObject.getLong(EXPIRATION_DATE_JSON_OBJECT)
-            calendar.timeInMillis = (expirationDateSeconds * 1000)
-            expirationDate = calendar.time
+            try {
+                val expirationDateSeconds = realJsonObject.getLong(EXPIRATION_DATE_JSON_OBJECT)
+                calendar.timeInMillis = (expirationDateSeconds * 1000)
+                expirationDate = calendar.time
 
-            isTrial = (realJsonObject.getInt(TRIAL_ACCOUNT_JSON_OBJECT) == 1)
-            maxConnections = realJsonObject.getInt(MAX_CONNECTION_JSON_OBJECT)
-            inputStream.close()
-            return true
+                isTrial = (realJsonObject.getInt(TRIAL_ACCOUNT_JSON_OBJECT) == 1)
+                maxConnections = realJsonObject.getInt(MAX_CONNECTION_JSON_OBJECT)
+                inputStream.close()
+                return true
+            } catch (js: JSONException) {
+                // Do nothing since it will be returned outside the check.
+            }
         }
         return false
     }
