@@ -1,7 +1,9 @@
 package com.zaclimon.tsutaeru.ui.main
 
+import android.content.Context
 import android.content.Intent
 import android.media.tv.TvContract
+import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.widget.Toast
@@ -9,6 +11,7 @@ import com.zaclimon.tsutaeru.R
 import com.zaclimon.tsutaeru.ui.auth.AuthActivityTv
 import com.zaclimon.tsutaeru.util.ActivityUtil
 import com.zaclimon.tsutaeru.util.Constants
+import java.lang.ref.WeakReference
 
 /**
  * First activity upon opening the application. Decides of the layouts to use and if
@@ -28,13 +31,7 @@ class MainActivity : FragmentActivity() {
 
         if (ActivityUtil.areCredentialsEmpty(this) && ActivityUtil.isTvMode(this)) {
             val intent = Intent(this, AuthActivityTv::class.java)
-            val inputId = TvContract.buildInputId(Constants.TV_INPUT_SERVICE_COMPONENT)
-            val channelUri = TvContract.buildChannelsUriForInput(inputId)
-            // Delete all channels in case of where the user data has been cleared.
-            channelUri?.let {
-                contentResolver.delete(it, null, null)
-            }
-
+            AsyncDeleteChannels(this).execute()
             startActivityForResult(intent, REQUEST_AUTH)
         } else {
             configureLayout()
@@ -62,4 +59,24 @@ class MainActivity : FragmentActivity() {
         }
     }
 
+    /**
+     * [AsyncTask] that deletes all channels in case of where the user data might have been cleared.
+     *
+     * @author zaclimon
+     */
+    private class AsyncDeleteChannels(context: Context) : AsyncTask<Void?, Void?, Void?>() {
+
+        private val asyncContext = WeakReference(context)
+
+        override fun doInBackground(vararg params: Void?): Void? {
+            val context = asyncContext.get()
+            val inputId = TvContract.buildInputId(Constants.TV_INPUT_SERVICE_COMPONENT)
+            val channelUri = TvContract.buildChannelsUriForInput(inputId)
+            val contentResolver = context?.contentResolver
+            channelUri?.let {
+                contentResolver?.delete(it, null, null)
+            }
+            return null
+        }
+    }
 }
