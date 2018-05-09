@@ -33,6 +33,7 @@ class AsyncRetrieveUserInfo(userEndpoint: String, view: UserInfoView) : AsyncTas
         val inputStream = NetworkUtils.getNetworkInputStream(apiEndpoint)
         val reader = inputStream.bufferedReader()
         val jsonString = reader.readLine()
+        inputStream.close()
 
         if (!jsonString.isNullOrEmpty()) {
             val baseJsonObject = JSONObject(jsonString)
@@ -56,7 +57,6 @@ class AsyncRetrieveUserInfo(userEndpoint: String, view: UserInfoView) : AsyncTas
 
                 isTrial = (realJsonObject.getInt(TRIAL_ACCOUNT_JSON_OBJECT) == 1)
                 maxConnections = realJsonObject.getInt(MAX_CONNECTION_JSON_OBJECT)
-                inputStream.close()
                 return true
             } catch (js: JSONException) {
                 // Do nothing since it will be returned outside the check.
