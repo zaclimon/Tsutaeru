@@ -42,11 +42,8 @@ class AsyncAuthValidateInfo(url: String,
 
         if (isValidURL(taskUrl)) {
             try {
-                val reader = NetworkUtils.getNetworkInputStream(taskUrl).bufferedReader()
-                val playlistFirstLine = reader.readLine()
-
-                if (playlistFirstLine != "#EXTM3U") {
-                    return false
+                NetworkUtils.getNetworkInputStream(taskUrl).bufferedReader().use {
+                    reader -> if (reader.readLine() != "#EXTM3U") return false
                 }
 
                 val usernameMatcher = Regex("username=.+?(?=&)").find(taskUrl)
@@ -57,17 +54,15 @@ class AsyncAuthValidateInfo(url: String,
                     taskUsername = usernameMatcher.value.removePrefix("username=")
                     taskPassword = passwordMatcher.value.removePrefix("password=")
                     taskUrl = urlMatcher.value
-                    reader.close()
                 } else {
                     return false
                 }
 
+                return true
             } catch (io: IOException) {
                 ioException = io
                 io.printStackTrace()
-                return false
             }
-            return true
         }
         return false
     }
