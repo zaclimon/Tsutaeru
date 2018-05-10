@@ -26,18 +26,6 @@ class TsutaeruChannelProperties(sharedPreferences: SharedPreferences) : ChannelP
     }
 
     override fun isChannelGenreValid(channel: Channel): Boolean {
-
-        if (channel.displayName.contains("UK") || channel.displayName.contains("IRE:")) {
-           return propertiesPreferences.getBoolean(Constants.UK_REGION_PREFERENCE, true)
-       } else if (channel.displayName.contains("USA/CA")) {
-           return propertiesPreferences.getBoolean(Constants.NA_REGION_PREFERENCE, true)
-       }
-
-        // Don't include 24/7 channels and live event channels into the international ones.
-        return channel.displayName.contains("24/7") || channel.networkAffiliation.contains("LIVE") || propertiesPreferences.getBoolean(Constants.INTERNATIONAL_REGION_PREFERENCE, true)
-    }
-
-    override fun isChannelRegionValid(channel: Channel): Boolean {
         val providerData = channel.internalProviderData
 
         providerData?.let {
@@ -45,11 +33,22 @@ class TsutaeruChannelProperties(sharedPreferences: SharedPreferences) : ChannelP
             val genresArray = ProviderChannelUtil.getGenresArrayFromJson(genres)
 
             for (channelGenre in genresArray) {
-                if (!propertiesPreferences.getBoolean(Constants.CHANNEL_GENRE_PREFERENCE, true)) {
+                if (!propertiesPreferences.getBoolean(Constants.CHANNEL_GENRE_PREFERENCE + channelGenre, true)) {
                     return false
                 }
             }
         }
         return true
+    }
+
+    override fun isChannelRegionValid(channel: Channel): Boolean {
+        if (channel.displayName.contains("UK") || channel.displayName.contains("IRE:")) {
+            return propertiesPreferences.getBoolean(Constants.UK_REGION_PREFERENCE, true)
+        } else if (channel.displayName.contains("USA/CA")) {
+            return propertiesPreferences.getBoolean(Constants.NA_REGION_PREFERENCE, true)
+        }
+
+        // Don't include 24/7 channels and live event channels into the international ones.
+        return channel.displayName.contains("24/7") || channel.networkAffiliation.contains("LIVE") || propertiesPreferences.getBoolean(Constants.INTERNATIONAL_REGION_PREFERENCE, true)
     }
 }
