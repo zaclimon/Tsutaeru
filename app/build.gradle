@@ -39,8 +39,8 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.android.support:support-v13:27.1.1'
-    implementation "android.arch.persistence.room:runtime:1.1.0-beta3"
-    kapt "android.arch.persistence.room:compiler:1.1.0-beta3"
+    implementation "android.arch.persistence.room:runtime:1.1.0"
+    kapt "android.arch.persistence.room:compiler:1.1.0"
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
     // Android TV stuff
