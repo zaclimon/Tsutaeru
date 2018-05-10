@@ -78,7 +78,7 @@ class ChannelGenreGuidedFragment : GuidedStepSupportFragment() {
                 if (currentPreference != actions[i].isChecked) {
                     hasAnyPreferenceChanged = true
                 }
-                editor?.putBoolean(Constants.CHANNEL_GENRE_PREFERENCE + channelGenres[i], true)
+                editor?.putBoolean(Constants.CHANNEL_GENRE_PREFERENCE + channelGenres[i], actions[i].isChecked)
             }
 
             if (hasAnyPreferenceChanged) {
