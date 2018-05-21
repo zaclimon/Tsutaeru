@@ -23,21 +23,17 @@ import java.lang.ref.WeakReference
 class VerificationGuidedFragment : GuidedStepSupportFragment(), AuthView {
 
     override fun onStart() {
-        val fragmentContext = context
+        super.onStart()
 
-        fragmentContext?.let {
-            super.onStart()
+        val url = arguments?.getString(UrlInputGuidedFragment.ARGUMENT_URL)
+        val username = arguments?.getString(UsernameInputGuidedFragment.ARGUMENT_USERNAME)?.trim()
+        val password = arguments?.getString(PasswordInputGuidedFragment.ARGUMENT_PASSWORD)?.trim()
+        val loadingTextView = activity?.findViewById<TextView>(R.id.loading_title)
+        val authPresenter = AuthPresenterImpl(this)
+        val serviceUrl = getString(R.string.provider_playlist_url, url, username, password, Constants.STREAM_TYPE_HLS)
 
-            val url = arguments?.getString(UrlInputGuidedFragment.ARGUMENT_URL)
-            val username = arguments?.getString(UsernameInputGuidedFragment.ARGUMENT_USERNAME)?.trim()
-            val password = arguments?.getString(PasswordInputGuidedFragment.ARGUMENT_PASSWORD)?.trim()
-            val loadingTextView = activity?.findViewById<TextView>(R.id.loading_title)
-            val authPresenter = AuthPresenterImpl(this)
-            val serviceUrl = getString(R.string.provider_playlist_url, url, username, password, Constants.STREAM_TYPE_HLS)
-
-            loadingTextView?.text = getString(R.string.wont_be_long_text)
-            authPresenter.validateInfo(serviceUrl, SharedPreferencesRepositoryImpl(fragmentContext))
-        }
+        loadingTextView?.text = getString(R.string.wont_be_long_text)
+        authPresenter.validateInfo(serviceUrl, SharedPreferencesRepositoryImpl(requireContext()))
     }
 
     override fun onCreateGuidanceStylist(): GuidanceStylist {
@@ -58,7 +54,7 @@ class VerificationGuidedFragment : GuidedStepSupportFragment(), AuthView {
         if (isAccountChanged) {
             activity?.callingActivity?.let {
                 // Since the calling activity may be the settings, let's erase everything.
-                AsyncDeleteChannels(context!!).execute()
+                AsyncDeleteChannels(requireContext()).execute()
                 val contentDao = TsutaeruDatabase.getInstance(context!!).avContentDao()
                 contentDao.deleteAll()
             }

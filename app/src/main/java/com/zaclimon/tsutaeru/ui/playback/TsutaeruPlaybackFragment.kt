@@ -19,6 +19,6 @@ class TsutaeruPlaybackFragment : VodPlaybackFragment() {
     }
 
     override fun getVodProperties(): VodProperties {
-        return (TsutaeruVodPlaybackProperties(context!!.getSharedPreferences(Constants.TSUTAERU_PREFERENCES, Context.MODE_PRIVATE)))
+        return (TsutaeruVodPlaybackProperties(requireContext().getSharedPreferences(Constants.TSUTAERU_PREFERENCES, Context.MODE_PRIVATE)))
     }
 }

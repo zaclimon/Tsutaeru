@@ -24,7 +24,7 @@ class EpgSyncLoadingGuidedFragment : GuidedStepSupportFragment() {
 
     override fun onStart() {
         super.onStart()
-        LocalBroadcastManager.getInstance(context!!).registerReceiver(LoadingBroadcastReceiver(), IntentFilter(EpgSyncJobService.ACTION_SYNC_STATUS_CHANGED))
+        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(LoadingBroadcastReceiver(), IntentFilter(EpgSyncJobService.ACTION_SYNC_STATUS_CHANGED))
         val loadingTitle = activity?.findViewById<TextView>(R.id.loading_title)
         loadingTitle?.text = getText(R.string.channel_update)
     }

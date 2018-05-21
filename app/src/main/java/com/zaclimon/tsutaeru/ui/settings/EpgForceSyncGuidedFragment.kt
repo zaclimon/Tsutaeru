@@ -47,10 +47,8 @@ class EpgForceSyncGuidedFragment : GuidedStepSupportFragment() {
         val id = action?.id
 
         if (id == GuidedAction.ACTION_ID_YES) {
-            context?.let {
-                AsyncResyncPrograms(it).execute()
-                add(fragmentManager, EpgSyncLoadingGuidedFragment())
-            }
+            AsyncResyncPrograms(requireContext()).execute()
+            add(fragmentManager, EpgSyncLoadingGuidedFragment())
         } else {
             activity?.finish()
         }
