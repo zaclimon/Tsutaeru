@@ -74,8 +74,10 @@ class EpgForceSyncGuidedFragment : GuidedStepSupportFragment() {
 
         override fun onPostExecute(result: Void?) {
             val context = asyncReference.get()
-            val inputId = TvContract.buildInputId(Constants.TV_INPUT_SERVICE_COMPONENT)
-            EpgSyncJobService.requestImmediateSync(context, inputId, ComponentName(context, TsutaeruJobService::class.java))
+            context?.let {
+                val inputId = TvContract.buildInputId(Constants.TV_INPUT_SERVICE_COMPONENT)
+                EpgSyncJobService.requestImmediateSync(it, inputId, ComponentName(it, TsutaeruJobService::class.java))
+            }
         }
     }
 
