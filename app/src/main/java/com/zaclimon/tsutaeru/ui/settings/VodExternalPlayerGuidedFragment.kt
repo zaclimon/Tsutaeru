@@ -20,8 +20,8 @@ class VodExternalPlayerGuidedFragment : GuidedStepSupportFragment() {
         val sharedPreferences = context?.getSharedPreferences(Constants.TSUTAERU_PREFERENCES, Context.MODE_PRIVATE)
         val isExternalPlayerUsed = sharedPreferences?.getBoolean(Constants.EXTERNAL_PLAYER_PREFERENCE, false) ?: false
 
-        val title = getString(R.string.epg_offset_title)
-        val description = getString(R.string.epg_offset_description)
+        val title = getString(R.string.external_player_title)
+        val description = getString(R.string.external_player_description)
         val breadcrumb = if (isExternalPlayerUsed) {
             getString(R.string.current_status_text, getString(R.string.activated_text))
         } else {
