@@ -33,7 +33,7 @@ interface AvContentDao {
      *
      * @param category the category which will get deleted.
      */
-    @Query("DELETE FROM contents WHERE contentLink = :category")
+    @Query("DELETE FROM contents WHERE contentCategory = :category")
     fun deleteCategory(category: String)
 
     /**
