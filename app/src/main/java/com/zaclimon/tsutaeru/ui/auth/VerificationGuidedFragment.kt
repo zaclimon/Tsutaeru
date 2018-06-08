@@ -81,11 +81,24 @@ class VerificationGuidedFragment : GuidedStepSupportFragment(), AuthView {
 
             context?.let {
                 val contentResolver = it.contentResolver
+                val sharedPreferences = it.getSharedPreferences(Constants.TSUTAERU_PREFERENCES, Context.MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                val keyMap = sharedPreferences.all
                 val channels = ModelUtils.getChannels(contentResolver)
+
+                // Remove all saved channels in the system
                 for (channel in channels) {
                     val channelUri = TvContract.buildChannelUri(channel.id)
                     contentResolver.delete(channelUri, null, null)
                 }
+
+                // Remove all custom channel groups preferences
+                for (entry in keyMap) {
+                    if (entry.key.contains(Constants.CHANNEL_GROUP_PREFERENCE)) {
+                        editor.remove(entry.key)
+                    }
+                }
+                editor.apply()
             }
             return null
         }

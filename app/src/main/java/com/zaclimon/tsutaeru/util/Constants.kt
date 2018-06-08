@@ -33,6 +33,7 @@ object Constants {
     const val EPG_OFFSET_PREFERENCE = "epg_offset"
     const val EXTERNAL_PLAYER_PREFERENCE = "external_player"
     const val CHANNEL_GENRE_PREFERENCE = "genre_"
+    const val CHANNEL_GROUP_PREFERENCE = "group_"
 
     // xipl stuff
     val CHANNEL_GENRES: Array<String> = Constants.CHANNEL_GENRES

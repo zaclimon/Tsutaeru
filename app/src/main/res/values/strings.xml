@@ -9,6 +9,8 @@
     <string name="change_account_title">Change account</string>
     <string name="channel_genre_title">Channel genre</string>
     <string name="channel_genre_description">Filters the channels based on it\'s genre as defined for Live Channels.</string>
+    <string name="channel_group_title">Channel group</string>
+    <string name="channel_group_description">Enables select channel groups to be available inside Live Channels.</string>
     <string name="channel_logo_title">Display channel logo?</string>
     <string name="channel_logo_title_short">Channel logo</string>
     <string name="channel_logo_description">Displays the channel\'s logo on the EPG interactive guide when using the Live Channels application. (Might take a bit of time for a full sync)</string>
@@ -59,6 +61,7 @@
     <string name="new_version_available">New version available!</string>
     <string name="new_version_available_toast">New version available! (%1$s)</string>
     <string name="password_empty">Please enter a password.</string>
+    <string name="no_channel_detected">No channel detected</string>
     <string name="no_text">No</string>
     <string name="no_update_available">You are running the latest version!</string>
     <string name="not_yet_text">Not yet</string>

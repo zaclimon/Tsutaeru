@@ -2,7 +2,6 @@ package com.zaclimon.tsutaeru.properties
 
 import android.content.SharedPreferences
 import com.google.android.media.tv.companionlibrary.model.Channel
-import com.google.android.media.tv.companionlibrary.model.InternalProviderData
 import com.zaclimon.tsutaeru.util.Constants
 import com.zaclimon.xipl.properties.ChannelProperties
 import com.zaclimon.xipl.util.ProviderChannelUtil
@@ -50,5 +49,9 @@ class TsutaeruChannelProperties(sharedPreferences: SharedPreferences) : ChannelP
 
         // Don't include 24/7 channels and live event channels into the international ones.
         return channel.displayName.contains("24/7") || channel.networkAffiliation.contains("LIVE") || propertiesPreferences.getBoolean(Constants.INTERNATIONAL_REGION_PREFERENCE, true)
+    }
+
+    override fun isChannelGroupValid(channel: Channel): Boolean {
+        return propertiesPreferences.getBoolean(Constants.CHANNEL_GROUP_PREFERENCE + channel.networkAffiliation, true)
     }
 }
