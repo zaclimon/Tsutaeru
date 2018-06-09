@@ -90,7 +90,7 @@ class ChannelGroupGuidedFragment : GuidedStepSupportFragment() {
             // Size of all the actions without "ok" and "cancel"
             val checkboxActionsSize = actions.size - 2
             for (i in 0 until checkboxActionsSize) {
-                val currentPreference = sharedPreferences?.getBoolean(actions[i].title.toString(), true)
+                val currentPreference = sharedPreferences?.getBoolean(Constants.CHANNEL_GROUP_PREFERENCE + actions[i].title.toString(), true)
                 if (currentPreference != actions[i].isChecked) {
                     hasAnyPreferenceChanged = true
                 }
