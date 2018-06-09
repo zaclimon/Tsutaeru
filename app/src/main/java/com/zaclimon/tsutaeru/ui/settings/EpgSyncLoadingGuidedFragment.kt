@@ -23,9 +23,11 @@ import kotlin.math.roundToInt
  */
 class EpgSyncLoadingGuidedFragment : GuidedStepSupportFragment() {
 
+    private val fragmentBroadcastReceiver = LoadingBroadcastReceiver()
+
     override fun onStart() {
         super.onStart()
-        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(LoadingBroadcastReceiver(), IntentFilter(EpgSyncJobService.ACTION_SYNC_STATUS_CHANGED))
+        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(fragmentBroadcastReceiver, IntentFilter(EpgSyncJobService.ACTION_SYNC_STATUS_CHANGED))
         val loadingTitle = activity?.findViewById<TextView>(R.id.loading_title)
         loadingTitle?.text = getString(R.string.channel_update, 0)
     }
@@ -36,6 +38,11 @@ class EpgSyncLoadingGuidedFragment : GuidedStepSupportFragment() {
                 return (R.layout.fragment_guided_wizard_loading)
             }
         })
+    }
+
+    override fun onStop() {
+        super.onStop()
+        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(fragmentBroadcastReceiver)
     }
 
     private fun updatePercentageStatus(percentage: Int) {
