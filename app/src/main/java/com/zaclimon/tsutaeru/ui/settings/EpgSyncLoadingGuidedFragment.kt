@@ -13,6 +13,7 @@ import android.widget.Toast
 import com.google.android.media.tv.companionlibrary.sync.EpgSyncJobService
 import com.zaclimon.tsutaeru.R
 import com.zaclimon.tsutaeru.util.Constants
+import kotlin.math.roundToInt
 
 /**
  * GuidedStepFragment that sync itself with the broadcast intent sent by
@@ -26,7 +27,7 @@ class EpgSyncLoadingGuidedFragment : GuidedStepSupportFragment() {
         super.onStart()
         LocalBroadcastManager.getInstance(requireContext()).registerReceiver(LoadingBroadcastReceiver(), IntentFilter(EpgSyncJobService.ACTION_SYNC_STATUS_CHANGED))
         val loadingTitle = activity?.findViewById<TextView>(R.id.loading_title)
-        loadingTitle?.text = getText(R.string.channel_update)
+        loadingTitle?.text = getString(R.string.channel_update, 0)
     }
 
     override fun onCreateGuidanceStylist(): GuidanceStylist {
@@ -35,6 +36,11 @@ class EpgSyncLoadingGuidedFragment : GuidedStepSupportFragment() {
                 return (R.layout.fragment_guided_wizard_loading)
             }
         })
+    }
+
+    private fun updatePercentageStatus(percentage: Int) {
+        val loadingTitle = activity?.findViewById<TextView>(R.id.loading_title)
+        loadingTitle?.text = getString(R.string.channel_update, percentage)
     }
 
     /**
@@ -56,6 +62,11 @@ class EpgSyncLoadingGuidedFragment : GuidedStepSupportFragment() {
                         Toast.makeText(p0, p0?.getString(R.string.restart_live_channels), Toast.LENGTH_SHORT).show()
                         LocalBroadcastManager.getInstance(p0!!).unregisterReceiver(this)
                         activity?.finish()
+                    } else if (syncStatus == EpgSyncJobService.SYNC_SCANNED) {
+                        val channelsCount = p1.getIntExtra(EpgSyncJobService.BUNDLE_KEY_CHANNEL_COUNT, 1)
+                        val channelsScanned = p1.getIntExtra(EpgSyncJobService.BUNDLE_KEY_CHANNELS_SCANNED, 0)
+                        val percentage = (channelsScanned / channelsCount.toDouble() * 100).roundToInt()
+                        updatePercentageStatus(percentage)
                     }
                 }
             }

@@ -18,7 +18,7 @@
     <string name="channel_region_description">Enables a region to be watched with Live TV.\n\nNote: You might have to reselect the related channels in the Live TV app if a region is being re-added.</string>
     <string name="channel_stream_failure">Stream failure. Please try again later or contact your IPTV provider</string>
     <string name="connect_text">Connect</string>
-    <string name="channel_update">Updating channels&#8230;</string>
+    <string name="channel_update">Updating channels: %1$d%%&#8230;</string>
     <string name="clear_cache_title">Clear database cache?</string>
     <string name="clear_cache_title_short">Clear cache</string>
     <string name="clear_cache_description">Clears the data inside the application\'s internal database.</string>
