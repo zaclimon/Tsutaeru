@@ -41,14 +41,7 @@ class TsutaeruChannelProperties(sharedPreferences: SharedPreferences) : ChannelP
     }
 
     override fun isChannelRegionValid(channel: Channel): Boolean {
-        if (channel.displayName.contains("UK") || channel.displayName.contains("IRE:")) {
-            return propertiesPreferences.getBoolean(Constants.UK_REGION_PREFERENCE, true)
-        } else if (channel.displayName.contains("USA/CA")) {
-            return propertiesPreferences.getBoolean(Constants.NA_REGION_PREFERENCE, true)
-        }
-
-        // Don't include 24/7 channels and live event channels into the international ones.
-        return channel.displayName.contains("24/7") || channel.networkAffiliation.contains("LIVE") || propertiesPreferences.getBoolean(Constants.INTERNATIONAL_REGION_PREFERENCE, true)
+       return true
     }
 
     override fun isChannelGroupValid(channel: Channel): Boolean {

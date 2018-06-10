@@ -36,7 +36,6 @@ class TsutaeruSettingsElementActivity : FragmentActivity() {
                 R.string.force_epg_sync_title, R.string.force_epg_sync_title_short -> fragment = EpgForceSyncGuidedFragment()
                 R.string.force_video_fit_title, R.string.force_video_fit_title_short -> fragment = ForceFitScreenGuidedFragment()
                 R.string.channel_group_title -> fragment = ChannelGroupGuidedFragment()
-                R.string.channel_region_title -> fragment = ChannelRegionGuidedFragment()
                 R.string.channel_genre_title -> fragment = ChannelGenreGuidedFragment()
                 R.string.epg_offset_title, R.string.epg_offset_title_short -> fragment = TvCatchupEpgOffsetGuidedFragment()
                 R.string.external_player_title, R.string.external_player_title_short -> fragment = VodExternalPlayerGuidedFragment()

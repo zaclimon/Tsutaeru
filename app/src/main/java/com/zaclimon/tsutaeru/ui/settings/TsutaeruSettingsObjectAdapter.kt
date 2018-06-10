@@ -16,7 +16,6 @@ class TsutaeruSettingsObjectAdapter : ProviderSettingsObjectAdapter() {
         addSection(R.string.force_epg_sync_title_short, R.drawable.ic_sync_epg)
         addSection(R.string.force_video_fit_title_short, R.drawable.ic_force_video_fit)
         addSection(R.string.channel_group_title, R.drawable.ic_channel_groups)
-        addSection(R.string.channel_region_title, R.drawable.ic_channel_region)
         addSection(R.string.channel_genre_title, R.drawable.ic_channel_genre)
         addSection(R.string.epg_offset_title_short, R.drawable.ic_epg_offset)
         addSection(R.string.external_player_title_short, R.drawable.ic_external_player)
