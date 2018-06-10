@@ -58,7 +58,7 @@ class TsutaeruTvInputSetupGuidedFragment : ChannelSetupStepSupportFragment<Tsuta
             if (resultCode == FragmentActivity.RESULT_OK) {
                 onStart()
             } else {
-                Toast.makeText(context, R.string.authentication_not_possible, Toast.LENGTH_LONG).show()
+                context ?: Toast.makeText(context, R.string.authentication_not_possible, Toast.LENGTH_LONG).show()
                 activity?.finish()
             }
         }
