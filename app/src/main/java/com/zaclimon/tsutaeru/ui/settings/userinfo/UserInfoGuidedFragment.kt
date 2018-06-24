@@ -73,7 +73,7 @@ class UserInfoGuidedFragment : GuidedStepSupportFragment(), UserInfoView {
     }
 
     override fun onConnectionFailed() {
-        guidanceStylist.apply {
+        guidanceStylist?.apply {
             titleView.visibility = View.VISIBLE
             descriptionView.visibility = View.VISIBLE
             breadcrumbView.visibility = View.VISIBLE
@@ -87,9 +87,10 @@ class UserInfoGuidedFragment : GuidedStepSupportFragment(), UserInfoView {
     }
 
     override fun onConnectionSuccess(status: String, expirationDate: Date, isTrial: Boolean, maxConnections: Int) {
-        val trial = if (isTrial) getString(R.string.yes_text) else getString(R.string.no_text)
 
-        guidanceStylist.apply {
+        guidanceStylist?.apply {
+            val trial = if (isTrial) getString(R.string.yes_text) else getString(R.string.no_text)
+
             descriptionView.text = getString(R.string.user_info_description, status, expirationDate, trial, maxConnections.toString())
             titleView.visibility = View.VISIBLE
             descriptionView.visibility = View.VISIBLE
