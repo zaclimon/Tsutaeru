@@ -45,7 +45,7 @@ dependencies {
 
     // Android TV stuff
     implementation 'com.android.support:leanback-v17:27.1.1'
-    implementation 'com.zaclimon:xipl:0.2.0'
+    implementation 'com.zaclimon:xipl:0.2.1'
     //implementation project(':xipl')
 
     // Kotlin
