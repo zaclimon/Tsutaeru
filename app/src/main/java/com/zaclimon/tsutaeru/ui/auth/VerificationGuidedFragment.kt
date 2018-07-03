@@ -64,7 +64,9 @@ class VerificationGuidedFragment : GuidedStepSupportFragment(), AuthView {
         val fragmentArguments = Bundle()
         fragmentArguments.putString(UsernameInputGuidedFragment.ARGUMENT_USERNAME, arguments?.getString(UsernameInputGuidedFragment.ARGUMENT_USERNAME))
         fragment.arguments = fragmentArguments
-        add(fragmentManager, fragment)
+        fragmentManager?.let {
+            add(it, fragment)
+        }
     }
 
     override fun onTimeoutReceived() {
