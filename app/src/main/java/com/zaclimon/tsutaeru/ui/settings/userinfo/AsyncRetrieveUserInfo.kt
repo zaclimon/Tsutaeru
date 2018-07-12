@@ -58,7 +58,7 @@ class AsyncRetrieveUserInfo(userEndpoint: String, view: UserInfoView) : AsyncTas
                 isTrial = (realJsonObject.getInt(TRIAL_ACCOUNT_JSON_OBJECT) == 1)
                 maxConnections = realJsonObject.getInt(MAX_CONNECTION_JSON_OBJECT)
                 return true
-            } catch (js: JSONException) {
+            } catch (e: Exception) {
                 // Do nothing since it will be returned outside the check.
             }
         }
