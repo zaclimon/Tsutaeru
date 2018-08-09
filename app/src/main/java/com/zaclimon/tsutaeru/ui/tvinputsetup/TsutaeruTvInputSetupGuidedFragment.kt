@@ -4,8 +4,8 @@ import android.content.Intent
 import android.media.tv.TvContract
 import android.media.tv.TvInputInfo
 import android.os.Bundle
-import android.support.v17.leanback.widget.GuidanceStylist
-import android.support.v4.app.FragmentActivity
+import androidx.leanback.widget.GuidanceStylist
+import androidx.fragment.app.FragmentActivity
 import android.widget.Toast
 import com.google.android.media.tv.companionlibrary.setup.ChannelSetupStepSupportFragment
 import com.zaclimon.tsutaeru.R
@@ -55,7 +55,7 @@ class TsutaeruTvInputSetupGuidedFragment : ChannelSetupStepSupportFragment<Tsuta
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_AUTHENTICATION) {
-            if (resultCode == FragmentActivity.RESULT_OK) {
+            if (resultCode == androidx.fragment.app.FragmentActivity.RESULT_OK) {
                 onStart()
             } else {
                 context?.let { Toast.makeText(it, R.string.authentication_not_possible, Toast.LENGTH_LONG).show() }

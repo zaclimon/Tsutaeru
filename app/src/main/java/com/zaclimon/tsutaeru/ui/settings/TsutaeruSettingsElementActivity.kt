@@ -2,8 +2,8 @@ package com.zaclimon.tsutaeru.ui.settings
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v17.leanback.app.GuidedStepSupportFragment
-import android.support.v4.app.FragmentActivity
+import androidx.leanback.app.GuidedStepSupportFragment
+import androidx.fragment.app.FragmentActivity
 import com.zaclimon.tsutaeru.R
 import com.zaclimon.tsutaeru.ui.auth.AuthActivityTv
 import com.zaclimon.xipl.ui.settings.ProviderSettingsObjectAdapter

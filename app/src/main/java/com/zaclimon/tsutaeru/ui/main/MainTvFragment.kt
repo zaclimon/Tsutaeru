@@ -1,7 +1,7 @@
 package com.zaclimon.tsutaeru.ui.main
 
 import android.os.Bundle
-import android.support.v17.leanback.app.RowsSupportFragment
+import androidx.leanback.app.RowsSupportFragment
 import com.zaclimon.tsutaeru.R
 import com.zaclimon.tsutaeru.ui.search.TsutaeruProviderSearchActivity
 import com.zaclimon.tsutaeru.ui.settings.TsutaeruSettingsFragment

@@ -1,7 +1,7 @@
 package com.zaclimon.tsutaeru.ui.settings
 
 import android.app.Activity
-import android.support.v17.leanback.widget.ArrayObjectAdapter
+import androidx.leanback.widget.ArrayObjectAdapter
 import com.zaclimon.xipl.ui.settings.ProviderSettingsTvFragment
 
 /**

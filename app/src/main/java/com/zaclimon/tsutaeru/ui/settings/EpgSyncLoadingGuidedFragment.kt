@@ -5,9 +5,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.media.tv.TvContract
-import android.support.v17.leanback.app.GuidedStepSupportFragment
-import android.support.v17.leanback.widget.GuidanceStylist
-import android.support.v4.content.LocalBroadcastManager
+import androidx.leanback.app.GuidedStepSupportFragment
+import androidx.leanback.widget.GuidanceStylist
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import android.widget.TextView
 import android.widget.Toast
 import com.google.android.media.tv.companionlibrary.sync.EpgSyncJobService
@@ -27,7 +27,7 @@ class EpgSyncLoadingGuidedFragment : GuidedStepSupportFragment() {
 
     override fun onStart() {
         super.onStart()
-        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(fragmentBroadcastReceiver, IntentFilter(EpgSyncJobService.ACTION_SYNC_STATUS_CHANGED))
+        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(requireContext()).registerReceiver(fragmentBroadcastReceiver, IntentFilter(EpgSyncJobService.ACTION_SYNC_STATUS_CHANGED))
         val loadingTitle = activity?.findViewById<TextView>(R.id.loading_title)
         loadingTitle?.text = getString(R.string.channel_update, 0)
     }
@@ -42,7 +42,7 @@ class EpgSyncLoadingGuidedFragment : GuidedStepSupportFragment() {
 
     override fun onStop() {
         super.onStop()
-        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(fragmentBroadcastReceiver)
+        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(fragmentBroadcastReceiver)
     }
 
     private fun updatePercentageStatus(percentage: Int) {
@@ -67,7 +67,7 @@ class EpgSyncLoadingGuidedFragment : GuidedStepSupportFragment() {
 
                     if (syncStatus == EpgSyncJobService.SYNC_FINISHED) {
                         Toast.makeText(p0, p0?.getString(R.string.restart_live_channels), Toast.LENGTH_SHORT).show()
-                        LocalBroadcastManager.getInstance(p0!!).unregisterReceiver(this)
+                        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(p0!!).unregisterReceiver(this)
                         activity?.finish()
                     } else if (syncStatus == EpgSyncJobService.SYNC_SCANNED) {
                         val channelsCount = p1.getIntExtra(EpgSyncJobService.BUNDLE_KEY_CHANNEL_COUNT, 1)

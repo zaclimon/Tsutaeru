@@ -5,7 +5,7 @@ import android.content.Intent
 import android.media.tv.TvContract
 import android.os.AsyncTask
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.FragmentActivity
 import android.widget.Toast
 import com.zaclimon.tsutaeru.R
 import com.zaclimon.tsutaeru.ui.auth.AuthActivityTv
@@ -51,7 +51,7 @@ class MainActivity : FragmentActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_AUTH && resultCode == FragmentActivity.RESULT_OK) {
+        if (requestCode == REQUEST_AUTH && resultCode == androidx.fragment.app.FragmentActivity.RESULT_OK) {
             // Recreate the activity so we won't get a state loss after onSaveInstanceState is called.
             recreate()
         } else {

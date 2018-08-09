@@ -1,6 +1,6 @@
 package com.zaclimon.tsutaeru.ui.search
 
-import android.support.v17.leanback.app.SearchSupportFragment
+import androidx.leanback.app.SearchSupportFragment
 import com.zaclimon.tsutaeru.R
 import com.zaclimon.xipl.ui.search.ProviderSearchActivity
 

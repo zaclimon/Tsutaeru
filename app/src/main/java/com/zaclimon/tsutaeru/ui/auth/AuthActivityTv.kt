@@ -1,8 +1,8 @@
 package com.zaclimon.tsutaeru.ui.auth
 
 import android.os.Bundle
-import android.support.v17.leanback.app.GuidedStepSupportFragment
-import android.support.v4.app.FragmentActivity
+import androidx.leanback.app.GuidedStepSupportFragment
+import androidx.fragment.app.FragmentActivity
 import com.zaclimon.tsutaeru.R
 import com.zaclimon.tsutaeru.util.ActivityUtil
 
@@ -29,10 +29,10 @@ class AuthActivityTv : FragmentActivity() {
 
         guidedStepSupportFragment?.let {
             if (it is UserConnectedGuidedFragment) {
-                setResult(FragmentActivity.RESULT_OK)
+                setResult(androidx.fragment.app.FragmentActivity.RESULT_OK)
                 finish()
             } else if (it is WelcomeGuidedFragment) {
-                setResult(FragmentActivity.RESULT_CANCELED)
+                setResult(androidx.fragment.app.FragmentActivity.RESULT_CANCELED)
             }
             super.onBackPressed()
         }
