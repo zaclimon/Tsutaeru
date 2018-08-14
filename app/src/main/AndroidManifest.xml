@@ -21,7 +21,8 @@
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher"
-        android:banner="@drawable/tsutaeru_banner">
+        android:banner="@drawable/tsutaeru_banner"
+        android:usesCleartextTraffic="true">
 
         <activity
             android:name=".ui.main.MainActivity"
