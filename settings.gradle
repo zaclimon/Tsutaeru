@@ -1,3 +1,3 @@
-include ':app', ':library', ':tiflibrary'
-project(':library').projectDir = new File('xipl/library')
+include ':app', ':tiflibrary', ':xipl'
+project(':xipl').projectDir = new File('xipl/library')
 project(':tiflibrary').projectDir = new File('xipl/tiflibrary')
