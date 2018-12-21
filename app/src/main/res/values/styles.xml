@@ -1,0 +1,44 @@
+<resources>
+    
+    <style name="TvTheme" parent="Theme.Leanback">
+        <item name="android:colorPrimary">@color/colorPrimaryTv</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDarkTv</item>
+        <item name="android:colorAccent">@color/colorAccentTv</item>
+        <item name="guidedStepTheme">@style/GuidedStepTheme</item>
+        <item name="imageCardViewStyle">@style/ImageCardViewTheme</item>
+        <item name="imageCardViewTitleStyle">@style/ImageCardViewTitleTheme</item>
+    </style>
+
+    <style name="GuidedStepTheme" parent="Theme.Leanback.GuidedStep">
+        <item name="guidedStepBackground">@color/colorPrimaryTv</item>
+        <item name="guidedActionsBackground">@color/colorAccentTv</item>
+        <item name="guidedActionsBackgroundDark">@color/colorAccentDarkTv</item>
+        <item name="guidedActionItemTitleStyle">@style/GuidedStepTitleTheme</item>
+        <item name="guidedActionItemCheckmarkStyle">@style/GuidedStepCheckmarkTheme</item>
+    </style>
+
+    <style name="GuidedStepTitleTheme" parent="Widget.Leanback.GuidedActionItemTitleStyle">
+        <item name="android:textColor">@color/colorTextAccentPrimary</item>
+    </style>
+
+    <style name="GuidedStepEditTextTheme" parent="Widget.AppCompat.EditText">
+        <item name="android:colorControlNormal">@color/colorTextAccentPrimary</item>
+        <item name="android:colorControlActivated">@color/colorTextAccentPrimary</item>
+        <item name="android:colorControlHighlight">@color/colorTextAccentPrimary</item>
+    </style>
+
+    <style name="GuidedStepCheckmarkTheme" parent="Widget.Leanback.GuidedActionItemCheckmarkStyle">
+        <item name="android:tint">@color/colorTextAccentPrimary</item>
+    </style>
+
+    <style name="ImageCardViewTheme" parent="Widget.Leanback.ImageCardViewStyle">
+        <item name="cardBackground">@color/colorPrimaryTv</item>
+        <item name="infoAreaBackground">@color/colorAccentTv</item>
+        <item name="lbImageCardViewType">Title</item>
+    </style>
+
+    <style name="ImageCardViewTitleTheme" parent="Widget.Leanback.ImageCardView.TitleStyle">
+        <item name="android:textColor">@color/colorTextAccentPrimary</item>
+    </style>
+
+</resources>

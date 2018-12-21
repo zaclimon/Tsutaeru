@@ -1,0 +1,4 @@
+include ':app', ':xipl', ':tiflibrary'
+
+project (':xipl').projectDir = new File('../xipl/library')
+project (':tiflibrary').projectDir = new File('../xipl/tiflibrary')

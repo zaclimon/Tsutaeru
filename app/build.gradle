@@ -1,0 +1,56 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+repositories {
+    mavenCentral()
+}
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion "28.0.2"
+    defaultConfig {
+        applicationId "com.zaclimon.tsutaeru"
+        minSdkVersion 23
+        targetSdkVersion 28
+        versionCode 5
+        versionName "1.1.2"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas".toString())
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0-alpha3', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation 'androidx.appcompat:appcompat:1.0.0-rc01'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+    implementation 'androidx.legacy:legacy-support-v13:1.0.0-rc01'
+    implementation "androidx.room:room-runtime:2.0.0-rc01"
+    kapt "androidx.room:room-compiler:2.0.0-rc01"
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    // Android TV stuff
+    implementation 'androidx.leanback:leanback:1.0.0-rc01'
+    implementation 'com.zaclimon:xipl:0.2.2'
+    //implementation project(':xipl')
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    // JUnit stuff
+    testImplementation 'junit:junit:4.12'
+}

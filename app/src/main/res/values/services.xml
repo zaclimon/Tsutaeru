@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="provider_catchup_url">http://mikkm.xyz/android/androidApi.php?url=%1$s/&#38;mode=timeshift&#38;username=%2$s&#38;password=%3$s</string>
+    <string name="provider_catchup_offset_url">http://mikkm.xyz/android/androidApi.php?url=%1$s/&#38;mode=timeshift&#38;epg_shift=%2$d&#38;username=%3$s&#38;password=%4$s</string>
+    <string name="provider_epg_url">%1$s/xmltv.php?username=%2$s&#38;password=%3$s</string>
+    <string name="provider_playlist_url">%1$s/get.php?username=%2$s&#38;password=%3$s&#38;type=m3u_plus&#38;output=%4$s</string>
+    <string name="provider_series_url">http://mikkm.xyz/android/androidApi.php?url=%1$s/&#38;mode=series&#38;username=%2$s&#38;password=%3$s</string>
+    <string name="provider_user_info_url">http://mikkm.xyz/android/androidApi.php?url=%1$s/&#38;mode=user_info&#38;username=%2$s&#38;password=%3$s</string>
+    <string name="provider_vod_url">http://mikkm.xyz/android/androidApi.php?url=%1$s/&#38;mode=vod&#38;username=%2$s&#38;password=%3$s</string>
+</resources>

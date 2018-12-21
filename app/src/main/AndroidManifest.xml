@@ -1,0 +1,71 @@
+<manifest package="com.zaclimon.tsutaeru"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false"/>
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.microphone"
+        android:required="false"/>
+    <uses-feature
+        android:name="android.software.live_tv"
+        android:required="true" />
+
+    <application
+        android:allowBackup="false"
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:banner="@drawable/tsutaeru_banner"
+        android:usesCleartextTraffic="true">
+
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:theme="@style/TvTheme">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".ui.tvinputsetup.TsutaeruTvInputSetupActivity" android:theme="@style/TvTheme" android:exported="true"/>
+        <activity android:name=".ui.auth.AuthActivityTv"/>
+        <activity android:name=".ui.settings.TsutaeruSettingsElementActivity"/>
+        <activity android:name=".ui.search.TsutaeruProviderSearchActivity"/>
+
+        <activity android:name=".ui.playback.TsutaeruPlaybackActivity" android:resizeableActivity="true"
+                  android:supportsPictureInPicture="true"
+                  android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"/>
+
+        <service android:name="com.zaclimon.xipl.service.ProviderTvInputService"
+                 android:label="@string/tv_input_label"
+                 android:permission="android.permission.BIND_TV_INPUT">
+            <intent-filter>
+                <action android:name="android.media.tv.TvInputService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.media.tv.input"
+                android:resource="@xml/tsutaeru_input_service" />
+        </service>
+
+        <service
+            android:name=".service.TsutaeruJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="true" />
+
+        <receiver
+            android:name=".receiver.TsutaeruTvEpgReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>
