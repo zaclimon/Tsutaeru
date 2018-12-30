@@ -11,7 +11,8 @@ class AvContentUtilTest {
     private val missingHeaderPlaylistLine = "tvg-id=\"test\" tvg-name=\"Test Channel\" tvg-logo=\"http://logo.com/abc.jpg\" group-title=\"TEST\",Test Channel"
     private val playlistUrl = "http://test.com:25461/live/hello/world/12345.ts"
     private val contentCategory = "VOD"
-    private val validPlaylistFile = AvContentUtilTest::class.java.classLoader.getResource("valid_test_playlist_multiline.txt").readText()
+    private val validPlaylistFile = AvContentUtilTest::class.java.classLoader.getResource("valid_test_playlist_multiline.m3u").readText()
+    private val validPlaylistFileMissingUrl = AvContentUtilTest::class.java.classLoader.getResource("valid_test_playlist_multiline_missingurl.m3u").readText()
 
     @Test
     fun `Creates an AV content with a valid playlist line, URL and group`() {
@@ -49,9 +50,16 @@ class AvContentUtilTest {
     fun `Generates a list of 5 AV contents when the playlist file is valid and each lines are distinct`() {
         val list = generateAvContentList(validPlaylistFile)
         assertTrue(list.size == 5)
-        assertTrue(list[0].title == "Test Channel")
+        assertTrue(list.first().title == "Test Channel")
         // Be sure to get the one that doesn't have a title specified in it's own tag
-        assertTrue(list[list.lastIndex].title == "Test Channel5")
+        assertTrue(list.last().title == "Test Channel5")
+    }
+
+    @Test
+    fun `Generates a list of 4 AV contents when the playlist file is valid, each lines are distinct, but one content is missing it's URL`() {
+        val list = generateAvContentList(validPlaylistFileMissingUrl)
+        assertTrue(list.size == 4)
+        assertTrue(list.last().title == "Test Channel4")
     }
 
 }

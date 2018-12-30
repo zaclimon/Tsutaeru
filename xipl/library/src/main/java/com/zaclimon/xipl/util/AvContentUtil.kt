@@ -10,15 +10,30 @@ private val COMMA_PATTERN = Regex(",.*")
 
 fun generateAvContentList(playlist: String,
                           contentCategory: String = ""): List<AvContent> {
+    val playlistLines = playlist.lines()
 
+    if (playlistLines.size > 1) {
+        return parseMultiLinePlaylist(playlist, contentCategory)
+    } else if (playlistLines.size == 1) {
+        return parseSingleLinePlaylist(playlist, contentCategory)
+    }
+    return emptyList()
+}
+
+private fun parseMultiLinePlaylist(playlist: String, contentCategory: String): List<AvContent> {
     val playlistLines = playlist.lines()
     val playlistContents = mutableListOf<AvContent>()
     for (i in playlistLines.indices) {
-        if (playlistLines[i].startsWith("#EXTINF")) {
+        // Check if the playlist line has an URL below it so it can be considered a valid AVContent
+        if (playlistLines[i].startsWith("#EXTINF") && (i + 1) < playlistLines.size && playlistLines[i + 1].startsWith("http://")) {
             playlistContents.add(createAvContent(playlistLines[i], playlistLines[i + 1], contentCategory))
         }
     }
     return playlistContents
+}
+
+private fun parseSingleLinePlaylist(playlist: String, contentCategory: String): List<AvContent> {
+    return emptyList()
 }
 
 fun createAvContent(playlistLine: String, contentLink: String, contentCategory: String): AvContent {
