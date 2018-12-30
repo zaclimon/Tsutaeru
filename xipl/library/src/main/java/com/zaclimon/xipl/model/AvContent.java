@@ -32,7 +32,13 @@ public class AvContent {
     private String mContentCategory;
     private int mId;
 
-    public AvContent() {}
+    public AvContent() {
+        mTitle = "";
+        mLogo = "";
+        mGroup = "";
+        mContentLink = "";
+        mContentCategory = "";
+    }
 
     /**
      * Base constructor
@@ -122,5 +128,18 @@ public class AvContent {
      */
     public int getId() {
         return (mId);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof AvContent) {
+            AvContent temp = (AvContent) other;
+            return (mId == temp.mId
+                    && mTitle.equals(temp.mTitle)
+                    && mLogo.equals(temp.mLogo)
+                    && mContentLink.equals(temp.mContentLink)
+                    && mContentCategory.equals(temp.mContentCategory));
+        }
+        return (false);
     }
 }

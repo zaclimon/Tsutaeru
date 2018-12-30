@@ -30,17 +30,15 @@ android {
 
 dependencies {
     // Kotlin stuff
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     // Android stuff
     implementation 'com.google.android.exoplayer:exoplayer-core:2.8.3'
     implementation 'com.google.android.exoplayer:exoplayer-hls:2.8.3'
     implementation 'com.google.android.exoplayer:extension-leanback:2.8.3'
     api project(':tiflibrary')
-
     // Testing stuff
-    testImplementation "org.junit.jupiter:junit-jupiter-api:5.3.1"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.3.1"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0-alpha3', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
