@@ -8,9 +8,22 @@ private val ATTRIBUTE_TVG_NAME_PATTERN = Regex("tvg-name.\"(.*?)\"", RegexOption
 private val ATTRIBUTE_GROUP_TITLE_PATTERN = Regex("group-title.\"(.*?)\"", RegexOption.IGNORE_CASE)
 private val COMMA_PATTERN = Regex(",.*")
 
+fun generateAvContentList(playlist: String,
+                          contentCategory: String = ""): List<AvContent> {
+
+    val playlistLines = playlist.lines()
+    val playlistContents = mutableListOf<AvContent>()
+    for (i in playlistLines.indices) {
+        if (playlistLines[i].startsWith("#EXTINF")) {
+            playlistContents.add(createAvContent(playlistLines[i], playlistLines[i + 1], contentCategory))
+        }
+    }
+    return playlistContents
+}
+
 fun createAvContent(playlistLine: String, contentLink: String, contentCategory: String): AvContent {
 
-    if (!playlistLine.contains("#EXTINF:-1") || contentLink.isBlank() || contentCategory.isBlank()) return AvContent()
+    if (!playlistLine.contains("#EXTINF:-1") || contentLink.isBlank()) return AvContent()
 
     val id = getAttributeFromPlaylistLine(playlistLine, ATTRIBUTE_TVG_ID_PATTERN).hashCode()
     val name = getAttributeFromPlaylistLine(playlistLine, ATTRIBUTE_TVG_NAME_PATTERN)
