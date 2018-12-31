@@ -1,0 +1,10 @@
+#EXTINF:-1 tvg-id="" tvg-name="Test Channel" tvg-logo="" group-title="TEST",Test Channel
+http://test.com:25461/live/hello/world/12345.ts
+#EXTINF:-1 tvg-id="" tvg-name="Test Channel2" tvg-logo="" group-title="TEST",Test Channel2
+http://test.com:25461/live/hello/world/12346.ts
+#EXTINF:-1 tvg-id="" tvg-name="Test Channel3" tvg-logo="" group-title="TEST",Test Channel3
+http://test.com:25461/live/hello/world/12347.ts
+#EXTINF:-1 tvg-id="" tvg-name="Test Channel4" tvg-logo="" group-title="TEST",Test Channel4
+http://test.com:25461/live/hello/world/12348.ts
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-logo="" group-title="TEST",Test Channel5
+http://test.com:25461/live/hello/world/12349.ts
