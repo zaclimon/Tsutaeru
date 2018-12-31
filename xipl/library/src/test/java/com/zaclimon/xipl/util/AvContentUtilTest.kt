@@ -13,6 +13,8 @@ class AvContentUtilTest {
     private val contentCategory = "VOD"
     private val validPlaylistFile = AvContentUtilTest::class.java.classLoader.getResource("valid_test_playlist_multiline.m3u").readText()
     private val validPlaylistFileMissingUrl = AvContentUtilTest::class.java.classLoader.getResource("valid_test_playlist_multiline_missingurl.m3u").readText()
+    private val validPlaylistFileSingle = AvContentUtilTest::class.java.classLoader.getResource("valid_test_playlist_singleline.m3u").readText()
+    private val validPlaylistFileSingleMissingUrl = AvContentUtilTest::class.java.classLoader.getResource("valid_test_playlist_singleline_missingurl.m3u").readText()
 
     @Test
     fun `Creates an AV content with a valid playlist line, URL and group`() {
@@ -62,4 +64,19 @@ class AvContentUtilTest {
         assertTrue(list.last().title == "Test Channel4")
     }
 
+    @Test
+    fun `Generates a list of 5 AV contents when the playlist file is valid and each lines are merged`() {
+        val list = generateAvContentList(validPlaylistFileSingle)
+        assertTrue(list.size == 5)
+        assertTrue(list.first().title == "00:00(01.01) Eyewitness News at 5")
+        // Be sure to get the one that doesn't have a title specified in it's own tag
+        assertTrue(list.last().title == "12:30(01.01) Outback Adventures")
+    }
+
+    @Test
+    fun `Generates a list of 4 AV contents when the playlist file is valid, each lines are merged, but one content is missing it's URL`() {
+        val list = generateAvContentList(validPlaylistFileSingleMissingUrl)
+        assertTrue(list.size == 4)
+        assertTrue(list.last().title == "12:30(01.01) Outback Adventures")
+    }
 }

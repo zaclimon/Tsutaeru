@@ -33,7 +33,22 @@ private fun parseMultiLinePlaylist(playlist: String, contentCategory: String): L
 }
 
 private fun parseSingleLinePlaylist(playlist: String, contentCategory: String): List<AvContent> {
-    return emptyList()
+    // Skip the first "#" symbol since there will be an empty line at the beginning
+    val playlistLines = playlist.substring(1).split("#")
+    val contents = mutableListOf<AvContent>()
+    val stringBuilder = StringBuilder()
+
+    for (line in playlistLines) {
+        if (stringBuilder.isNotEmpty()) stringBuilder.setLength(0)
+        val urlIndex = line.lastIndexOf("http://")
+        // Check for the URL for the content and not another one (For the logo for example)
+        if (urlIndex != -1 && line[urlIndex - 1] != '"') {
+            val url = line.substring(urlIndex, line.lastIndex).trim()
+            stringBuilder.append("#").append(line.substring(0, urlIndex))
+            contents.add(createAvContent(stringBuilder.toString().trim(), url, contentCategory))
+        }
+    }
+    return contents
 }
 
 fun createAvContent(playlistLine: String, contentLink: String, contentCategory: String): AvContent {
