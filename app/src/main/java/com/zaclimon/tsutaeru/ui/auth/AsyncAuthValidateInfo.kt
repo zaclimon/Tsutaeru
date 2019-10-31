@@ -43,7 +43,7 @@ class AsyncAuthValidateInfo(url: String,
         if (isValidURL(taskUrl)) {
             try {
                 NetworkUtils.getNetworkInputStream(taskUrl).bufferedReader().use {
-                    reader -> if (reader.readLine() != "#EXTM3U") return false
+                    reader -> if (!reader.readLine().contains("#EXTM3U")) return false
                 }
 
                 val usernameMatcher = Regex("username=.+?(?=&)").find(taskUrl)
