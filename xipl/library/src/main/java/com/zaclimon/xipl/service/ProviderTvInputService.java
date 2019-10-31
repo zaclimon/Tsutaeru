@@ -92,7 +92,7 @@ public class ProviderTvInputService extends BaseTvInputService {
 
         @Override
         public void onPlayChannel(Channel channel) {
-            if (channel.getInternalProviderData() !=  null) {
+            if (channel != null && channel.getInternalProviderData() != null) {
                 mProviderTvPlayer = new ProviderTvPlayer(mContext, channel.getInternalProviderData().getVideoUrl());
                 mProviderTvPlayer.addListener(this);
 

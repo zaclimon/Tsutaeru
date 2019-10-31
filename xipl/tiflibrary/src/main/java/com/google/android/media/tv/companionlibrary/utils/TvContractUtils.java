@@ -71,7 +71,9 @@ public final class TvContractUtils {
         try {
             is = sourceUrl.openStream();
             os = context.getContentResolver().openOutputStream(contentUri);
-            copy(is, os);
+            if (is != null && os != null) {
+                copy(is, os);
+            }
         } catch (IOException ioe) {
             Log.e(TAG, "Failed to write " + sourceUrl + "  to " + contentUri, ioe);
         } finally {

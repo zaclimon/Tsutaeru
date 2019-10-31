@@ -680,7 +680,7 @@ public abstract class EpgSyncJobService extends JobService {
                                 : null;
                 Program newProgram = newPrograms.get(newProgramsIndex);
                 boolean addNewProgram = false;
-                if (oldProgram != null) {
+                if (oldProgram != null && newProgram != null) {
                     if (oldProgram.equals(newProgram)) {
                         // Exact match. No need to update. Move on to the next programs.
                         oldProgramsIndex++;
