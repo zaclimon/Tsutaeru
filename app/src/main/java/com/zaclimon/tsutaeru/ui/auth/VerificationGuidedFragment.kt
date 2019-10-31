@@ -70,8 +70,10 @@ class VerificationGuidedFragment : GuidedStepSupportFragment(), AuthView {
     }
 
     override fun onTimeoutReceived() {
-        Toast.makeText(context, R.string.connection_timeout_toast, Toast.LENGTH_SHORT).show()
-        popBackStackToGuidedStepSupportFragment(UrlInputGuidedFragment::class.java, 0)
+        if (isAdded) {
+            Toast.makeText(context, R.string.connection_timeout_toast, Toast.LENGTH_SHORT).show()
+            popBackStackToGuidedStepSupportFragment(UrlInputGuidedFragment::class.java, 0)
+        }
     }
 
     private class AsyncDeleteChannels(context: Context) : AsyncTask<Void, Void, Void?>() {
